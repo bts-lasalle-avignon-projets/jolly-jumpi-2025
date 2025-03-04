@@ -5,6 +5,7 @@
   - [Présentation](#présentation)
   - [Fonctionnalités](#fonctionnalités)
   - [Diaporama de présentation](#diaporama-de-présentation)
+  - [Diagramme de séquence](#diagramme-de-séquence)
   - [Diagramme de classes](#diagramme-de-classes)
   - [Protocole de communication](#Protocole-de-communication)
   - [Visuels](#visuels)
@@ -44,11 +45,16 @@ Jolly Jumpi est développé en **C++**, **JavaScript**, **php**, **html**, **CSS
 
 ## fonctionnalités
 
-
+![](./images/Readme/DiagrammeSysml-moduleVisualisation.jpg)
+![](./images/Readme/DiagrammeSysml-moduleConfiguration.jpg)
 
 ## Diaporama de présentation
 
 
+
+## Diagramme de séquence
+
+![](./images/Readme/DiagrammeDeSequence-Lancer.jpg)
 
 ## Diagramme de classes
 
@@ -56,7 +62,7 @@ Jolly Jumpi est développé en **C++**, **JavaScript**, **php**, **html**, **CSS
 
 ## Protocole de communication
 
-
+![](./images/Readme/ProtocolCommunication.png)
 
 ## Visuels
 
@@ -80,6 +86,7 @@ Jolly Jumpi est développé en **C++**, **JavaScript**, **php**, **html**, **CSS
 
 ## Équipe de développement
 
+**Etudiants IR :**
 - @aariati : axel.ariati.pro@gmail.com
 - @npessina1 : pessina.nicolas.pro@gmail.com
 
