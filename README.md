@@ -41,15 +41,12 @@ Le matériel est :
 - Une tablette afin de configurer la partie
 - Un module de détection de balle
 
-Jolly Jumpi est développé en **C++**, **JavaScript**, **php**, **html**, **CSS**.
+Jolly Jumpi est développé en **C++**, **QT**, **sql**.
 
 ## fonctionnalités
 
-Module de visualisation :
-![](./images/Readme/DiagrammeSysml-moduleVisualisation.jpg)
-
-Module de configuration :
-![](./images/Readme/DiagrammeSysml-moduleConfiguration.jpg)
+![](./images/Readme/DiagrammeSysml-moduleVisualisation.webp)
+![](./images/Readme/DiagrammeSysml-moduleConfiguration.webp)
 
 ## Diaporama de présentation
 
@@ -57,16 +54,16 @@ Module de configuration :
 
 ## Diagramme de séquence
 
-![](./images/Readme/DiagrammeDeSequence-Lancer.jpg)
-![](./images/Readme/DiagrammeDeSequence-Statistiques.jpg)
+![](./images/Readme/DiagrammeDeSequence-Lancer.webp)
+![](./images/Readme/DiagrammeDeSequence-Statistiques.webp)
 
 ## Diagramme de classes
 
-
+![](./images/Readme/diagrammeDeClasse.webp)
 
 ## Protocole de communication
 
-![](./images/Readme/ProtocolCommunication.png)
+![](./images/Readme/ProtocolCommunication.webp)
 
 ## Visuels
 
@@ -92,7 +89,11 @@ Module de configuration :
 
 - Version 1.0 : Ajout d'un historique des parties jouées
 
-- Version 2.0 : Ajout d'une interface graphique
+- Version 1.1 : Ajout des différents modes de jeu.
+
+- Version 1.2 : Modification de l'interface graphique
+
+- Version 2.1 : Ajout d'un encodeur rotatif + bouton pour la naviguer dans l'affichage
 
 ## Défauts constatés non corrigés
 
