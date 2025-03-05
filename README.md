@@ -20,7 +20,7 @@
 
 ## Présentation
 
-Jolly Jumpi est une copie du "Derby Forrain", il faut : Être le premier à franchir la ligne d'arrivée en marquant des points.
+Jolly Jumpi est une copie du "Derby Forrain", le but : Être le premier à franchir la ligne d'arrivée en marquant des points.
 
 Le jeu se compose de :
 
@@ -28,11 +28,11 @@ Le jeu se compose de :
 - 1 piste par joueur
 - 6 trous par piste (trois de 1, deux de 3 et un de 5)
 - Des balles pour chaque joueur
-- Plusieurs mode de jeu
+- Plusieurs modes de jeu
 
 Les règles sont les suivantes :
 
-- Tirer les balles dans les troues
+- Tirer les balles dans les trous
 - Rester courtois avec les joueurs adverses
 
 Le matériel est :
@@ -45,7 +45,10 @@ Jolly Jumpi est développé en **C++**, **JavaScript**, **php**, **html**, **CSS
 
 ## fonctionnalités
 
+Module de visualisation :
 ![](./images/Readme/DiagrammeSysml-moduleVisualisation.jpg)
+
+Module de configuration :
 ![](./images/Readme/DiagrammeSysml-moduleConfiguration.jpg)
 
 ## Diaporama de présentation
@@ -55,6 +58,7 @@ Jolly Jumpi est développé en **C++**, **JavaScript**, **php**, **html**, **CSS
 ## Diagramme de séquence
 
 ![](./images/Readme/DiagrammeDeSequence-Lancer.jpg)
+![](./images/Readme/DiagrammeDeSequence-Statistiques.jpg)
 
 ## Diagramme de classes
 
@@ -78,7 +82,17 @@ Jolly Jumpi est développé en **C++**, **JavaScript**, **php**, **html**, **CSS
 
 ## Planification des versions
 
+> Les versions sont numérotées de la manière suivante : `vX.YZ`
+>
+> - X = Mise à jour majeure
+> - Y = nouvelle fonctionnalité
+> - Z = Correction de bug (lettre)
 
+- Version 0.9 : Jeu de base, JvJ
+
+- Version 1.0 : Ajout d'un historique des parties jouées
+
+- Version 2.0 : Ajout d'une interface graphique
 
 ## Défauts constatés non corrigés
 
