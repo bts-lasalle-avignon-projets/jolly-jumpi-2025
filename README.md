@@ -81,12 +81,12 @@ Jolly Jumpi est développé en **C++**, **QT**, **sql**.
 
   - Les bases
 
-    > - [] Créer des différents diagrammes
-    > - [] Définir le protocol de communication
+    > - [ ] Créer des différents diagrammes
+    > - [ ] Définir le protocol de communication
 
   - Créer le squelette du projet
 
-    > - [] Créer de l'arborescence commune
+    > - [ ] Créer de l'arborescence commune
 
   - Module de configuration : Créer la base
 
@@ -94,56 +94,56 @@ Jolly Jumpi est développé en **C++**, **QT**, **sql**.
 
   - Module de visualisation : Créer la base
 
-    > - [] Créer les classes
-    > - [] Créer les attributs
-    > - [] Créer la page Accueil
-    > - [] Créer la page Connexion
-    > - [] Créer la page Jeu
-    > - [] Créer la page Classement
-    > - [] Créer la page Statistiques:Joueur
+    > - [ ] Créer les classes
+    > - [ ] Créer les attributs
+    > - [ ] Créer la page Accueil
+    > - [ ] Créer la page Connexion
+    > - [ ] Créer la page Jeu
+    > - [ ] Créer la page Classement
+    > - [ ] Créer la page Statistiques:Joueur
   
   - Gérer les communications
 
-    > - [] Recupérer une trame
-    > - [] Transcrire la trame
-    > - [] Est une trame du module de détection de balle
-    > - [] Est une trame d'appairage
-    > - [] Est une trame de score
-    > - [] Est une trame du module de configuration
-    > - [] Est une trame demandant la page des statistiques globales
-    > - [] Est une trame demandant la page Accueil
-    > - [] Est une trame marquant l'arret du jeu
-    > - [] Composer une trame à envoyer
-    > - [] Envoyer une trame
+    > - [ ] Recupérer une trame
+    > - [ ] Transcrire la trame
+    > - [ ] Est une trame du module de détection de balle
+    > - [ ] Est une trame d'appairage
+    > - [ ] Est une trame de score
+    > - [ ] Est une trame du module de configuration
+    > - [ ] Est une trame demandant la page des statistiques globales
+    > - [ ] Est une trame demandant la page Accueil
+    > - [ ] Est une trame marquant l'arret du jeu
+    > - [ ] Composer une trame à envoyer
+    > - [ ] Envoyer une trame
 
 - v0.2 :
 
   - Module de visualisation : 
 
-    > - [] Ajouter des joueurs (1 à 8)
-    > - [] Ajouter un chonomètre
-    > - [] Ajouter un minuteur (pour le classement et les statistiques joueur)
-    > - [] Changer de page (reçois en argument le nom de la page)
-    > - [] Afficher la page Accueil
-    > - [] Afficher la page Connexion
-    > - [] Afficher la page Jeu
-    > - [] Afficher la page Classement à la fin d'une partie (10 seconde)
-    > - [] Afficher la page Statistiques:Joueur après la page Classement (10sec par joueur)
-    > - [] Démarrer/Communiquer la configuration de la partie au module de détection
-    > - [] Calculer le score d'un joueur
-    > - [] Enregistrer les données de la partie en local
-    > - [] Enregistrer les données de la partie dans une base de données
-    > - [] Mettre fin à la partie
-    > - [] Abandonner la partie
-    > - [] Envoyer la fin de partie aux autres modules
+    > - [ ] Ajouter des joueurs (1 à 8)
+    > - [ ] Ajouter un chonomètre
+    > - [ ] Ajouter un minuteur (pour le classement et les statistiques joueur)
+    > - [ ] Changer de page (reçois en argument le nom de la page)
+    > - [ ] Afficher la page Accueil
+    > - [ ] Afficher la page Connexion
+    > - [ ] Afficher la page Jeu
+    > - [ ] Afficher la page Classement à la fin d'une partie (10 seconde)
+    > - [ ] Afficher la page Statistiques:Joueur après la page Classement (10sec par joueur)
+    > - [ ] Démarrer/Communiquer la configuration de la partie au module de détection
+    > - [ ] Calculer le score d'un joueur
+    > - [ ] Enregistrer les données de la partie en local
+    > - [ ] Enregistrer les données de la partie dans une base de données
+    > - [ ] Mettre fin à la partie
+    > - [ ] Abandonner la partie
+    > - [ ] Envoyer la fin de partie aux autres modules
 
 - v0.3 :
 
   - Module de visualisation : 
 
-    > - [] Créer la page Statistiques:Globales
-    > - [] Afficher la page Statistiques:Globales
-    > - [] .......... (à poursuivre une fois la v0.2 terminée).
+    > - [ ] Créer la page Statistiques:Globales
+    > - [ ] Afficher la page Statistiques:Globales
+    > - [ ] .......... (à poursuivre une fois la v0.2 terminée).
 
 ## Planification des versions
 
