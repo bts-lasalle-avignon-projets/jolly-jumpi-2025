@@ -1,0 +1,11 @@
+window_sizes 1848 1016 433 1409 843 120
+cleanlooks_style
+diagrams
+  active  classdiagram_ref 128002 // moduleVisualisation
+    1409 843 100 A4 0 0
+end
+show_stereotypes
+selected usecaseview_ref 128002 // DiagrammeCasUtilisation
+open
+end
+end
