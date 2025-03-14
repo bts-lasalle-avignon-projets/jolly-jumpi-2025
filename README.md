@@ -47,21 +47,30 @@ Jolly Jumpi est développé en **C++**, **QT**, **sql**.
 
 ## fonctionnalités
 
-![](./images/Readme/DiagrammeSysml-moduleVisualisation.webp)
-![](./images/Readme/DiagrammeSysml-moduleConfiguration.webp)
+![](./images/Readme/DiagrammeCasUtilisation-moduleConfiguration.webp)
+![](./images/Readme/DiagrammeCasUtilisation-moduleVisualisation.webp)
 
 ## Diaporama de présentation
 
 
+## Diagramme des échanges
+
+![](./images/Readme/DiagrammeDesEchanges-Configuration.webp)
+![](./images/Readme/DiagrammeDesEchanges-GestionPartie.webp)
+![](./images/Readme/DiagrammeDesEchanges-AfficherStat.webp)
+![](./images/Readme/DiagrammeDesEchanges-InterromprePartie.webp)
+
 
 ## Diagramme de séquence
 
-![](./images/Readme/DiagrammeDeSequence-Lancer.webp)
+![](./images/Readme/DiagrammeDeSequence-GestionPartie.webp)
 ![](./images/Readme/DiagrammeDeSequence-Statistiques.webp)
+![](./images/Readme/DiagrammeDeSequence-InterromprePartie.webp)
 
 ## Diagramme de classes
 
-![](./images/Readme/diagrammeDeClasse.webp)
+![](./images/Readme/DiagrammeDeClasse-moduleConfiguration.webp)
+![](./images/Readme/DiagrammeDeClasse-moduleVisualisation.webp)
 
 ## Protocole de communication
 
@@ -81,16 +90,16 @@ Jolly Jumpi est développé en **C++**, **QT**, **sql**.
 
   - Les bases
 
-    > - [ ] Créer des différents diagrammes
-    > - [ ] Définir le protocol de communication
+    > - [X] Créer des différents diagrammes
+    > - [X] Définir le protocol de communication
 
   - Créer le squelette du projet
 
-    > - [ ] Créer de l'arborescence commune
+    > - [X] Créer de l'arborescence commune
 
   - Module de configuration : Créer la base
 
- 
+
 
   - Module de visualisation : Créer la base
 

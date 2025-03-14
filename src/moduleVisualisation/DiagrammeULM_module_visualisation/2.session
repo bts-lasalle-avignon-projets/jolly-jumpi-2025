@@ -1,11 +1,12 @@
-window_sizes 1848 1016 433 1409 843 120
+window_sizes 1848 1016 451 1391 855 108
 cleanlooks_style
-diagrams
-  active  classdiagram_ref 128002 // moduleVisualisation
-    1409 843 100 A4 0 0
-end
 show_stereotypes
-selected usecaseview_ref 128002 // DiagrammeCasUtilisation
 open
+  classview_ref 128002 // DiagrammeDeClasse
+  usecase_ref 128002 // Visualiser la course
+  usecase_ref 128130 // Visualiser les résultats de la course
+  class_ref 141826 // ModuleConfiguration
+  classinstance_ref 128258 // 
+  class_ref 148610 // Operateur
 end
 end

@@ -1,0 +1,71 @@
+format 224
+
+classinstancecanvas 128386 classinstance_ref 128386 // 
+  xyz 433.039 4.25478 2000 life_line_z 2000
+end
+classinstancecanvas 128514 classinstance_ref 128514 // 
+  xyz 632.026 4.25478 2000 life_line_z 2000
+end
+classinstance 128770 class_ref 141826 // ModuleConfiguration
+  name ""   xyz 210.448 4.25478 2000 life_line_z 2000
+classinstance 129538 class_ref 148610 // Operateur
+  name ""   xyz 45.3904 5.30087 2000 life_line_z 2000
+durationcanvas 132354 classinstance_ref 129538 // :Operateur
+  xyzwh 76 148.8 2010 11 31
+end
+durationcanvas 132482 classinstance_ref 128770 // :ModuleConfiguration
+  xyzwh 280 146 2010 11 51
+end
+durationcanvas 132738 classinstance_ref 128386 // :ModuleVisualisation
+  xyzwh 500 159.8 2010 11 230
+  overlappingdurationcanvas 136706
+    xyzwh 506 209.3 2020 11 57
+  end
+  overlappingdurationcanvas 138242
+    xyzwh 506 303 2020 11 61
+  end
+end
+durationcanvas 138498 classinstance_ref 129538 // :Operateur
+  xyzwh 76 451 2010 11 40
+end
+durationcanvas 138626 classinstance_ref 128770 // :ModuleConfiguration
+  xyzwh 281 453 2010 11 57
+end
+durationcanvas 138882 classinstance_ref 128386 // :ModuleVisualisation
+  xyzwh 500 475 2010 11 37
+end
+msg 132610 asynchronous
+  from durationcanvas_ref 132354
+  to durationcanvas_ref 132482
+  yz 149 2015 explicitmsg "Afficher historique"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 127 136
+msg 132866 asynchronous
+  from durationcanvas_ref 132482
+  to durationcanvas_ref 132738
+  yz 162 2015 explicitmsg "Affiche historique"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 340 150
+reflexivemsg 136834 asynchronous
+  to durationcanvas_ref 136706
+  yz 173 2025 explicitmsg "Lis base de données"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 556 247
+reflexivemsg 138370 asynchronous
+  to durationcanvas_ref 138242
+  yz 213 2025 explicitmsg "Affiche historique"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 555 306
+msg 138754 asynchronous
+  from durationcanvas_ref 138498
+  to durationcanvas_ref 138626
+  yz 456 2015 explicitmsg "Afficher page accueil"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 115 439
+msg 139010 asynchronous
+  from durationcanvas_ref 138626
+  to durationcanvas_ref 138882
+  yz 478 2020 explicitmsg "Affiche page accueil"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 329 460
+end

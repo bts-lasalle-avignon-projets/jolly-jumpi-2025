@@ -2,37 +2,37 @@ format 224
 
 classcanvas 128002 class_ref 135298 // Joueur
   simpleclassdiagramsettings end
-  xyz 25.8 317.2 2000
+  xyz 16.1356 173.147 2000
 end
 usecasecanvas 128130 usecase_ref 128002 // Visualiser la course
-  xyzwh 219.7 302.1 3005 64 32 label_xy 189 334
+  xyzwh 198 189 3005 64 32 label_xy 168 224
 end
 usecasecanvas 128258 usecase_ref 128130 // Visualiser les résultats de la course
-  xyzwh 219.9 210.8 3005 64 32 label_xy 137 245
+  xyzwh 199 101 3005 64 32 label_xy 116 135
 end
 usecasecanvas 128386 usecase_ref 128258 // Visualiser l'historique des courses
-  xyzwh 219.2 412 3005 64 32 label_xy 141 443
+  xyzwh 198 300 3005 64 32 label_xy 120 333
 end
 usecasecanvas 128514 usecase_ref 128386 // Dialoguer avec le module de détection de balle
-  xyzwh 503 302.4 3005 64 32 label_xy 383 334
+  xyzwh 479 191 3005 64 32 label_xy 362 224
 end
 usecasecanvas 128642 usecase_ref 128514 // Dialoguer avec le module de configuration
-  xyzwh 503.6 412 3005 64 32 label_xy 399 444
+  xyzwh 480 300 3005 64 32 label_xy 378 334
 end
 usecasecanvas 128770 usecase_ref 128642 // Visualiser le classement
-  xyzwh 503.4 143.2 3005 64 32 label_xy 456 175
+  xyzwh 479 33 3005 64 32 label_xy 435 65
 end
 usecasecanvas 128898 usecase_ref 128770 // Visualiser les statistiques de chaque joueur
-  xyzwh 503.6 210 3005 64 32 label_xy 394 242
+  xyzwh 480 96 3005 64 32 label_xy 373 132
 end
 textcanvas 129666 "<<include>>"
-  xyzwh 335.2 183.8 3011 81 16
+  xyzwh 313 73 3011 81 16
 textcanvas 129794 "<<include>>"
-  xyzwh 356 218.4 3011 81 16
+  xyzwh 335 105 3011 81 16
 textcanvas 129922 "<<include>>"
-  xyzwh 343 309 3011 81 16
+  xyzwh 323 197 3011 81 16
 textcanvas 130050 "<<include>>"
-  xyzwh 351.8 419.4 3011 81 16
+  xyzwh 331 309 3011 81 16
 simplerelationcanvas 129026 simplerelation_ref 128002
   from ref 128258 z 3006 to ref 128770
 end

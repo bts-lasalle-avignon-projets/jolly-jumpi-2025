@@ -2,35 +2,31 @@ format 224
 
 classcanvas 129666 class_ref 128130 // Communication
   classdiagramsettings member_max_width 0 end
-  xyz 21 272 2000
+  xyz 12.5975 226.446 2000
 end
 classcanvas 129794 class_ref 128002 // Joueur
   classdiagramsettings member_max_width 0 end
-  xyz 358 54 2000
+  xyz 350.947 7.87649 2000
 end
 classcanvas 129922 class_ref 128258 // Tir
   classdiagramsettings member_max_width 0 end
-  xyz 566 54 2006
+  xyz 558.952 8.15754 2006
 end
 classcanvas 130178 class_ref 128386 // BaseDeDonnees
   classdiagramsettings member_max_width 0 end
-  xyz 566 561 2000
+  xyz 558.14 515.044 2000
 end
 classcanvas 130306 class_ref 128514 // Statistiques
   classdiagramsettings member_max_width 0 end
-  xyz 299 561 2000
-end
-classcanvas 130434 class_ref 128642 // IHM
-  classdiagramsettings member_max_width 0 end
-  xyz 890 322 2000
+  xyz 291.947 515.138 2000
 end
 classcanvas 130562 class_ref 128642 // IHM
   classdiagramsettings member_max_width 0 end
-  xyz 566 272 2011
+  xyz 558.86 225.945 2011
 end
 classcanvas 130690 class_ref 128770 // GestionPartie
   classdiagramsettings member_max_width 0 end
-  xyz 332 272 2000
+  xyz 324.947 226.382 2000
 end
 relationcanvas 131458 relation_ref 128642 // <aggregation>
   from ref 130690 z 2001 to ref 129794
