@@ -1,6 +1,11 @@
 window_sizes 1848 1016 451 1391 855 108
 cleanlooks_style
+diagrams
+  active  sequencediagram_ref 147714 // Interrompre partie
+    596 330 70 A4 0 0
+end
 show_stereotypes
+selected sequencediagram_ref 147714 // Interrompre partie
 open
   classview_ref 128002 // DiagrammeDeClasse
   usecase_ref 128002 // Visualiser la course
