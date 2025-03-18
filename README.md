@@ -1,26 +1,21 @@
-# jolly-jumpi-2025
+# Projet 2025 : Jolly-Jumpi
 
-
-- [Projet : Jolly-Jumpi](#jolly-jumpi-2025)
+- [Projet 2025 : Jolly-Jumpi](#projet-2025--jolly-jumpi)
   - [Présentation](#présentation)
   - [Fonctionnalités](#fonctionnalités)
-  - [Diaporama de présentation](#diaporama-de-présentation)
-  - [Diagramme de séquence](#diagramme-de-séquence)
+  - [Scénarios](#scénarios)
   - [Diagramme de classes](#diagramme-de-classes)
-  - [Protocole de communication](#Protocole-de-communication)
-  - [Visuels](#visuels)
+  - [Protocole de communication](#protocole-de-communication)
   - [Changelog](#changelog)
   - [TODO](#todo)
-  - [Planification des versions](#planification-des-versions)
   - [Défauts constatés non corrigés](#défauts-constatés-non-corrigés)
   - [Équipe de développement](#équipe-de-développement)
 
 ---
 
-
 ## Présentation
 
-Jolly Jumpi est une copie du "Derby Forain" ou "Tiercé Forain", le but : Être le premier à franchir la ligne d'arrivée en marquant des points.
+Jolly Jumpi est un système inspiré du "Derby Forain" ou "Tiercé Forain" dont le but est d'être le premier à franchir la ligne d'arrivée en marquant des points.
 
 Le jeu se compose de :
 
@@ -37,61 +32,78 @@ Les règles sont les suivantes :
 
 Le matériel est :
 
-- Une télévision pour afficher le déroulement de la course et le classement/statistiques de la partie
+- Une télévision pour afficher le déroulement de la course et le classement (et des statistiques) de la partie
 - Une tablette afin de configurer la partie
 - Un module de détection de balle
 
-Jolly Jumpi est développé en **C++**, **QT**, **sql**.
+Jolly Jumpi est développé en **C++** avec le _framework_ **Qt**.
 
 ![](./images/Readme/compositionSysteme.webp)
 
-## fonctionnalités
+## Fonctionnalités
+
+- Le module de configuration :
 
 ![](./images/Readme/DiagrammeCasUtilisation-moduleConfiguration.webp)
+
+- Le module de visualisation :
+
 ![](./images/Readme/DiagrammeCasUtilisation-moduleVisualisation.webp)
 
-## Diaporama de présentation
+## Scénarios
 
-
-## Diagramme des échanges
-
-![](./images/Readme/DiagrammeDesEchanges-Configuration.webp)
-![](./images/Readme/DiagrammeDesEchanges-GestionPartie.webp)
-![](./images/Readme/DiagrammeDesEchanges-AfficherStat.webp)
-![](./images/Readme/DiagrammeDesEchanges-InterromprePartie.webp)
-
-
-## Diagramme de séquence
+- Configurer et gérer une partie
 
 ![](./images/Readme/DiagrammeDeSequence-GestionPartie.webp)
+
+- Visualiser l'historique
+
 ![](./images/Readme/DiagrammeDeSequence-Statistiques.webp)
+
+- Interrompre une partie
+
 ![](./images/Readme/DiagrammeDeSequence-InterromprePartie.webp)
 
 ## Diagramme de classes
 
+- Module de configuration :
+
 ![](./images/Readme/DiagrammeDeClasse-moduleConfiguration.webp)
+
+- Module de visualisation
+
 ![](./images/Readme/DiagrammeDeClasse-moduleVisualisation.webp)
 
 ## Protocole de communication
 
 ![](./images/Readme/ProtocolCommunication.webp)
 
-## Visuels
+Quelques diagrammes des échanges :
 
+![](./images/Readme/DiagrammeDesEchanges-Configuration.webp)
 
+![](./images/Readme/DiagrammeDesEchanges-GestionPartie.webp)
+
+![](./images/Readme/DiagrammeDesEchanges-AfficherStat.webp)
+
+![](./images/Readme/DiagrammeDesEchanges-InterromprePartie.webp)
 
 ## Changelog
 
-
-
 ## TODO
 
-- v0.1 :
+> Les versions sont numérotées de la manière suivante : `vX.Y.Z`
+>
+> - X = Mise à jour majeure
+> - Y = nouvelle(s) fonctionnalité(s)
+> - Z = Correction de bug
+
+- v0.1 : Structure de base
 
   - Les bases
 
     > - [X] Créer des différents diagrammes
-    > - [X] Définir le protocol de communication
+    > - [X] Définir le protocole de communication
 
   - Créer le squelette du projet
 
@@ -120,31 +132,24 @@ Jolly Jumpi est développé en **C++**, **QT**, **sql**.
   - Gérer les communications
 
     > - [ ] Recupérer une trame
-    > - [ ] Transcrire la trame
-    > - [ ] Est une trame du module de détection de balle
-    > - [ ] Est une trame d'appairage
-    > - [ ] Est une trame de score
-    > - [ ] Est une trame du module de configuration
-    > - [ ] Est une trame demandant la page des statistiques globales
-    > - [ ] Est une trame demandant la page Accueil
-    > - [ ] Est une trame marquant l'arret du jeu
-    > - [ ] Composer une trame à envoyer
+    > - [ ] Traiter la trame
+    > - [ ] Fabriquer une trame à envoyer
     > - [ ] Envoyer une trame
 
-- v0.2 :
+- v0.2 : Jeu de base (en mode simulation)
   
   - Module de configuration :
   
-    > - [ ] Personnaliser le nombre de joueur
+    > - [ ] Personnaliser le nombre de joueurs
     > - [ ] Créer l'affichage de connexion
-    > - [ ] Créer l'affichage de partie en cours
+    > - [ ] Créer l'affichage de la partie en cours
 
   - Module de visualisation : 
 
     > - [ ] Ajouter des joueurs (1 à 8)
-    > - [ ] Ajouter un chonomètre
+    > - [ ] Ajouter un chronomètre
     > - [ ] Ajouter un minuteur (pour le classement et les statistiques joueur)
-    > - [ ] Changer de page (reçois en argument le nom de la page)
+    > - [ ] Changer de page
     > - [ ] Afficher la page Accueil
     > - [ ] Afficher la page Connexion
     > - [ ] Afficher la page Jeu
@@ -153,32 +158,17 @@ Jolly Jumpi est développé en **C++**, **QT**, **sql**.
     > - [ ] Démarrer/Communiquer la configuration de la partie au module de détection
     > - [ ] Calculer le score d'un joueur
     > - [ ] Enregistrer les données de la partie en local
-    > - [ ] Enregistrer les données de la partie dans une base de données
+    > - [ ] Stocker les données de la partie dans une base de données
     > - [ ] Mettre fin à la partie
     > - [ ] Abandonner la partie
     > - [ ] Envoyer la fin de partie aux autres modules
 
-- v0.3 :
+- v0.3 : Ajout d'un historique des parties jouées
 
   - Module de visualisation : 
 
     > - [ ] Créer la page Statistiques:Globales
     > - [ ] Afficher la page Statistiques:Globales
-    > - [ ] .......... (à poursuivre une fois la v0.2 terminée).
-
-## Planification des versions
-
-> Les versions sont numérotées de la manière suivante : `vX.YZ`
->
-> - X = Mise à jour majeure
-> - Y = nouvelle fonctionnalités
-> - Z = Correction de bug (lettre)
-
-- Version 0.1 : Structure de base
-
-- Version 0.2 : Jeu de base (communication simulé)
-
-- Version 0.3 : Ajout d'un historique des parties jouées
 
 - Version 0.4 : Ajout des différents modes de jeu
 
@@ -188,14 +178,12 @@ Jolly Jumpi est développé en **C++**, **QT**, **sql**.
 
 ## Défauts constatés non corrigés
 
-
-
 ## Équipe de développement
 
 **Etudiants IR :**
+
 - @aariati : axel.ariati.pro@gmail.com
 - @npessina1 : pessina.nicolas.pro@gmail.com
 
 ---
-
 &copy; 2024-2025 LaSalle Avignon
