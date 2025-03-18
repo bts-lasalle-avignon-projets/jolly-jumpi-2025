@@ -99,7 +99,10 @@ Jolly Jumpi est développé en **C++**, **QT**, **sql**.
 
   - Module de configuration : Créer la base
 
-
+    > - [ ] Créer les classes
+    > - [ ] Créer les attributs
+    > - [ ] Créer le menu d'accueil
+    > - [ ] Créer le menu de configuration
 
   - Module de visualisation : Créer les classes et attributs
 
@@ -129,6 +132,12 @@ Jolly Jumpi est développé en **C++**, **QT**, **sql**.
     > - [ ] Envoyer une trame
 
 - v0.2 :
+  
+  - Module de configuration :
+  
+    > - [ ] Personnaliser le nombre de joueur
+    > - [ ] Créer l'affichage de connexion
+    > - [ ] Créer l'affichage de partie en cours
 
   - Module de visualisation : 
 
