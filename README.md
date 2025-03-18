@@ -103,8 +103,8 @@ Jolly Jumpi est développé en **C++**, **QT**, **sql**.
 
   - Module de visualisation : Créer les classes et attributs
 
-    > - [X] Créer les classes
-    > - [X] Créer les attributs
+    > - [ ] Créer les classes
+    > - [ ] Créer les attributs
 
   - Module de visualisation : Créer les affichages de base
 
