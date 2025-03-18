@@ -20,7 +20,7 @@
 
 ## Présentation
 
-Jolly Jumpi est une copie du "Derby Forrain", le but : Être le premier à franchir la ligne d'arrivée en marquant des points.
+Jolly Jumpi est une copie du "Derby Forain" ou "Tiercé Forain", le but : Être le premier à franchir la ligne d'arrivée en marquant des points.
 
 Le jeu se compose de :
 
@@ -101,10 +101,13 @@ Jolly Jumpi est développé en **C++**, **QT**, **sql**.
 
 
 
-  - Module de visualisation : Créer la base
+  - Module de visualisation : Créer les classes et attributs
 
-    > - [ ] Créer les classes
-    > - [ ] Créer les attributs
+    > - [X] Créer les classes
+    > - [X] Créer les attributs
+
+  - Module de visualisation : Créer les affichages de base
+
     > - [ ] Créer la page Accueil
     > - [ ] Créer la page Connexion
     > - [ ] Créer la page Jeu
@@ -172,7 +175,7 @@ Jolly Jumpi est développé en **C++**, **QT**, **sql**.
 
 - Version 0.5 : Modification de l'interface graphique
 
-- Version 1.0 : Ajout du blutooth
+- Version 1.0 : Ajout du bluetooth
 
 ## Défauts constatés non corrigés
 
