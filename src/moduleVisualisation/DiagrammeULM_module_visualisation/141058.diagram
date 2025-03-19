@@ -1,0 +1,163 @@
+format 224
+
+classinstancecanvas 128386 classinstance_ref 128386 // 
+  xyz 433.039 4.45478 2000 life_line_z 2000
+end
+classinstancecanvas 128514 classinstance_ref 128514 // 
+  xyz 632.026 4.45478 2000 life_line_z 2000
+end
+classinstance 128770 class_ref 141826 // ModuleConfiguration
+  name ""   xyz 210.448 4.45478 2000 life_line_z 2000
+classinstance 129538 class_ref 148610 // Operateur
+  name ""   xyz 44.9904 5.70087 2000 life_line_z 2000
+fragment 133762 "loop"
+  xyzwh 5.40609 506.071 1995 783 167
+end
+note 137858 "Ajouter test partie fini ?
+ou trop détaillé ?"
+  xyzwh 554.9 615.1 2000 170 53
+note 137986 "Enregistrer BDD après la partie ?
+"
+  xyzwh 510 834.1 2000 201 56
+note 138114 "Syntax correcte ? -->"
+  xyzwh 327.1 695.7 2000 170 44
+durationcanvas 130818 classinstance_ref 129538 // :Operateur
+  xyzwh 75 88.7213 2010 11 39
+end
+durationcanvas 130946 classinstance_ref 128770 // :ModuleConfiguration
+  xyzwh 281 88.5422 2010 11 61
+end
+durationcanvas 131202 classinstance_ref 129538 // :Operateur
+  xyzwh 75 178.286 2010 11 27
+end
+durationcanvas 131330 classinstance_ref 128770 // :ModuleConfiguration
+  xyzwh 281 178.009 2010 11 126
+end
+durationcanvas 131586 classinstance_ref 128386 // :ModuleVisualisation
+  xyzwh 500 204.176 2010 11 91
+end
+durationcanvas 131970 classinstance_ref 128514 // :ModuleDetectionDeBalle
+  xyzwh 715 219.897 2010 11 61
+end
+durationcanvas 132354 classinstance_ref 129538 // :Operateur
+  xyzwh 75 356.722 2010 11 29
+end
+durationcanvas 132482 classinstance_ref 128770 // :ModuleConfiguration
+  xyzwh 280 355.266 2010 11 494
+end
+durationcanvas 132738 classinstance_ref 128386 // :ModuleVisualisation
+  xyzwh 500 370.011 2010 11 463
+  overlappingdurationcanvas 134786
+    xyzwh 506 518.555 2020 11 123
+    overlappingdurationcanvas 136450
+      xyzwh 512 580.837 2030 11 53
+    end
+  end
+  overlappingdurationcanvas 136706
+    xyzwh 506 742.93 2020 11 56
+  end
+end
+durationcanvas 132994 classinstance_ref 128514 // :ModuleDetectionDeBalle
+  xyzwh 715 395.752 2010 11 36
+end
+durationcanvas 133250 classinstance_ref 128514 // :ModuleDetectionDeBalle
+  xyzwh 715 456.847 2010 11 289
+  overlappingdurationcanvas 136194
+    xyzwh 721 694.572 2020 11 33
+  end
+end
+msg 131074 asynchronous
+  from durationcanvas_ref 130818
+  to durationcanvas_ref 130946
+  yz 91 2015 explicitmsg "Afficher Page Configuration"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 96 79
+msg 131458 asynchronous
+  from durationcanvas_ref 131202
+  to durationcanvas_ref 131330
+  yz 181 2015 explicitmsg "Configurer partie"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 128 169
+msg 131714 synchronous
+  from durationcanvas_ref 131330
+  to durationcanvas_ref 131586
+  yz 207 2015 explicitmsg "Effectuer l'appairage"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 333 196
+msg 131842 return
+  from durationcanvas_ref 131586
+  to durationcanvas_ref 131330
+  yz 280 2015 explicitmsg "Confimation appairage"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 320 266
+msg 132098 synchronous
+  from durationcanvas_ref 131586
+  to durationcanvas_ref 131970
+  yz 222 2020 explicitmsg "Appairage"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 579 207
+msg 132226 return
+  from durationcanvas_ref 131970
+  to durationcanvas_ref 131586
+  yz 265 2015 explicitmsg "Confirmation appairage"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 541 251
+msg 132610 asynchronous
+  from durationcanvas_ref 132354
+  to durationcanvas_ref 132482
+  yz 358 2015 explicitmsg "Lancer la partie"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 130 343
+msg 132866 synchronous
+  from durationcanvas_ref 132482
+  to durationcanvas_ref 132738
+  yz 375 2015 explicitmsg "Démarrer partie"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 340 363
+msg 133122 asynchronous
+  from durationcanvas_ref 132738
+  to durationcanvas_ref 132994
+  yz 398 2020 explicitmsg "Configuration mode de jeu"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 532 386
+msg 133378 synchronous
+  from durationcanvas_ref 132738
+  to durationcanvas_ref 133250
+  yz 458 2015 explicitmsg "Démarrer la partie"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 551 446
+msg 133506 return
+  from durationcanvas_ref 132738
+  to durationcanvas_ref 132482
+  yz 458 2020 explicitmsg "Bloquer page partie"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 330 443
+msg 134914 asynchronous
+  from durationcanvas_ref 133250
+  to durationcanvas_ref 134786
+  yz 526 2025 explicitmsg "Receptionner score"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 552 514
+msg 136322 asynchronous
+  from durationcanvas_ref 132738
+  to durationcanvas_ref 136194
+  yz 708 2025 explicitmsg "Fin de partie"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 573 692
+reflexivemsg 136578 asynchronous
+  to durationcanvas_ref 136450
+  yz 429 2035 explicitmsg "Enregistre données en local"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 529 586
+reflexivemsg 136834 asynchronous
+  to durationcanvas_ref 136706
+  yz 545 2025 explicitmsg "Enregistre données en BDD"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 525 759
+msg 137474 return
+  from durationcanvas_ref 132738
+  to durationcanvas_ref 132482
+  yz 818 2015 explicitmsg "Afficher page Accueil"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 328 802
+end
