@@ -1,21 +1,23 @@
 #ifndef JOUEUR_H
 #define JOUEUR_H
 
+#include <QList>
+#include "tir.h"
+
+#define JOUEUR_INCONNU -1
+#define AUCUN          0
+
 class Joueur
 {
   public:
-    int numero, score, trouPrefere;
-    Tir tableauDesTirs[];
+    Joueur();
+    ~Joueur();
+
+  private:
+    int        numero;
+    int        score;
+    int        trouPrefere;
+    QList<Tir> tirs;
 };
-
-Joueur joueur;
-
-class Tir
-{
-  public:
-    int score, temps;
-};
-
-Tir tir;
 
 #endif

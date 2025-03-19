@@ -1,21 +1,27 @@
-#ifndef STATISTIQUES_H
-#define STATISTIQUES_H
-#include "joueur.h"
-#include <vector>
-#include <iostream>
+#ifndef COMMUNICATION_H
+#define COMMUNICATION_H
+
+#include <QStringList>
+#include <QString>
 
 class Communication
 {
-  private:
-    std::string trameDemanderAssociation;
-    std::string trameConfirmerAssociation;
-    std::string trameModeDeJeu;
-    std::string trameDebuterPartie;
-    std::string trameFinDePartie;
-    std::string trameAfficherPageAccueil;
-    std::string trameAfficherPageHistorique;
+  public:
+    enum TypeTrame
+    {
+        DemandeAssociation,
+        ConfirmationAssociation,
+        ModeDeJeu,
+        DebutPartie,
+        FinDePartie,
+        AffichagePageAccueil,
+        AffichagePageHistorique,
+        NbTrames
+    };
 
   public:
+    Communication();
+    ~Communication();
     void envoyerTrame();
     void traiterTrame();
     void demanderAssociation();
@@ -26,8 +32,9 @@ class Communication
     bool estTrameFinDePartie();
     bool estDemandePageAccueil();
     bool estDemandePageHistorique();
+
+  private:
+    QStringList trames;
 };
 
-Communication communication;
-
-#endif
+#endif // COMMUNICATION_H
