@@ -1,0 +1,46 @@
+format 224
+
+classcanvas 128042 class_ref 134954 // GestionPartie
+  classdiagramsettings member_max_width 0 end
+  xyz 434 253 2000
+end
+classcanvas 128170 class_ref 135338 // IHM
+  classdiagramsettings member_max_width 0 end
+  xyz 920 303 2006
+end
+classcanvas 128426 class_ref 135210 // Joueur
+  classdiagramsettings member_max_width 0 end
+  xyz 522 17 3005
+end
+classcanvas 128682 class_ref 135594 // Tir
+  classdiagramsettings member_max_width 0 end
+  xyz 947 17 3011
+end
+classcanvas 128938 class_ref 134698 // Communication
+  classdiagramsettings member_max_width 0 end
+  xyz 19 253 2005
+end
+classcanvas 129066 class_ref 135722 // Statistiques
+  classdiagramsettings member_max_width 0 end
+  xyz 526 576 2000
+end
+classcanvas 129194 class_ref 134570 // BaseDeDonnees
+  classdiagramsettings member_max_width 0 end
+  xyz 948 576 2000
+end
+relationcanvas 128298 relation_ref 134954 // <unidirectional association>
+  from ref 128170 z 2007 to ref 128042
+  role_a_pos 778 317 3000 no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 128554 relation_ref 134698 // <unidirectional association>
+  from ref 128042 z 3006 stereotype "<<QVector>>" xyz 547 202 3006 to ref 128426
+  role_a_pos 611 162 3000 no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 128810 relation_ref 135082 // <directional composition>
+  from ref 128426 z 3012 stereotype "<<QList>>" xyz 769 84 3012 to ref 128682
+  role_a_pos 905 60 3000 no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+end

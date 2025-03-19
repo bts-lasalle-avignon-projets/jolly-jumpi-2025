@@ -1,0 +1,13 @@
+class IHM
+!!!137130.cpp!!!	IHM(inout parent : QWidget = nullptr)
+    qDebug() << Q_FUNC_INFO << this;
+
+    setWindowTitle(QString(NOM_MODULE) + QString(" v") +
+                   QString(VERSION_MODULE));
+
+#ifdef RPI
+    showFullScreen();
+#endif
+!!!137258.cpp!!!	~IHM()
+    delete gestionPartie;
+    qDebug() << Q_FUNC_INFO << this;
