@@ -30,3 +30,8 @@ HEADERS += \
 #CONFIG(release, debug|release):DEFINES+=QT_NO_DEBUG_OUTPUT RPI
 # Les defines pour la version debug
 CONFIG(debug, debug|release):DEFINES+=DEBUG
+
+DISTFILES +=
+
+FORMS += \
+    ihm.ui
