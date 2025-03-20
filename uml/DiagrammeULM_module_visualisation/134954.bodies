@@ -1,0 +1,15 @@
+class GestionPartie
+!!!136746.cpp!!!	GestionPartie(inout parent : QObject)
+    qDebug() << Q_FUNC_INFO << this;
+    for(int i = 0; i < nombreJoueurs; ++i)
+    {
+        joueurs.push_back(new Joueur());
+    }
+!!!136874.cpp!!!	~GestionPartie()
+    for(int i = 0; i < nombreJoueurs; ++i)
+    {
+        delete joueurs.at(i);
+    }
+    qDebug() << Q_FUNC_INFO << this;
+!!!137002.cpp!!!	commencerPartie() : void
+    qDebug() << Q_FUNC_INFO;

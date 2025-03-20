@@ -118,8 +118,8 @@ Quelques diagrammes des échanges :
 
   - Module de visualisation : Créer les classes et attributs
 
-    > - [ ] Créer les classes
-    > - [ ] Créer les attributs
+    > - [X] Créer les classes
+    > - [X] Créer les attributs
 
   - Module de visualisation : Créer les affichages de base
 

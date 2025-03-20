@@ -1,0 +1,7 @@
+class Communication
+!!!136362.cpp!!!	estTrameFinDePartie() : bool
+    return false;
+!!!136490.cpp!!!	estDemandePageAccueil() : bool
+    return false;
+!!!136618.cpp!!!	estDemandePageHistorique() : bool
+    return false;
