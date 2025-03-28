@@ -10,21 +10,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     communication.cpp \
     baseDeDonnees.cpp \
+    ihm.cpp \
     joueur.cpp \
     tir.cpp \
     statistiques.cpp \
     gestionPartie.cpp \
-    ihm.cpp \
     main.cpp
 
 HEADERS += \
     communication.h \
     baseDeDonnees.h \
+    ihm.h \
     joueur.h \
     tir.h \
     statistiques.h \
-    gestionPartie.h \
-    ihm.h
+    gestionPartie.h
 
 # Les defines pour la version release (sans debug)
 #CONFIG(release, debug|release):DEFINES+=QT_NO_DEBUG_OUTPUT RPI
@@ -34,4 +34,4 @@ CONFIG(debug, debug|release):DEFINES+=DEBUG
 DISTFILES +=
 
 FORMS += \
-    ihm.ui
+    accueil.ui

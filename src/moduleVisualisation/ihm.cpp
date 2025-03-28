@@ -8,6 +8,7 @@
 
 #include "ihm.h"
 #include "gestionPartie.h"
+#include "ui_accueil.h"
 #include <QDebug>
 
 /**
@@ -18,12 +19,15 @@
  * fenêtre principale de l'application
  */
 IHM::IHM(QWidget* parent) :
-    QWidget(parent), gestionPartie(new GestionPartie(this))
+    QWidget(parent), gestionPartie(new GestionPartie(this)),
+    ui(new Ui::accueil) // marche pas pour changer
 {
     qDebug() << Q_FUNC_INFO << this;
 
     setWindowTitle(QString(NOM_MODULE) + QString(" v") +
                    QString(VERSION_MODULE));
+
+    ui->setupUi(this); // marche pas pour changer
 
 #ifdef RPI
     showFullScreen();

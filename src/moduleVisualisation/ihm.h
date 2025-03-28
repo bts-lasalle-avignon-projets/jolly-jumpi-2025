@@ -21,7 +21,13 @@
  * @def VERSION_MODULE
  * @brief La version du module de visualisation
  */
+
 #define VERSION_MODULE "1.0"
+
+namespace Ui
+{
+class accueil;
+}
 
 class GestionPartie;
 
@@ -36,6 +42,7 @@ class IHM : public QWidget
 
   private:
     GestionPartie* gestionPartie; //!< association vers GestionPartie
+    Ui::accueil*   ui;
 
   public:
     IHM(QWidget* parent = nullptr);
