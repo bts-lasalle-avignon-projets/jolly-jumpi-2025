@@ -26,7 +26,7 @@
 
 namespace Ui
 {
-class accueil;
+class Accueil;
 }
 
 class GestionPartie;
@@ -42,7 +42,7 @@ class IHM : public QWidget
 
   private:
     GestionPartie* gestionPartie; //!< association vers GestionPartie
-    Ui::accueil*   ui;
+    Ui::Accueil*   uiAccueil;
 
   public:
     IHM(QWidget* parent = nullptr);

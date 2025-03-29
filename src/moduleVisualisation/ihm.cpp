@@ -20,14 +20,14 @@
  */
 IHM::IHM(QWidget* parent) :
     QWidget(parent), gestionPartie(new GestionPartie(this)),
-    ui(new Ui::accueil) // marche pas pour changer
+    uiAccueil(new Ui::Accueil)
 {
+    uiAccueil->setupUi(this);
+
     qDebug() << Q_FUNC_INFO << this;
 
     setWindowTitle(QString(NOM_MODULE) + QString(" v") +
                    QString(VERSION_MODULE));
-
-    ui->setupUi(this); // marche pas pour changer
 
 #ifdef RPI
     showFullScreen();
