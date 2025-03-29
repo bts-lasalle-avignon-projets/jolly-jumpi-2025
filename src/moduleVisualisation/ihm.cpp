@@ -37,5 +37,6 @@ IHM::IHM(QWidget* parent) :
 IHM::~IHM()
 {
     delete gestionPartie;
+    delete uiAccueil;
     qDebug() << Q_FUNC_INFO << this;
 }
