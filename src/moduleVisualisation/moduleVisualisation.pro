@@ -34,4 +34,6 @@ CONFIG(debug, debug|release):DEFINES+=DEBUG
 DISTFILES +=
 
 FORMS += \
-    accueil.ui
+    accueil.ui \
+    classement.ui \
+    partie.ui
