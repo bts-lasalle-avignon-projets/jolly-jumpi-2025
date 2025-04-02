@@ -36,4 +36,8 @@ DISTFILES +=
 FORMS += \
     accueil.ui \
     classement.ui \
-    partie.ui
+    partie.ui \
+    statistiquesJoueur.ui
+
+RESOURCES += \
+    images/images.qrc

@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/new/accueil">
+        <file>images/logo.png</file>
+    </qresource>
+</RCC>

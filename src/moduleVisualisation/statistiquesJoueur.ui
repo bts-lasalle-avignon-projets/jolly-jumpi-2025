@@ -1,0 +1,2203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>StatistiquesJoueur</class>
+ <widget class="QWidget" name="StatistiquesJoueur">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1920</width>
+    <height>1080</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>Ubuntu Condensed</family>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>Jolly-Jumpi</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color:#0ea03d;</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_premierJoueur_2">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_premierJoueur">
+       <item>
+        <spacer name="horizontalSpacer_5">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Preferred</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>400</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_joueur">
+         <property name="font">
+          <font>
+           <family>Ubuntu Condensed</family>
+           <pointsize>40</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Joueur X</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_score">
+         <property name="font">
+          <font>
+           <family>Ubuntu Condensed</family>
+           <pointsize>40</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>SS</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_place">
+         <property name="font">
+          <font>
+           <family>Ubuntu Condensed</family>
+           <pointsize>40</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>P</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_6">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Preferred</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>400</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_tableauStatistique">
+     <item>
+      <spacer name="horizontalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Maximum</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>300</width>
+         <height>0</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_tableauStatistique">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_enteteStatistiqueJoueur">
+         <item>
+          <widget class="QLabel" name="label_enteteLances">
+           <property name="font">
+            <font>
+             <family>Ubuntu Condensed</family>
+             <pointsize>27</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Lancés</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_entetePoints">
+           <property name="font">
+            <font>
+             <family>Ubuntu Condensed</family>
+             <pointsize>27</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Points</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_enteteScore">
+           <property name="font">
+            <font>
+             <family>Ubuntu Condensed</family>
+             <pointsize>27</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Score</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_enteteTemps">
+           <property name="font">
+            <font>
+             <family>Ubuntu Condensed</family>
+             <pointsize>27</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Temps</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_enteteEcart">
+           <property name="font">
+            <font>
+             <family>Ubuntu Condensed</family>
+             <pointsize>27</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Ecart</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_enteteTrouPref">
+           <property name="font">
+            <font>
+             <family>Ubuntu Condensed</family>
+             <pointsize>27</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Trou préf</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_lance1">
+         <item>
+          <widget class="QLabel" name="label_lance1">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>1</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lancePoints1">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>x</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceScore1">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
+           </property>
+           <property name="text">
+            <string>ss</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTemps1">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceEcart1">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTourPref1">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>n</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_lance2">
+         <item>
+          <widget class="QLabel" name="label_lance2">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>2</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lancePoints2">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>x</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceScore2">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>ss</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTemps2">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceEcart2">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTourPref2">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>n</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_lance3">
+         <item>
+          <widget class="QLabel" name="label_lance3">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>3</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lancePoints3">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>x</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceScore3">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>ss</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTemps3">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceEcart3">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTourPref3">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>n</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_lance4">
+         <item>
+          <widget class="QLabel" name="label_lance4">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>4</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lancePoints4">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>x</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceScore4">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>ss</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTemps4">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceEcart4">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTourPref4">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>n</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_lance5">
+         <item>
+          <widget class="QLabel" name="label_lance5">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>5</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lancePoints5">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>x</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceScore5">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>ss</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTemps5">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceEcart5">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTourPref5">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>n</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_lance6">
+         <item>
+          <widget class="QLabel" name="label_lance6">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>6</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lancePoints6">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>x</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceScore6">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>ss</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTemps6">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceEcart6">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTourPref6">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>n</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_lance7">
+         <item>
+          <widget class="QLabel" name="label_lance7">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>7</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lancePoints7">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>x</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceScore7">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>ss</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTemps7">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceEcart7">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTourPref7">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>n</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_lance8">
+         <item>
+          <widget class="QLabel" name="label_lance8">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>8</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lancePoints8">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>x</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceScore8">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>ss</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTemps8">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceEcart8">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTourPref8">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>n</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_lance9">
+         <item>
+          <widget class="QLabel" name="label_lance9">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>9</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lancePoints9">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>x</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceScore9">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>ss</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTemps9">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceEcart9">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTourPref9">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>n</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_lance10">
+         <item>
+          <widget class="QLabel" name="label_lance10">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>10</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lancePoints10">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>x</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceScore10">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>ss</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTemps10">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceEcart10">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTourPref10">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>n</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_lance11">
+         <item>
+          <widget class="QLabel" name="label_lance11">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>11</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lancePoints11">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>x</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceScore11">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>ss</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTemps11">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceEcart11">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTourPref11">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>n</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_lance12">
+         <item>
+          <widget class="QLabel" name="label_lance12">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>12</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lancePoints12">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>x</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceScore12">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>ss</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTemps12">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceEcart12">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTourPref12">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>n</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_lance13">
+         <item>
+          <widget class="QLabel" name="label_lance13">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>13</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lancePoints13">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>x</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceScore13">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>ss</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTemps13">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceEcart13">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTourPref13">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>n</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_lance14">
+         <item>
+          <widget class="QLabel" name="label_lance14">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>14</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lancePoints14">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>x</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceScore14">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>ss</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTemps14">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceEcart14">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTourPref14">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>n</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_lance15">
+         <item>
+          <widget class="QLabel" name="label_lance15">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>15</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lancePoints15">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>x</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceScore15">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>ss</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTemps15">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceEcart15">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTourPref15">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>n</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_lance16">
+         <item>
+          <widget class="QLabel" name="label_lance16">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>16</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lancePoints16">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>x</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceScore16">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>ss</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTemps16">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceEcart16">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTourPref16">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>n</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_lance17">
+         <item>
+          <widget class="QLabel" name="label_lance17">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>17</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lancePoints17">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>x</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceScore17">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>ss</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTemps17">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceEcart17">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTourPref17">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>n</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_lance18">
+         <item>
+          <widget class="QLabel" name="label_lance18">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>18</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lancePoints18">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>x</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceScore18">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>ss</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTemps18">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceEcart18">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTourPref18">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>n</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_lance19">
+         <item>
+          <widget class="QLabel" name="label_lance19">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>19</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lancePoints19">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>x</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceScore19">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>ss</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTemps18_2">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceEcart19">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTourPref19">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>n</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_lance20">
+         <item>
+          <widget class="QLabel" name="label_lance20">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>20</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lancePoints20">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>x</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceScore20">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>ss</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTemps20">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceEcart20">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>mm:tt</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_lanceTourPref20">
+           <property name="font">
+            <font>
+             <pointsize>27</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>n</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_5">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Preferred</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>80</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_4">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Maximum</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>300</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

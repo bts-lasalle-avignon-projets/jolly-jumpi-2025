@@ -27,6 +27,9 @@
 namespace Ui
 {
 class Accueil;
+class Partie;
+class Classement;
+class StatistiquesJoueur;
 }
 
 class GestionPartie;
@@ -41,8 +44,11 @@ class IHM : public QWidget
     Q_OBJECT
 
   private:
-    GestionPartie* gestionPartie; //!< association vers GestionPartie
-    Ui::Accueil*   uiAccueil;
+    GestionPartie*          gestionPartie; //!< association vers GestionPartie
+    Ui::Accueil*            uiAccueil;
+    Ui::Partie*             uiPartie;
+    Ui::Classement*         uiClassement;
+    Ui::StatistiquesJoueur* uiStatistiquesJoueur;
 
   public:
     IHM(QWidget* parent = nullptr);
