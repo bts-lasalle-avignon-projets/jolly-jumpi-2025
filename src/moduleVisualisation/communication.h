@@ -7,7 +7,7 @@
 class Communication
 {
   public:
-    enum TypeTrame
+    /*enum TypeTrame
     {
         DemandeAssociation,
         ConfirmationAssociation,
@@ -17,7 +17,7 @@ class Communication
         AffichagePageAccueil,
         AffichagePageHistorique,
         NbTrames
-    };
+    };*/
 
   public:
     Communication();
@@ -29,12 +29,19 @@ class Communication
     void envoyerModeDeJeu();
     void envoyerDebutDePartie();
     void signalerFinDePartie();
-    bool estTrameFinDePartie();
-    bool estDemandePageAccueil();
-    bool estDemandePageHistorique();
+    bool estTrameConfiguration(const QString& trame);
+    bool estTrameFinDePartie(const QString& trame);
+    bool estDemandePageAccueil(const QString& trame);
+    bool estDemandePageHistorique(const QString& trame);
+    bool estTrameAssociation(const QString& trame);
 
   private:
-    QStringList trames;
+    QStringList   trames;
+    const QString carConfiguration  = "C";
+    const QString carFinDePartie    = "F";
+    const QString carPageAccueil    = "S0";
+    const QString carPageHistorique = "S1";
+    const QString carAssociation    = "A";
 };
 
 #endif // COMMUNICATION_H
