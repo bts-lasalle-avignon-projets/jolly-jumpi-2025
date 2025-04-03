@@ -34,11 +34,12 @@ class Communication
     bool estDemandePageAccueil(const QString& trame);
     bool estDemandePageHistorique(const QString& trame);
     bool estTrameAssociation(const QString& trame);
+    bool verifierTypeTrame(const QString& trame, const QString& caractere);
 
   private:
     QStringList   trames;
     const QString carConfiguration  = "C";
-    const QString carFinDePartie    = "F";
+    const QString carFinPartie      = "F";
     const QString carPageAccueil    = "S0";
     const QString carPageHistorique = "S1";
     const QString carAssociation    = "A";

@@ -38,36 +38,43 @@ void Communication::signalerFinDePartie()
 
 bool Communication::estTrameConfiguration(const QString& trame)
 {
-    if(trame.contains(carConfiguration))
+    if(verifierTypeTrame(trame, carConfiguration))
         return true;
     return false;
 }
 
 bool Communication::estTrameFinDePartie(const QString& trame)
 {
-    if(trame.contains(carFinDePartie))
+    if(verifierTypeTrame(trame, carFinPartie))
         return true;
     return false;
 }
 
 bool Communication::estDemandePageAccueil(const QString& trame)
 {
-    if(trame.contains(carPageAccueil))
+    if(verifierTypeTrame(trame, carPageAccueil))
         return true;
     return false;
 }
 
 bool Communication::estDemandePageHistorique(const QString& trame)
 {
-    const QString caractere = carPageHistorique;
-    if(trame.contains(caractere))
+    if(verifierTypeTrame(trame, carPageHistorique))
         return true;
     return false;
 }
 
 bool Communication::estTrameAssociation(const QString& trame)
 {
-    if(trame.contains(carAssociation))
+    if(verifierTypeTrame(trame, carAssociation))
+        return true;
+    return false;
+}
+
+bool Communication::verifierTypeTrame(const QString& trame,
+                                      const QString& caractere)
+{
+    if(trame.contains(caractere))
         return true;
     return false;
 }
