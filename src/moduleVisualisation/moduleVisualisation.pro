@@ -11,6 +11,7 @@ SOURCES += \
     communication.cpp \
     baseDeDonnees.cpp \
     ihm.cpp \
+    ihmpartie.cpp \
     joueur.cpp \
     tir.cpp \
     statistiques.cpp \
@@ -21,6 +22,7 @@ HEADERS += \
     communication.h \
     baseDeDonnees.h \
     ihm.h \
+    ihmpartie.h \
     joueur.h \
     tir.h \
     statistiques.h \

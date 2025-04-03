@@ -30,12 +30,12 @@
      <height>1081</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout_2">
+   <layout class="QVBoxLayout" name="verticalLayoutPrincipal">
     <property name="spacing">
      <number>0</number>
     </property>
     <item>
-     <spacer name="verticalSpacer">
+     <spacer name="verticalSpacer_1">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
@@ -85,7 +85,7 @@
      </spacer>
     </item>
     <item>
-     <widget class="QLabel" name="label_bienvenue">
+     <widget class="QLabel" name="labelBienvenue">
       <property name="font">
        <font>
         <pointsize>72</pointsize>
@@ -100,22 +100,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QLabel" name="label_texteDefil">
-      <property name="font">
-       <font>
-        <pointsize>25</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Défilement Texte</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <spacer name="verticalSpacer_5">
+     <spacer name="verticalSpacer_3">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
@@ -131,12 +116,27 @@
      </spacer>
     </item>
     <item>
-     <spacer name="verticalSpacer_3">
+     <widget class="QLabel" name="labelDefilementTexte">
+      <property name="font">
+       <font>
+        <pointsize>25</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="verticalSpacer_4">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
       <property name="sizeType">
-       <enum>QSizePolicy::Ignored</enum>
+       <enum>QSizePolicy::Preferred</enum>
       </property>
       <property name="sizeHint" stdset="0">
        <size>
@@ -148,7 +148,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="QLabel" name="labelFond">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -164,7 +164,7 @@
     <string/>
    </property>
   </widget>
-  <zorder>label_2</zorder>
+  <zorder>labelFond</zorder>
   <zorder>verticalLayoutWidget</zorder>
  </widget>
  <resources/>

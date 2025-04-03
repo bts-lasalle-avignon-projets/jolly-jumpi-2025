@@ -24,15 +24,16 @@
 
 #define VERSION_MODULE "1.0"
 
+#define SIMULATION_CLAVIER_ACCUEIL
+
+#define PERIODE_DEFILEMENT 3000
+
 namespace Ui
 {
 class Accueil;
-class Partie;
-class Classement;
-class StatistiquesJoueur;
 }
 
-class GestionPartie;
+class IHMPartie;
 
 /**
  * @class IHM
@@ -44,15 +45,28 @@ class IHM : public QWidget
     Q_OBJECT
 
   private:
-    GestionPartie*          gestionPartie; //!< association vers GestionPartie
-    Ui::Accueil*            uiAccueil;
-    Ui::Partie*             uiPartie;
-    Ui::Classement*         uiClassement;
-    Ui::StatistiquesJoueur* uiStatistiquesJoueur;
+    Ui::Accueil* uiAccueil;
+    IHMPartie*   ihmPartie;
+    QTimer*      minuteurDefilement;
+    int          numeroMessage;
+    QStringList  listeMessages;
+
+#ifdef SIMULATION_CLAVIER_ACCUEIL
+    void simulerAffichageFenetre();
+#endif
 
   public:
     IHM(QWidget* parent = nullptr);
-    ~IHM();
+    virtual ~IHM();
+
+  private slots:
+    void defilerTexte();
+    void fermer();
+#ifdef SIMULATION_CLAVIER_ACCUEIL
+    void afficherPartie();
+    void afficherClassement();
+    void afficherStatistiques();
+#endif
 };
 
 #endif // IHM_H
