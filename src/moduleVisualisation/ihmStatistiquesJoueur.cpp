@@ -3,31 +3,32 @@
 #include "gestionPartie.h"
 #include <QDebug>
 
-IHMStatistiquesJoueur::IHMStatistiquesJoueur(QWidget* parent) :
-    QWidget{ parent }, uiStatistiquesJoueur(new Ui::StatistiquesJoueur),
-    gestionPartie(new GestionPartie(this))
+IHMStatistiquesJoueur::IHMStatistiquesJoueur(GestionPartie* gestionPartie,
+                                             QWidget*       parent) :
+    QWidget{ parent },
+    uiStatistiquesJoueur(new Ui::StatistiquesJoueur),
+    gestionPartie(gestionPartie)
 {
     uiStatistiquesJoueur->setupUi(this);
 
     setWindowTitle(QString(""));
 
-    qDebug() << Q_FUNC_INFO << this;
+    qDebug() << Q_FUNC_INFO << this << "gestionPartie" << gestionPartie;
 
 #ifdef RPI
     showFullScreen();
 #else
     showMaximized();
 #endif
-#ifdef SIMULATION_CLAVIER_PARTIE
-    simulerPartie();
+#ifdef SIMULATION_CLAVIER_STATISTIQUESJOUEUR
+    simulerStatistiquesJoueur();
 #endif
 }
 
 IHMStatistiquesJoueur::~IHMStatistiquesJoueur()
 {
-    delete gestionPartie;
     delete uiStatistiquesJoueur;
-    qDebug() << Q_FUNC_INFO << this;
+    qDebug() << Q_FUNC_INFO << this << "gestionPartie" << gestionPartie;
 }
 
 /**
@@ -47,8 +48,8 @@ void IHMStatistiquesJoueur::fermer()
     this->close();
 }
 
-#ifdef SIMULATION_CLAVIER_PARTIE
-void IHMStatistiquesJoueur::simulerPartie()
+#ifdef SIMULATION_CLAVIER_STATISTIQUESJOUEUR
+void IHMStatistiquesJoueur::simulerStatistiquesJoueur()
 {
     // Touche Q -> fermer
     QAction* quitter = new QAction(this);

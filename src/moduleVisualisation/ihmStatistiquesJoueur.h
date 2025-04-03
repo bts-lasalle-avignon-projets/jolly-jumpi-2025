@@ -3,7 +3,7 @@
 
 #include <QtWidgets>
 
-#define SIMULATION_CLAVIER_PARTIE
+#define SIMULATION_CLAVIER_STATISTIQUESJOUEUR
 
 namespace Ui
 {
@@ -20,15 +20,16 @@ class IHMStatistiquesJoueur : public QWidget
     Ui::StatistiquesJoueur* uiStatistiquesJoueur;
     GestionPartie*          gestionPartie; //!< association vers GestionPartie
 
-#ifdef SIMULATION_CLAVIER_PARTIE
-    void simulerPartie();
+#ifdef SIMULATION_CLAVIER_STATISTIQUESJOUEUR
+    void simulerStatistiquesJoueur();
 #endif
 
   protected:
     void showEvent(QShowEvent* event);
 
   public:
-    explicit IHMStatistiquesJoueur(QWidget* parent = nullptr);
+    explicit IHMStatistiquesJoueur(GestionPartie* gestionPartie,
+                                   QWidget*       parent = nullptr);
     virtual ~IHMStatistiquesJoueur();
 
   signals:

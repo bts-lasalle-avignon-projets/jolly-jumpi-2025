@@ -9,8 +9,6 @@
 #include "ihm.h"
 #include "ui_accueil.h"
 #include "ihmpartie.h"
-#include "ihmClassement.h"
-#include "ihmStatistiquesJoueur.h"
 #include <QAction>
 #include <QDebug>
 
@@ -23,7 +21,6 @@
  */
 IHM::IHM(QWidget* parent) :
     QWidget(parent), uiAccueil(new Ui::Accueil), ihmPartie(nullptr),
-    ihmClassement(nullptr), ihmStatistiquesJoueur(nullptr),
     minuteurDefilement(new QTimer), numeroMessage(0)
 {
     uiAccueil->setupUi(this);
@@ -46,6 +43,8 @@ IHM::IHM(QWidget* parent) :
                   << "LaSalle Avignon"
                   << "Nicolas Pessina";
     connect(minuteurDefilement, SIGNAL(timeout()), this, SLOT(defilerTexte()));
+    uiAccueil->labelDefilementTexte->setText(
+      listeMessages.at(numeroMessage++ % listeMessages.count()));
     minuteurDefilement->start(PERIODE_DEFILEMENT);
 }
 
@@ -53,10 +52,6 @@ IHM::~IHM()
 {
     if(ihmPartie != nullptr)
         delete ihmPartie;
-    if(ihmClassement != nullptr)
-        delete ihmClassement;
-    if(ihmStatistiquesJoueur != nullptr)
-        delete ihmStatistiquesJoueur;
     delete uiAccueil;
     qDebug() << Q_FUNC_INFO << this;
 }
@@ -86,24 +81,6 @@ void IHM::simulerAffichageFenetre()
     affichagePartie->setShortcut(QKeySequence(Qt::Key_P));
     addAction(affichagePartie);
     connect(affichagePartie, SIGNAL(triggered()), this, SLOT(afficherPartie()));
-
-    // Touche C -> affichage Classement
-    QAction* affichageClassement = new QAction(this);
-    affichageClassement->setShortcut(QKeySequence(Qt::Key_C));
-    addAction(affichageClassement);
-    connect(affichageClassement,
-            SIGNAL(triggered()),
-            this,
-            SLOT(afficherClassement()));
-
-    // Touche S -> affichage Statistiques
-    QAction* affichageStatistiques = new QAction(this);
-    affichageStatistiques->setShortcut(QKeySequence(Qt::Key_S));
-    addAction(affichageStatistiques);
-    connect(affichageStatistiques,
-            SIGNAL(triggered()),
-            this,
-            SLOT(afficherStatistiquesJoueur()));
 }
 #endif
 
@@ -123,32 +100,6 @@ void IHM::afficherPartie()
     else
     {
         ihmPartie->show();
-    }
-}
-
-void IHM::afficherClassement()
-{
-    qDebug() << Q_FUNC_INFO;
-    if(ihmClassement == nullptr)
-    {
-        ihmClassement = new IHMClassement();
-    }
-    else
-    {
-        ihmClassement->show();
-    }
-}
-
-void IHM::afficherStatistiquesJoueur()
-{
-    qDebug() << Q_FUNC_INFO;
-    if(ihmStatistiquesJoueur == nullptr)
-    {
-        ihmStatistiquesJoueur = new IHMStatistiquesJoueur();
-    }
-    else
-    {
-        ihmStatistiquesJoueur->show();
     }
 }
 #endif

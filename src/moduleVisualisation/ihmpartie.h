@@ -10,6 +10,8 @@ namespace Ui
 class Partie;
 }
 
+class IHMClassement;
+class IHMStatistiquesJoueur;
 class GestionPartie;
 
 class IHMPartie : public QWidget
@@ -17,8 +19,10 @@ class IHMPartie : public QWidget
     Q_OBJECT
 
   private:
-    Ui::Partie*    uiPartie;
-    GestionPartie* gestionPartie; //!< association vers GestionPartie
+    Ui::Partie*            uiPartie;
+    IHMClassement*         ihmClassement;
+    IHMStatistiquesJoueur* ihmStatistiquesJoueur;
+    GestionPartie*         gestionPartie; //!< association vers GestionPartie
 
 #ifdef SIMULATION_CLAVIER_PARTIE
     void simulerPartie();
@@ -35,6 +39,10 @@ class IHMPartie : public QWidget
 
   private slots:
     void fermer();
+#ifdef SIMULATION_CLAVIER_PARTIE
+    void afficherClassement();
+    void afficherStatistiquesJoueur();
+#endif
 };
 
 #endif // IHMPARTIE_H

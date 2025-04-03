@@ -34,8 +34,6 @@ class Accueil;
 }
 
 class IHMPartie;
-class IHMClassement;
-class IHMStatistiquesJoueur;
 
 /**
  * @class IHM
@@ -47,13 +45,12 @@ class IHM : public QWidget
     Q_OBJECT
 
   private:
-    Ui::Accueil*           uiAccueil;
-    IHMPartie*             ihmPartie;
-    IHMClassement*         ihmClassement;
-    IHMStatistiquesJoueur* ihmStatistiquesJoueur;
-    QTimer*                minuteurDefilement;
-    int                    numeroMessage;
-    QStringList            listeMessages;
+    Ui::Accueil* uiAccueil;
+    IHMPartie*   ihmPartie;
+
+    QTimer*     minuteurDefilement;
+    int         numeroMessage;
+    QStringList listeMessages;
 
 #ifdef SIMULATION_CLAVIER_ACCUEIL
     void simulerAffichageFenetre();
@@ -68,8 +65,6 @@ class IHM : public QWidget
     void fermer();
 #ifdef SIMULATION_CLAVIER_ACCUEIL
     void afficherPartie();
-    void afficherClassement();
-    void afficherStatistiquesJoueur();
 #endif
 };
 

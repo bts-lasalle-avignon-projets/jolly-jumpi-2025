@@ -3,31 +3,30 @@
 #include "gestionPartie.h"
 #include <QDebug>
 
-IHMClassement::IHMClassement(QWidget* parent) :
+IHMClassement::IHMClassement(GestionPartie* gestionPartie, QWidget* parent) :
     QWidget{ parent }, uiClassement(new Ui::Classement),
-    gestionPartie(new GestionPartie(this))
+    gestionPartie(gestionPartie)
 {
     uiClassement->setupUi(this);
 
     setWindowTitle(QString(""));
 
-    qDebug() << Q_FUNC_INFO << this;
+    qDebug() << Q_FUNC_INFO << this << "gestionPartie" << gestionPartie;
 
 #ifdef RPI
     showFullScreen();
 #else
     showMaximized();
 #endif
-#ifdef SIMULATION_CLAVIER_PARTIE
-    simulerPartie();
+#ifdef SIMULATION_CLAVIER_CLASSEMENT
+    simulerClassement();
 #endif
 }
 
 IHMClassement::~IHMClassement()
 {
-    delete gestionPartie;
     delete uiClassement;
-    qDebug() << Q_FUNC_INFO << this;
+    qDebug() << Q_FUNC_INFO << this << "gestionPartie" << gestionPartie;
 }
 
 /**
@@ -47,8 +46,8 @@ void IHMClassement::fermer()
     this->close();
 }
 
-#ifdef SIMULATION_CLAVIER_PARTIE
-void IHMClassement::simulerPartie()
+#ifdef SIMULATION_CLAVIER_CLASSEMENT
+void IHMClassement::simulerClassement()
 {
     // Touche Q -> fermer
     QAction* quitter = new QAction(this);
