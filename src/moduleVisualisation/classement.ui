@@ -23,7 +23,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QLabel" name="labelImage_classement">
+    <widget class="QLabel" name="labelImageClassement">
      <property name="font">
       <font>
        <pointsize>50</pointsize>
@@ -38,7 +38,7 @@
     </widget>
    </item>
    <item>
-    <spacer name="verticalSpacer_2">
+    <spacer name="vSpacer_ClxCh">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
@@ -51,9 +51,9 @@
     </spacer>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_chrono">
+    <layout class="QHBoxLayout" name="hLayoutChrono">
      <item>
-      <spacer name="horizontalSpacer">
+      <spacer name="hSpacerChGauche">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -66,7 +66,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QLabel" name="label_chrono">
+      <widget class="QLabel" name="labelChrono">
        <property name="font">
         <font>
          <family>Ubuntu Condensed</family>
@@ -84,7 +84,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_temps">
+      <widget class="QLabel" name="labelTemps">
        <property name="font">
         <font>
          <family>Ubuntu Condensed</family>
@@ -102,7 +102,7 @@
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer_2">
+      <spacer name="hSpacerChDroit">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -117,7 +117,7 @@
     </layout>
    </item>
    <item>
-    <spacer name="verticalSpacer_4">
+    <spacer name="vSpacerChxPJ">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
@@ -130,11 +130,11 @@
     </spacer>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_premierJoueur_2">
+    <layout class="QHBoxLayout" name="hLayoutPremierJoueur">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_premierJoueur">
+      <layout class="QHBoxLayout" name="hLayoutPJ">
        <item>
-        <spacer name="horizontalSpacer_5">
+        <spacer name="hSpacerPJGauche">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -150,7 +150,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QLabel" name="label_joueur">
+        <widget class="QLabel" name="labelPJJoueur">
          <property name="font">
           <font>
            <family>Ubuntu Condensed</family>
@@ -160,7 +160,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Joueur X</string>
+          <string/>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -168,7 +168,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_score">
+        <widget class="QLabel" name="labelPJScore">
          <property name="font">
           <font>
            <family>Ubuntu Condensed</family>
@@ -178,7 +178,7 @@
           </font>
          </property>
          <property name="text">
-          <string>SS</string>
+          <string/>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -186,7 +186,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_place">
+        <widget class="QLabel" name="labelPlace">
          <property name="font">
           <font>
            <family>Ubuntu Condensed</family>
@@ -204,7 +204,7 @@
         </widget>
        </item>
        <item>
-        <spacer name="horizontalSpacer_6">
+        <spacer name="hSpacerPJDroit">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -224,7 +224,7 @@
     </layout>
    </item>
    <item>
-    <spacer name="verticalSpacer">
+    <spacer name="vSpacerPJxTCl">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
@@ -237,9 +237,9 @@
     </spacer>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_tableauClassement">
+    <layout class="QHBoxLayout" name="hLayoutTableauClassement">
      <item>
-      <spacer name="horizontalSpacer_3">
+      <spacer name="hSpacerTClGauche">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -255,14 +255,14 @@
       </spacer>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_tableauClassement">
+      <layout class="QVBoxLayout" name="vLayoutTableauClassement">
        <property name="spacing">
         <number>0</number>
        </property>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_enteteClassement">
+        <layout class="QHBoxLayout" name="hLayoutEnteteClassement">
          <item>
-          <widget class="QLabel" name="label_enteteJoueur">
+          <widget class="QLabel" name="labelEnteteJoueur">
            <property name="font">
             <font>
              <family>Ubuntu Condensed</family>
@@ -280,7 +280,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_enteteScore">
+          <widget class="QLabel" name="labelEnteteScore">
            <property name="font">
             <font>
              <family>Ubuntu Condensed</family>
@@ -298,7 +298,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_entetePlace">
+          <widget class="QLabel" name="labelEntetePlace">
            <property name="font">
             <font>
              <family>Ubuntu Condensed</family>
@@ -318,16 +318,16 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_joueur1">
+        <layout class="QHBoxLayout" name="hLayoutJ1">
          <item>
-          <widget class="QLabel" name="label_joueur1">
+          <widget class="QLabel" name="labelJ1">
            <property name="font">
             <font>
              <pointsize>36</pointsize>
             </font>
            </property>
            <property name="text">
-            <string>x</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -335,7 +335,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_joueurScore1">
+          <widget class="QLabel" name="labelS1">
            <property name="font">
             <font>
              <pointsize>36</pointsize>
@@ -345,7 +345,7 @@
             <enum>Qt::LeftToRight</enum>
            </property>
            <property name="text">
-            <string>SS</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -353,7 +353,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_place1">
+          <widget class="QLabel" name="labelP1">
            <property name="font">
             <font>
              <pointsize>36</pointsize>
@@ -370,16 +370,16 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_joueur2">
+        <layout class="QHBoxLayout" name="hLayoutJ2">
          <item>
-          <widget class="QLabel" name="label_joueur2">
+          <widget class="QLabel" name="labelJ2">
            <property name="font">
             <font>
              <pointsize>36</pointsize>
             </font>
            </property>
            <property name="text">
-            <string>x</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -387,14 +387,14 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_joueurScore2">
+          <widget class="QLabel" name="labelS2">
            <property name="font">
             <font>
              <pointsize>36</pointsize>
             </font>
            </property>
            <property name="text">
-            <string>SS</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -402,7 +402,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_place2">
+          <widget class="QLabel" name="labelP2">
            <property name="font">
             <font>
              <pointsize>36</pointsize>
@@ -419,16 +419,16 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_joueur3">
+        <layout class="QHBoxLayout" name="hLayoutJ3">
          <item>
-          <widget class="QLabel" name="label_joueur3">
+          <widget class="QLabel" name="labelJ3">
            <property name="font">
             <font>
              <pointsize>36</pointsize>
             </font>
            </property>
            <property name="text">
-            <string>x</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -436,14 +436,14 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_joueurScore3">
+          <widget class="QLabel" name="labelS3">
            <property name="font">
             <font>
              <pointsize>36</pointsize>
             </font>
            </property>
            <property name="text">
-            <string>SS</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -451,7 +451,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_place3">
+          <widget class="QLabel" name="labelP3">
            <property name="font">
             <font>
              <pointsize>36</pointsize>
@@ -468,16 +468,16 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_joueur4">
+        <layout class="QHBoxLayout" name="hLayoutJ4">
          <item>
-          <widget class="QLabel" name="label_joueur4">
+          <widget class="QLabel" name="labelJ4">
            <property name="font">
             <font>
              <pointsize>36</pointsize>
             </font>
            </property>
            <property name="text">
-            <string>x</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -485,14 +485,14 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_joueurScore4">
+          <widget class="QLabel" name="labelS4">
            <property name="font">
             <font>
              <pointsize>36</pointsize>
             </font>
            </property>
            <property name="text">
-            <string>SS</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -500,7 +500,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_place4">
+          <widget class="QLabel" name="labelP4">
            <property name="font">
             <font>
              <pointsize>36</pointsize>
@@ -517,16 +517,16 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_joueur5">
+        <layout class="QHBoxLayout" name="hLayoutJ5">
          <item>
-          <widget class="QLabel" name="label_joueur5">
+          <widget class="QLabel" name="labelJ5">
            <property name="font">
             <font>
              <pointsize>36</pointsize>
             </font>
            </property>
            <property name="text">
-            <string>x</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -534,14 +534,14 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_joueurScore5">
+          <widget class="QLabel" name="labelS5">
            <property name="font">
             <font>
              <pointsize>36</pointsize>
             </font>
            </property>
            <property name="text">
-            <string>SS</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -549,7 +549,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_place5">
+          <widget class="QLabel" name="labelP5">
            <property name="font">
             <font>
              <pointsize>36</pointsize>
@@ -566,16 +566,16 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_joueur6">
+        <layout class="QHBoxLayout" name="hLayoutJ6">
          <item>
-          <widget class="QLabel" name="label_joueur6">
+          <widget class="QLabel" name="labelJ6">
            <property name="font">
             <font>
              <pointsize>36</pointsize>
             </font>
            </property>
            <property name="text">
-            <string>x</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -583,14 +583,14 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_joueurScore6">
+          <widget class="QLabel" name="labelS6">
            <property name="font">
             <font>
              <pointsize>36</pointsize>
             </font>
            </property>
            <property name="text">
-            <string>SS</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -598,7 +598,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_place6">
+          <widget class="QLabel" name="labelP6">
            <property name="font">
             <font>
              <pointsize>36</pointsize>
@@ -615,16 +615,16 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_joueur7">
+        <layout class="QHBoxLayout" name="hLayoutJ7">
          <item>
-          <widget class="QLabel" name="label_joueur7">
+          <widget class="QLabel" name="labelJ7">
            <property name="font">
             <font>
              <pointsize>36</pointsize>
             </font>
            </property>
            <property name="text">
-            <string>x</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -632,14 +632,14 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_joueurScore7">
+          <widget class="QLabel" name="labelS7">
            <property name="font">
             <font>
              <pointsize>36</pointsize>
             </font>
            </property>
            <property name="text">
-            <string>SS</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -647,7 +647,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_place7">
+          <widget class="QLabel" name="labelP7">
            <property name="font">
             <font>
              <pointsize>36</pointsize>
@@ -664,16 +664,16 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_joueur8">
+        <layout class="QHBoxLayout" name="hLayoutJ8">
          <item>
-          <widget class="QLabel" name="label_joueur8">
+          <widget class="QLabel" name="labelJ8">
            <property name="font">
             <font>
              <pointsize>36</pointsize>
             </font>
            </property>
            <property name="text">
-            <string>x</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -681,14 +681,14 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_joueurScore8">
+          <widget class="QLabel" name="labelS8">
            <property name="font">
             <font>
              <pointsize>36</pointsize>
             </font>
            </property>
            <property name="text">
-            <string>SS</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -696,7 +696,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_place8">
+          <widget class="QLabel" name="labelP8">
            <property name="font">
             <font>
              <pointsize>36</pointsize>
@@ -713,7 +713,7 @@
         </layout>
        </item>
        <item>
-        <spacer name="verticalSpacer_5">
+        <spacer name="vSpacerTCBas">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -731,7 +731,7 @@
       </layout>
      </item>
      <item>
-      <spacer name="horizontalSpacer_4">
+      <spacer name="hSpacerTClDroit">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
