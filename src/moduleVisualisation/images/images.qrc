@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/accueil">
+        <file>logo.png</file>
+        <file>imageARenplacer.jpg</file>
+    </qresource>
+    <qresource prefix="/partie">
+        <file>cheval.png</file>
+        <file>cheminARemplacer.png</file>
+    </qresource>
+</RCC>

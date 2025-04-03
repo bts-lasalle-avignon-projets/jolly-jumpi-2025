@@ -6,6 +6,11 @@
 
 class Joueur;
 
+namespace Ui
+{
+class GestionPartie;
+}
+
 class GestionPartie : public QObject
 {
     Q_OBJECT
@@ -15,11 +20,12 @@ class GestionPartie : public QObject
     void commencerPartie();
 
   private:
-    int              nombreJoueurs;
-    int              modeDeJeu;
-    int              etat;
-    double           duree;
-    QVector<Joueur*> joueurs;
+    int                nombreJoueurs;
+    int                modeDeJeu;
+    int                etat;
+    double             duree;
+    QVector<Joueur*>   joueurs;
+    Ui::GestionPartie* ui;
 };
 
 #endif

@@ -21,9 +21,19 @@
  * @def VERSION_MODULE
  * @brief La version du module de visualisation
  */
+
 #define VERSION_MODULE "1.0"
 
-class GestionPartie;
+#define SIMULATION_CLAVIER_ACCUEIL
+
+#define PERIODE_DEFILEMENT 3000
+
+namespace Ui
+{
+class Accueil;
+}
+
+class IHMPartie;
 
 /**
  * @class IHM
@@ -35,11 +45,27 @@ class IHM : public QWidget
     Q_OBJECT
 
   private:
-    GestionPartie* gestionPartie; //!< association vers GestionPartie
+    Ui::Accueil* uiAccueil;
+    IHMPartie*   ihmPartie;
+
+    QTimer*     minuteurDefilement;
+    int         numeroMessage;
+    QStringList listeMessages;
+
+#ifdef SIMULATION_CLAVIER_ACCUEIL
+    void simulerAffichageFenetre();
+#endif
 
   public:
     IHM(QWidget* parent = nullptr);
-    ~IHM();
+    virtual ~IHM();
+
+  private slots:
+    void defilerTexte();
+    void fermer();
+#ifdef SIMULATION_CLAVIER_ACCUEIL
+    void afficherPartie();
+#endif
 };
 
 #endif // IHM_H
