@@ -1,4 +1,5 @@
 #include "communication.h"
+#include "adressesPeripheries.h"
 
 Communication::Communication()
 {

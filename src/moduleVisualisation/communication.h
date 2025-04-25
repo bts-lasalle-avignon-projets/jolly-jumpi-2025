@@ -1,22 +1,9 @@
 #ifndef COMMUNICATION_H
 #define COMMUNICATION_H
 
-#include <QLowEnergyController>
+#include <QObject>
 #include <QStringList>
 #include <QString>
-
-//// adresse du module de configuration////
-#define MODULECONFIGURATION = "";
-
-//// adresse des modules de détection de balle////
-#define TABLE1 = "";
-#define TABLE2 = "";
-#define TABLE3 = "";
-#define TABLE4 = "";
-#define TABLE5 = "";
-#define TABLE6 = "";
-#define TABLE7 = "";
-#define TABLE8 = "";
 
 class Communication : public QObject
 {

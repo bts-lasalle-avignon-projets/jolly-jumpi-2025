@@ -1,4 +1,5 @@
 #include "ihm.h"
+#include "bluetooth.h"
 #include <QApplication>
 
 /*
@@ -20,6 +21,7 @@ int main(int argc, char* argv[])
 {
     QApplication a(argc, argv);
     IHM          ihm;
+    Bluetooth    socket;
 
     ihm.show();
 
