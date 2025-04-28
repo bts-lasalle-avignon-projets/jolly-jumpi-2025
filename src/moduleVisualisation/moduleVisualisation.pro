@@ -44,7 +44,6 @@ DISTFILES +=
 
 FORMS += \
     accueil.ui \
-    bluetoothTest.ui \
     classement.ui \
     partie.ui \
     statistiquesJoueur.ui

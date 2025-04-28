@@ -4,6 +4,9 @@
 #include <QObject>
 #include <QtBluetooth>
 #include <QBluetoothLocalDevice>
+#include <QMap>
+
+#define ADRESSE_MODULE_TEST "18:67:B0:5F:8D:5B"
 
 class Bluetooth : public QObject
 {
@@ -11,19 +14,24 @@ class Bluetooth : public QObject
   public:
     Bluetooth();
     ~Bluetooth();
+
     void initialiserInterfaceLocal();
     void trouverPeripherique();
-    void connecterPeripherique(QBluetoothSocket* socket);
     void deconnecterPeripherique(QBluetoothSocket* socket);
-    void envoyerTrame(QString trame);
+    void envoyerTrame(QString adresse, QString trame);
 
   private:
     QBluetoothDeviceInfo peripheriqueDistant; //[nombreTotalPeripherique];
     QBluetoothDeviceDiscoveryAgent* agentDecouverteBluetooth;
-    QBluetoothSocket*               socket; //[nombreTotalPeripherique];
+
+    QMap<QString, QBluetoothSocket*> sockets;
 
   private slots:
     void gererPeripherique(QBluetoothDeviceInfo peripherique);
+    void connecterPeripherique(QBluetoothDeviceInfo peripherique);
+
+  signals:
+    void peripheriqueDistantTrouve(QBluetoothDeviceInfo peripherique);
 };
 
 #endif // BLUETOOTH_H

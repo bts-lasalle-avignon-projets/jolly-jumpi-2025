@@ -5,6 +5,8 @@
 #include <QStringList>
 #include <QString>
 
+class Bluetooth;
+
 class Communication : public QObject
 {
   public:
@@ -21,7 +23,7 @@ class Communication : public QObject
     };*/
 
   public:
-    Communication();
+    Communication(QObject* parent = nullptr);
     ~Communication();
 
     //////Etablir connexions//////
@@ -53,6 +55,7 @@ class Communication : public QObject
     void gererChangementPage();
 
   private:
+    Bluetooth*    bluetooth;
     QStringList   trames;
     const QString carDebutTrame     = "$";
     const QString carFinTrame       = "\n";

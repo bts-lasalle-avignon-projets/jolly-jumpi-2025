@@ -1,16 +1,19 @@
 #include "communication.h"
+#include "bluetooth.h"
 #include "adressesPeripheries.h"
 
-Communication::Communication()
+Communication::Communication(QObject* parent) :
+    QObject(parent), bluetooth(new Bluetooth)
 {
+    qDebug() << Q_FUNC_INFO << this;
 }
 
 Communication::~Communication()
 {
+    delete bluetooth;
+    qDebug() << Q_FUNC_INFO << this;
 }
-/***********Etablir connexions***********/
 
-/***********Traiter trames***********/
 void Communication::traiterTrame()
 {
     const QString trame;

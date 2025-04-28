@@ -9,6 +9,7 @@
 #include "ihm.h"
 #include "ui_accueil.h"
 #include "ihmpartie.h"
+#include "communication.h"
 #include <QAction>
 #include <QDebug>
 
@@ -21,7 +22,8 @@
  */
 IHM::IHM(QWidget* parent) :
     QWidget(parent), uiAccueil(new Ui::Accueil), ihmPartie(nullptr),
-    minuteurDefilement(new QTimer), numeroMessage(0)
+    communication(new Communication(this)), minuteurDefilement(new QTimer),
+    numeroMessage(0)
 {
     uiAccueil->setupUi(this);
 
