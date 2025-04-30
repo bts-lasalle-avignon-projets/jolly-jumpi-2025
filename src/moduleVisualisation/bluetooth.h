@@ -6,32 +6,37 @@
 #include <QBluetoothLocalDevice>
 #include <QMap>
 
-#define ADRESSE_MODULE_TEST "18:67:B0:5F:8D:5B"
-
 class Bluetooth : public QObject
 {
     Q_OBJECT
   public:
     Bluetooth();
     ~Bluetooth();
-
+    void initialiserAdressePeripherique();
     void initialiserInterfaceLocal();
     void trouverPeripherique();
-    void deconnecterPeripherique(QBluetoothSocket* socket);
-    void envoyerTrame(QString adresse, QString trame);
+    void envoyerMessage(QString adresse, QString trame);
+    bool estToutConnecte();
+    void arreterRecherche();
+    void receptionnerMessage(QBluetoothDeviceInfo peripherique);
 
   private:
-    QBluetoothDeviceInfo peripheriqueDistant; //[nombreTotalPeripherique];
+    QBluetoothDeviceInfo peripheriqueDistant; //[NOMBRE_TOTAL_PERIPHERIQUE];
     QBluetoothDeviceDiscoveryAgent* agentDecouverteBluetooth;
-
+    // QList<QString>                   listeAdressePistes;
     QMap<QString, QBluetoothSocket*> sockets;
 
   private slots:
     void gererPeripherique(QBluetoothDeviceInfo peripherique);
     void connecterPeripherique(QBluetoothDeviceInfo peripherique);
+    void deconnecterPeripherique(QBluetoothDeviceInfo peripherique);
+    void traiterMessage(QBluetoothDeviceInfo peripherique);
+    void gererErreurSocket(QBluetoothSocket::SocketError erreur);
 
   signals:
     void peripheriqueDistantTrouve(QBluetoothDeviceInfo peripherique);
+    void peripheriqueDistantDeconnecte(QBluetoothDeviceInfo peripherique);
+    void donneesReceptionnees(QBluetoothDeviceInfo peripherique);
 };
 
 #endif // BLUETOOTH_H
