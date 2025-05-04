@@ -18,25 +18,25 @@ class Bluetooth : public QObject
     void envoyerMessage(QString adresse, QString trame);
     bool estToutConnecte();
     void arreterRecherche();
-    void receptionnerMessage(QBluetoothDeviceInfo peripherique);
+    void envoyerMessageGroupe(QString trame);
 
   private:
     QBluetoothDeviceInfo peripheriqueDistant; //[NOMBRE_TOTAL_PERIPHERIQUE];
     QBluetoothDeviceDiscoveryAgent* agentDecouverteBluetooth;
-    // QList<QString>                   listeAdressePistes;
+    QList<QString>                   listeAdressePistes;
     QMap<QString, QBluetoothSocket*> sockets;
 
   private slots:
     void gererPeripherique(QBluetoothDeviceInfo peripherique);
     void connecterPeripherique(QBluetoothDeviceInfo peripherique);
     void deconnecterPeripherique(QBluetoothDeviceInfo peripherique);
-    void traiterMessage(QBluetoothDeviceInfo peripherique);
-    void gererErreurSocket(QBluetoothSocket::SocketError erreur);
+    void traiterMessage(QBluetoothDeviceInfo peripherique, QString message);
+    void afficherErreurSocket(QBluetoothSocket::SocketError erreur);
 
   signals:
     void peripheriqueDistantTrouve(QBluetoothDeviceInfo peripherique);
-    void peripheriqueDistantDeconnecte(QBluetoothDeviceInfo peripherique);
-    void donneesReceptionnees(QBluetoothDeviceInfo peripherique);
+    //void peripheriqueDistantDeconnecte(QBluetoothDeviceInfo peripherique);
+    //void donneesReceptionnees(QBluetoothDeviceInfo peripherique, QString message);
 };
 
 #endif // BLUETOOTH_H
