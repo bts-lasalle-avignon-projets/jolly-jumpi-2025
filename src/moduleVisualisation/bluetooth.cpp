@@ -107,12 +107,12 @@ void Bluetooth::connecterPeripherique(QBluetoothDeviceInfo peripherique)
     qDebug() << Q_FUNC_INFO << "nom" << peripherique.name() << "adresse"
              << peripherique.address();
 
-    if(!sockets.contains(peripherique.address().toString()))
-    {
-        sockets[peripherique.address().toString()] =
-          new QBluetoothSocket(QBluetoothServiceInfo::RfcommProtocol);
+    QString adresse = peripherique.address().toString();
 
-        QBluetoothSocket* socket = sockets[peripherique.address().toString()];
+    if (!sockets.contains(adresse)) {
+        sockets[adresse] = new QBluetoothSocket(QBluetoothServiceInfo::RfcommProtocol);
+
+        QBluetoothSocket* socket = sockets[adresse];
 
         // Lecture des données entrantes
         connect(socket, &QBluetoothSocket::readyRead, this, [=]() {
@@ -121,10 +121,24 @@ void Bluetooth::connecterPeripherique(QBluetoothDeviceInfo peripherique)
                     traiterMessage(peripherique, message);
                 });
 
+        // Création du delai de connexion
+        QTimer* delaiConnexion = new QTimer(this);
+        delaiConnexion->setSingleShot(true);
+
+        connect(delaiConnexion, &QTimer::timeout, this, [=]() {
+            if (socket->state() != QBluetoothSocket::ConnectedState) {
+                qDebug() << "Delai de connexion dépassé pour :" << peripherique.name() << " : "
+                         << adresse;
+                socket->abort();
+            }
+            delaiConnexion->deleteLater();
+        });
+
         // Signale quand connecté
         connect(socket, &QBluetoothSocket::connected, this, [=]() {
-                    qDebug() << "Connecté à:" << peripherique.name()
-                     << peripherique.address().toString();
+            qDebug() << "Connecté à:" << peripherique.name() << adresse;
+            delaiConnexion->stop();
+            delaiConnexion->deleteLater();
         });
 
         // Signale quand erreur
@@ -145,6 +159,7 @@ void Bluetooth::connecterPeripherique(QBluetoothDeviceInfo peripherique)
         {
             socket->connectToService(peripherique.address(), uuid);
             socket->open(QIODevice::ReadWrite);
+            delaiConnexion->start(8000);
         }
         else
         {
