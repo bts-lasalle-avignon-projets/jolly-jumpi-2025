@@ -14,17 +14,17 @@
 //#define NUMERO_PISTE 1 //!< Numéro de la piste (cf. platformio.ini)
 
 // Configuration Bluetooth
-//#define BLUETOOTH_SLAVE //!< esclave (attend les connexions des clients)
-#define BLUETOOTH_MASTER //!< maître (se connecte au serveur)
+//#define BLUETOOTH_SLAVE //!< esclave (attendra la connexion d'un client)
+#define BLUETOOTH_MASTER //!< maître (se connectera au serveur)
 #ifdef BLUETOOTH_MASTER
 #define USE_NAME_SERVER                                                        \
     false //!< Utiliser le nom du serveur sinon l'adresse MAC
 #define ENABLE_DISCOVERY true //!< Activer la recherche de périphériques
 #define RECHERCHE_ASYNCHRONE                                                   \
-    true                 //!< Activer la recherche asynchrone sinon synchrone
-#define ENABLE_SSP false //!< Activer le Secure Simple Pairing
+    true                //!< Activer la recherche asynchrone sinon synchrone
+#define ENABLE_SSP true //!< Activer le Secure Simple Pairing
 //#define PREFIXE_NOM_SERVEUR "sedatech" //!< Le préfixe à rechercher
-// define NOM_SERVEUR         "sedatech" //!< Le nom du serveur par défaut
+//#define NOM_SERVEUR         "sedatech" //!< Le nom du serveur par défaut
 #define PREFIXE_NOM_SERVEUR "jp-visu" //!< Le préfixe à rechercher
 #define NOM_SERVEUR         "jp-visu" //!< Le nom du serveur par défaut
 #define CODE_PIN            "1234"    //!< Code PIN pour l'appairage
@@ -114,10 +114,12 @@ String          prefixeNomServeur =
 String  nomServeur = String(NOM_SERVEUR); //!< Le nom du serveur découvert
 uint8_t adresseMACServeur[LONGUEUR_ADRESSE_MAC] = {
     0
-}; //!< Adresse MAC du serveur découvert
-bool       connecte                     = false; //!< connecté au serveur
-bool       serveurTrouve                = false; //!< serveur trouvé
+};                                //!< Adresse MAC du serveur découvert
+bool       connecte      = false; //!< connecté au serveur
+bool       etatConnexion = false; //!< état de la connexion au serveur
+bool       serveurTrouve = false; //!< serveur trouvé
 bool       demandeConfirmationAppairage = false;
+bool       appairageReussi              = false; //!< Appairage réussi
 EtatPartie etatPartie                   = Finie; //!< l'état de la partie
 ModeJeu    modeJeu                      = ModeJeu::Standard; //!< le mode de jeu
 bool      estAssocie = false; //!< le module est associé pour joueur une partie
@@ -335,6 +337,7 @@ void setup()
             demarrerRecherchePeripheriques(TEMPS_RECHERCHE);
         }
 
+        etatConnexion = false;
         if(serveurTrouve)
         {
             // il faut que les deux périphériques soient "appairés" (paired)
@@ -372,6 +375,22 @@ void setup()
             Serial.println(
               "[Jolly Jumpi] Impossible de se connecter au serveur !");
             delay(1000);
+            if(appairageReussi)
+            {
+                // On va reessayer
+                if(USE_NAME_SERVER)
+                {
+                    // il faut que le serveur soit en mode "découverte"
+                    // (discoverable) pour faire la résolution du nom
+                    connecte = connecter(nomServeur, CODE_PIN, ENABLE_SSP);
+                }
+                else
+                {
+                    // Plus rapide !
+                    connecte =
+                      connecter(adresseMACServeur, CODE_PIN, ENABLE_SSP);
+                }
+            }
         }
     }
 #ifdef DEBUG
