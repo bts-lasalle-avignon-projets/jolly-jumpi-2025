@@ -54,6 +54,28 @@ Et pour simuler un tir, on utilise :
 
 ## Bluetooth
 
+On peut choisir deux modes d'exploitation du Bluetooth :
+
+```cpp
+//#define BLUETOOTH_SLAVE //!< esclave (attendra la connexion d'un client)
+#define BLUETOOTH_MASTER //!< maître (se connectera au serveur)
+```
+
+Si besoin, il est possible d'activer la découverte des périphériques Bluetooth :
+
+```cpp
+#define ENABLE_DISCOVERY     true //!< Activer la recherche de périphériques
+#define RECHERCHE_ASYNCHRONE true //!< Activer la recherche asynchrone sinon synchrone
+```
+
+Pour se connecter à un périphérique on peut utiliser son nom (plus long) ou son adresse MAC (plus rapide) :
+
+```cpp
+#define USE_NAME_SERVER     false //!< Utiliser le nom du serveur sinon l'adresse MAC
+```
+
+### Appairage manuel côté PC
+
 Le plus simple est d'appairer les "tables" ESP32 côté PC :
 
 - on peut commencer à rendre le PC découvrable (indéfiniment) :
@@ -83,6 +105,14 @@ Device XX:XX:XX:XX:XX:XX jp-piste-1
 ```
 
 > Voir aussi `/etc/bluetooth/main.conf`
+
+### Appairage automatique
+
+Il faut activer SPP :
+
+```cpp
+#define ENABLE_SSP          true       //!< Activer le Secure Simple Pairing
+```
 
 ## Trames
 

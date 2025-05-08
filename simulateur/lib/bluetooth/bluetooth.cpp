@@ -3,8 +3,10 @@
 extern BluetoothSerial ESPBluetooth;
 extern String          prefixeNomServeur;
 extern String          nomServeur;
-extern bool            serveurTrouve;
 extern uint8_t         adresseMACServeur[ESP_BD_ADDR_LEN];
+extern bool            serveurTrouve;
+extern bool            etatConnexion;
+extern bool            appairageReussi;
 extern bool            demandeConfirmationAppairage;
 
 void trouverPeripherique(BTAdvertisedDevice* peripherique)
@@ -41,16 +43,21 @@ void demanderConfirmation(uint32_t numVal)
 void finaliserAuthentification(boolean succes)
 {
     demandeConfirmationAppairage = false;
-#ifdef DEBUG
+
     if(succes)
     {
+        appairageReussi = true;
+#ifdef DEBUG
         Serial.println("[Bluetooth] Appairage reussi !");
+#endif
     }
     else
     {
+        appairageReussi = false;
+#ifdef DEBUG
         Serial.println("[Bluetooth] Echec apparaige !");
-    }
 #endif
+    }
 }
 
 void gererEvenementBluetooth(esp_spp_cb_event_t  event,
@@ -58,14 +65,16 @@ void gererEvenementBluetooth(esp_spp_cb_event_t  event,
 {
     if(event == ESP_SPP_SRV_OPEN_EVT)
     {
+        etatConnexion = true;
 #ifdef DEBUG
-        Serial.println("[Bluetooth] Connexion");
+        Serial.println("[Bluetooth] Etat connecte");
 #endif
     }
     else if(event == ESP_SPP_CLOSE_EVT)
     {
+        etatConnexion = false;
 #ifdef DEBUG
-        Serial.println("[Bluetooth] Deconnexion");
+        Serial.println("[Bluetooth] Etat deconnecte");
 #endif
     }
     else if(event == ESP_SPP_DATA_IND_EVT)
@@ -127,6 +136,13 @@ void arreterRecherchePeripheriques()
 
 bool connecter(uint8_t adresseDistante[], const char* pin, bool enableSSP)
 {
+    if(!ESPBluetooth.isReady(true))
+    {
+#ifdef DEBUG
+        Serial.println("[Bluetooth] Non initialisé ou mode master non actif !");
+#endif
+        return false;
+    }
 #ifdef DEBUG
     char str[18];
     sprintf(str,
@@ -145,7 +161,7 @@ bool connecter(uint8_t adresseDistante[], const char* pin, bool enableSSP)
         Serial.println("[Bluetooth] Activer SSP (Secure Simple Pairing)");
 #endif
         ESPBluetooth.enableSSP();
-        if(pin)
+        if(pin && *pin)
         {
 #ifdef DEBUG
             Serial.println("[Bluetooth] Code PIN : " + String(pin));
@@ -179,16 +195,20 @@ bool connecter(uint8_t adresseDistante[], const char* pin, bool enableSSP)
 
 bool connecter(String nomDistant, const char* pin, bool enableSSP)
 {
+    if(!ESPBluetooth.isReady(true))
+    {
 #ifdef DEBUG
-    Serial.println("[Bluetooth] Connexion vers le serveur " + nomDistant);
+        Serial.println("[Bluetooth] Non initialisé ou mode master non actif !");
 #endif
+        return false;
+    }
     if(enableSSP)
     {
 #ifdef DEBUG
         Serial.println("[Bluetooth] Activer SSP (Secure Simple Pairing)");
 #endif
         ESPBluetooth.enableSSP();
-        if(pin)
+        if(pin && *pin)
         {
 #ifdef DEBUG
             Serial.println("[Bluetooth] Code PIN : " + String(pin));
@@ -200,6 +220,9 @@ bool connecter(String nomDistant, const char* pin, bool enableSSP)
     }
 
     ESPBluetooth.register_callback(gererEvenementBluetooth);
+#ifdef DEBUG
+    Serial.println("[Bluetooth] Connexion vers le serveur " + nomDistant);
+#endif
     bool estConnecte = ESPBluetooth.connect(nomDistant);
     if(estConnecte)
     {
@@ -221,14 +244,23 @@ bool connecter(String nomDistant, const char* pin, bool enableSSP)
 
 bool reconnecter()
 {
-    // disconnect() may take upto 10 secs max
+    if(!ESPBluetooth.isReady(true))
+    {
+#ifdef DEBUG
+        Serial.println("[Bluetooth] Non initialisé ou mode master non actif !");
+#endif
+        return false;
+    }
+    // 10 s max
     if(ESPBluetooth.disconnect())
     {
 #ifdef DEBUG
-        Serial.println("[Bluetooth] Déconnexion réussiée !");
+        Serial.println("[Bluetooth] Déconnexion réussie !");
 #endif
     }
-    // this would reconnect to the name (will use address, if resolved) or
-    // address used with connect(name/address).
+#ifdef DEBUG
+    Serial.println("[Bluetooth] Tentative reconnexion");
+#endif
+
     return ESPBluetooth.connect();
 }
