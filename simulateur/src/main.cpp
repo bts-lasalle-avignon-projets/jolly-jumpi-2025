@@ -21,8 +21,8 @@
     false //!< Utiliser le nom du serveur sinon l'adresse MAC
 #define ENABLE_DISCOVERY true //!< Activer la recherche de périphériques
 #define RECHERCHE_ASYNCHRONE                                                   \
-    true                //!< Activer la recherche asynchrone sinon synchrone
-#define ENABLE_SSP true //!< Activer le Secure Simple Pairing
+    true                 //!< Activer la recherche asynchrone sinon synchrone
+#define ENABLE_SSP false //!< Activer le Secure Simple Pairing
 //#define PREFIXE_NOM_SERVEUR "sedatech" //!< Le préfixe à rechercher
 //#define NOM_SERVEUR         "sedatech" //!< Le nom du serveur par défaut
 #define PREFIXE_NOM_SERVEUR "jp-visu" //!< Le préfixe à rechercher
@@ -33,8 +33,8 @@
 #define TEMPS_RECHERCHE      10000 //!< Temps d'attente de recherche de périphériques
 #define LONGUEUR_ADRESSE_MAC 6 //!< Longueur de l'adresse MAC
 // Si USE_NAME_SERVER à false, on utilise l'adresse MAC (plus rapide)
-uint8_t adresseMACServeur[LONGUEUR_ADRESSE_MAC] = { 0x00, 0x1A, 0x7D,
-                                                    0xDA, 0x71, 0x0A };
+uint8_t adresseMACServeurDefaut[LONGUEUR_ADRESSE_MAC] = { 0x00, 0x1A, 0x7D,
+                                                          0xDA, 0x71, 0x0A };
 /*uint8_t adresseMACServeurDefaut[LONGUEUR_ADRESSE_MAC] = {
     0x3C, 0xE9, 0xF7, 0x61, 0x82, 0x20
 };    // pour sedatech*/
