@@ -5,17 +5,46 @@
  * @version 1.0
  */
 #include <Arduino.h>
-#include <BluetoothSerial.h>
 #include <afficheur.h>
-#include "esp_bt_main.h"
-#include "esp_bt_device.h"
+#include <bluetooth.h>
 
-#define DEBUG
+// Configuration table Jolly Jumpi
+#define PRECISION_TIR 80 //!< Précision du tir (en %)
+#define NB_TROUS      6
+//#define NUMERO_PISTE 1 //!< Numéro de la piste (cf. platformio.ini)
+
+// Configuration Bluetooth
+//#define BLUETOOTH_SLAVE //!< esclave (attend les connexions des clients)
+#define BLUETOOTH_MASTER //!< maître (se connecte au serveur)
+#ifdef BLUETOOTH_MASTER
+#define USE_NAME_SERVER                                                        \
+    false //!< Utiliser le nom du serveur sinon l'adresse MAC
+#define ENABLE_DISCOVERY true //!< Activer la recherche de périphériques
+#define RECHERCHE_ASYNCHRONE                                                   \
+    true                 //!< Activer la recherche asynchrone sinon synchrone
+#define ENABLE_SSP false //!< Activer le Secure Simple Pairing
+//#define PREFIXE_NOM_SERVEUR "sedatech" //!< Le préfixe à rechercher
+// define NOM_SERVEUR         "sedatech" //!< Le nom du serveur par défaut
+#define PREFIXE_NOM_SERVEUR "jp-visu" //!< Le préfixe à rechercher
+#define NOM_SERVEUR         "jp-visu" //!< Le nom du serveur par défaut
+#define CODE_PIN            "1234"    //!< Code PIN pour l'appairage
+// Les timeout en ms
+#define ATTENTE_CONNEXION    10000 //!< Temps d'attente de connexion au serveur
+#define TEMPS_RECHERCHE      10000 //!< Temps d'attente de recherche de périphériques
+#define LONGUEUR_ADRESSE_MAC 6 //!< Longueur de l'adresse MAC
+// Si USE_NAME_SERVER à false, on utilise l'adresse MAC (plus rapide)
+uint8_t adresseMACServeur[LONGUEUR_ADRESSE_MAC] = { 0x00, 0x1A, 0x7D,
+                                                    0xDA, 0x71, 0x0A };
+/*uint8_t adresseMACServeurDefaut[LONGUEUR_ADRESSE_MAC] = {
+    0x3C, 0xE9, 0xF7, 0x61, 0x82, 0x20
+};    // pour sedatech*/
+#else // BLUETOOTH_SLAVE
+#endif
 
 // Brochages
-#define GPIO_LED_ROUGE   5    //!<
-#define GPIO_LED_ORANGE  17   //!< Trame OK
-#define GPIO_LED_VERTE   16   //!< Trame START
+#define GPIO_LED_ROUGE   5    //!< Partie finie
+#define GPIO_LED_ORANGE  17   //!< Prêt à jouer
+#define GPIO_LED_VERTE   16   //!< Partie en cours
 #define GPIO_SW1         12   //!< Pour simuler un tir
 #define ADRESSE_I2C_OLED 0x3c //!< Adresse I2C de l'OLED
 #define BROCHE_I2C_SDA   21   //!< Broche SDA
@@ -28,15 +57,9 @@
 #define DELIMITEUR_DATAS ';'
 #define DELIMITEUR_FIN   '\n'
 
-#define NUMERO_PISTE 2 //!< Numéro de la piste
-#define NB_TROUS     6
-
-#define BLUETOOTH
-#ifdef BLUETOOTH
-#define BLUETOOTH_SLAVE //!< esclave
-// #define BLUETOOTH_MASTER //!< maître
-BluetoothSerial ESPBluetooth;
-#endif
+// Divers
+#define BUFFER_TRAME 64 //!< Buffer pour les trames
+#define LG_STR       18 //!< Longueur des messages texte (pour affichage)
 
 /**
  * @enum TypeTrame
@@ -84,21 +107,33 @@ const String nomsTrame[TypeTrame::NB_TRAMES] = {
     ""
 }; //!< nom des trames dans le protocole
 
-EtatPartie etatPartie = Finie;             //!< l'état de la partie
-ModeJeu    modeJeu    = ModeJeu::Standard; //!< le mode de jeu
-bool       tirEncours = false;             //!<
-int        numeroTrou = 0;                 //!< de 0 à NB_TROUS
-int        nbTrous    = NB_TROUS;          //!< le nombre de trous détectables
-bool       refresh    = false; //!< demande rafraichissement de l'écran OLED
-bool       antiRebond = false; //!< anti-rebond
-Afficheur  afficheur(ADRESSE_I2C_OLED,
+// variables globales
+BluetoothSerial ESPBluetooth;
+String          prefixeNomServeur =
+  String(PREFIXE_NOM_SERVEUR);            //!< Le préfixe à rechercher
+String  nomServeur = String(NOM_SERVEUR); //!< Le nom du serveur découvert
+uint8_t adresseMACServeur[LONGUEUR_ADRESSE_MAC] = {
+    0
+}; //!< Adresse MAC du serveur découvert
+bool       connecte                     = false; //!< connecté au serveur
+bool       serveurTrouve                = false; //!< serveur trouvé
+bool       demandeConfirmationAppairage = false;
+EtatPartie etatPartie                   = Finie; //!< l'état de la partie
+ModeJeu    modeJeu                      = ModeJeu::Standard; //!< le mode de jeu
+bool      estAssocie = false; //!< le module est associé pour joueur une partie
+bool      tirEncours = false; //!<
+int       numeroTrou = 0;     //!< de 0 à NB_TROUS
+int       nbTrous    = NB_TROUS; //!< le nombre de trous détectables
+bool      refresh    = false;    //!< demande rafraichissement de l'écran OLED
+bool      antiRebond = false;    //!< anti-rebond
+Afficheur afficheur(ADRESSE_I2C_OLED,
                     BROCHE_I2C_SDA,
                     BROCHE_I2C_SCL);                //!< afficheur OLED SSD1306
-String     entete        = String(EN_TETE_TRAME);    // caractère séparateur
-String     separateur    = String(DELIMITEUR_CHAMP); // caractère séparateur
-String     delimiteurFin = String(DELIMITEURS_FIN);  // fin de trame
+String    entete        = String(EN_TETE_TRAME);    // caractère séparateur
+String    separateur    = String(DELIMITEUR_CHAMP); // caractère séparateur
+String    delimiteurFin = String(DELIMITEURS_FIN);  // fin de trame
 
-String extraireChamp(String& trame, unsigned int numeroChamp)
+String extraireChamp(const String& trame, unsigned int numeroChamp)
 {
     String       champ;
     unsigned int compteurCaractere  = 0;
@@ -130,7 +165,7 @@ String extraireChamp(String& trame, unsigned int numeroChamp)
  */
 void envoyerTrameTir(int numeroTable, int numeroTrou)
 {
-    char trameEnvoi[64];
+    char trameEnvoi[BUFFER_TRAME];
 
     // Format : $p;s\n
     sprintf((char*)trameEnvoi,
@@ -141,23 +176,23 @@ void envoyerTrameTir(int numeroTable, int numeroTrou)
     ESPBluetooth.write((uint8_t*)trameEnvoi, strlen((char*)trameEnvoi));
 #ifdef DEBUG
     String trame = String(trameEnvoi);
-    trame.remove(trame.indexOf("\r"), 1);
-    Serial.print("> ");
+    trame.remove(trame.indexOf("\n"), 1);
+    Serial.print("[main] > ");
     Serial.println(trame);
 #endif
 }
 
 void envoyerTrameAssociation()
 {
-    char trameEnvoi[64];
+    char trameEnvoi[BUFFER_TRAME];
 
     // Format : $Ap\n
     sprintf((char*)trameEnvoi, "%sA%d\n", entete.c_str(), NUMERO_PISTE);
     ESPBluetooth.write((uint8_t*)trameEnvoi, strlen((char*)trameEnvoi));
 #ifdef DEBUG
     String trame = String(trameEnvoi);
-    trame.remove(trame.indexOf("\r"), 1);
-    Serial.print("> ");
+    trame.remove(trame.indexOf("\n"), 1);
+    Serial.print("[main] > ");
     Serial.println(trame);
 #endif
 }
@@ -186,14 +221,10 @@ bool lireTrame(String& trame)
 {
     if(ESPBluetooth.available())
     {
-#ifdef DEBUG
-        Serial.print("Disponible : ");
-        Serial.println(ESPBluetooth.available());
-#endif
         trame.clear();
         trame = ESPBluetooth.readStringUntil(DELIMITEUR_FIN);
 #ifdef DEBUG
-        Serial.print("< ");
+        Serial.print("[main] < ");
         Serial.println(trame);
 #endif
         trame.concat(DELIMITEUR_FIN); // remet le DELIMITEUR_FIN
@@ -219,22 +250,17 @@ TypeTrame verifierTrame(String& trame)
         // Format : $...
         format = entete + nomsTrame[i];
 #ifdef DEBUG
-        Serial.print("Verification trame : ");
+        Serial.print("[main] Type de trame : ");
         Serial.print(format);
+        Serial.println(" ?");
 #endif
         if(trame.indexOf(format) != -1)
         {
             return (TypeTrame)i;
         }
-        else
-        {
-#ifdef DEBUG
-            Serial.println("");
-#endif
-        }
     }
 #ifdef DEBUG
-    Serial.println("Type de trame : inconnu");
+    Serial.println("[main] Type de trame : inconnu");
 #endif
     return Inconnu;
 }
@@ -258,44 +284,116 @@ void setup()
     Serial.begin(115200);
     while(!Serial)
         ;
+    delay(1000); // Attendre que le moniteur série soit prêt
 
+#ifdef DEBUG
+    Serial.println("[main] Jolly Jumpi 2025");
+    Serial.println("[main] Piste         : " + String(NUMERO_PISTE));
+    Serial.println("[main] Nb trous      : " + String(NB_TROUS));
+    Serial.println("[main] Precision tir : " + String(PRECISION_TIR) + " %");
+#endif
+
+    // Configuration E/S
     pinMode(GPIO_LED_ROUGE, OUTPUT);
     pinMode(GPIO_LED_ORANGE, OUTPUT);
     pinMode(GPIO_LED_VERTE, OUTPUT);
     pinMode(GPIO_SW1, INPUT_PULLUP);
-
-    attachInterrupt(digitalPinToInterrupt(GPIO_SW1), tirer, FALLING);
-
-    digitalWrite(GPIO_LED_ROUGE, HIGH);
+    digitalWrite(GPIO_LED_ROUGE, LOW);
     digitalWrite(GPIO_LED_ORANGE, LOW);
     digitalWrite(GPIO_LED_VERTE, LOW);
 
+    // Simulateur de tir
+    attachInterrupt(digitalPinToInterrupt(GPIO_SW1), tirer, FALLING);
+
+    // Afficheur OLED
     afficheur.initialiser();
 
     String titre  = "";
     String stitre = "=====================";
-
-#ifdef BLUETOOTH
-#ifdef BLUETOOTH_MASTER
-    String nomBluetooth = "iot-esp-maitre";
-    ESPBluetooth.begin(nomBluetooth, true);
-    const uint8_t* adresseESP32 = esp_bt_dev_get_address();
-    char           str[18];
-    sprintf(str,
-            "%02x:%02x:%02x:%02x:%02x:%02x",
-            adresseESP32[0],
-            adresseESP32[1],
-            adresseESP32[2],
-            adresseESP32[3],
-            adresseESP32[4],
-            adresseESP32[5]);
-    stitre = String("== ") + String(str) + String(" ==");
-    titre  = nomBluetooth;
-#else
+    char   str[LG_STR];
     String nomBluetooth = "jp-piste-" + String(NUMERO_PISTE); // NUMERO_PISTE
+
+    // Initialisation de la communication Bluetooth
+#ifdef BLUETOOTH_MASTER
+    ESPBluetooth.begin(nomBluetooth, true);
+
+    // Copie l'adresse MAC par défaut
+    mempcpy(adresseMACServeur, adresseMACServeurDefaut, LONGUEUR_ADRESSE_MAC);
+
+    // Gère la connexion au serveur
+    // Recherche du serveur ?
+    if(ENABLE_DISCOVERY)
+    {
+        if(RECHERCHE_ASYNCHRONE)
+        {
+            demarrerRecherchePeripheriques();
+            delay(TEMPS_RECHERCHE);
+            arreterRecherchePeripheriques();
+        }
+        else
+        {
+            demarrerRecherchePeripheriques(TEMPS_RECHERCHE);
+        }
+
+        if(serveurTrouve)
+        {
+            // il faut que les deux périphériques soient "appairés" (paired)
+            if(USE_NAME_SERVER)
+            {
+                // il faut que le serveur soit en mode "découverte"
+                // (discoverable) pour faire la résolution du nom
+                connecte = connecter(nomServeur, CODE_PIN, ENABLE_SSP);
+            }
+            else
+            {
+                // Plus rapide !
+                connecte = connecter(adresseMACServeur, CODE_PIN, ENABLE_SSP);
+            }
+        }
+    }
+    if(!connecte || !ENABLE_DISCOVERY)
+    {
+        // il faut que les deux périphériques soient "appairés" (paired)
+        if(USE_NAME_SERVER)
+        {
+            // il faut que le serveur soit en mode "découverte" (discoverable)
+            connecte = connecter(nomServeur, CODE_PIN, ENABLE_SSP);
+        }
+        else
+        {
+            connecte = connecter(adresseMACServeur, CODE_PIN, ENABLE_SSP);
+        }
+    }
+    if(!connecte)
+    {
+        while(!ESPBluetooth.connected(ATTENTE_CONNEXION))
+        {
+            // ESPBluetooth.confirmReply(true);
+            Serial.println(
+              "[Jolly Jumpi] Impossible de se connecter au serveur !");
+            delay(1000);
+        }
+    }
+#ifdef DEBUG
+    sprintf(str,
+            "%02x:%02x:%02x:%02x:%02x:%02x",
+            adresseMACServeur[0],
+            adresseMACServeur[1],
+            adresseMACServeur[2],
+            adresseMACServeur[3],
+            adresseMACServeur[4],
+            adresseMACServeur[5]);
+    if(USE_NAME_SERVER)
+        Serial.print("[main] Connexion vers le serveur " + nomServeur);
+    else
+        Serial.print("[main] Connexion vers le serveur " + String(str));
+    Serial.print(" : ");
+    Serial.println(connecte ? "ok" : "echec");
+#endif
+#else // BLUETOOTH_SLAVE
     ESPBluetooth.begin(nomBluetooth);
+#endif
     const uint8_t* adresseESP32 = esp_bt_dev_get_address();
-    char           str[18];
     sprintf(str,
             "%02x:%02x:%02x:%02x:%02x:%02x",
             adresseESP32[0],
@@ -304,23 +402,22 @@ void setup()
             adresseESP32[3],
             adresseESP32[4],
             adresseESP32[5]);
+
     stitre = String("== ") + String(str) + String(" ==");
     titre  = nomBluetooth;
-#endif
-#endif
-
 #ifdef DEBUG
-    Serial.println(titre);
-    Serial.println(stitre);
+    Serial.println("[main] Nom : " + nomBluetooth);
+    Serial.println("[main] Adresse : " + String(str));
 #endif
 
+    // Initialise l'affichage
     afficheur.setTitre(titre);
     afficheur.setSTitre(stitre);
     afficheur.afficher();
 
     // initialise le générateur pseudo-aléatoire
     // Serial.println(randomSeed(analogRead(34)));
-    Serial.println(esp_random());
+    esp_random();
 }
 
 /**
@@ -333,6 +430,11 @@ void loop()
 {
     String    trame;
     TypeTrame typeTrame;
+
+    if(ENABLE_SSP && demandeConfirmationAppairage)
+    {
+        ESPBluetooth.confirmReply(true);
+    }
 
     if(refresh)
     {
@@ -350,8 +452,8 @@ void loop()
     if(tirEncours)
     {
         char strMessageDisplay[24];
-        int  tir =
-          random(0, (NB_TROUS * 2)) + 1; // 1 chance sur 2 : entre 1 et 12
+        int  tir = random(0, long(NB_TROUS * (100. / PRECISION_TIR))) +
+                  1; // dépend de sa précision !
         if(tir >= 1 && tir <= NB_TROUS)
         {
             int numeroTable = NUMERO_PISTE;
@@ -369,7 +471,7 @@ void loop()
         afficheur.setMessageLigne(Afficheur::Ligne2, message);
         tirEncours = false;
 #ifdef DEBUG
-        Serial.println(strMessageDisplay);
+        Serial.println("[main] Tir " + String(strMessageDisplay));
 #endif
         refresh = true;
     }
@@ -378,25 +480,44 @@ void loop()
     {
         typeTrame = verifierTrame(trame);
         if(typeTrame != Inconnu)
-            afficheur.setMessageLigne(Afficheur::Ligne4, nomsTrame[typeTrame]);
+            afficheur.setMessageLigne(Afficheur::Ligne4,
+                                      String("Trame : ") +
+                                        nomsTrame[typeTrame]);
         refresh = true;
 #ifdef DEBUG
         if(typeTrame >= 0)
-            Serial.println("\nTrame : " + nomsTrame[typeTrame]);
+            Serial.println("[main] Trame : " + nomsTrame[typeTrame]);
 #endif
         switch(typeTrame)
         {
             case Inconnu:
                 break;
             case TypeTrame::ASSOCIATION:
-                envoyerTrameAssociation();
+                //$A\n
+                if(etatPartie == Finie)
+                {
+                    estAssocie = true;
+                    digitalWrite(GPIO_LED_ROUGE, LOW);
+                    digitalWrite(GPIO_LED_ORANGE, LOW);
+                    digitalWrite(GPIO_LED_VERTE, LOW);
+                    afficheur.setMessageLigne(Afficheur::Ligne2,
+                                              String("Associe"));
+                    afficheur.afficher();
+#ifdef DEBUG
+                    Serial.println("[main] Association");
+#endif
+                    envoyerTrameAssociation();
+                }
                 break;
             case TypeTrame::MODE_JEU:
                 //$Cm\n
-                if(etatPartie == Finie)
+                if(etatPartie == Finie && estAssocie)
                 {
                     int mode = trame.charAt(2) - '0';
                     modeJeu  = (ModeJeu)mode;
+                    digitalWrite(GPIO_LED_ROUGE, LOW);
+                    digitalWrite(GPIO_LED_ORANGE, HIGH);
+                    digitalWrite(GPIO_LED_VERTE, LOW);
                     switch(mode)
                     {
                         case ModeJeu::Standard:
@@ -419,13 +540,12 @@ void loop()
                     }
                     afficheur.afficher();
 #ifdef DEBUG
-                    Serial.println("Mode jeu : " + String(mode));
+                    Serial.println("[main] Mode jeu : " + String(mode));
 #endif
                 }
-
                 break;
             case TypeTrame::DEBUT_PARTIE:
-                if(etatPartie == Finie)
+                if(etatPartie == Finie && estAssocie)
                 {
                     reinitialiserAffichage();
                     etatPartie = EnCours;
@@ -436,7 +556,7 @@ void loop()
                                               String("En cours"));
                     afficheur.afficher();
 #ifdef DEBUG
-                    Serial.println("Nouvelle partie");
+                    Serial.println("[main] Nouvelle partie");
 #endif
                 }
                 break;
@@ -445,17 +565,21 @@ void loop()
                 {
                     reinitialiserAffichage();
                     etatPartie = Finie;
+                    estAssocie = false;
                     digitalWrite(GPIO_LED_ROUGE, HIGH);
                     digitalWrite(GPIO_LED_ORANGE, LOW);
                     digitalWrite(GPIO_LED_VERTE, LOW);
                     afficheur.setMessageLigne(Afficheur::Ligne3,
                                               String("Finie"));
                     afficheur.afficher();
+#ifdef DEBUG
+                    Serial.println("[main] Partie finie");
+#endif
                 }
                 break;
             default:
 #ifdef DEBUG
-                Serial.println("Trame invalide !");
+                Serial.println("[main] Trame invalide !");
 #endif
                 break;
         }
