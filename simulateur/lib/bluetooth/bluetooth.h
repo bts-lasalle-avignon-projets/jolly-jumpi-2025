@@ -9,6 +9,8 @@
 #include <esp_spp_api.h>
 #include <esp_log.h>
 
+#define ATTENTE_PRET (10 * 1000)
+
 void trouverPeripherique(BTAdvertisedDevice* peripherique);
 void demanderConfirmation(uint32_t numVal);
 void finaliserAuthentification(boolean succes);

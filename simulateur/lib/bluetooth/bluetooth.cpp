@@ -136,7 +136,7 @@ void arreterRecherchePeripheriques()
 
 bool connecter(uint8_t adresseDistante[], const char* pin, bool enableSSP)
 {
-    if(!ESPBluetooth.isReady(true, (10 * 1000)))
+    if(!ESPBluetooth.isReady(true, ATTENTE_PRET))
     {
 #ifdef DEBUG
         Serial.println("[Bluetooth] Non initialisé ou mode master non actif !");
@@ -195,7 +195,7 @@ bool connecter(uint8_t adresseDistante[], const char* pin, bool enableSSP)
 
 bool connecter(String nomDistant, const char* pin, bool enableSSP)
 {
-    if(!ESPBluetooth.isReady(true, (10 * 1000)))
+    if(!ESPBluetooth.isReady(true, ATTENTE_PRET))
     {
 #ifdef DEBUG
         Serial.println("[Bluetooth] Non initialisé ou mode master non actif !");
@@ -244,7 +244,7 @@ bool connecter(String nomDistant, const char* pin, bool enableSSP)
 
 bool reconnecter()
 {
-    if(!ESPBluetooth.isReady(true, (10 * 1000)))
+    if(!ESPBluetooth.isReady(true, ATTENTE_PRET))
     {
 #ifdef DEBUG
         Serial.println("[Bluetooth] Non initialisé ou mode master non actif !");
@@ -466,7 +466,7 @@ void supprimerPeripheriquesAppaires()
 
 /*void getNomPeripherique(uint8_t adresseDistante[])
 {
-    if(ESPBluetooth.isReady(true, (10 * 1000)))
+    if(ESPBluetooth.isReady(true, ATTENTE_PRET))
     {
         esp_bt_gap_read_remote_name(adresseDistante);
     }
