@@ -19,7 +19,7 @@
 #ifdef BLUETOOTH_MASTER
 #define USE_NAME_SERVER                                                        \
     false //!< Utiliser le nom du serveur sinon l'adresse MAC
-#define ENABLE_DISCOVERY true //!< Activer la recherche de périphériques
+#define ENABLE_DISCOVERY false //!< Activer la recherche de périphériques
 #define RECHERCHE_ASYNCHRONE                                                   \
     true                 //!< Activer la recherche asynchrone sinon synchrone
 #define ENABLE_SSP false //!< Activer le Secure Simple Pairing
@@ -321,6 +321,11 @@ void setup()
 
     // Copie l'adresse MAC par défaut
     mempcpy(adresseMACServeur, adresseMACServeurDefaut, LONGUEUR_ADRESSE_MAC);
+
+    afficherPeripheriquesAppaires();
+    estPeripheriqueAppaire(
+      adresseMACServeurDefaut); // Vérifie si le périphérique par défaut est
+                                // déjà appairé
 
     // Gère la connexion au serveur
     // Recherche du serveur ?

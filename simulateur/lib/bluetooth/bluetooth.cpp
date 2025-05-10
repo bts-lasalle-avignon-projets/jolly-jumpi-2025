@@ -136,7 +136,7 @@ void arreterRecherchePeripheriques()
 
 bool connecter(uint8_t adresseDistante[], const char* pin, bool enableSSP)
 {
-    if(!ESPBluetooth.isReady(true))
+    if(!ESPBluetooth.isReady(true, (10 * 1000)))
     {
 #ifdef DEBUG
         Serial.println("[Bluetooth] Non initialisé ou mode master non actif !");
@@ -195,7 +195,7 @@ bool connecter(uint8_t adresseDistante[], const char* pin, bool enableSSP)
 
 bool connecter(String nomDistant, const char* pin, bool enableSSP)
 {
-    if(!ESPBluetooth.isReady(true))
+    if(!ESPBluetooth.isReady(true, (10 * 1000)))
     {
 #ifdef DEBUG
         Serial.println("[Bluetooth] Non initialisé ou mode master non actif !");
@@ -244,7 +244,7 @@ bool connecter(String nomDistant, const char* pin, bool enableSSP)
 
 bool reconnecter()
 {
-    if(!ESPBluetooth.isReady(true))
+    if(!ESPBluetooth.isReady(true, (10 * 1000)))
     {
 #ifdef DEBUG
         Serial.println("[Bluetooth] Non initialisé ou mode master non actif !");
@@ -264,3 +264,210 @@ bool reconnecter()
 
     return ESPBluetooth.connect();
 }
+
+void afficherPeripheriquesAppaires()
+{
+    int nbPeripheriquesAppaires = getNbPeripheriquesAppaires();
+    if(nbPeripheriquesAppaires == 0)
+    {
+#ifdef DEBUG
+        Serial.println("[Bluetooth] Aucun peripherique appaire !");
+#endif
+        return;
+    }
+
+    esp_bd_addr_t* listePeripheriquesAppaires = nullptr;
+    listePeripheriquesAppaires =
+      (esp_bd_addr_t*)malloc(sizeof(esp_bd_addr_t) * nbPeripheriquesAppaires);
+    if(listePeripheriquesAppaires == nullptr)
+    {
+        return;
+    }
+
+    int nbPeripheriquesAppairesLus =
+      getPeripheriquesAppaires(nbPeripheriquesAppaires,
+                               listePeripheriquesAppaires);
+    if(nbPeripheriquesAppairesLus == 0)
+    {
+#ifdef DEBUG
+        Serial.println("[Bluetooth] Aucun peripherique appaire !");
+#endif
+        return;
+    }
+    for(int i = 0; i < nbPeripheriquesAppairesLus; i++)
+    {
+        char str[18];
+        sprintf(str,
+                "%02x:%02x:%02x:%02x:%02x:%02x",
+                listePeripheriquesAppaires[i][0],
+                listePeripheriquesAppaires[i][1],
+                listePeripheriquesAppaires[i][2],
+                listePeripheriquesAppaires[i][3],
+                listePeripheriquesAppaires[i][4],
+                listePeripheriquesAppaires[i][5]);
+#ifdef DEBUG
+        Serial.print("[Bluetooth] Peripherique appaire : ");
+        Serial.println(str);
+#endif
+    }
+    free(listePeripheriquesAppaires);
+}
+
+int getNbPeripheriquesAppaires()
+{
+    return esp_bt_gap_get_bond_device_num();
+}
+
+bool estPeripheriqueAppaire(uint8_t* adressePeripherique)
+{
+    int nbPeripheriquesAppaires = getNbPeripheriquesAppaires();
+    if(nbPeripheriquesAppaires == 0)
+    {
+        return false;
+    }
+
+    esp_bd_addr_t* listePeripheriquesAppaires = nullptr;
+    listePeripheriquesAppaires =
+      (esp_bd_addr_t*)malloc(sizeof(esp_bd_addr_t) * nbPeripheriquesAppaires);
+    if(listePeripheriquesAppaires == nullptr)
+    {
+        return false;
+    }
+
+    int nbPeripheriquesAppairesLus =
+      getPeripheriquesAppaires(nbPeripheriquesAppaires,
+                               listePeripheriquesAppaires);
+    if(nbPeripheriquesAppairesLus == 0)
+    {
+        return false;
+    }
+    for(int i = 0; i < nbPeripheriquesAppairesLus; i++)
+    {
+        if(memcmp(adressePeripherique,
+                  listePeripheriquesAppaires[i],
+                  ESP_BD_ADDR_LEN) == 0)
+        /*if(listePeripheriquesAppaires[i][0] == adressePeripherique[0] &&
+           listePeripheriquesAppaires[i][1] == adressePeripherique[1] &&
+           listePeripheriquesAppaires[i][2] == adressePeripherique[2] &&
+           listePeripheriquesAppaires[i][3] == adressePeripherique[3] &&
+           listePeripheriquesAppaires[i][4] == adressePeripherique[4] &&
+           listePeripheriquesAppaires[i][5] == adressePeripherique[5])*/
+        {
+#ifdef DEBUG
+            char str[18];
+            sprintf(str,
+                    "%02x:%02x:%02x:%02x:%02x:%02x",
+                    listePeripheriquesAppaires[i][0],
+                    listePeripheriquesAppaires[i][1],
+                    listePeripheriquesAppaires[i][2],
+                    listePeripheriquesAppaires[i][3],
+                    listePeripheriquesAppaires[i][4],
+                    listePeripheriquesAppaires[i][5]);
+            Serial.println("[Bluetooth] Peripherique " + String(str) +
+                           " appaire");
+#endif
+            free(listePeripheriquesAppaires);
+            return true;
+        }
+    }
+#ifdef DEBUG
+    char str[18];
+    sprintf(str,
+            "%02x:%02x:%02x:%02x:%02x:%02x",
+            adressePeripherique[0],
+            adressePeripherique[1],
+            adressePeripherique[2],
+            adressePeripherique[3],
+            adressePeripherique[4],
+            adressePeripherique[5]);
+    Serial.println("[Bluetooth] Peripherique " + String(str) + " non appaire");
+#endif
+    free(listePeripheriquesAppaires);
+    return false;
+}
+
+int getPeripheriquesAppaires(uint nb, esp_bd_addr_t* listePeripheriquesAppaires)
+{
+    // typedef uint8_t esp_bd_addr_t[ESP_BD_ADDR_LEN]
+    if(listePeripheriquesAppaires == nullptr || nb == 0)
+    {
+        return 0;
+    }
+    int nbLus = nb;
+    esp_bt_gap_get_bond_device_list(&nbLus, listePeripheriquesAppaires);
+    return nbLus;
+}
+
+bool supprimerAppairagePeripherique(uint8_t* adressePeripherique)
+{
+    esp_err_t retour = esp_bt_gap_remove_bond_device(adressePeripherique);
+    if(retour == ESP_OK)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+void supprimerPeripheriquesAppaires()
+{
+    int nbPeripheriquesAppaires = getNbPeripheriquesAppaires();
+    if(nbPeripheriquesAppaires == 0)
+    {
+#ifdef DEBUG
+        Serial.println("[Bluetooth] Aucun peripherique appaire !");
+#endif
+        return;
+    }
+
+    esp_bd_addr_t* listePeripheriquesAppaires = nullptr;
+    listePeripheriquesAppaires =
+      (esp_bd_addr_t*)malloc(sizeof(esp_bd_addr_t) * nbPeripheriquesAppaires);
+    if(listePeripheriquesAppaires == nullptr)
+    {
+        return;
+    }
+
+    int nbPeripheriquesAppairesLus =
+      getPeripheriquesAppaires(nbPeripheriquesAppaires,
+                               listePeripheriquesAppaires);
+    if(nbPeripheriquesAppairesLus == 0)
+    {
+#ifdef DEBUG
+        Serial.println("[Bluetooth] Aucun peripherique appaire !");
+#endif
+        return;
+    }
+    for(int i = 0; i < nbPeripheriquesAppairesLus; i++)
+    {
+        char str[18];
+        sprintf(str,
+                "%02x:%02x:%02x:%02x:%02x:%02x",
+                listePeripheriquesAppaires[i][0],
+                listePeripheriquesAppaires[i][1],
+                listePeripheriquesAppaires[i][2],
+                listePeripheriquesAppaires[i][3],
+                listePeripheriquesAppaires[i][4],
+                listePeripheriquesAppaires[i][5]);
+#ifdef DEBUG
+        Serial.print("[Bluetooth] Suppression peripherique appaire [" +
+                     String(str) + "] : ");
+#endif
+        bool retour =
+          supprimerAppairagePeripherique(listePeripheriquesAppaires[i]);
+#ifdef DEBUG
+        Serial.println(retour ? "ok" : "echec");
+#endif
+    }
+    free(listePeripheriquesAppaires);
+}
+
+/*void getNomPeripherique(uint8_t adresseDistante[])
+{
+    if(ESPBluetooth.isReady(true, (10 * 1000)))
+    {
+        esp_bt_gap_read_remote_name(adresseDistante);
+    }
+}*/
