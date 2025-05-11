@@ -6,37 +6,64 @@
 #include <QBluetoothLocalDevice>
 #include <QMap>
 
+#define DELAI_CONNEXION 10000
+
+#define TEST_ASSOCIATION
+
+static const QString serviceNom(QStringLiteral("jolly-jumpi"));
+
 class Bluetooth : public QObject
 {
     Q_OBJECT
   public:
     Bluetooth();
     ~Bluetooth();
-    void initialiserAdressePeripherique();
-    void initialiserInterfaceLocal();
-    void trouverPeripherique();
-    void envoyerMessage(QString adresse, QString trame);
-    bool estToutConnecte();
-    void arreterRecherche();
-    void envoyerMessageGroupe(QString trame);
+
+    void              demarrerServeur();
+    void              arreterServeur();
+    int               getNbConnectes();
+    void              trouverPeripherique();
+    void              arreterRecherche();
+    void              envoyerMessage(QString adresse, QString trame);
+    void              envoyerMessageGroupe(QString trame);
+    QString           recupererAdressePeripherique(QBluetoothSocket* socket);
+    QBluetoothSocket* recupererSocketPeripherique(QString adresse);
+    QString           recupererNomPeripherique(QBluetoothSocket* socket);
+    QString           recupererNomPeripherique(QString adresse);
+    bool              estPeripheriqueConnecte(QString adresse);
 
   private:
-    QBluetoothDeviceInfo peripheriqueDistant; //[NOMBRE_TOTAL_PERIPHERIQUE];
-    QBluetoothDeviceDiscoveryAgent* agentDecouverteBluetooth;
-    QList<QString>                   listeAdressePistes;
+    QBluetoothLocalDevice            peripheriqueBluetoothLocal;
+    QBluetoothDeviceDiscoveryAgent*  agentDecouverteBluetooth;
+    QBluetoothServiceInfo            serviceBluetooth;
+    QBluetoothServer*                serveur;
     QMap<QString, QBluetoothSocket*> sockets;
+    QMap<QString, QString>           peripheriques;
+
+    void initialiserInterfaceLocal();
+    void arreterInterfaceLocal();
+    void libererCommunications();
+    void gererAppairage();
+    void afficherAppairagePeripherique(QBluetoothDeviceInfo peripherique);
+    void appairerPeripherique(QBluetoothDeviceInfo peripherique);
 
   private slots:
-    void gererPeripherique(QBluetoothDeviceInfo peripherique);
-    void connecterPeripherique(QBluetoothDeviceInfo peripherique);
+    void gererPeripheriqueDecouvert(QBluetoothDeviceInfo peripherique);
+    void connecterPeripheriqueDecouvert(QBluetoothDeviceInfo peripherique);
+    void connecterPeripheriqueDecouvert();
     void deconnecterPeripherique(QBluetoothDeviceInfo peripherique);
     void traiterMessage(QBluetoothDeviceInfo peripherique, QString message);
+    void traiterMessage(QString nom, QString adresse, QString message);
     void afficherErreurSocket(QBluetoothSocket::SocketError erreur);
+    void afficherEtat(QBluetoothSocket::SocketState etat);
 
   signals:
     void peripheriqueDistantTrouve(QBluetoothDeviceInfo peripherique);
-    //void peripheriqueDistantDeconnecte(QBluetoothDeviceInfo peripherique);
-    //void donneesReceptionnees(QBluetoothDeviceInfo peripherique, QString message);
+    void peripheriqueDistantConnecte(QBluetoothDeviceInfo peripherique);
+    void peripheriqueDistantDeconnecte(QBluetoothDeviceInfo peripherique);
+    void peripheriqueDistantConnecte(QString nom, QString adresse);
+    void peripheriqueDistantDeconnecte(QString nom, QString adresse);
+    void rechercheTerminee();
 };
 
 #endif // BLUETOOTH_H
