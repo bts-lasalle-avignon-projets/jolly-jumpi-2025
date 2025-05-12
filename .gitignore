@@ -63,3 +63,7 @@ compile_commands.json
 *.session
 idl_includes
 *.user
+
+# PlatformIO (simulateur)
+.pio
+.vscode
