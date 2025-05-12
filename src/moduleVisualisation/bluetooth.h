@@ -49,11 +49,13 @@ class Bluetooth : public QObject
 
   private slots:
     void gererPeripheriqueDecouvert(QBluetoothDeviceInfo peripherique);
-    void connecterPeripheriqueDecouvert(QBluetoothDeviceInfo peripherique);
-    void connecterPeripheriqueDecouvert();
+    void connecterPeripheriqueDecouvert(
+      QBluetoothDeviceInfo peripherique);  // client -> serveur (slave)
+    void connecterPeripheriqueDecouvert(); // serveur <- client (master)
     void deconnecterPeripherique(QBluetoothDeviceInfo peripherique);
     void traiterMessage(QBluetoothDeviceInfo peripherique, QString message);
     void traiterMessage(QString nom, QString adresse, QString message);
+    void afficherErreurServeur(QBluetoothServer::Error erreur);
     void afficherErreurSocket(QBluetoothSocket::SocketError erreur);
     void afficherEtat(QBluetoothSocket::SocketState etat);
 

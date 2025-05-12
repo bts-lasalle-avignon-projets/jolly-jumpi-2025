@@ -15,7 +15,7 @@
 #define ADR_MAC_PISTE_8 ""
 
 //// Prefix des noms des modules
-#define PREFIX_NOM_PISTE "jp-piste-"
+#define PREFIX_NOM_PISTE "jp-piste-2"
 //#define PREFIX_NOM_MOD_CONFIGURATION "jp-config-"
 #define PREFIX_NOM_MOD_CONFIGURATION "pessina"
 
