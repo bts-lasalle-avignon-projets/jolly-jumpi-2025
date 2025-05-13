@@ -166,7 +166,8 @@ bool connecter(uint8_t adresseDistante[], const char* pin, bool enableSSP)
 #ifdef DEBUG
             Serial.println("[Bluetooth] Code PIN : " + String(pin));
 #endif
-            ESPBluetooth.setPin(pin);
+            // ESPBluetooth.setPin(pin); // v2.2.0
+            // ESPBluetooth.setPin(pin, strlen(pin)); // v3.2.0
         }
         ESPBluetooth.onConfirmRequest(demanderConfirmation);
         ESPBluetooth.onAuthComplete(finaliserAuthentification);
@@ -174,7 +175,8 @@ bool connecter(uint8_t adresseDistante[], const char* pin, bool enableSSP)
 
     ESPBluetooth.register_callback(gererEvenementBluetooth);
     bool estConnecte =
-      ESPBluetooth.connect(adresseDistante, 0, ESP_SPP_SEC_NONE);
+      // ESPBluetooth.connect(adresseDistante, 0, ESP_SPP_SEC_NONE);
+      ESPBluetooth.connect(adresseDistante);
     if(estConnecte)
     {
 #ifdef DEBUG
@@ -186,8 +188,8 @@ bool connecter(uint8_t adresseDistante[], const char* pin, bool enableSSP)
 #ifdef DEBUG
         Serial.println("[Bluetooth] Echec connexion !");
 #endif
-        ESPBluetooth.confirmReply(true);
-        reconnecter();
+        ESPBluetooth.confirmReply(true); // ?
+        // reconnecter();
     }
 
     return estConnecte;
@@ -213,7 +215,8 @@ bool connecter(String nomDistant, const char* pin, bool enableSSP)
 #ifdef DEBUG
             Serial.println("[Bluetooth] Code PIN : " + String(pin));
 #endif
-            ESPBluetooth.setPin(pin);
+            // ESPBluetooth.setPin(pin); // v2.2.0
+            // ESPBluetooth.setPin(pin, strlen(pin)); // v3.2.0
         }
         ESPBluetooth.onConfirmRequest(demanderConfirmation);
         ESPBluetooth.onAuthComplete(finaliserAuthentification);
@@ -235,8 +238,8 @@ bool connecter(String nomDistant, const char* pin, bool enableSSP)
 #ifdef DEBUG
         Serial.println("[Bluetooth] Echec connexion !");
 #endif
-        ESPBluetooth.confirmReply(true);
-        reconnecter();
+        ESPBluetooth.confirmReply(true); // ?
+        // reconnecter();
     }
 
     return estConnecte;
@@ -386,7 +389,7 @@ bool estPeripheriqueAppaire(uint8_t* adressePeripherique)
     return false;
 }
 
-int getPeripheriquesAppaires(uint nb, esp_bd_addr_t* listePeripheriquesAppaires)
+int getPeripheriquesAppaires(int nb, esp_bd_addr_t* listePeripheriquesAppaires)
 {
     // typedef uint8_t esp_bd_addr_t[ESP_BD_ADDR_LEN]
     if(listePeripheriquesAppaires == nullptr || nb == 0)

@@ -28,8 +28,7 @@ bool reconnecter();
 void afficherPeripheriquesAppaires();
 int  getNbPeripheriquesAppaires();
 bool estPeripheriqueAppaire(uint8_t* adressePeripherique);
-int  getPeripheriquesAppaires(uint           nb,
-                              esp_bd_addr_t* listePeripheriquesAppaires);
+int getPeripheriquesAppaires(int nb, esp_bd_addr_t* listePeripheriquesAppaires);
 
 bool supprimerAppairagePeripherique(uint8_t* adressePeripherique);
 void supprimerPeripheriquesAppaires();

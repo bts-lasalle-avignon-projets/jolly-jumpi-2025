@@ -8,6 +8,10 @@
 #include <afficheur.h>
 #include <bluetooth.h>
 
+#if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
+#error Bluetooth is not enabled
+#endif
+
 // Configuration table Jolly Jumpi
 #define PRECISION_TIR 80 //!< Précision du tir (en %)
 #define NB_TROUS      6
@@ -33,8 +37,9 @@
 #define TEMPS_RECHERCHE      10000 //!< Temps d'attente de recherche de périphériques
 #define LONGUEUR_ADRESSE_MAC 6 //!< Longueur de l'adresse MAC
 // Si USE_NAME_SERVER à false, on utilise l'adresse MAC (plus rapide)
-uint8_t adresseMACServeurDefaut[LONGUEUR_ADRESSE_MAC] = { 0x00, 0x1A, 0x7D,
-                                                          0xDA, 0x71, 0x0A };
+uint8_t adresseMACServeurDefaut[LONGUEUR_ADRESSE_MAC] = {
+    0x00, 0xE0, 0x4C, 0x63, 0x17, 0x7F
+}; // dongle BT5
 /*uint8_t adresseMACServeurDefaut[LONGUEUR_ADRESSE_MAC] = {
     0x3C, 0xE9, 0xF7, 0x61, 0x82, 0x20
 };    // pour sedatech*/
@@ -109,12 +114,14 @@ const String nomsTrame[TypeTrame::NB_TRAMES] = {
 
 // variables globales
 BluetoothSerial ESPBluetooth;
-String          prefixeNomServeur =
+#ifdef BLUETOOTH_MASTER
+String prefixeNomServeur =
   String(PREFIXE_NOM_SERVEUR);            //!< Le préfixe à rechercher
 String  nomServeur = String(NOM_SERVEUR); //!< Le nom du serveur découvert
 uint8_t adresseMACServeur[LONGUEUR_ADRESSE_MAC] = {
     0
-};                                //!< Adresse MAC du serveur découvert
+}; //!< Adresse MAC du serveur découvert
+#endif
 bool       connecte      = false; //!< connecté au serveur
 bool       etatConnexion = false; //!< état de la connexion au serveur
 bool       serveurTrouve = false; //!< serveur trouvé
@@ -275,6 +282,12 @@ void reinitialiserAffichage()
     refresh = true;
 }
 
+void afficherBluetooth(String message)
+{
+    afficheur.setMessageLigne(Afficheur::Ligne1, message);
+    afficheur.afficher();
+}
+
 /**
  * @brief Initialise les ressources du programme
  *
@@ -307,10 +320,10 @@ void setup()
     // Simulateur de tir
     attachInterrupt(digitalPinToInterrupt(GPIO_SW1), tirer, FALLING);
 
-    // Afficheur OLED
+    // Initialise l'afficheur OLED
     afficheur.initialiser();
 
-    String titre  = "";
+    String titre  = "            ";
     String stitre = "=====================";
     char   str[LG_STR];
     String nomBluetooth = "jp-piste-" + String(NUMERO_PISTE); // NUMERO_PISTE
@@ -318,102 +331,6 @@ void setup()
     // Initialisation de la communication Bluetooth
 #ifdef BLUETOOTH_MASTER
     ESPBluetooth.begin(nomBluetooth, true);
-
-    // Copie l'adresse MAC par défaut
-    mempcpy(adresseMACServeur, adresseMACServeurDefaut, LONGUEUR_ADRESSE_MAC);
-
-    afficherPeripheriquesAppaires();
-    estPeripheriqueAppaire(
-      adresseMACServeurDefaut); // Vérifie si le périphérique par défaut est
-                                // déjà appairé
-
-    // Gère la connexion au serveur
-    // Recherche du serveur ?
-    if(ENABLE_DISCOVERY)
-    {
-        if(RECHERCHE_ASYNCHRONE)
-        {
-            demarrerRecherchePeripheriques();
-            delay(TEMPS_RECHERCHE);
-            arreterRecherchePeripheriques();
-        }
-        else
-        {
-            demarrerRecherchePeripheriques(TEMPS_RECHERCHE);
-        }
-
-        etatConnexion = false;
-        if(serveurTrouve)
-        {
-            // il faut que les deux périphériques soient "appairés" (paired)
-            if(USE_NAME_SERVER)
-            {
-                // il faut que le serveur soit en mode "découverte"
-                // (discoverable) pour faire la résolution du nom
-                connecte = connecter(nomServeur, CODE_PIN, ENABLE_SSP);
-            }
-            else
-            {
-                // Plus rapide !
-                connecte = connecter(adresseMACServeur, CODE_PIN, ENABLE_SSP);
-            }
-        }
-    }
-    if(!connecte || !ENABLE_DISCOVERY)
-    {
-        // il faut que les deux périphériques soient "appairés" (paired)
-        if(USE_NAME_SERVER)
-        {
-            // il faut que le serveur soit en mode "découverte" (discoverable)
-            connecte = connecter(nomServeur, CODE_PIN, ENABLE_SSP);
-        }
-        else
-        {
-            connecte = connecter(adresseMACServeur, CODE_PIN, ENABLE_SSP);
-        }
-    }
-    if(!connecte)
-    {
-        while(!ESPBluetooth.connected(ATTENTE_CONNEXION))
-        {
-            // ESPBluetooth.confirmReply(true);
-            Serial.println(
-              "[Jolly Jumpi] Impossible de se connecter au serveur !");
-            delay(1000);
-            if(appairageReussi)
-            {
-                // On va reessayer
-                if(USE_NAME_SERVER)
-                {
-                    // il faut que le serveur soit en mode "découverte"
-                    // (discoverable) pour faire la résolution du nom
-                    connecte = connecter(nomServeur, CODE_PIN, ENABLE_SSP);
-                }
-                else
-                {
-                    // Plus rapide !
-                    connecte =
-                      connecter(adresseMACServeur, CODE_PIN, ENABLE_SSP);
-                }
-            }
-        }
-    }
-#ifdef DEBUG
-    sprintf(str,
-            "%02x:%02x:%02x:%02x:%02x:%02x",
-            adresseMACServeur[0],
-            adresseMACServeur[1],
-            adresseMACServeur[2],
-            adresseMACServeur[3],
-            adresseMACServeur[4],
-            adresseMACServeur[5]);
-    if(USE_NAME_SERVER)
-        Serial.print("[main] Connexion vers le serveur " + nomServeur);
-    else
-        Serial.print("[main] Connexion vers le serveur " + String(str));
-    Serial.print(" : ");
-    Serial.println(connecte ? "ok" : "echec");
-#endif
 #else // BLUETOOTH_SLAVE
     ESPBluetooth.begin(nomBluetooth);
 #endif
@@ -426,17 +343,173 @@ void setup()
             adresseESP32[3],
             adresseESP32[4],
             adresseESP32[5]);
-
+    titre += nomBluetooth;
     stitre = String("== ") + String(str) + String(" ==");
-    titre  = nomBluetooth;
 #ifdef DEBUG
     Serial.println("[main] Nom : " + nomBluetooth);
     Serial.println("[main] Adresse : " + String(str));
 #endif
-
-    // Initialise l'affichage
     afficheur.setTitre(titre);
     afficheur.setSTitre(stitre);
+#ifdef BLUETOOTH_MASTER
+    afficherBluetooth("Mode master");
+#else // BLUETOOTH_SLAVE
+    afficherBluetooth("Mode slave");
+#endif
+
+    // Initialisation de la communication Bluetooth
+#ifdef BLUETOOTH_MASTER
+    // Copie l'adresse MAC par défaut
+    mempcpy(adresseMACServeur, adresseMACServeurDefaut, LONGUEUR_ADRESSE_MAC);
+    sprintf(str,
+            "%02x:%02x:%02x:%02x:%02x:%02x",
+            adresseMACServeur[0],
+            adresseMACServeur[1],
+            adresseMACServeur[2],
+            adresseMACServeur[3],
+            adresseMACServeur[4],
+            adresseMACServeur[5]);
+
+    // supprimerPeripheriquesAppaires();
+    afficherPeripheriquesAppaires();
+    estPeripheriqueAppaire(adresseMACServeur); // Vérifie si le périphérique par
+                                               // défaut est déjà appairé
+
+    // Gère la connexion au serveur
+    // Recherche du serveur ?
+    if(ENABLE_DISCOVERY)
+    {
+        if(RECHERCHE_ASYNCHRONE)
+        {
+            afficheur.setMessageLigne(Afficheur::Ligne2, "Recherche ...");
+            afficheur.afficher();
+            demarrerRecherchePeripheriques();
+            delay(TEMPS_RECHERCHE);
+            arreterRecherchePeripheriques();
+            afficheur.setMessageLigne(Afficheur::Ligne2, "Recherche finie.");
+            afficheur.afficher();
+        }
+        else
+        {
+            afficheur.setMessageLigne(Afficheur::Ligne2, "Recherche ...");
+            afficheur.afficher();
+            demarrerRecherchePeripheriques(TEMPS_RECHERCHE);
+        }
+
+        etatConnexion = false;
+        if(serveurTrouve)
+        {
+            // il faut que les deux périphériques soient "appairés" (paired)
+            if(USE_NAME_SERVER)
+            {
+                afficheur.setMessageLigne(Afficheur::Ligne2, "");
+                afficheur.setMessageLigne(Afficheur::Ligne3,
+                                          String("-> ") + nomServeur);
+                // il faut que le serveur soit en mode "découverte"
+                // (discoverable) pour faire la résolution du nom
+                connecte = connecter(nomServeur, CODE_PIN, ENABLE_SSP);
+            }
+            else
+            {
+                afficheur.setMessageLigne(Afficheur::Ligne2, "");
+                afficheur.setMessageLigne(Afficheur::Ligne3,
+                                          String("-> ") + String(str));
+                // Plus rapide !
+                connecte = connecter(adresseMACServeur, CODE_PIN, ENABLE_SSP);
+            }
+            afficheur.afficher();
+        }
+    }
+    if(!connecte || !ENABLE_DISCOVERY)
+    {
+        // il faut que les deux périphériques soient "appairés" (paired)
+        if(USE_NAME_SERVER)
+        {
+            afficheur.setMessageLigne(Afficheur::Ligne3,
+                                      String("-> ") + nomServeur);
+            // il faut que le serveur soit en mode "découverte" (discoverable)
+            connecte = connecter(nomServeur, CODE_PIN, ENABLE_SSP);
+        }
+        else
+        {
+            afficheur.setMessageLigne(Afficheur::Ligne3,
+                                      String("-> ") + String(str));
+            connecte = connecter(adresseMACServeur, CODE_PIN, ENABLE_SSP);
+        }
+        afficheur.afficher();
+    }
+    if(!connecte)
+    {
+        while(!ESPBluetooth.connected(ATTENTE_CONNEXION))
+        {
+            // ESPBluetooth.confirmReply(true);
+            afficheur.setMessageLigne(Afficheur::Ligne2, "Erreur connexion");
+            if(USE_NAME_SERVER)
+                afficheur.setMessageLigne(Afficheur::Ligne3,
+                                          String("Serveur ") + nomServeur);
+            else
+                afficheur.setMessageLigne(Afficheur::Ligne3,
+                                          String("Serveur ") + String(str));
+            afficheur.afficher();
+#ifdef DEBUG
+            Serial.println("[main] Impossible de se connecter au serveur !");
+#endif
+            delay(1000);
+            // if(appairageReussi)
+            {
+                /*afficheur.setMessageLigne(Afficheur::Ligne2,
+                                          String("Appairage ok"));*/
+                // On va reessayer
+                if(USE_NAME_SERVER)
+                {
+                    afficheur.setMessageLigne(Afficheur::Ligne3,
+                                              String("-> ") + nomServeur);
+                    // il faut que le serveur soit en mode "découverte"
+                    // (discoverable) pour faire la résolution du nom
+                    connecte = connecter(nomServeur, CODE_PIN, ENABLE_SSP);
+                }
+                else
+                {
+                    afficheur.setMessageLigne(Afficheur::Ligne3,
+                                              String("-> ") + String(str));
+                    // Plus rapide !
+                    connecte =
+                      connecter(adresseMACServeur, CODE_PIN, ENABLE_SSP);
+                }
+                afficheur.afficher();
+            }
+        }
+    }
+#ifdef DEBUG
+    if(USE_NAME_SERVER)
+        Serial.print("[main] Connexion vers le serveur " + nomServeur);
+    else
+        Serial.print("[main] Connexion vers le serveur " + String(str));
+    Serial.print(" : ");
+    Serial.println(connecte ? "ok" : "echec");
+#endif
+#else // BLUETOOTH_SLAVE
+#endif
+    if(connecte)
+    {
+        afficheur.setMessageLigne(Afficheur::Ligne2, "Connexion ok");
+        if(USE_NAME_SERVER)
+            afficheur.setMessageLigne(Afficheur::Ligne3,
+                                      String("Serveur ") + nomServeur);
+        else
+            afficheur.setMessageLigne(Afficheur::Ligne3,
+                                      String("Serveur ") + String(str));
+    }
+    else
+    {
+        afficheur.setMessageLigne(Afficheur::Ligne2, "Erreur connexion");
+        if(USE_NAME_SERVER)
+            afficheur.setMessageLigne(Afficheur::Ligne3,
+                                      String("Serveur ") + nomServeur);
+        else
+            afficheur.setMessageLigne(Afficheur::Ligne3,
+                                      String("Serveur ") + String(str));
+    }
     afficheur.afficher();
 
     // initialise le générateur pseudo-aléatoire
@@ -455,10 +528,12 @@ void loop()
     String    trame;
     TypeTrame typeTrame;
 
+#ifdef BLUETOOTH_MASTER
     if(ENABLE_SSP && demandeConfirmationAppairage)
     {
         ESPBluetooth.confirmReply(true);
     }
+#endif
 
     if(refresh)
     {
@@ -606,6 +681,24 @@ void loop()
                 Serial.println("[main] Trame invalide !");
 #endif
                 break;
+        }
+    }
+
+    if(!etatConnexion)
+    {
+        if(!ESPBluetooth.connected(1000))
+        {
+            if(USE_NAME_SERVER)
+            {
+                // il faut que le serveur soit en mode "découverte"
+                // (discoverable) pour faire la résolution du nom
+                connecte = connecter(nomServeur, CODE_PIN, ENABLE_SSP);
+            }
+            else
+            {
+                // Plus rapide !
+                connecte = connecter(adresseMACServeur, CODE_PIN, ENABLE_SSP);
+            }
         }
     }
 }
