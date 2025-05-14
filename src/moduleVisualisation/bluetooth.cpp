@@ -1,5 +1,6 @@
 #include "bluetooth.h"
 #include "adressesPeripheries.h"
+#include "communication.h"
 
 Bluetooth::Bluetooth() : agentDecouverteBluetooth(nullptr), serveur(nullptr)
 {
@@ -524,9 +525,19 @@ void Bluetooth::deconnecterPeripherique(QBluetoothDeviceInfo peripherique)
 void Bluetooth::traiterMessage(QBluetoothDeviceInfo peripherique,
                                QString              message)
 {
-    traiterMessage(peripherique.name(),
-                   peripherique.address().toString(),
-                   message);
+    if(estRespectProtocol(message))
+    {
+        traiterMessage(peripherique.name(),
+                       peripherique.address().toString(),
+                       message);
+        emit messageRecue(nettoyerMessage(message));
+    }
+    else
+    {
+        qDebug() << Q_FUNC_INFO
+                 << "Non respect du protocol : " << peripherique.name()
+                 << peripherique.address() << message;
+    }
 }
 
 void Bluetooth::traiterMessage(QString nom, QString adresse, QString message)
@@ -545,6 +556,23 @@ void Bluetooth::traiterMessage(QString nom, QString adresse, QString message)
         });
     }
 #endif
+}
+
+bool Bluetooth::estRespectProtocol(const QString& message)
+{
+    if(message.startsWith(CAR_DEBUT_TRAME) && message.endsWith(CAR_FIN_TRAME))
+    {
+        return true;
+    }
+    return false;
+}
+
+QString Bluetooth::nettoyerMessage(QString message)
+{
+    QString messageTraite = message;
+    messageTraite.remove(CAR_DEBUT_TRAME);
+    messageTraite.remove(CAR_FIN_TRAME);
+    return messageTraite;
 }
 
 void Bluetooth::afficherErreurServeur(QBluetoothServer::Error erreur)

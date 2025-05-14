@@ -7,6 +7,8 @@
 #include <QMap>
 
 #define DELAI_CONNEXION 10000
+#define CAR_DEBUT_TRAME "$"
+#define CAR_FIN_TRAME   "\n"
 
 #define TEST_ASSOCIATION
 
@@ -31,6 +33,8 @@ class Bluetooth : public QObject
     QString           recupererNomPeripherique(QBluetoothSocket* socket);
     QString           recupererNomPeripherique(QString adresse);
     bool              estPeripheriqueConnecte(QString adresse);
+    bool              estRespectProtocol(const QString& message);
+    QString           nettoyerMessage(QString message);
 
   private:
     QBluetoothLocalDevice            peripheriqueBluetoothLocal;
@@ -66,6 +70,7 @@ class Bluetooth : public QObject
     void peripheriqueDistantConnecte(QString nom, QString adresse);
     void peripheriqueDistantDeconnecte(QString nom, QString adresse);
     void rechercheTerminee();
+    void messageRecue(QString message);
 };
 
 #endif // BLUETOOTH_H

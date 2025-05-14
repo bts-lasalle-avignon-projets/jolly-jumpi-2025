@@ -5,6 +5,15 @@
 #include <QStringList>
 #include <QString>
 
+#define CAR_CONFIGURATION   "C"
+#define CAR_DEBUT_PARTIE    "D"
+#define CAR_FIN_PARTIE      "F"
+#define CAR_PAGE_ACCUEIL    "S0"
+#define CAR_PAGE_HISTORIQUE "S1"
+#define CAR_ASSOCIATION     "A"
+
+#define TEST_COMMUNICATION
+
 class Bluetooth;
 
 class Communication : public QObject
@@ -28,20 +37,18 @@ class Communication : public QObject
 
     //////Etablir connexions//////
 
-    //////Traiter trames//////
-    void traiterTrame();
-    bool estTrameValide(const QString& trame);
-    bool verifierTypeTrame(const QString& trame, const QString& caractere);
-    bool estTrameConfiguration(const QString& trame);
-    bool estTrameFinDePartie(const QString& trame);
-    bool estTrameAssociation(const QString& trame);
-    bool estDemandePageAccueil(const QString& trame);
-    bool estDemandePageHistorique(const QString& trame);
-    bool estDemandeChangementPage(const QString& trame);
+    //////Traiter messages//////
+    bool verifierTypeMessage(const QString& message, const QString& caractere);
+    bool estMessageConfiguration(const QString& message);
+    bool estFinDePartie(const QString& message);
+    bool estMessageAssociation(const QString& message);
+    bool estDemandePageAccueil(const QString& message);
+    bool estDemandePageHistorique(const QString& message);
+    bool estDemandeChangementPage(const QString& message);
 
-    //////Envoyer trames//////
-    QString construireTrame(const QString& trame);
-    void    envoyerTrame(const QString& destinataire, const QString& trame);
+    //////Envoyer messages//////
+    QString construireMessage(const QString& trame);
+    void    envoyerMessage(const QString& destinataire, const QString& trame);
     void    demanderAssociation(const QString& destinataire);
     void    confirmerAssociation(const QString& destinataire);
     void    envoyerModeDeJeu(const QString& destinataire,
@@ -54,17 +61,12 @@ class Communication : public QObject
     void gererAssociation();
     void gererChangementPage();
 
+  private slots:
+    void traiterMessage(QString trame);
+
   private:
-    Bluetooth*    bluetooth;
-    QStringList   trames;
-    const QString carDebutTrame     = "$";
-    const QString carFinTrame       = "\n";
-    const QString carConfiguration  = "C";
-    const QString carDebutPartie    = "D";
-    const QString carFinPartie      = "F";
-    const QString carPageAccueil    = "S0";
-    const QString carPageHistorique = "S1";
-    const QString carAssociation    = "A";
+    Bluetooth*  bluetooth;
+    QStringList messages;
 };
 
 #endif // COMMUNICATION_H

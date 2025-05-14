@@ -2,7 +2,7 @@
 #define ADRESSESPERIPHERIES_H
 
 //// adresse du module de configuration////
-#define ADR_MAC_MOD_CONFIGURATION ""
+#define ADR_MAC_MOD_CONFIGURATION "00:E0:4C:65:20:39"
 
 //// adresse des modules de détection de balle////
 #define ADR_MAC_PISTE_1 "08:3a:f2:a8:e7:36"
@@ -15,9 +15,8 @@
 #define ADR_MAC_PISTE_8 ""
 
 //// Prefix des noms des modules
-#define PREFIX_NOM_PISTE "jp-piste-2"
-//#define PREFIX_NOM_MOD_CONFIGURATION "jp-config-"
-#define PREFIX_NOM_MOD_CONFIGURATION "pessina"
+#define PREFIX_NOM_PISTE             "jp-piste"
+#define PREFIX_NOM_MOD_CONFIGURATION "jp-config"
 
 #define NOMBRE_TOTAL_PERIPHERIQUE 2
 
