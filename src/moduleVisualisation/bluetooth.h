@@ -6,12 +6,31 @@
 #include <QBluetoothLocalDevice>
 #include <QMap>
 
-#define DELAI_CONNEXION 10000
-#define CAR_DEBUT_TRAME "$"
-#define CAR_FIN_TRAME   "\n"
+// Configuration Bluetooth
+#define ACTIVER_SERVEUR   true
+#define ACTIVER_RECHERCHE false
+#define RECHERCHE_CONTINU false
+#define GESTION_APPAIRAGE false
 
+// Choix du mode de connexion (client/serveur) pour les modules
+// Mode client (Pi) -> serveur (ESP32 slave)
+// Mode serveur (Pi) <- client (ESP32 master)
+#define SERVEUR              1
+#define CLIENT               0
+#define MODULE_PISTE         SERVEUR
+#define MODULE_CONFIGURATION CLIENT
+
+// Pour le mode client (timeout)
+#define DELAI_CONNEXION 10000
+
+// Protocole
+#define DEBUT_MESSAGE "$"
+#define FIN_MESSAGE   "\n"
+
+// Pour les tests
 #define TEST_ASSOCIATION
 
+// Nom du service
 static const QString serviceNom(QStringLiteral("jolly-jumpi"));
 
 class Bluetooth : public QObject
@@ -22,19 +41,16 @@ class Bluetooth : public QObject
     ~Bluetooth();
 
     void              demarrerServeur();
-    void              arreterServeur();
     int               getNbConnectes();
     void              trouverPeripherique();
     void              arreterRecherche();
-    void              envoyerMessage(QString adresse, QString trame);
-    void              envoyerMessageGroupe(QString trame);
+    void              envoyerMessage(QString adresse, QString message);
+    void              envoyerMessageGroupe(QString message);
     QString           recupererAdressePeripherique(QBluetoothSocket* socket);
     QBluetoothSocket* recupererSocketPeripherique(QString adresse);
     QString           recupererNomPeripherique(QBluetoothSocket* socket);
     QString           recupererNomPeripherique(QString adresse);
     bool              estPeripheriqueConnecte(QString adresse);
-    bool              estRespectProtocol(const QString& message);
-    QString           nettoyerMessage(QString message);
 
   private:
     QBluetoothLocalDevice            peripheriqueBluetoothLocal;
@@ -50,12 +66,16 @@ class Bluetooth : public QObject
     void gererAppairage();
     void afficherAppairagePeripherique(QBluetoothDeviceInfo peripherique);
     void appairerPeripherique(QBluetoothDeviceInfo peripherique);
+    bool estMessageValide(const QString& message);
+    void nettoyerMessage(QString& message);
 
   private slots:
     void gererPeripheriqueDecouvert(QBluetoothDeviceInfo peripherique);
     void connecterPeripheriqueDecouvert(
-      QBluetoothDeviceInfo peripherique);  // client -> serveur (slave)
-    void connecterPeripheriqueDecouvert(); // serveur <- client (master)
+      QBluetoothDeviceInfo
+        peripherique); // Mode client -> serveur (ESP32 slave)
+    void
+    connecterPeripheriqueDecouvert(); // Mode serveur <- client (ESP32 master)
     void deconnecterPeripherique(QBluetoothDeviceInfo peripherique);
     void traiterMessage(QBluetoothDeviceInfo peripherique, QString message);
     void traiterMessage(QString nom, QString adresse, QString message);
@@ -70,7 +90,7 @@ class Bluetooth : public QObject
     void peripheriqueDistantConnecte(QString nom, QString adresse);
     void peripheriqueDistantDeconnecte(QString nom, QString adresse);
     void rechercheTerminee();
-    void messageRecue(QString message);
+    void messageRecu(QString nom, QString adresse, QString message);
 };
 
 #endif // BLUETOOTH_H

@@ -1,18 +1,23 @@
 #include "bluetooth.h"
-#include "adressesPeripheries.h"
+#include "adressesPeripheriques.h"
 #include "communication.h"
 
 Bluetooth::Bluetooth() : agentDecouverteBluetooth(nullptr), serveur(nullptr)
 {
     qDebug() << Q_FUNC_INFO << this;
     initialiserInterfaceLocal();
-    // demarrerServeur();
-    trouverPeripherique();
+    if(ACTIVER_SERVEUR)
+        demarrerServeur();
+    if(ACTIVER_RECHERCHE)
+        trouverPeripherique();
 }
 
 Bluetooth::~Bluetooth()
 {
-    arreterServeur();
+    if(ACTIVER_RECHERCHE)
+        arreterRecherche();
+    libererCommunications();
+    arreterInterfaceLocal();
     qDebug() << Q_FUNC_INFO << this;
 }
 
@@ -32,17 +37,20 @@ void Bluetooth::initialiserInterfaceLocal()
 
         connect(&peripheriqueBluetoothLocal,
                 &QBluetoothLocalDevice::hostModeStateChanged,
-                [=](QBluetoothLocalDevice::HostMode etat) {
+                [=](QBluetoothLocalDevice::HostMode etat)
+                {
                     qDebug() << Q_FUNC_INFO << "hostModeStateChanged"
                              << "etat" << etat;
                 });
         connect(&peripheriqueBluetoothLocal,
                 &QBluetoothLocalDevice::error,
-                [=](QBluetoothLocalDevice::Error erreur) {
+                [=](QBluetoothLocalDevice::Error erreur)
+                {
                     qDebug() << Q_FUNC_INFO << "erreur" << erreur;
                 });
 
-        gererAppairage();
+        if(GESTION_APPAIRAGE)
+            gererAppairage();
     }
 }
 
@@ -81,21 +89,24 @@ void Bluetooth::gererAppairage()
     connect(&peripheriqueBluetoothLocal,
             &QBluetoothLocalDevice::pairingFinished,
             [=](const QBluetoothAddress&       adresse,
-                QBluetoothLocalDevice::Pairing pairing) {
+                QBluetoothLocalDevice::Pairing pairing)
+            {
                 qDebug() << Q_FUNC_INFO << "pairingFinished"
                          << "adresse" << adresse.toString() << "pairing"
                          << pairing;
             });
     connect(&peripheriqueBluetoothLocal,
             &QBluetoothLocalDevice::pairingDisplayPinCode,
-            [=](const QBluetoothAddress& adresse, QString pin) {
+            [=](const QBluetoothAddress& adresse, QString pin)
+            {
                 qDebug() << Q_FUNC_INFO << "pairingDisplayPinCode"
                          << "adresse" << adresse.toString() << "pin" << pin;
                 peripheriqueBluetoothLocal.pairingConfirmation(true);
             });
     connect(&peripheriqueBluetoothLocal,
             &QBluetoothLocalDevice::pairingDisplayConfirmation,
-            [=](const QBluetoothAddress& adresse, QString pin) {
+            [=](const QBluetoothAddress& adresse, QString pin)
+            {
                 qDebug() << Q_FUNC_INFO << "pairingDisplayConfirmation"
                          << "adresse" << adresse.toString() << "pin" << pin;
                 peripheriqueBluetoothLocal.pairingConfirmation(true);
@@ -129,6 +140,8 @@ void Bluetooth::afficherAppairagePeripherique(QBluetoothDeviceInfo peripherique)
 
 void Bluetooth::appairerPeripherique(QBluetoothDeviceInfo peripherique)
 {
+    if(!GESTION_APPAIRAGE)
+        return;
     if(peripherique.name().startsWith(PREFIX_NOM_MOD_CONFIGURATION) ||
        peripherique.name().startsWith(PREFIX_NOM_PISTE))
     {
@@ -160,6 +173,23 @@ void Bluetooth::appairerPeripherique(QBluetoothDeviceInfo peripherique)
     }
 }
 
+bool Bluetooth::estMessageValide(const QString& message)
+{
+    if(message.startsWith(DEBUT_MESSAGE) && message.endsWith(FIN_MESSAGE))
+    {
+        qDebug() << Q_FUNC_INFO << "true";
+        return true;
+    }
+    qDebug() << Q_FUNC_INFO << "false" << message;
+    return false;
+}
+
+void Bluetooth::nettoyerMessage(QString& message)
+{
+    message.remove(DEBUT_MESSAGE);
+    message.remove(FIN_MESSAGE);
+}
+
 void Bluetooth::demarrerServeur()
 {
     if(serveur == nullptr)
@@ -180,13 +210,6 @@ void Bluetooth::demarrerServeur()
         serviceBluetooth =
           serveur->listen(QBluetoothUuid(QBluetoothUuid::Rfcomm), serviceNom);
     }
-}
-
-void Bluetooth::arreterServeur()
-{
-    arreterRecherche();
-    libererCommunications();
-    arreterInterfaceLocal();
 }
 
 int Bluetooth::getNbConnectes()
@@ -235,7 +258,8 @@ void Bluetooth::trouverPeripherique()
         connect(agentDecouverteBluetooth,
                 &QBluetoothDeviceDiscoveryAgent::finished,
                 this,
-                [=]() {
+                [=]()
+                {
                     qDebug() << Q_FUNC_INFO << "recherche terminée !";
                     QList<QBluetoothDeviceInfo> listePeripheriques =
                       agentDecouverteBluetooth->discoveredDevices();
@@ -249,12 +273,13 @@ void Bluetooth::trouverPeripherique()
                               << Q_FUNC_INFO << "peripherique decouvert"
                               << peripherique.name() << peripherique.address();
                             afficherAppairagePeripherique(peripherique);
-                            // appairerPeripherique(peripherique);
+                            appairerPeripherique(peripherique);
                         }
                     }
                     emit rechercheTerminee();
-                    agentDecouverteBluetooth->start(
-                      QBluetoothDeviceDiscoveryAgent::ClassicMethod);
+                    if(RECHERCHE_CONTINU)
+                        agentDecouverteBluetooth->start(
+                          QBluetoothDeviceDiscoveryAgent::ClassicMethod);
                 });
     }
 
@@ -277,13 +302,13 @@ void Bluetooth::arreterRecherche()
         agentDecouverteBluetooth->stop();
 }
 
-void Bluetooth::envoyerMessage(QString adresse, QString trame)
+void Bluetooth::envoyerMessage(QString adresse, QString message)
 {
-    qDebug() << Q_FUNC_INFO << "trame" << trame << "adresse" << adresse;
+    qDebug() << Q_FUNC_INFO << "message" << message << "adresse" << adresse;
     if(sockets[adresse] != nullptr && sockets[adresse]->isOpen() &&
        sockets[adresse]->state() == QBluetoothSocket::ConnectedState)
     {
-        sockets[adresse]->write(trame.toLocal8Bit());
+        sockets[adresse]->write(message.toLocal8Bit());
     }
     else if(sockets[adresse] != nullptr)
         qDebug() << Q_FUNC_INFO << "isOpen" << sockets[adresse]->isOpen()
@@ -291,11 +316,11 @@ void Bluetooth::envoyerMessage(QString adresse, QString trame)
                  << adresse;
 }
 
-void Bluetooth::envoyerMessageGroupe(QString trame)
+void Bluetooth::envoyerMessageGroupe(QString message)
 {
     for(const auto& adresse: sockets.keys())
     {
-        envoyerMessage(adresse, trame);
+        envoyerMessage(adresse, message);
     }
 }
 
@@ -344,6 +369,7 @@ void Bluetooth::gererPeripheriqueDecouvert(QBluetoothDeviceInfo peripherique)
     }
 }
 
+// Mode client
 void Bluetooth::connecterPeripheriqueDecouvert(
   QBluetoothDeviceInfo peripherique)
 {
@@ -351,21 +377,42 @@ void Bluetooth::connecterPeripheriqueDecouvert(
     QBluetoothSocket* socket         = nullptr;
     QTimer*           delaiConnexion = nullptr;
 
-    if(peripherique.name().startsWith(PREFIX_NOM_MOD_CONFIGURATION) ||
-       peripherique.name().startsWith(PREFIX_NOM_PISTE))
-    {
-        // Nouveau périphérique ?
-        if(!sockets.contains(adresse))
-        {
-            qDebug() << Q_FUNC_INFO << "nouveau périphérique"
-                     << "nom" << peripherique.name() << "adresse"
-                     << peripherique.address();
-            socket =
-              new QBluetoothSocket(QBluetoothServiceInfo::RfcommProtocol);
-            sockets[adresse] = socket;
+#if MODULE_PISTE == CLIENT
+    if(!peripherique.name().startsWith(PREFIX_NOM_PISTE))
+        return;
+#endif
 
-            // Signale quand données disponibles
-            connect(socket, &QBluetoothSocket::readyRead, this, [=]() {
+#if MODULE_CONFIGURATION == CLIENT
+    if(!peripherique.name().startsWith(PREFIX_NOM_MOD_CONFIGURATION))
+        return;
+#endif
+
+    // On a déjà eu ce client ?
+    if(sockets.contains(socket->peerAddress().toString()))
+    {
+        // on nettoie
+        delete sockets[socket->peerAddress().toString()];
+        sockets.remove(socket->peerAddress().toString());
+        peripheriques.remove(socket->peerAddress().toString());
+    }
+
+    // Nouveau périphérique ?
+    qDebug() << Q_FUNC_INFO << "nouveau périphérique"
+             << "nom" << peripherique.name() << "adresse"
+             << peripherique.address().toString();
+    // on instancie une socket
+    socket = new QBluetoothSocket(QBluetoothServiceInfo::RfcommProtocol);
+
+    // on conserve la socket vers le serveur
+    sockets[adresse] = socket;
+
+    // et on gère les signaux
+    // // Les données entrantes
+    connect(socket,
+            &QBluetoothSocket::readyRead,
+            this,
+            [=]()
+            {
                 QString message = socket->readAll();
                 qDebug() << Q_FUNC_INFO << "réception"
                          << "nom" << peripherique.name() << "message"
@@ -373,20 +420,24 @@ void Bluetooth::connecterPeripheriqueDecouvert(
                 traiterMessage(peripherique, message);
             });
 
-            // Signale quand erreur
-            connect(socket,
-                    SIGNAL(error(QBluetoothSocket::SocketError)),
-                    this,
-                    SLOT(afficherErreurSocket(QBluetoothSocket::SocketError)));
+    // Les erreurs
+    connect(socket,
+            SIGNAL(error(QBluetoothSocket::SocketError)),
+            this,
+            SLOT(afficherErreurSocket(QBluetoothSocket::SocketError)));
 
-            // Signale quand changement état
-            connect(socket,
-                    SIGNAL(stateChanged(QBluetoothSocket::SocketState)),
-                    this,
-                    SLOT(afficherEtat(QBluetoothSocket::SocketState)));
+    // Les changements d'état
+    connect(socket,
+            SIGNAL(stateChanged(QBluetoothSocket::SocketState)),
+            this,
+            SLOT(afficherEtat(QBluetoothSocket::SocketState)));
 
-            // Signale quand déconnecté
-            connect(socket, &QBluetoothSocket::disconnected, this, [=]() {
+    // Les déconnexions
+    connect(socket,
+            &QBluetoothSocket::disconnected,
+            this,
+            [=]()
+            {
                 qDebug() << Q_FUNC_INFO << "déconnecté"
                          << "nom" << recupererNomPeripherique(socket)
                          << "adresse" << recupererAdressePeripherique(socket);
@@ -395,11 +446,15 @@ void Bluetooth::connecterPeripheriqueDecouvert(
                   recupererAdressePeripherique(socket));
             });
 
-            // Signale quand connecté
-            connect(socket, &QBluetoothSocket::connected, this, [=]() {
+    // Les connexions
+    connect(socket,
+            &QBluetoothSocket::connected,
+            this,
+            [=]()
+            {
                 qDebug() << Q_FUNC_INFO << "connecté"
                          << "nom" << peripherique.name() << "adresse"
-                         << peripherique.address();
+                         << peripherique.address().toString();
                 if(delaiConnexion != nullptr)
                 {
                     delaiConnexion->stop();
@@ -411,46 +466,48 @@ void Bluetooth::connecterPeripheriqueDecouvert(
                 envoyerMessage(socket->peerAddress().toString(), "$A\n");
 #endif
             });
-        }
 
-        socket = sockets[adresse];
-        // Gestion propre de la connexion avec une vérification d'erreur
-        if(socket->state() == QBluetoothSocket::UnconnectedState)
-        {
-            // Création du delai de connexion
-            delaiConnexion = new QTimer(this);
-            delaiConnexion->setSingleShot(true);
+    // Pas connecté ?
+    if(socket->state() == QBluetoothSocket::UnconnectedState)
+    {
+        // Création du delai de connexion (timeout)
+        delaiConnexion = new QTimer(this);
+        delaiConnexion->setSingleShot(true);
 
-            connect(delaiConnexion, &QTimer::timeout, this, [=]() {
-                if(socket->state() != QBluetoothSocket::ConnectedState)
+        connect(delaiConnexion,
+                &QTimer::timeout,
+                this,
+                [=]()
                 {
-                    qDebug() << Q_FUNC_INFO << "délai de connexion dépassé"
-                             << "nom" << peripherique.name() << "adresse"
-                             << peripherique.address();
-                    socket->abort();
-                }
-                delaiConnexion->deleteLater();
-            });
+                    if(socket->state() != QBluetoothSocket::ConnectedState)
+                    {
+                        qDebug() << Q_FUNC_INFO << "délai de connexion dépassé"
+                                 << "nom" << peripherique.name() << "adresse"
+                                 << peripherique.address().toString();
+                        socket->abort();
+                    }
+                    delaiConnexion->deleteLater();
+                });
 
-            qDebug() << Q_FUNC_INFO << "tentative de connexion"
-                     << "nom" << peripherique.name() << "adresse"
-                     << peripherique.address();
-            QBluetoothUuid uuid = QBluetoothUuid(QBluetoothUuid::SerialPort);
-            socket->connectToService(peripherique.address(), uuid);
-            // socket->open(QIODevice::ReadWrite);
-            delaiConnexion->start(DELAI_CONNEXION);
-        }
-        else
-        {
-            qDebug() << Q_FUNC_INFO << "déjà connecté"
-                     << "nom" << peripherique.name() << "adresse"
-                     << peripherique.address();
-        }
+        qDebug() << Q_FUNC_INFO << "tentative de connexion"
+                 << "nom" << peripherique.name() << "adresse"
+                 << peripherique.address().toString();
+        QBluetoothUuid uuid = QBluetoothUuid(QBluetoothUuid::SerialPort);
+        socket->connectToService(peripherique.address(), uuid);
+        delaiConnexion->start(DELAI_CONNEXION);
+    }
+    else
+    {
+        qDebug() << Q_FUNC_INFO << "déjà connecté"
+                 << "nom" << peripherique.name() << "adresse"
+                 << peripherique.address().toString();
     }
 }
 
+// Mode serveur
 void Bluetooth::connecterPeripheriqueDecouvert()
 {
+    // la socket du client
     QBluetoothSocket* socket = serveur->nextPendingConnection();
     if(!socket)
         return;
@@ -458,53 +515,80 @@ void Bluetooth::connecterPeripheriqueDecouvert()
     qDebug() << Q_FUNC_INFO << socket << "nom" << socket->peerName()
              << "adresse" << socket->peerAddress().toString();
 
-    // Nouveau périphérique ?
-    // if(!sockets.contains(socket->peerAddress().toString()))
+#if MODULE_PISTE == SERVEUR
+    if(!socket->peerName().startsWith(PREFIX_NOM_PISTE))
+        return;
+#endif
+
+#if MODULE_CONFIGURATION == SERVEUR
+    if(!socket->peerName().startsWith(PREFIX_NOM_MOD_CONFIGURATION))
+        return;
+#endif
+
+    // On a déjà eu ce client ?
+    if(sockets.contains(socket->peerAddress().toString()))
     {
-        sockets[socket->peerAddress().toString()] = socket;
-
-        // Lecture des données entrantes
-        connect(socket, &QBluetoothSocket::readyRead, this, [=]() {
-            QString message = socket->readAll();
-            qDebug() << Q_FUNC_INFO << "réception"
-                     << "nom" << socket->peerName() << "adresse"
-                     << socket->peerAddress() << "message" << message;
-            traiterMessage(socket->peerName(),
-                           socket->peerAddress().toString(),
-                           message);
-        });
-
-        // Signale quand erreur
-        connect(socket,
-                SIGNAL(error(QBluetoothSocket::SocketError)),
-                this,
-                SLOT(afficherErreurSocket(QBluetoothSocket::SocketError)));
-
-        // Signale quand changement état
-        connect(socket,
-                SIGNAL(stateChanged(QBluetoothSocket::SocketState)),
-                this,
-                SLOT(afficherEtat(QBluetoothSocket::SocketState)));
-
-        // Signale quand déconnecté
-        connect(socket, &QBluetoothSocket::disconnected, this, [=]() {
-            qDebug() << Q_FUNC_INFO << "déconnecté"
-                     << "nom" << recupererNomPeripherique(socket) << "adresse"
-                     << recupererAdressePeripherique(socket);
-            emit peripheriqueDistantDeconnecte(
-              recupererNomPeripherique(socket),
-              recupererAdressePeripherique(socket));
-        });
-
-        // if(!peripheriques.contains(socket->peerAddress().toString()))
-        {
-            peripheriques[socket->peerAddress().toString()] =
-              socket->peerName();
-        }
-
-        emit peripheriqueDistantConnecte(socket->peerName(),
-                                         socket->peerAddress().toString());
+        // on nettoie
+        delete sockets[socket->peerAddress().toString()];
+        sockets.remove(socket->peerAddress().toString());
+        peripheriques.remove(socket->peerAddress().toString());
     }
+
+    // Nouveau périphérique
+    qDebug() << Q_FUNC_INFO << "nouveau périphérique"
+             << "nom" << socket->peerName() << "adresse"
+             << socket->peerAddress().toString();
+    // on récupère sa socket
+    sockets[socket->peerAddress().toString()] = socket;
+
+    // et on gère les signaux
+    // Les données entrantes
+    connect(socket,
+            &QBluetoothSocket::readyRead,
+            this,
+            [=]()
+            {
+                QString message = socket->readAll();
+                qDebug() << Q_FUNC_INFO << "réception"
+                         << "nom" << socket->peerName() << "adresse"
+                         << socket->peerAddress() << "message" << message;
+                traiterMessage(socket->peerName(),
+                               socket->peerAddress().toString(),
+                               message);
+            });
+
+    // Les erreurs
+    connect(socket,
+            SIGNAL(error(QBluetoothSocket::SocketError)),
+            this,
+            SLOT(afficherErreurSocket(QBluetoothSocket::SocketError)));
+
+    // Les changements d'état
+    connect(socket,
+            SIGNAL(stateChanged(QBluetoothSocket::SocketState)),
+            this,
+            SLOT(afficherEtat(QBluetoothSocket::SocketState)));
+
+    // Les déconnexions
+    connect(socket,
+            &QBluetoothSocket::disconnected,
+            this,
+            [=]()
+            {
+                qDebug() << Q_FUNC_INFO << "déconnecté"
+                         << "nom" << recupererNomPeripherique(socket)
+                         << "adresse" << recupererAdressePeripherique(socket);
+                emit peripheriqueDistantDeconnecte(
+                  recupererNomPeripherique(socket),
+                  recupererAdressePeripherique(socket));
+            });
+
+    // on conserve son nom
+    peripheriques[socket->peerAddress().toString()] = socket->peerName();
+
+    // on signale la connexion
+    emit peripheriqueDistantConnecte(socket->peerName(),
+                                     socket->peerAddress().toString());
 
 #ifdef TEST_ASSOCIATION
     envoyerMessage(socket->peerAddress().toString(), "$A\n");
@@ -525,54 +609,20 @@ void Bluetooth::deconnecterPeripherique(QBluetoothDeviceInfo peripherique)
 void Bluetooth::traiterMessage(QBluetoothDeviceInfo peripherique,
                                QString              message)
 {
-    if(estRespectProtocol(message))
-    {
-        traiterMessage(peripherique.name(),
-                       peripherique.address().toString(),
-                       message);
-        emit messageRecue(nettoyerMessage(message));
-    }
-    else
-    {
-        qDebug() << Q_FUNC_INFO
-                 << "Non respect du protocol : " << peripherique.name()
-                 << peripherique.address() << message;
-    }
+    traiterMessage(peripherique.name(),
+                   peripherique.address().toString(),
+                   message);
 }
 
 void Bluetooth::traiterMessage(QString nom, QString adresse, QString message)
 {
     qDebug() << Q_FUNC_INFO << "nom" << nom << "adresse" << adresse << "message"
              << message;
-#ifdef TEST_ASSOCIATION
-    if(message.startsWith("$A"))
+    if(estMessageValide(message))
     {
-        envoyerMessage(adresse, "$C0\n");
-        QTimer::singleShot(2000, this, [this]() {
-            envoyerMessageGroupe("$D\n");
-            QTimer::singleShot(10000, this, [this]() {
-                envoyerMessageGroupe("$F\n");
-            });
-        });
+        nettoyerMessage(message);
+        emit messageRecu(nom, adresse, message);
     }
-#endif
-}
-
-bool Bluetooth::estRespectProtocol(const QString& message)
-{
-    if(message.startsWith(CAR_DEBUT_TRAME) && message.endsWith(CAR_FIN_TRAME))
-    {
-        return true;
-    }
-    return false;
-}
-
-QString Bluetooth::nettoyerMessage(QString message)
-{
-    QString messageTraite = message;
-    messageTraite.remove(CAR_DEBUT_TRAME);
-    messageTraite.remove(CAR_FIN_TRAME);
-    return messageTraite;
 }
 
 void Bluetooth::afficherErreurServeur(QBluetoothServer::Error erreur)

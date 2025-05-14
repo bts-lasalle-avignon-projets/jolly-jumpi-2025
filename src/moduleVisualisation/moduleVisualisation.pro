@@ -22,7 +22,7 @@ SOURCES += \
     main.cpp
 
 HEADERS += \
-    adressesPeripheries.h \
+    adressesPeripheriques.h \
     bluetooth.h \
     communication.h \
     baseDeDonnees.h \

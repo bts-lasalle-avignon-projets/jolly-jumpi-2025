@@ -1,21 +1,23 @@
 #include "communication.h"
 #include "bluetooth.h"
-#include "adressesPeripheries.h"
+#include "adressesPeripheriques.h"
 
 Communication::Communication(QObject* parent) :
     QObject(parent), bluetooth(new Bluetooth)
 {
     qDebug() << Q_FUNC_INFO << this;
+
+    typesMessages << "C"  // CONFIGURATION
+                  << "D"  // DEBUT_PARTIE
+                  << "F"  // FIN_PARTIE
+                  << "S0" // PAGE_ACCUEIL
+                  << "S1" // PAGE_HISTORIQUE
+                  << "A"; // ASSOCIATION
+
     connect(bluetooth,
-            &Bluetooth::messageRecue,
+            &Bluetooth::messageRecu,
             this,
             &Communication::traiterMessage);
-
-#ifdef TEST_COMMUNICATION
-    QTimer::singleShot(20000, this, [this]() {
-        envoyerMessage(ADR_MAC_PISTE_2, "A");
-    });
-#endif
 }
 
 Communication::~Communication()
@@ -24,130 +26,130 @@ Communication::~Communication()
     qDebug() << Q_FUNC_INFO << this;
 }
 
-void Communication::traiterMessage(QString message)
+void Communication::traiterMessage(QString nom,
+                                   QString adresse,
+                                   QString message)
 {
-    if(estMessageConfiguration(message))
+    Communication::TypeMessage typeMessage =
+      Communication::TypeMessage::INCONNU;
+
+    typeMessage = identifierTypeMessage(message);
+    qDebug() << Q_FUNC_INFO << "nom" << nom << "adresse" << adresse << "message"
+             << message << "typeMessage" << typeMessage;
+    switch(typeMessage)
     {
-        gererConfiguration();
+        case Communication::TypeMessage::CONFIGURATION:
+            gererConfiguration();
+            break;
+        case Communication::TypeMessage::ASSOCIATION:
+            gererAssociation(adresse);
+            break;
+        case Communication::TypeMessage::PAGE_ACCUEIL:
+        case Communication::TypeMessage::PAGE_HISTORIQUE:
+            gererChangementPage();
+            break;
+        default:
+            qDebug() << Q_FUNC_INFO << "typeMessage inconnu !";
     }
-    else if(estMessageAssociation(message))
+}
+
+Communication::TypeMessage Communication::identifierTypeMessage(
+  const QString& message)
+{
+    for(int i = 0; i < typesMessages.size(); ++i)
     {
-        gererAssociation();
+        if(verifierTypeMessage(message, typesMessages.at(i)))
+            return Communication::TypeMessage(i);
     }
-    else if(estDemandeChangementPage(message))
-    {
-        gererChangementPage();
-    }
-    else
-    {
-        gererChangementPage();
-    }
+    return Communication::TypeMessage::INCONNU;
 }
 
 bool Communication::verifierTypeMessage(const QString& message,
-                                        const QString& caractere)
+                                        const QString& type)
 {
-    if(message.startsWith(caractere))
+    if(message.startsWith(type))
     {
-        qDebug() << Q_FUNC_INFO << "Le message" << message << "contient"
-                 << caractere;
         return true;
     }
-    qDebug() << Q_FUNC_INFO << "Le message" << message << "ne contient pas"
-             << caractere;
     return false;
 }
 
-bool Communication::estMessageConfiguration(const QString& message)
-{
-    if(verifierTypeMessage(message, CAR_CONFIGURATION))
-        return true;
-    return false;
-}
-
-bool Communication::estFinDePartie(const QString& message)
-{
-    if(verifierTypeMessage(message, CAR_FIN_PARTIE))
-        return true;
-    return false;
-}
-
-bool Communication::estMessageAssociation(const QString& message)
-{
-    if(verifierTypeMessage(message, CAR_ASSOCIATION))
-        return true;
-    return false;
-}
-
-bool Communication::estDemandePageAccueil(const QString& message)
-{
-    if(verifierTypeMessage(message, CAR_PAGE_ACCUEIL))
-        return true;
-    return false;
-}
-
-bool Communication::estDemandePageHistorique(const QString& message)
-{
-    if(verifierTypeMessage(message, CAR_PAGE_HISTORIQUE))
-        return true;
-    return false;
-}
-
-bool Communication::estDemandeChangementPage(const QString& message)
-{
-    if(estDemandePageAccueil(message) || estDemandePageHistorique(message))
-        return true;
-    return false;
-}
-
-/***********Envoyer trames***********/
 QString Communication::construireMessage(const QString& message)
 {
-    return CAR_DEBUT_TRAME + message + CAR_FIN_TRAME;
+    return DEBUT_MESSAGE + message + FIN_MESSAGE;
 }
 
 void Communication::envoyerMessage(const QString& destinataire,
                                    const QString& message)
 {
-    qDebug() << Q_FUNC_INFO << "Envoi" << destinataire << message;
+    qDebug() << Q_FUNC_INFO << "destinataire" << destinataire << "message"
+             << message;
     bluetooth->envoyerMessage(destinataire, construireMessage(message));
 }
 
 void Communication::demanderAssociation(const QString& destinataire)
 {
-    envoyerMessage(destinataire, CAR_ASSOCIATION);
+    qDebug() << Q_FUNC_INFO << "destinataire" << destinataire;
+    envoyerMessage(destinataire,
+                   typesMessages.at(Communication::TypeMessage::ASSOCIATION));
 }
 
 void Communication::confirmerAssociation(const QString& destinataire)
 {
-    envoyerMessage(destinataire, CAR_ASSOCIATION);
+    qDebug() << Q_FUNC_INFO << "destinataire" << destinataire;
+    envoyerMessage(destinataire,
+                   typesMessages.at(Communication::TypeMessage::ASSOCIATION));
 }
 
 void Communication::envoyerModeDeJeu(const QString& destinataire,
                                      const QString& information)
 {
+    qDebug() << Q_FUNC_INFO << "destinataire" << destinataire << "information"
+             << information;
     envoyerMessage(destinataire, information);
 }
 
 void Communication::envoyerDebutDePartie(const QString& destinataire)
 {
-    envoyerMessage(destinataire, CAR_DEBUT_PARTIE);
+    qDebug() << Q_FUNC_INFO << "destinataire" << destinataire;
+    envoyerMessage(destinataire,
+                   typesMessages.at(Communication::TypeMessage::DEBUT_PARTIE));
 }
 
 void Communication::signalerFinDePartie(const QString& destinataire)
 {
-    envoyerMessage(destinataire, CAR_FIN_PARTIE);
+    qDebug() << Q_FUNC_INFO << "destinataire" << destinataire;
+    envoyerMessage(destinataire,
+                   typesMessages.at(Communication::TypeMessage::FIN_PARTIE));
 }
 
-/***********Gestion***********/
 void Communication::gererConfiguration()
 {
+    qDebug() << Q_FUNC_INFO;
 }
 
-void Communication::gererAssociation()
+void Communication::gererAssociation(const QString& adresse)
 {
+    qDebug() << Q_FUNC_INFO;
+#ifdef TEST_ASSOCIATION
+    envoyerMessage(adresse, "C0");
+    QTimer::singleShot(2000,
+                       this,
+                       [this]()
+                       {
+                           bluetooth->envoyerMessageGroupe("$D\n");
+                           QTimer::singleShot(
+                             10000,
+                             this,
+                             [this]()
+                             {
+                                 bluetooth->envoyerMessageGroupe("$F\n");
+                             });
+                       });
+#endif
 }
 
 void Communication::gererChangementPage()
 {
+    qDebug() << Q_FUNC_INFO;
 }
