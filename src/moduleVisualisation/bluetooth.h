@@ -12,11 +12,10 @@
 #define RECHERCHE_CONTINU false
 #define GESTION_APPAIRAGE false
 
+// Définition des modes de connexion (client/serveur) pour les modules
+#define SERVEUR 1 // Mode serveur (Pi) <- client (ESP32 master)
+#define CLIENT  0 // Mode client (Pi) -> serveur (ESP32 slave)
 // Choix du mode de connexion (client/serveur) pour les modules
-// Mode client (Pi) -> serveur (ESP32 slave)
-// Mode serveur (Pi) <- client (ESP32 master)
-#define SERVEUR              1
-#define CLIENT               0
 #define MODULE_PISTE         SERVEUR
 #define MODULE_CONFIGURATION CLIENT
 
