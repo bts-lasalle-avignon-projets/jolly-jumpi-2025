@@ -1,4 +1,5 @@
 #include "ihm.h"
+#include "bluetooth.h"
 #include <QApplication>
 
 /*

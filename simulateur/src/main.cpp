@@ -11,10 +11,10 @@
 // Configuration table Jolly Jumpi
 #define PRECISION_TIR 80 //!< Précision du tir (en %)
 #define NB_TROUS      6
-//#define NUMERO_PISTE 1 //!< Numéro de la piste (cf. platformio.ini)
+// #define NUMERO_PISTE 1 //!< Numéro de la piste (cf. platformio.ini)
 
 // Configuration Bluetooth
-//#define BLUETOOTH_SLAVE //!< esclave (attendra la connexion d'un client)
+// #define BLUETOOTH_SLAVE //!< esclave (attendra la connexion d'un client)
 #define BLUETOOTH_MASTER //!< maître (se connectera au serveur)
 #ifdef BLUETOOTH_MASTER
 #define USE_NAME_SERVER                                                        \
@@ -23,8 +23,8 @@
 #define RECHERCHE_ASYNCHRONE                                                   \
     true                 //!< Activer la recherche asynchrone sinon synchrone
 #define ENABLE_SSP false //!< Activer le Secure Simple Pairing
-//#define PREFIXE_NOM_SERVEUR "sedatech" //!< Le préfixe à rechercher
-//#define NOM_SERVEUR         "sedatech" //!< Le nom du serveur par défaut
+// #define PREFIXE_NOM_SERVEUR "sedatech" //!< Le préfixe à rechercher
+// #define NOM_SERVEUR         "sedatech" //!< Le nom du serveur par défaut
 #define PREFIXE_NOM_SERVEUR "jp-visu" //!< Le préfixe à rechercher
 #define NOM_SERVEUR         "jp-visu" //!< Le nom du serveur par défaut
 #define CODE_PIN            "1234"    //!< Code PIN pour l'appairage
@@ -33,8 +33,9 @@
 #define TEMPS_RECHERCHE      10000 //!< Temps d'attente de recherche de périphériques
 #define LONGUEUR_ADRESSE_MAC 6 //!< Longueur de l'adresse MAC
 // Si USE_NAME_SERVER à false, on utilise l'adresse MAC (plus rapide)
-uint8_t adresseMACServeurDefaut[LONGUEUR_ADRESSE_MAC] = { 0x00, 0x1A, 0x7D,
-                                                          0xDA, 0x71, 0x0A };
+uint8_t adresseMACServeurDefaut[LONGUEUR_ADRESSE_MAC] = {
+    0x00, 0xE0, 0x4C, 0x63, 0x17, 0x7F
+}; // pour dongle
 /*uint8_t adresseMACServeurDefaut[LONGUEUR_ADRESSE_MAC] = {
     0x3C, 0xE9, 0xF7, 0x61, 0x82, 0x20
 };    // pour sedatech*/
@@ -114,7 +115,7 @@ String          prefixeNomServeur =
 String  nomServeur = String(NOM_SERVEUR); //!< Le nom du serveur découvert
 uint8_t adresseMACServeur[LONGUEUR_ADRESSE_MAC] = {
     0
-};                                //!< Adresse MAC du serveur découvert
+}; //!< Adresse MAC du serveur découvert
 bool       connecte      = false; //!< connecté au serveur
 bool       etatConnexion = false; //!< état de la connexion au serveur
 bool       serveurTrouve = false; //!< serveur trouvé
@@ -122,18 +123,18 @@ bool       demandeConfirmationAppairage = false;
 bool       appairageReussi              = false; //!< Appairage réussi
 EtatPartie etatPartie                   = Finie; //!< l'état de la partie
 ModeJeu    modeJeu                      = ModeJeu::Standard; //!< le mode de jeu
-bool      estAssocie = false; //!< le module est associé pour joueur une partie
-bool      tirEncours = false; //!<
-int       numeroTrou = 0;     //!< de 0 à NB_TROUS
-int       nbTrous    = NB_TROUS; //!< le nombre de trous détectables
-bool      refresh    = false;    //!< demande rafraichissement de l'écran OLED
-bool      antiRebond = false;    //!< anti-rebond
-Afficheur afficheur(ADRESSE_I2C_OLED,
+bool       estAssocie = false; //!< le module est associé pour joueur une partie
+bool       tirEncours = false; //!<
+int        numeroTrou = 0;     //!< de 0 à NB_TROUS
+int        nbTrous    = NB_TROUS; //!< le nombre de trous détectables
+bool       refresh    = false;    //!< demande rafraichissement de l'écran OLED
+bool       antiRebond = false;    //!< anti-rebond
+Afficheur  afficheur(ADRESSE_I2C_OLED,
                     BROCHE_I2C_SDA,
                     BROCHE_I2C_SCL);                //!< afficheur OLED SSD1306
-String    entete        = String(EN_TETE_TRAME);    // caractère séparateur
-String    separateur    = String(DELIMITEUR_CHAMP); // caractère séparateur
-String    delimiteurFin = String(DELIMITEURS_FIN);  // fin de trame
+String     entete        = String(EN_TETE_TRAME);    // caractère séparateur
+String     separateur    = String(DELIMITEUR_CHAMP); // caractère séparateur
+String     delimiteurFin = String(DELIMITEURS_FIN);  // fin de trame
 
 String extraireChamp(const String& trame, unsigned int numeroChamp)
 {

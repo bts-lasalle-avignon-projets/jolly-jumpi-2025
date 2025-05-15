@@ -34,6 +34,7 @@ class Accueil;
 }
 
 class IHMPartie;
+class Communication;
 
 /**
  * @class IHM
@@ -45,8 +46,9 @@ class IHM : public QWidget
     Q_OBJECT
 
   private:
-    Ui::Accueil* uiAccueil;
-    IHMPartie*   ihmPartie;
+    Ui::Accueil*   uiAccueil;
+    IHMPartie*     ihmPartie;
+    Communication* communication;
 
     QTimer*     minuteurDefilement;
     int         numeroMessage;
