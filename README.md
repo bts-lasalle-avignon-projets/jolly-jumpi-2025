@@ -144,24 +144,35 @@ Quelques diagrammes des échanges :
     > - [ ] Créer l'affichage de connexion
     > - [ ] Créer l'affichage de la partie en cours
 
-  - Module de visualisation : 
+  - Module de visualisation : Gérer partie
 
-    > - [ ] Ajouter des joueurs (1 à 8)
-    > - [ ] Ajouter un chronomètre
-    > - [ ] Ajouter un minuteur (pour le classement et les statistiques joueur)
-    > - [ ] Changer de page
-    > - [ ] Afficher la page Accueil
-    > - [ ] Afficher la page Connexion
-    > - [ ] Afficher la page Jeu
-    > - [ ] Afficher la page Classement à la fin d'une partie (10 seconde)
-    > - [ ] Afficher la page Statistiques:Joueur après la page Classement (10sec par joueur)
-    > - [ ] Démarrer/Communiquer la configuration de la partie au module de détection
-    > - [ ] Calculer le score d'un joueur
-    > - [ ] Enregistrer les données de la partie en local
-    > - [ ] Stocker les données de la partie dans une base de données
-    > - [ ] Mettre fin à la partie
-    > - [ ] Abandonner la partie
-    > - [ ] Envoyer la fin de partie aux autres modules
+    - Configurer partie
+
+      > - [ ] Ajouter des joueurs (1 à 8)
+      > - [ ] Démarrer/Communiquer la configuration de la partie au module de détection
+
+    - Créer chronomètre et minuteur
+
+      > - [ ] Créer un chronomètre
+      > - [ ] Créer un minuteur (pour le classement et les statistiques joueur)
+    
+    - Mettre à jour l'affichage
+
+      > - [ ] Changer de page
+      > - [ ] Afficher la page Accueil
+      > - [ ] Afficher la page Connexion
+      > - [ ] Afficher la page Jeu
+      > - [ ] Mettre à jour la page Jeu
+      > - [ ] Afficher la page Classement à la fin d'une partie (10 seconde)
+      > - [ ] Afficher la page Statistiques:Joueur après la page Classement (10sec par joueur)
+    
+    - Gérer événement partie
+     
+      > - [ ] Calculer le score d'un joueur
+      > - [ ] Enregistrer les données de la partie en local
+      > - [ ] Abandonner la partie
+      > - [ ] Mettre fin à la partie
+      > - [ ] Envoyer la fin de partie aux autres modules
 
 - v0.3 : Ajout d'un historique des parties jouées
 
