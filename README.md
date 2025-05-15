@@ -123,18 +123,18 @@ Quelques diagrammes des échanges :
 
   - Module de visualisation : Créer les affichages de base
 
-    > - [ ] Créer la page Accueil
-    > - [ ] Créer la page Connexion
-    > - [ ] Créer la page Jeu
-    > - [ ] Créer la page Classement
-    > - [ ] Créer la page Statistiques:Joueur
+    > - [X] Créer la page Accueil
+    > - [X] Créer la page Connexion
+    > - [X] Créer la page Jeu
+    > - [X] Créer la page Classement
+    > - [X] Créer la page Statistiques:Joueur
   
-  - Gérer les communications
+  - Module de visualisation : Gérer les communications
 
-    > - [ ] Recupérer une trame
-    > - [ ] Traiter la trame
-    > - [ ] Fabriquer une trame à envoyer
-    > - [ ] Envoyer une trame
+    > - [X] Recupérer un message
+    > - [X] Traiter le message
+    > - [X] Formater un message à envoyer
+    > - [X] Envoyer un message
 
 - v0.2 : Jeu de base (en mode simulation)
   

@@ -8,6 +8,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    bluetooth.cpp \
     communication.cpp \
     baseDeDonnees.cpp \
     ihm.cpp \
@@ -21,6 +22,8 @@ SOURCES += \
     main.cpp
 
 HEADERS += \
+    adressesPeripheriques.h \
+    bluetooth.h \
     communication.h \
     baseDeDonnees.h \
     ihm.h \
