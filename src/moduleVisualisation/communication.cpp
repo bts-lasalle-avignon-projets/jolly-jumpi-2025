@@ -12,7 +12,8 @@ Communication::Communication(QObject* parent) :
                   << "F"  // FIN_PARTIE
                   << "S0" // PAGE_ACCUEIL
                   << "S1" // PAGE_HISTORIQUE
-                  << "A"; // ASSOCIATION
+                  << "A"  // ASSOCIATION
+                  << "T"; // TIR
 
     connect(bluetooth,
             &Bluetooth::messageRecu,

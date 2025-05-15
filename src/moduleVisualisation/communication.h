@@ -21,6 +21,7 @@ class Communication : public QObject
         PAGE_ACCUEIL,
         PAGE_HISTORIQUE,
         ASSOCIATION,
+        TIR,
         NB_MESSAGES
     };
 
