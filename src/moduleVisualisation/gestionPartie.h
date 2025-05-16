@@ -5,6 +5,7 @@
 #include <QVector>
 
 class Joueur;
+class Communication;
 
 namespace Ui
 {
@@ -26,6 +27,13 @@ class GestionPartie : public QObject
     double             duree;
     QVector<Joueur*>   joueurs;
     Ui::GestionPartie* ui;
+    Communication*     communication;
+    bool               configurationPisteTerminee;
+
+    void gererConfiguration(QString nombreJoueursRecu, QString modeDeJeuRecu);
+    void creerJoueur();
+    void initialiserJoueur();
+    void configurerPiste(const QString& numeroPiste);
 };
 
 #endif

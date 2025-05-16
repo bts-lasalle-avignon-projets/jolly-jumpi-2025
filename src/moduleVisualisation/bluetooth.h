@@ -49,6 +49,7 @@ class Bluetooth : public QObject
     QBluetoothSocket* recupererSocketPeripherique(QString adresse);
     QString           recupererNomPeripherique(QBluetoothSocket* socket);
     QString           recupererNomPeripherique(QString adresse);
+    QString           recupererAdresseModuleConfiguration();
     bool              estPeripheriqueConnecte(QString adresse);
 
   private:
@@ -58,6 +59,7 @@ class Bluetooth : public QObject
     QBluetoothServer*                serveur;
     QMap<QString, QBluetoothSocket*> sockets;
     QMap<QString, QString>           peripheriques;
+    QString                          adresseModuleConfiguration;
 
     void initialiserInterfaceLocal();
     void arreterInterfaceLocal();

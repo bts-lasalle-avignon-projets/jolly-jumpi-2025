@@ -40,17 +40,29 @@ void Communication::traiterMessage(QString nom,
     switch(typeMessage)
     {
         case Communication::TypeMessage::CONFIGURATION:
-            gererConfiguration();
+            communiquerConfiguration(message);
+            demanderConfirmationAssociation();
             break;
-        case Communication::TypeMessage::ASSOCIATION:
-            gererAssociation(adresse);
+        case Communication::TypeMessage::DEBUT_PARTIE:
+            emit partieDemarree();
+            break;
+        case Communication::TypeMessage::FIN_PARTIE:
+            emit abandonPartie();
             break;
         case Communication::TypeMessage::PAGE_ACCUEIL:
         case Communication::TypeMessage::PAGE_HISTORIQUE:
             gererChangementPage();
             break;
+        case Communication::TypeMessage::ASSOCIATION:
+            gererAssociation(message);
+            break;
+        // Attendre la mise à jour du simulateur car manque le "T"
+        /*case Communication::TypeMessage::TIR:
+            communiquerTirJoueur(message);
+            break;*/
         default:
-            qDebug() << Q_FUNC_INFO << "typeMessage inconnu !";
+            // qDebug() << Q_FUNC_INFO << "typeMessage inconnu !";
+            communiquerTirJoueur(message);
     }
 }
 
@@ -88,52 +100,69 @@ void Communication::envoyerMessage(const QString& destinataire,
     bluetooth->envoyerMessage(destinataire, construireMessage(message));
 }
 
-void Communication::demanderAssociation(const QString& destinataire)
+void Communication::envoyerMessageGroupe(const QString& message)
 {
-    qDebug() << Q_FUNC_INFO << "destinataire" << destinataire;
-    envoyerMessage(destinataire,
-                   typesMessages.at(Communication::TypeMessage::ASSOCIATION));
+    qDebug() << Q_FUNC_INFO << "Message groupé, message" << message;
+    bluetooth->envoyerMessageGroupe(construireMessage(message));
 }
 
-void Communication::confirmerAssociation(const QString& destinataire)
+void Communication::demanderConfirmationAssociation()
 {
-    qDebug() << Q_FUNC_INFO << "destinataire" << destinataire;
-    envoyerMessage(destinataire,
-                   typesMessages.at(Communication::TypeMessage::ASSOCIATION));
+    qDebug() << Q_FUNC_INFO << "Message groupé, confirmation d'association";
+    envoyerMessageGroupe(
+      typesMessages.at(Communication::TypeMessage::ASSOCIATION));
 }
 
-void Communication::envoyerModeDeJeu(const QString& destinataire,
-                                     const QString& information)
+void Communication::confirmerAssociation(const QString& retourAssociation)
+// Signale la piste au module de config
 {
-    qDebug() << Q_FUNC_INFO << "destinataire" << destinataire << "information"
-             << information;
-    envoyerMessage(destinataire, information);
+    QString adresseModuleConfiguration =
+      bluetooth->recupererAdresseModuleConfiguration();
+    qDebug() << Q_FUNC_INFO << "Adresse du module configuration"
+             << adresseModuleConfiguration << "message" << retourAssociation;
+    envoyerMessage(adresseModuleConfiguration, retourAssociation);
 }
 
-void Communication::envoyerDebutDePartie(const QString& destinataire)
+void Communication::envoyerModeDeJeu(const QString& information)
 {
-    qDebug() << Q_FUNC_INFO << "destinataire" << destinataire;
-    envoyerMessage(destinataire,
-                   typesMessages.at(Communication::TypeMessage::DEBUT_PARTIE));
+    qDebug() << Q_FUNC_INFO << "Message groupé, information" << information;
+    envoyerMessageGroupe(information);
 }
 
-void Communication::signalerFinDePartie(const QString& destinataire)
+void Communication::envoyerDebutDePartie()
 {
-    qDebug() << Q_FUNC_INFO << "destinataire" << destinataire;
-    envoyerMessage(destinataire,
-                   typesMessages.at(Communication::TypeMessage::FIN_PARTIE));
+    qDebug() << Q_FUNC_INFO << "Message groupé, Debut de partie";
+    envoyerMessageGroupe(
+      typesMessages.at(Communication::TypeMessage::DEBUT_PARTIE));
 }
 
-void Communication::gererConfiguration()
+void Communication::signalerFinDePartie()
 {
-    qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << "Message groupé, Fin de partie";
+    envoyerMessageGroupe(
+      typesMessages.at(Communication::TypeMessage::FIN_PARTIE));
 }
 
-void Communication::gererAssociation(const QString& adresse)
+void Communication::communiquerConfiguration(QString message)
 {
-    qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << message;
+    QString informations = nettoyerMessage(message);
+    QString nombreJoueursRecu;
+    QString modeDeJeuRecu;
+
+    nombreJoueursRecu = extraireElement(informations, NOMBRE_JOUEUR);
+    modeDeJeuRecu     = extraireElement(informations, MODE_DE_JEU);
+
+    qDebug() << Q_FUNC_INFO << "Nombre joueur" << nombreJoueursRecu
+             << "Mode de jeu" << modeDeJeuRecu;
+    emit configurationRecue(nombreJoueursRecu, modeDeJeuRecu);
+}
+
+void Communication::gererAssociation(const QString& message)
+{
+    qDebug() << Q_FUNC_INFO << message;
 #ifdef TEST_ASSOCIATION
-    envoyerMessage(adresse, "C0");
+    envoyerMessageGroupe("C0");
     QTimer::singleShot(2000,
                        this,
                        [this]()
@@ -148,9 +177,44 @@ void Communication::gererAssociation(const QString& adresse)
                              });
                        });
 #endif
+    if(!nettoyerMessage(message).isEmpty())
+    {
+        qDebug() << Q_FUNC_INFO << "Confirmation d'association" << message;
+        confirmerAssociation(message);
+    }
 }
 
 void Communication::gererChangementPage()
 {
     qDebug() << Q_FUNC_INFO;
+}
+
+QString Communication::nettoyerMessage(const QString& message)
+{
+    QString messageCopie = message;
+    return messageCopie.remove(0, 1);
+    qDebug() << Q_FUNC_INFO << messageCopie;
+}
+
+QString Communication::extraireElement(const QString& informations,
+                                       const int&     element)
+{
+    QStringList messageDecompose = informations.split(";");
+    return messageDecompose[element];
+}
+
+void Communication::communiquerTirJoueur(const QString& message)
+{
+    qDebug() << Q_FUNC_INFO << message;
+    // QString informations = nettoyerMessage(message); //att maj simulateur
+    QString informations = message; // A supprimer après maj simulateur
+    QString numeroPiste;
+    QString scoreTir;
+
+    numeroPiste = extraireElement(informations, NUMERO_PISTE);
+    scoreTir    = extraireElement(informations, SCORE_TIR);
+
+    qDebug() << Q_FUNC_INFO << "Piste" << numeroPiste << "Score du tir"
+             << scoreTir;
+    emit scoreRecu(numeroPiste, scoreTir);
 }

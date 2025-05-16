@@ -7,10 +7,22 @@
 
 #define TEST_COMMUNICATION
 
+#define PREMIER_ELEMENT  0
+#define DEUXIEME_ELEMENT 1
+
+// Pour la configuration
+#define NOMBRE_JOUEUR PREMIER_ELEMENT
+#define MODE_DE_JEU   DEUXIEME_ELEMENT
+
+// Pour les tirs
+#define NUMERO_PISTE PREMIER_ELEMENT
+#define SCORE_TIR    DEUXIEME_ELEMENT
+
 class Bluetooth;
 
 class Communication : public QObject
 {
+    Q_OBJECT
   public:
     enum TypeMessage
     {
@@ -31,16 +43,19 @@ class Communication : public QObject
 
     QString construireMessage(const QString& trame);
     void    envoyerMessage(const QString& destinataire, const QString& trame);
-    void    demanderAssociation(const QString& destinataire);
-    void    confirmerAssociation(const QString& destinataire);
-    void    envoyerModeDeJeu(const QString& destinataire,
-                             const QString& modeDeJeu);
-    void    envoyerDebutDePartie(const QString& destinataire);
-    void    signalerFinDePartie(const QString& destinataire);
+    void    envoyerMessageGroupe(const QString& message);
+    void    demanderConfirmationAssociation();
+    void    confirmerAssociation(const QString& retourAssociation);
+    void    envoyerModeDeJeu(const QString& modeDeJeu);
+    void    envoyerDebutDePartie();
+    void    signalerFinDePartie();
 
-    void gererConfiguration();
-    void gererAssociation(const QString& adresse);
-    void gererChangementPage();
+    void    communiquerConfiguration(QString message);
+    void    gererAssociation(const QString& message);
+    void    gererChangementPage();
+    QString nettoyerMessage(const QString& message);
+    QString extraireElement(const QString& informations, const int& element);
+    void    communiquerTirJoueur(const QString& message);
 
   private slots:
     void traiterMessage(QString nom, QString adresse, QString message);
@@ -57,6 +72,12 @@ class Communication : public QObject
     bool estDemandePageAccueil(const QString& message);
     bool estDemandePageHistorique(const QString& message);
     bool estDemandeChangementPage(const QString& message);
+
+  signals:
+    void configurationRecue(QString nombreJoueursRecu, QString modeDeJeuRecu);
+    void scoreRecu(QString numeroPiste, QString scoreTir);
+    void partieDemarree();
+    void abandonPartie();
 };
 
 #endif // COMMUNICATION_H
