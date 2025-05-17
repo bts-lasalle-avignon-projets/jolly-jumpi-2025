@@ -19,6 +19,22 @@ Communication::Communication(QObject* parent) :
             &Bluetooth::messageRecu,
             this,
             &Communication::traiterMessage);
+#ifdef SIMULATION_MODULE_CONFIG
+    QTimer::singleShot(5000,
+                       this,
+                       [this]()
+                       {
+                           traiterMessage("jp-config-X", "simulation", "C1;0");
+                           QTimer::singleShot(2000,
+                                              this,
+                                              [this]()
+                                              {
+                                                  traiterMessage("jp-config-X",
+                                                                 "simulation",
+                                                                 "D");
+                                              });
+                       });
+#endif
 }
 
 Communication::~Communication()
@@ -167,7 +183,7 @@ void Communication::gererAssociation(const QString& message)
 {
     qDebug() << Q_FUNC_INFO << message;
 #ifdef TEST_ASSOCIATION
-    envoyerMessageGroupe("C0");
+    // envoyerMessageGroupe("C0");
     QTimer::singleShot(2000,
                        this,
                        [this]()

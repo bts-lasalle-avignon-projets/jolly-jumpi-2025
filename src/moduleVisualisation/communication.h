@@ -5,7 +5,8 @@
 #include <QStringList>
 #include <QString>
 
-#define TEST_COMMUNICATION
+// Simulé le module de configuration
+#define SIMULATION_MODULE_CONFIG
 
 #define PREMIER_ELEMENT  0
 #define DEUXIEME_ELEMENT 1

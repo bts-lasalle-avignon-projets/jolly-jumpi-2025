@@ -4,8 +4,7 @@
 #include <QDebug>
 
 GestionPartie::GestionPartie(QObject* parent) :
-    QObject(parent), nombreJoueurs(0), modeDeJeu(0), etat(0), duree(0.),
-    communication(new Communication)
+    QObject(parent), nombreJoueurs(0), modeDeJeu(0), etat(0), duree(0.)
 {
     qDebug() << Q_FUNC_INFO << this;
     /*for(int i = 0; i < nombreJoueurs; ++i)
@@ -13,7 +12,7 @@ GestionPartie::GestionPartie(QObject* parent) :
         joueurs.push_back(new Joueur());
     }*/
     connect(communication,
-            &Communication::configurationPrete,
+            &Communication::configurationRecue,
             this,
             &GestionPartie::gererConfiguration);
 }

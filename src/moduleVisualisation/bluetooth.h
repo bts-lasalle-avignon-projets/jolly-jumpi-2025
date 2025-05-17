@@ -27,7 +27,7 @@
 #define FIN_MESSAGE   "\n"
 
 // Pour les tests
-#define TEST_ASSOCIATION
+//#define TEST_ASSOCIATION
 
 // Nom du service
 static const QString serviceNom(QStringLiteral("jolly-jumpi"));
