@@ -18,7 +18,6 @@ class GestionPartie : public QObject
   public:
     GestionPartie(QObject* parent);
     ~GestionPartie();
-    void commencerPartie();
 
   private:
     int                nombreJoueurs;
@@ -30,10 +29,13 @@ class GestionPartie : public QObject
     Communication*     communication;
     bool               configurationPisteTerminee;
 
-    void gererConfiguration(QString nombreJoueursRecu, QString modeDeJeuRecu);
-    void creerJoueur();
-    void initialiserJoueur();
+    void creerJoueurs();
+    void initialiserJoueur(const int& numeroJoueur);
     void configurerPiste();
+
+  private slots:
+    void commencerPartie();
+    void gererConfiguration(QString nombreJoueursRecu, QString modeDeJeuRecu);
 };
 
 #endif

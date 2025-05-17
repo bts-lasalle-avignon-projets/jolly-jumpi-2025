@@ -20,7 +20,7 @@ Communication::Communication(QObject* parent) :
             this,
             &Communication::traiterMessage);
 #ifdef SIMULATION_MODULE_CONFIG
-    QTimer::singleShot(5000,
+    QTimer::singleShot(10000,
                        this,
                        [this]()
                        {

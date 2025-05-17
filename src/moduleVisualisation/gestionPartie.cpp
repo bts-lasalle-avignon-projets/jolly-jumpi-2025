@@ -15,6 +15,10 @@ GestionPartie::GestionPartie(QObject* parent) :
             &Communication::configurationRecue,
             this,
             &GestionPartie::gererConfiguration);
+    connect(communication,
+            &Communication::partieDemarree,
+            this,
+            &GestionPartie::commencerPartie);
 }
 
 GestionPartie::~GestionPartie()
@@ -28,7 +32,7 @@ GestionPartie::~GestionPartie()
 
 void GestionPartie::commencerPartie()
 {
-    qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << "La partie démarre";
 }
 
 void GestionPartie::gererConfiguration(QString nombreJoueursRecu,
@@ -38,29 +42,28 @@ void GestionPartie::gererConfiguration(QString nombreJoueursRecu,
              << "Mode de jeu" << modeDeJeuRecu;
     nombreJoueurs = nombreJoueursRecu.toInt();
     modeDeJeu     = modeDeJeuRecu.toInt();
+    creerJoueurs();
+    configurerPiste();
+}
+
+void GestionPartie::creerJoueurs()
+{
+    qDebug() << Q_FUNC_INFO << "Joueurs créés";
     for(int i = 0; i < nombreJoueurs; i++)
     {
-        creerJoueur();
-        configurerPiste();
+        joueurs.push_back(new Joueur());
+        initialiserJoueur(i);
     }
 }
 
-void GestionPartie::creerJoueur()
-{
-    qDebug() << Q_FUNC_INFO << "Joueur créé";
-    joueurs.push_back(new Joueur());
-}
-
-void GestionPartie::initialiserJoueur()
+void GestionPartie::initialiserJoueur(const int& numeroJoueur)
 {
     qDebug() << Q_FUNC_INFO << "Initialisation joueur";
-    for(int i = 0; i < joueurs.size(); i++)
-    {
-        /*joueurs[i]->numero = i; //@TODO voir comment touché au private
-        joueurs[i]->score  = 0;
-        joueurs[i]->tirs.clear();*/
-        qDebug() << Q_FUNC_INFO << "Joueur" << i << "initialisé";
-    }
+    /*joueurs[i]->numero = i; //@TODO faire fonction chez Joueur
+    joueurs[i]->score  = 0;
+    joueurs[i]->tirs.clear();*/
+
+    qDebug() << Q_FUNC_INFO << "Joueur" << numeroJoueur << "initialisé";
 }
 
 void GestionPartie::configurerPiste()
