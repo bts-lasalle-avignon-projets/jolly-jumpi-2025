@@ -123,10 +123,15 @@ void Communication::confirmerAssociation(const QString& retourAssociation)
     envoyerMessage(adresseModuleConfiguration, retourAssociation);
 }
 
-void Communication::envoyerModeDeJeu(const QString& information)
+void Communication::envoyerModeDeJeu(const int& information)
 {
     qDebug() << Q_FUNC_INFO << "Message groupé, information" << information;
-    envoyerMessageGroupe(information);
+    qDebug() << "mixture"
+             << typesMessages.at(Communication::TypeMessage::CONFIGURATION) +
+                  QString::number(information);
+    envoyerMessageGroupe(
+      typesMessages.at(Communication::TypeMessage::CONFIGURATION) +
+      QString::number(information));
 }
 
 void Communication::envoyerDebutDePartie()

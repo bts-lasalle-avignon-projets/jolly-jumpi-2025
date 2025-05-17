@@ -33,7 +33,7 @@ class GestionPartie : public QObject
     void gererConfiguration(QString nombreJoueursRecu, QString modeDeJeuRecu);
     void creerJoueur();
     void initialiserJoueur();
-    void configurerPiste(const QString& numeroPiste);
+    void configurerPiste();
 };
 
 #endif

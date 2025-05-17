@@ -12,10 +12,10 @@ GestionPartie::GestionPartie(QObject* parent) :
     {
         joueurs.push_back(new Joueur());
     }*/
-    /*connect(communication,
+    connect(communication,
             &Communication::configurationPrete,
             this,
-            &GestionPartie::gererConfiguration);*/
+            &GestionPartie::gererConfiguration);
 }
 
 GestionPartie::~GestionPartie()
@@ -42,7 +42,7 @@ void GestionPartie::gererConfiguration(QString nombreJoueursRecu,
     for(int i = 0; i < nombreJoueurs; i++)
     {
         creerJoueur();
-        configurerPiste(QString::number(i));
+        configurerPiste();
     }
 }
 
@@ -64,12 +64,7 @@ void GestionPartie::initialiserJoueur()
     }
 }
 
-void GestionPartie::configurerPiste(const QString& numeroPiste)
+void GestionPartie::configurerPiste()
 {
-    for(int i = 1; i < numeroPiste.toInt(); i++)
-    {
-        /*communication->demanderConfirmationAssociation(numeroPiste);
-        communication->envoyerModeDeJeu(numeroPiste,
-                                        QString::number(modeDeJeu));*/
-    }
+    communication->envoyerModeDeJeu(modeDeJeu);
 }
