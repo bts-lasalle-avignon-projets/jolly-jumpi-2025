@@ -12,6 +12,7 @@ class Partie;
 
 class IHMClassement;
 class IHMStatistiquesJoueur;
+class Communication;
 class GestionPartie;
 
 class IHMPartie : public QWidget
@@ -22,7 +23,8 @@ class IHMPartie : public QWidget
     Ui::Partie*            uiPartie;
     IHMClassement*         ihmClassement;
     IHMStatistiquesJoueur* ihmStatistiquesJoueur;
-    GestionPartie*         gestionPartie; //!< association vers GestionPartie
+    Communication*         communication; //!< association vers Communication
+    GestionPartie*         gestionPartie; //!< composition vers GestionPartie
 
 #ifdef SIMULATION_CLAVIER_PARTIE
     void simulerPartie();
@@ -32,7 +34,7 @@ class IHMPartie : public QWidget
     void showEvent(QShowEvent* event);
 
   public:
-    explicit IHMPartie(QWidget* parent = nullptr);
+    explicit IHMPartie(Communication* communication, QWidget* parent = nullptr);
     virtual ~IHMPartie();
 
   signals:

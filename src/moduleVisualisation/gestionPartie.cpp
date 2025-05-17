@@ -3,8 +3,9 @@
 #include "joueur.h"
 #include <QDebug>
 
-GestionPartie::GestionPartie(QObject* parent) :
-    QObject(parent), nombreJoueurs(0), modeDeJeu(0), etat(0), duree(0.)
+GestionPartie::GestionPartie(Communication* communication, QObject* parent) :
+    QObject(parent), nombreJoueurs(0), modeDeJeu(0), etat(0), duree(0.),
+    communication(communication)
 {
     qDebug() << Q_FUNC_INFO << this;
     /*for(int i = 0; i < nombreJoueurs; ++i)

@@ -16,7 +16,7 @@ class GestionPartie : public QObject
 {
     Q_OBJECT
   public:
-    GestionPartie(QObject* parent);
+    GestionPartie(Communication* communication, QObject* parent);
     ~GestionPartie();
 
   private:
