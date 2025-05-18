@@ -410,6 +410,10 @@ void setup()
     delay(1000); // Attendre que le moniteur série soit prêt
 
 #ifdef DEBUG
+    Serial.println("[main] ESP32 model   : " + String(ESP.getChipModel()));
+    Serial.println("[main] ESP32 version : " + String(ESP.getCoreVersion()));
+    Serial.println("[main] SDK version   : " + String(ESP.getSdkVersion()));
+    Serial.println("");
     Serial.println("[main] Jolly Jumpi 2025");
     Serial.println("[main] Piste         : " + String(NUMERO_PISTE));
     Serial.println("[main] Nb trous      : " + String(NB_TROUS));
