@@ -74,7 +74,6 @@ void GestionPartie::creerJoueurs()
     for(int i = 0; i < nombreJoueurs; i++)
     {
         joueurs.push_back(new Joueur());
-        initialiserJoueur(i);
     }
 }
 

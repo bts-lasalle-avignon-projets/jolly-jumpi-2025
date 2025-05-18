@@ -24,22 +24,31 @@ bool initialiserBluetooth(String nomBluetooth, const char* pin, bool enableSSP)
 #ifdef DEBUG
         Serial.println("[Bluetooth] Code PIN : " + String(pin));
 #endif
-        // ESPBluetooth.setPin(pin); // v2.2.0
+#if ESP_ARDUINO_VERSION >= ESP_ARDUINO_VERSION_VAL(3, 2, 0)
         ESPBluetooth.setPin(pin, strlen(pin)); // v3.2.0
+#else
+        ESPBluetooth.setPin(pin); // v2.2.0
+#endif
     }
     if(enableSSP)
     {
 #ifdef DEBUG
         Serial.println("[Bluetooth] Activer SSP (Secure Simple Pairing)");
 #endif
+#if ESP_ARDUINO_VERSION >= ESP_ARDUINO_VERSION_VAL(3, 2, 0)
         ESPBluetooth.enableSSP(false, false); // NoInputNoOutput
+#else
+        ESPBluetooth.enableSSP();
+#endif
         ESPBluetooth.onConfirmRequest(demanderConfirmation);
         ESPBluetooth.onAuthComplete(finaliserAuthentification);
     }
+#if ESP_ARDUINO_VERSION >= ESP_ARDUINO_VERSION_VAL(3, 2, 0)
     else
     {
         ESPBluetooth.disableSSP();
     }
+#endif
 #if BLUETOOTH_MODE == BLUETOOTH_MASTER
 #ifdef DEBUG
     Serial.println("[Bluetooth] Bluetooth mode : master");
