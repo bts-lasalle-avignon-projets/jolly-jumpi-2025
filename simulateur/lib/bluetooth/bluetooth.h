@@ -17,6 +17,7 @@
 #define ATTENTE_PRET (10 * 1000)
 #define BUFFER_TRAME 64 //!< Buffer pour les trames
 
+bool initialiserBluetooth(String nomBluetooth, const char* pin, bool enableSSP);
 void trouverPeripherique(BTAdvertisedDevice* peripherique);
 void demanderConfirmation(uint32_t numVal);
 void finaliserAuthentification(boolean succes);
@@ -25,10 +26,8 @@ void gererEvenementBluetooth(esp_spp_cb_event_t  event,
 void demarrerRecherchePeripheriques(uint32_t tempsRecherche);
 void demarrerRecherchePeripheriques();
 void arreterRecherchePeripheriques();
-bool connecter(uint8_t     adresseDistante[],
-               const char* pin       = nullptr,
-               bool        enableSSP = false);
-bool connecter(String nomDistant, const char* pin, bool enableSSP);
+bool connecter(uint8_t adresseDistante[]);
+bool connecter(String nomDistant);
 bool reconnecter();
 
 void afficherPeripheriquesAppaires();
