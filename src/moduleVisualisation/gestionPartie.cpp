@@ -2,6 +2,7 @@
 #include "communication.h"
 #include "joueur.h"
 #include <QDebug>
+#include <QTimer>
 
 GestionPartie::GestionPartie(Communication* communication, QObject* parent) :
     QObject(parent), nombreJoueurs(0), modeDeJeu(0), etat(0), duree(0.),
@@ -34,6 +35,16 @@ GestionPartie::~GestionPartie()
 void GestionPartie::commencerPartie()
 {
     qDebug() << Q_FUNC_INFO << "La partie démarre";
+
+    communication->envoyerDebutDePartie();
+#ifdef SIMULATION_MODULE_CONFIG
+    QTimer::singleShot(10000,
+                       this,
+                       [this]()
+                       {
+                           communication->signalerFinDePartie();
+                       });
+#endif
 }
 
 void GestionPartie::gererConfiguration(QString nombreJoueursRecu,
@@ -44,7 +55,13 @@ void GestionPartie::gererConfiguration(QString nombreJoueursRecu,
     nombreJoueurs = nombreJoueursRecu.toInt();
     modeDeJeu     = modeDeJeuRecu.toInt();
     creerJoueurs();
-    configurerPiste();
+    QTimer::singleShot(1000,
+                       this,
+                       [this]()
+                       {
+                           configurerPiste();
+                       });
+    // configurerPiste();
 }
 
 void GestionPartie::creerJoueurs()

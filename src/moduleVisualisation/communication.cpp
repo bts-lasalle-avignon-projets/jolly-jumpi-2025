@@ -25,7 +25,7 @@ Communication::Communication(QObject* parent) :
                        [this]()
                        {
                            traiterMessage("jp-config-X", "simulation", "C1;0");
-                           QTimer::singleShot(2000,
+                           QTimer::singleShot(5000,
                                               this,
                                               [this]()
                                               {
