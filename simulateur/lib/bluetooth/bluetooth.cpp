@@ -650,7 +650,7 @@ void envoyerTrameTir(int numeroTable, int score)
 
     // Format : $T;p;s\n
     sprintf((char*)trameEnvoi,
-            "%sT;%d;%d\n",
+            "%sT%d;%d\n",
             entete.c_str(),
             numeroTable,
             score);

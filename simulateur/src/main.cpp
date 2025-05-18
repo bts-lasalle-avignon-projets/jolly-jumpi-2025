@@ -41,7 +41,7 @@
 // Adresse MAC par défaut du serveur
 // Si USE_NAME_SERVER à false, on utilise l'adresse MAC (plus rapide)
 uint8_t adresseMACServeurDefaut[LONGUEUR_ADRESSE_MAC] = {
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00 // à définir
+    0x2C, 0xCF, 0x67, 0x94, 0xD1, 0xC6 
 };                                     // Raspberry Pi 5
 /*uint8_t adresseMACServeurDefaut[LONGUEUR_ADRESSE_MAC] = {
     0x3C, 0xE9, 0xF7, 0x61, 0x82, 0x20

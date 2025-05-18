@@ -20,7 +20,7 @@ Communication::Communication(QObject* parent) :
             this,
             &Communication::traiterMessage);
 #ifdef SIMULATION_MODULE_CONFIG
-    QTimer::singleShot(10000,
+    QTimer::singleShot(20000,
                        this,
                        [this]()
                        {
@@ -72,13 +72,11 @@ void Communication::traiterMessage(QString nom,
         case Communication::TypeMessage::ASSOCIATION:
             gererAssociation(message);
             break;
-        // Attendre la mise à jour du simulateur car manque le "T"
-        /*case Communication::TypeMessage::TIR:
+        case Communication::TypeMessage::TIR:
             communiquerTirJoueur(message);
-            break;*/
+            break;
         default:
-            // qDebug() << Q_FUNC_INFO << "typeMessage inconnu !";
-            communiquerTirJoueur(message);
+            qDebug() << Q_FUNC_INFO << "typeMessage inconnu !";
     }
 }
 
@@ -227,8 +225,7 @@ QString Communication::extraireElement(const QString& informations,
 void Communication::communiquerTirJoueur(const QString& message)
 {
     qDebug() << Q_FUNC_INFO << message;
-    // QString informations = nettoyerMessage(message); //att maj simulateur
-    QString informations = message; // A supprimer après maj simulateur
+    QString informations = nettoyerMessage(message);
     QString numeroPiste;
     QString scoreTir;
 
