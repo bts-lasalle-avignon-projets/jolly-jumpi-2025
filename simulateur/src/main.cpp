@@ -20,8 +20,7 @@
 #define ENABLE_DISCOVERY false //!< Activer la recherche de périphériques
 #define RECHERCHE_ASYNCHRONE                                                   \
     true //!< Activer la recherche asynchrone sinon synchrone
-#define TEMPS_RECHERCHE 10000 //!< Temps d'attente de recherche de périphériques
-//#define PREFIXE_NOM_MODULE "sedatech" //!< Le préfixe à rechercher
+#define TEMPS_RECHERCHE    10000 //!< Temps d'attente de recherche de périphériques
 #define PREFIXE_NOM_MODULE "jp-visu" //!< Le préfixe à rechercher
 
 #define ENABLE_SSP false  //!< Activer le Secure Simple Pairing
@@ -34,15 +33,14 @@
 #define USE_NAME_SERVER                                                        \
     false //!< Utiliser le nom du serveur sinon l'adresse MAC
 
-//#define NOM_SERVEUR         "sedatech" //!< Le nom du serveur par défaut
 #define NOM_SERVEUR       "jp-visu" //!< Le nom du serveur par défaut
 #define ATTENTE_CONNEXION 10000     //!< Temps d'attente de connexion au serveur
 
 // Adresse MAC par défaut du serveur
 // Si USE_NAME_SERVER à false, on utilise l'adresse MAC (plus rapide)
 uint8_t adresseMACServeurDefaut[LONGUEUR_ADRESSE_MAC] = {
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00 // à définir
-};                                     // Raspberry Pi 5
+    0x2C, 0xCF, 0x67, 0x94, 0xD1, 0xC6
+}; // Raspberry Pi 5
 /*uint8_t adresseMACServeurDefaut[LONGUEUR_ADRESSE_MAC] = {
     0x3C, 0xE9, 0xF7, 0x61, 0x82, 0x20
 }; // pour sedatech*/
@@ -56,6 +54,7 @@ uint8_t adresseMACServeurDefaut[LONGUEUR_ADRESSE_MAC] = {
 #define GPIO_LED_ORANGE  17   //!< Prêt à jouer
 #define GPIO_LED_VERTE   16   //!< Partie en cours
 #define GPIO_SW1         12   //!< Pour simuler un tir
+#define GPIO_SW2         14   //!< Pour le reset
 #define ADRESSE_I2C_OLED 0x3c //!< Adresse I2C de l'OLED
 #define BROCHE_I2C_SDA   21   //!< Broche SDA
 #define BROCHE_I2C_SCL   22   //!< Broche SCL
@@ -91,8 +90,9 @@ int  nbTrous    = NB_TROUS; //!< le nombre de trous détectables
 unsigned long tempsDebutTir = 0;
 bool          refresh    = false; //!< demande rafraichissement de l'écran OLED
 bool          antiRebond = false; //!< anti-rebond
-String        entete     = String(EN_TETE_TRAME);
-String        separateur = String(DELIMITEUR_CHAMP);
+bool          resetEnCours  = false; //!<
+String        entete        = String(EN_TETE_TRAME);
+String        separateur    = String(DELIMITEUR_CHAMP);
 String        delimiteurFin = String(DELIMITEURS_FIN);
 Afficheur     afficheur(ADRESSE_I2C_OLED,
                     BROCHE_I2C_SDA,
@@ -168,6 +168,39 @@ void reinitialiserAffichage()
     refresh = true;
 }
 
+void afficherReset()
+{
+    afficheur.setMessageLigne(Afficheur::Ligne1, "Reset bluetooth");
+    afficheur.setMessageLigne(Afficheur::Ligne2, "");
+    afficheur.setMessageLigne(Afficheur::Ligne3, "Redemarrage");
+    afficheur.setMessageLigne(Afficheur::Ligne4, "dans 2 secondes ...");
+    afficheur.afficher();
+    delay(2000);
+}
+
+/**
+ * @brief Déclenchée par interruption sur le bouton SW2
+ * @fn demanderReset()
+ */
+void IRAM_ATTR demanderReset()
+{
+    if(antiRebond || resetEnCours)
+        return;
+
+    resetEnCours = true;
+    antiRebond   = true;
+}
+
+void lancerReset()
+{
+#ifdef DEBUG
+    Serial.println("[main] reset !");
+#endif
+    supprimerPeripheriquesAppaires();
+    afficherReset();
+    ESP.restart();
+}
+
 void initialiserAffichagePartie(String message)
 {
     afficheur.setMessageLigne(Afficheur::Ligne1, String("Connecte"));
@@ -207,7 +240,7 @@ void afficherConnexion(String message)
     afficheur.setMessageLigne(Afficheur::Ligne1, String("Mode slave"));
 #endif
     afficheur.setMessageLigne(Afficheur::Ligne2, message);
-    afficheur.setMessageLigne(Afficheur::Ligne3, "");
+    // afficheur.setMessageLigne(Afficheur::Ligne3, "");
     afficheur.afficher();
 }
 
@@ -272,13 +305,13 @@ void gererConnexionServeur()
                 afficherConnexion(String("-> ") + nomServeur);
                 // il faut que le serveur soit en mode "découverte"
                 // (discoverable) pour faire la résolution du nom
-                connecte = connecter(nomServeur, CODE_PIN, ENABLE_SSP);
+                connecte = connecter(nomServeur);
             }
             else
             {
                 afficherConnexion(String("-> ") + String(str));
                 // Plus rapide !
-                connecte = connecter(adresseMACServeur, CODE_PIN, ENABLE_SSP);
+                connecte = connecter(adresseMACServeur);
             }
         }
     }
@@ -289,47 +322,56 @@ void gererConnexionServeur()
         {
             afficherConnexion(String("-> ") + nomServeur);
             // il faut que le serveur soit en mode "découverte" (discoverable)
-            connecte = connecter(nomServeur, CODE_PIN, ENABLE_SSP);
+            connecte = connecter(nomServeur);
         }
         else
         {
             afficherConnexion(String("-> ") + String(str));
-            connecte = connecter(adresseMACServeur, CODE_PIN, ENABLE_SSP);
+            connecte = connecter(adresseMACServeur);
         }
     }
     if(!connecte)
     {
         while(!ESPBluetooth.connected(ATTENTE_CONNEXION))
         {
-            // ESPBluetooth.confirmReply(true);
+            if(resetEnCours)
+            {
+                resetEnCours = false;
+#ifdef DEBUG
+                Serial.println("[main] Demande reset !");
+#endif
+                lancerReset();
+            }
             if(USE_NAME_SERVER)
                 afficherConnexion(String("-> ") + nomServeur);
             else
                 afficherConnexion(String("-> ") + String(str));
+
             afficherErreurConnexion();
 #ifdef DEBUG
             Serial.println("[main] Impossible de se connecter au serveur !");
 #endif
             delay(1000);
-            // if(appairageReussi)
+            if(appairageReussi)
             {
-                /*afficheur.setMessageLigne(Afficheur::Ligne2,
-                                          String("Appairage ok"));*/
-                // On va reessayer
-                if(USE_NAME_SERVER)
-                {
-                    afficherConnexion(String("-> ") + nomServeur);
-                    // il faut que le serveur soit en mode "découverte"
-                    // (discoverable) pour faire la résolution du nom
-                    connecte = connecter(nomServeur, CODE_PIN, ENABLE_SSP);
-                }
-                else
-                {
-                    afficherConnexion(String("-> ") + String(str));
-                    // Plus rapide !
-                    connecte =
-                      connecter(adresseMACServeur, CODE_PIN, ENABLE_SSP);
-                }
+                afficheur.setMessageLigne(Afficheur::Ligne3,
+                                          String("Appairage ok"));
+                afficheur.afficher();
+            }
+            // On va reessayer
+            afficheur.setMessageLigne(Afficheur::Ligne3, "");
+            if(USE_NAME_SERVER)
+            {
+                afficherConnexion(String("-> ") + nomServeur);
+                // il faut que le serveur soit en mode "découverte"
+                // (discoverable) pour faire la résolution du nom
+                connecte = connecter(nomServeur);
+            }
+            else
+            {
+                afficherConnexion(String("-> ") + String(str));
+                // Plus rapide !
+                connecte = connecter(adresseMACServeur);
             }
         }
     }
@@ -379,12 +421,15 @@ void setup()
     pinMode(GPIO_LED_ORANGE, OUTPUT);
     pinMode(GPIO_LED_VERTE, OUTPUT);
     pinMode(GPIO_SW1, INPUT_PULLUP);
+    pinMode(GPIO_SW2, INPUT_PULLUP);
     digitalWrite(GPIO_LED_ROUGE, LOW);
     digitalWrite(GPIO_LED_ORANGE, LOW);
     digitalWrite(GPIO_LED_VERTE, LOW);
 
     // Simulateur de tir
     attachInterrupt(digitalPinToInterrupt(GPIO_SW1), tirer, FALLING);
+    // Reset
+    attachInterrupt(digitalPinToInterrupt(GPIO_SW2), demanderReset, FALLING);
 
     // Initialise l'afficheur OLED
     afficheur.initialiser();
@@ -395,16 +440,10 @@ void setup()
     String nomBluetooth = "jp-piste-" + String(NUMERO_PISTE); // NUMERO_PISTE
 
     // Initialisation de la communication Bluetooth
-#if BLUETOOTH_MODE == BLUETOOTH_MASTER
+    bool retour = initialiserBluetooth(nomBluetooth, CODE_PIN, ENABLE_SSP);
 #ifdef DEBUG
-    Serial.println("[main] Bluetooth mode : master");
-#endif
-    ESPBluetooth.begin(nomBluetooth, true);
-#elif BLUETOOTH_MODE == BLUETOOTH_SLAVE
-    ESPBluetooth.begin(nomBluetooth);
-#ifdef DEBUG
-    Serial.println("[main] Bluetooth mode : slave");
-#endif
+    Serial.print("[main] Initialisation Bluetooth : ");
+    Serial.println(retour ? "ok" : "echec");
 #endif
 
     // Affichage informations Bluetooth
@@ -431,7 +470,6 @@ void setup()
     afficherBluetooth("Mode slave");
 #endif
 
-    // supprimerPeripheriquesAppaires();
     afficherPeripheriquesAppaires();
 
     // Initialisation de la communication Bluetooth
@@ -447,8 +485,13 @@ void setup()
             adresseMACServeur[4],
             adresseMACServeur[5]);
 
-    estPeripheriqueAppaire(adresseMACServeur); // Vérifie si le périphérique par
+    // Vérifie si le périphérique par
     // défaut est déjà appairé
+    if(estPeripheriqueAppaire(adresseMACServeur))
+    {
+        afficheur.setMessageLigne(Afficheur::Ligne3, String("Appairage ok"));
+        afficheur.afficher();
+    }
 
     gererConnexionServeur();
 
@@ -530,6 +573,15 @@ void loop()
         afficheur.setMessageLigne(Afficheur::Ligne4, String(strMessageDisplay));
         tirEncours = false;
         refresh    = true;
+    }
+
+    if(resetEnCours)
+    {
+        resetEnCours = false;
+#ifdef DEBUG
+        Serial.println("[main] demande reset !");
+#endif
+        lancerReset();
     }
 
     if(lireTrame(trame))
