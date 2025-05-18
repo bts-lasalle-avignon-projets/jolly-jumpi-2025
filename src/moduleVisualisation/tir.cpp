@@ -11,3 +11,13 @@ Tir::Tir(int score, int temps) : score(score), temps(temps)
 Tir::~Tir()
 {
 }
+
+int Tir::getScore() const
+{
+    return score;
+}
+
+int Tir::getTemps() const
+{
+    return temps;
+}

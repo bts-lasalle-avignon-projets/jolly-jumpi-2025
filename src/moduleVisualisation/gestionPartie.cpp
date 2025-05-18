@@ -21,6 +21,10 @@ GestionPartie::GestionPartie(Communication* communication, QObject* parent) :
             &Communication::partieDemarree,
             this,
             &GestionPartie::commencerPartie);
+    connect(communication,
+            &Communication::scoreRecu,
+            this,
+            &GestionPartie::receptionnerTir);
 }
 
 GestionPartie::~GestionPartie()
@@ -74,17 +78,16 @@ void GestionPartie::creerJoueurs()
     }
 }
 
-void GestionPartie::initialiserJoueur(const int& numeroJoueur)
-{
-    qDebug() << Q_FUNC_INFO << "Initialisation joueur";
-    /*joueurs[i]->numero = i; //@TODO faire fonction chez Joueur
-    joueurs[i]->score  = 0;
-    joueurs[i]->tirs.clear();*/
-
-    qDebug() << Q_FUNC_INFO << "Joueur" << numeroJoueur << "initialisé";
-}
-
 void GestionPartie::configurerPiste()
 {
     communication->envoyerModeDeJeu(modeDeJeu);
+}
+
+void GestionPartie::receptionnerTir(const QString& numeroPiste,
+                                    const QString& score)
+{
+    qDebug() << Q_FUNC_INFO << numeroPiste << score;
+    int temps = 0; // quand chrono crée, récupérer le temps
+    joueurs[numeroPiste.toInt() - 1]->ajouterTir(score.toInt(), temps);
+    joueurs[numeroPiste.toInt() - 1]->afficherTirs();
 }

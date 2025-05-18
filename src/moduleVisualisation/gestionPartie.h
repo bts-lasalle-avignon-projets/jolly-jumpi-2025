@@ -30,12 +30,12 @@ class GestionPartie : public QObject
     bool               configurationPisteTerminee;
 
     void creerJoueurs();
-    void initialiserJoueur(const int& numeroJoueur);
     void configurerPiste();
 
   private slots:
     void commencerPartie();
     void gererConfiguration(QString nombreJoueursRecu, QString modeDeJeuRecu);
+    void receptionnerTir(const QString& numeroPiste, const QString& score);
 };
 
 #endif

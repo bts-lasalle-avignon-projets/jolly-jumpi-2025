@@ -12,6 +12,8 @@ class Joueur
   public:
     Joueur();
     ~Joueur();
+    void ajouterTir(const int& score, const int& temps);
+    void afficherTirs() const;
 
   private:
     int        numero;
