@@ -17,6 +17,42 @@ extern String entete;
 extern String separateur;
 extern String delimiteurFin;
 
+bool initialiserBluetooth(String nomBluetooth, const char* pin, bool enableSSP)
+{
+    if(pin && *pin)
+    {
+#ifdef DEBUG
+        Serial.println("[Bluetooth] Code PIN : " + String(pin));
+#endif
+        // ESPBluetooth.setPin(pin); // v2.2.0
+        ESPBluetooth.setPin(pin, strlen(pin)); // v3.2.0
+    }
+    if(enableSSP)
+    {
+#ifdef DEBUG
+        Serial.println("[Bluetooth] Activer SSP (Secure Simple Pairing)");
+#endif
+        ESPBluetooth.enableSSP(false, false); // NoInputNoOutput
+        ESPBluetooth.onConfirmRequest(demanderConfirmation);
+        ESPBluetooth.onAuthComplete(finaliserAuthentification);
+    }
+    else
+    {
+        ESPBluetooth.disableSSP();
+    }
+#if BLUETOOTH_MODE == BLUETOOTH_MASTER
+#ifdef DEBUG
+    Serial.println("[Bluetooth] Bluetooth mode : master");
+#endif
+    return ESPBluetooth.begin(nomBluetooth, true);
+#elif BLUETOOTH_MODE == BLUETOOTH_SLAVE
+#ifdef DEBUG
+    Serial.println("[Bluetooth] Bluetooth mode : slave");
+#endif
+    return ESPBluetooth.begin(nomBluetooth);
+#endif
+}
+
 void trouverPeripherique(BTAdvertisedDevice* peripherique)
 {
 #ifdef DEBUG
@@ -61,12 +97,12 @@ void demanderConfirmation(uint32_t numVal)
     Serial.print("[Bluetooth] Demande de confirmation : ");
     Serial.println(numVal);
 #endif
+    ESPBluetooth.confirmReply(true);
 }
 
 void finaliserAuthentification(boolean succes)
 {
     demandeConfirmationAppairage = false;
-
     if(succes)
     {
         appairageReussi = true;
@@ -152,7 +188,7 @@ void gererEvenementBluetooth(esp_spp_cb_event_t  event,
             break;
         default: // Autre événement
 #ifdef DEBUG
-                 // Serial.println("[Bluetooth] event : " + String(event));
+            Serial.println("[Bluetooth] event : " + String(event));
 #endif
             break;
     }
@@ -223,7 +259,7 @@ void arreterRecherchePeripheriques()
     ESPBluetooth.discoverAsyncStop();
 }
 
-bool connecter(uint8_t adresseDistante[], const char* pin, bool enableSSP)
+bool connecter(uint8_t adresseDistante[])
 {
     if(!ESPBluetooth.isReady(true, ATTENTE_PRET))
     {
@@ -245,24 +281,6 @@ bool connecter(uint8_t adresseDistante[], const char* pin, bool enableSSP)
     Serial.println("[Bluetooth] Connexion vers le serveur " + String(str) +
                    String(" ..."));
 #endif
-    if(enableSSP)
-    {
-#ifdef DEBUG
-        Serial.println("[Bluetooth] Activer SSP (Secure Simple Pairing)");
-#endif
-        ESPBluetooth.enableSSP();
-        if(pin && *pin)
-        {
-#ifdef DEBUG
-            Serial.println("[Bluetooth] Code PIN : " + String(pin));
-#endif
-            // ESPBluetooth.setPin(pin); // v2.2.0
-            // ESPBluetooth.setPin(pin, strlen(pin)); // v3.2.0
-        }
-        ESPBluetooth.onConfirmRequest(demanderConfirmation);
-        ESPBluetooth.onAuthComplete(finaliserAuthentification);
-    }
-
     ESPBluetooth.register_callback(gererEvenementBluetooth);
     bool estConnecte =
       // ESPBluetooth.connect(adresseDistante, 0, ESP_SPP_SEC_NONE);
@@ -283,7 +301,7 @@ bool connecter(uint8_t adresseDistante[], const char* pin, bool enableSSP)
     return estConnecte;
 }
 
-bool connecter(String nomDistant, const char* pin, bool enableSSP)
+bool connecter(String nomDistant)
 {
     if(!ESPBluetooth.isReady(true, ATTENTE_PRET))
     {
@@ -292,24 +310,6 @@ bool connecter(String nomDistant, const char* pin, bool enableSSP)
 #endif
         return false;
     }
-    if(enableSSP)
-    {
-#ifdef DEBUG
-        Serial.println("[Bluetooth] Activer SSP (Secure Simple Pairing)");
-#endif
-        ESPBluetooth.enableSSP();
-        if(pin && *pin)
-        {
-#ifdef DEBUG
-            Serial.println("[Bluetooth] Code PIN : " + String(pin));
-#endif
-            // ESPBluetooth.setPin(pin); // v2.2.0
-            // ESPBluetooth.setPin(pin, strlen(pin)); // v3.2.0
-        }
-        ESPBluetooth.onConfirmRequest(demanderConfirmation);
-        ESPBluetooth.onAuthComplete(finaliserAuthentification);
-    }
-
     ESPBluetooth.register_callback(gererEvenementBluetooth);
 #ifdef DEBUG
     Serial.println("[Bluetooth] Connexion vers le serveur " + nomDistant +
@@ -650,7 +650,7 @@ void envoyerTrameTir(int numeroTable, int score)
 
     // Format : $T;p;s\n
     sprintf((char*)trameEnvoi,
-            "%sT;%d;%d\n",
+            "%sT%d;%d\n",
             entete.c_str(),
             numeroTable,
             score);

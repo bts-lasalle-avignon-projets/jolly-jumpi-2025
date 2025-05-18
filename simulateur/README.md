@@ -52,6 +52,8 @@ Et pour simuler un tir, on utilise :
 #define GPIO_SW1         12   //!< Pour simuler un tir
 ```
 
+> Le bouton SW2 permet d'effacer les périphériques appairés.
+
 ## Bluetooth
 
 On peut choisir deux modes d'exploitation du Bluetooth :
@@ -104,21 +106,62 @@ Device XX:XX:XX:XX:XX:XX jp-piste-1
 ...
 ```
 
+On peut vérifier la présence du service :
+
+```sh
+$ sdptool search --bdaddr local SP
+Searching for SP on FF:FF:FF:00:00:00 ...
+Service Name: jp-visu
+Service RecHandle: 0x10011
+Service Class ID List:
+  "" (0x0003)
+  "Serial Port" (0x1101)
+Protocol Descriptor List:
+  "L2CAP" (0x0100)
+  "RFCOMM" (0x0003)
+    Channel: 1
+Profile Descriptor List:
+  "Serial Port" (0x1101)
+    Version: 0x0100
+```
+
 > Voir aussi `/etc/bluetooth/main.conf`
 
-### Appairage automatique
+```conf
+[General]
+Name = jp-visu
+#Class = 0x1F00
+Class = 0x000100
+DiscoverableTimeout = 0
+PairableTimeout = 0
+FastConnectable = true
+```
 
-Il faut activer SPP :
+> Voir aussi `/etc/bluetooth/input.conf`
 
-```cpp
-#define ENABLE_SSP          true       //!< Activer le Secure Simple Pairing
+```conf
+[General]
+ClassicBondedOnly=false
+```
+
+```sh
+$ hciconfig noauth
+```
+
+```sh
+$ sudo bluetoothctl
+[bluetooth]# power on
+[bluetooth]# agent NoInputNoOutput
+[bluetooth]# default-agent
+[bluetooth]# discoverable on
+[bluetooth]# pairable on
 ```
 
 ## Trames
 
 - Vers le module de visualisation (Écran jumpi)
 
-  - Envoyer le score : `$p;s\n`
+  - Envoyer le score : `$Tp;s\n`
   > `s` (le score) et `p` (numéro de piste) sont des caractères numériques
 
 Du module de visualisation (Écran jumpi)
