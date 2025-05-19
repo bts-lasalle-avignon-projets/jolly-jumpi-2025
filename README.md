@@ -171,7 +171,7 @@ Quelques diagrammes des échanges :
       > - [X] Calculer le score d'un joueur
       > - [ ] Enregistrer les données de la partie en local
       > - [ ] Abandonner la partie
-      > - [ ] Mettre fin à la partie
+      > - [X] Mettre fin à la partie
       > - [X] Envoyer la fin de partie aux autres modules
 
 - v0.3 : Ajout d'un historique des parties jouées
