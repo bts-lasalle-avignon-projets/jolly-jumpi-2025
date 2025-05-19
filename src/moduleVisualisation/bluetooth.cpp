@@ -304,22 +304,25 @@ void Bluetooth::arreterRecherche()
 
 void Bluetooth::envoyerMessage(QString adresse, QString message)
 {
-    qDebug() << Q_FUNC_INFO << "message" << message << "adresse" << adresse;
+    qDebug() << Q_FUNC_INFO << "adresse" << adresse << "message" << message;
     if(sockets[adresse] != nullptr && sockets[adresse]->isOpen() &&
        sockets[adresse]->state() == QBluetoothSocket::ConnectedState)
     {
         sockets[adresse]->write(message.toLocal8Bit());
     }
     else if(sockets[adresse] != nullptr)
+    {
         qDebug() << Q_FUNC_INFO << "isOpen" << sockets[adresse]->isOpen()
                  << "state" << sockets[adresse]->state() << "adresse"
                  << adresse;
+    }
 }
 
 void Bluetooth::envoyerMessageGroupe(QString message)
 {
     for(const auto& adresse: sockets.keys())
     {
+        qDebug() << Q_FUNC_INFO << "adresse" << adresse << "message" << message;
         envoyerMessage(adresse, message);
     }
 }
@@ -481,7 +484,7 @@ void Bluetooth::connecterPeripheriqueDecouvert(
                 {
                     adresseModuleConfiguration =
                       recupererAdressePeripherique(socket);
-                    qDebug() << Q_FUNC_INFO << "Adresse jp-config"
+                    qDebug() << Q_FUNC_INFO << "adresseModuleConfiguration"
                              << adresseModuleConfiguration;
                 }
                 emit peripheriqueDistantConnecte(peripherique);
@@ -574,7 +577,7 @@ void Bluetooth::connecterPeripheriqueDecouvert()
     if(socket->peerName().startsWith(PREFIX_NOM_MOD_CONFIGURATION))
     {
         adresseModuleConfiguration = recupererAdressePeripherique(socket);
-        qDebug() << Q_FUNC_INFO << "Adresse jp-config"
+        qDebug() << Q_FUNC_INFO << "adresseModuleConfiguration"
                  << adresseModuleConfiguration;
     }
 

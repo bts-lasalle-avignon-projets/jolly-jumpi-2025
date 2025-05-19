@@ -5,8 +5,8 @@
 #include <QStringList>
 #include <QString>
 
-// Simulé le module de configuration
-#define SIMULATION_MODULE_CONFIG
+// Simulation du module de configuration
+#define SIMULATION_MODULE_CONFIGURATION
 
 #define PREMIER_ELEMENT  0
 #define DEUXIEME_ELEMENT 1
@@ -57,6 +57,9 @@ class Communication : public QObject
     QString nettoyerMessage(const QString& message);
     QString extraireElement(const QString& informations, const int& element);
     void    communiquerTirJoueur(const QString& message);
+#ifdef SIMULATION_MODULE_CONFIGURATION
+    void simulerModuleConfiguration();
+#endif
 
   private slots:
     void traiterMessage(QString nom, QString adresse, QString message);

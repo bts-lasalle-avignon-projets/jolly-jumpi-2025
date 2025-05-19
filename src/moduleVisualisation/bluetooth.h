@@ -30,7 +30,7 @@
 //#define TEST_ASSOCIATION
 
 // Nom du service
-static const QString serviceNom(QStringLiteral("jolly-jumpi"));
+static const QString serviceNom(QStringLiteral("jp-visu"));
 
 class Bluetooth : public QObject
 {

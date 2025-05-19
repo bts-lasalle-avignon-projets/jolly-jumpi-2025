@@ -48,6 +48,7 @@ IHMPartie::~IHMPartie()
 void IHMPartie::showEvent(QShowEvent* event)
 {
     qDebug() << Q_FUNC_INFO << this;
+    gestionPartie->gererPartie();
 }
 
 void IHMPartie::fermer()

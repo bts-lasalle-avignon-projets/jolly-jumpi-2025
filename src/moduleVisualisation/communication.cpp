@@ -19,22 +19,6 @@ Communication::Communication(QObject* parent) :
             &Bluetooth::messageRecu,
             this,
             &Communication::traiterMessage);
-#ifdef SIMULATION_MODULE_CONFIG
-    QTimer::singleShot(22000,
-                       this,
-                       [this]()
-                       {
-                           traiterMessage("jp-config-X", "simulation", "C1;0");
-                           QTimer::singleShot(5000,
-                                              this,
-                                              [this]()
-                                              {
-                                                  traiterMessage("jp-config-X",
-                                                                 "simulation",
-                                                                 "D");
-                                              });
-                       });
-#endif
 }
 
 Communication::~Communication()
@@ -116,55 +100,54 @@ void Communication::envoyerMessage(const QString& destinataire,
 
 void Communication::envoyerMessageGroupe(const QString& message)
 {
-    qDebug() << Q_FUNC_INFO << "Message groupé, message" << message;
+    qDebug() << Q_FUNC_INFO << "message" << message;
     bluetooth->envoyerMessageGroupe(construireMessage(message));
 }
 
 void Communication::demanderConfirmationAssociation()
 {
-    qDebug() << Q_FUNC_INFO << "Message groupé, confirmation d'association";
+    qDebug() << Q_FUNC_INFO;
     envoyerMessageGroupe(
       typesMessages.at(Communication::TypeMessage::ASSOCIATION));
 }
 
 void Communication::confirmerAssociation(const QString& retourAssociation)
-// Signale la piste au module de config
 {
     QString adresseModuleConfiguration =
       bluetooth->recupererAdresseModuleConfiguration();
-    qDebug() << Q_FUNC_INFO << "Adresse du module configuration"
-             << adresseModuleConfiguration << "message" << retourAssociation;
+    qDebug() << Q_FUNC_INFO << "adresseModuleConfiguration"
+             << adresseModuleConfiguration << "retourAssociation"
+             << retourAssociation;
+    // Signale la piste au module de configuration
     envoyerMessage(adresseModuleConfiguration, retourAssociation);
 }
 
-void Communication::envoyerModeDeJeu(const int& information)
+void Communication::envoyerModeDeJeu(const int& modeDeJeu)
 {
-    qDebug() << Q_FUNC_INFO << "Message groupé, information" << information;
-    qDebug() << "mixture"
+    qDebug() << Q_FUNC_INFO << "modeDeJeu" << modeDeJeu << "message"
              << typesMessages.at(Communication::TypeMessage::CONFIGURATION) +
-                  QString::number(information);
+                  QString::number(modeDeJeu);
     envoyerMessageGroupe(
       typesMessages.at(Communication::TypeMessage::CONFIGURATION) +
-      QString::number(information));
+      QString::number(modeDeJeu));
 }
 
 void Communication::envoyerDebutDePartie()
 {
-    qDebug() << Q_FUNC_INFO << "Message groupé, Debut de partie";
+    qDebug() << Q_FUNC_INFO;
     envoyerMessageGroupe(
       typesMessages.at(Communication::TypeMessage::DEBUT_PARTIE));
 }
 
 void Communication::signalerFinDePartie()
 {
-    qDebug() << Q_FUNC_INFO << "Message groupé, Fin de partie";
+    qDebug() << Q_FUNC_INFO;
     envoyerMessageGroupe(
       typesMessages.at(Communication::TypeMessage::FIN_PARTIE));
 }
 
 void Communication::communiquerConfiguration(QString message)
 {
-    qDebug() << Q_FUNC_INFO << message;
     QString informations = nettoyerMessage(message);
     QString nombreJoueursRecu;
     QString modeDeJeuRecu;
@@ -172,8 +155,8 @@ void Communication::communiquerConfiguration(QString message)
     nombreJoueursRecu = extraireElement(informations, NOMBRE_JOUEUR);
     modeDeJeuRecu     = extraireElement(informations, MODE_DE_JEU);
 
-    qDebug() << Q_FUNC_INFO << "Nombre joueur" << nombreJoueursRecu
-             << "Mode de jeu" << modeDeJeuRecu;
+    qDebug() << Q_FUNC_INFO << "message" << message << "nombreJoueursRecu"
+             << nombreJoueursRecu << "modeDeJeuRecu" << modeDeJeuRecu;
     emit configurationRecue(nombreJoueursRecu, modeDeJeuRecu);
 }
 
@@ -198,7 +181,7 @@ void Communication::gererAssociation(const QString& message)
 #endif
     if(!nettoyerMessage(message).isEmpty())
     {
-        qDebug() << Q_FUNC_INFO << "Confirmation d'association" << message;
+        qDebug() << Q_FUNC_INFO << "message" << message;
         confirmerAssociation(message);
     }
 }
@@ -212,7 +195,6 @@ QString Communication::nettoyerMessage(const QString& message)
 {
     QString messageCopie = message;
     return messageCopie.remove(0, 1);
-    qDebug() << Q_FUNC_INFO << messageCopie;
 }
 
 QString Communication::extraireElement(const QString& informations,
@@ -232,7 +214,28 @@ void Communication::communiquerTirJoueur(const QString& message)
     numeroPiste = extraireElement(informations, NUMERO_PISTE);
     scoreTir    = extraireElement(informations, SCORE_TIR);
 
-    qDebug() << Q_FUNC_INFO << "Piste" << numeroPiste << "Score du tir"
+    qDebug() << Q_FUNC_INFO << "numeroPiste" << numeroPiste << "scoreTir"
              << scoreTir;
     emit scoreRecu(numeroPiste, scoreTir);
 }
+
+#ifdef SIMULATION_MODULE_CONFIGURATION
+void Communication::simulerModuleConfiguration()
+{
+    qDebug() << Q_FUNC_INFO;
+    QTimer::singleShot(
+      2000,
+      this,
+      [this]()
+      {
+          traiterMessage("jp-config-1", "00:00:00:00:00:00", "C2;0");
+          QTimer::singleShot(
+            5000,
+            this,
+            [this]()
+            {
+                traiterMessage("jp-config-1", "00:00:00:00:00:00", "D");
+            });
+      });
+}
+#endif

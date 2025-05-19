@@ -16,13 +16,26 @@ class GestionPartie : public QObject
 {
     Q_OBJECT
   public:
+    enum EtatPartie
+    {
+        INCONNU = -1,
+        CONFIGUREE,
+        DEBUTEE,
+        FINIE,
+        ABANDONNEE,
+        NB_ETATS
+    };
+
+  public:
     GestionPartie(Communication* communication, QObject* parent);
     ~GestionPartie();
+
+    void gererPartie();
 
   private:
     int                nombreJoueurs;
     int                modeDeJeu;
-    int                etat;
+    EtatPartie         etat;
     double             duree;
     QVector<Joueur*>   joueurs;
     Ui::GestionPartie* ui;
@@ -30,12 +43,15 @@ class GestionPartie : public QObject
     bool               configurationPisteTerminee;
 
     void creerJoueurs();
+    void supprimerJoueurs();
     void configurerPiste();
 
   private slots:
     void commencerPartie();
     void gererConfiguration(QString nombreJoueursRecu, QString modeDeJeuRecu);
     void receptionnerTir(const QString& numeroPiste, const QString& score);
+    void finirPartie();
+    void abandonnerPartie();
 };
 
 #endif
