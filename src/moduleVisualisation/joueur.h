@@ -13,10 +13,11 @@ class Joueur
     Joueur();
     Joueur(int numero);
     ~Joueur();
-    int  getNumero() const;
-    void setNumero(const int& numero);
-    void ajouterTir(const int& score, const int& temps);
-    void afficherTirs() const;
+    int        getNumero() const;
+    void       setNumero(const int& numero);
+    void       ajouterTir(const int& score, const int& temps);
+    void       afficherTirs() const;
+    QList<Tir> recupererTirs() const;
 
   private:
     int        numero;

@@ -8,6 +8,8 @@
 #include <QTimer>
 #include <functional>
 
+#define SCORE_MAX 10
+
 class Joueur;
 class Communication;
 class Joueur;
@@ -53,6 +55,8 @@ class GestionPartie : public QObject
     void relierPistesEtJoueurs();
     void demarrerChronometre();
     int  recupererChronometre();
+    int  calculerScoreJoueur(const QString& numeroPiste);
+    bool estScoreMax(const int& score);
 
   private slots:
     void commencerPartie();

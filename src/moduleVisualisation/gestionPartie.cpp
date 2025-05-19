@@ -139,6 +139,10 @@ void GestionPartie::receptionnerTir(const QString& numeroPiste,
              << joueurs[numeroPiste]->getNumero() << "score" << score;
     joueurs[numeroPiste]->ajouterTir(score.toInt(), chronometre);
     joueurs[numeroPiste]->afficherTirs();
+    if(estScoreMax(calculerScoreJoueur(numeroPiste)))
+    {
+        finirPartie();
+    }
 }
 
 void GestionPartie::finirPartie()
@@ -152,4 +156,23 @@ void GestionPartie::abandonnerPartie()
 {
     qDebug() << Q_FUNC_INFO;
     etat = EtatPartie::ABANDONNEE;
+}
+
+int GestionPartie::calculerScoreJoueur(const QString& numeroPiste)
+{
+    int score = 0;
+    for(const Tir& tir: joueurs[numeroPiste]->recupererTirs())
+    {
+        score += tir.getScore();
+    }
+    qDebug() << Q_FUNC_INFO << "joueur" << joueurs[numeroPiste]->getNumero()
+             << "score" << score;
+    return score;
+}
+
+bool GestionPartie::estScoreMax(const int& score)
+{
+    if(score >= SCORE_MAX)
+        return true;
+    return false;
 }

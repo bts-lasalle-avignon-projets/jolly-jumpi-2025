@@ -41,3 +41,8 @@ void Joueur::afficherTirs() const
         qDebug() << "score" << tir.getScore() << "temps" << tir.getTemps();
     }
 }
+
+QList<Tir> Joueur::recupererTirs() const
+{
+    return tirs;
+}
