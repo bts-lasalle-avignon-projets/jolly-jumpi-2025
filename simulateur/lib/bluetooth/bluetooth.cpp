@@ -6,7 +6,7 @@ extern String          nomServeur;
 extern uint8_t         adresseMACServeur[ESP_BD_ADDR_LEN];
 
 extern bool
-  connexionVersServeur; //!< état de la connexion au serveur (MODE MASTER)
+            connexionVersServeur; //!< état de la connexion au serveur (MODE MASTER)
 extern bool connexionDuClient; //!< état de la connexion du client (MODE SLAVE)
 extern bool serveurTrouve;
 extern bool demandeConfirmationAppairage;
@@ -19,6 +19,22 @@ extern String delimiteurFin;
 
 bool initialiserBluetooth(String nomBluetooth, const char* pin, bool enableSSP)
 {
+    bool initialise = false;
+
+#if ESP_ARDUINO_VERSION < ESP_ARDUINO_VERSION_VAL(3, 0, 0)
+#if BLUETOOTH_MODE == BLUETOOTH_MASTER
+#ifdef DEBUG
+    Serial.println("[Bluetooth] Bluetooth mode : master");
+#endif
+    initialise = ESPBluetooth.begin(nomBluetooth, true);
+#elif BLUETOOTH_MODE == BLUETOOTH_SLAVE
+#ifdef DEBUG
+    Serial.println("[Bluetooth] Bluetooth mode : slave");
+#endif
+    initialise = ESPBluetooth.begin(nomBluetooth);
+#endif
+#endif
+
     if(pin && *pin)
     {
 #ifdef DEBUG
@@ -49,17 +65,22 @@ bool initialiserBluetooth(String nomBluetooth, const char* pin, bool enableSSP)
         ESPBluetooth.disableSSP();
     }
 #endif
+
+#if ESP_ARDUINO_VERSION >= ESP_ARDUINO_VERSION_VAL(3, 2, 0)
 #if BLUETOOTH_MODE == BLUETOOTH_MASTER
 #ifdef DEBUG
     Serial.println("[Bluetooth] Bluetooth mode : master");
 #endif
-    return ESPBluetooth.begin(nomBluetooth, true);
+    initialise = ESPBluetooth.begin(nomBluetooth, true);
 #elif BLUETOOTH_MODE == BLUETOOTH_SLAVE
 #ifdef DEBUG
     Serial.println("[Bluetooth] Bluetooth mode : slave");
 #endif
-    return ESPBluetooth.begin(nomBluetooth);
+    initialise = ESPBluetooth.begin(nomBluetooth);
 #endif
+#endif
+
+    return initialise;
 }
 
 void trouverPeripherique(BTAdvertisedDevice* peripherique)
