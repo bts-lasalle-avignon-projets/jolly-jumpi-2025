@@ -16,12 +16,12 @@ Joueur::~Joueur()
     qDebug() << Q_FUNC_INFO;
 }
 
-int Joueur::getNumero() const
+int Joueur::recupererNumero() const
 {
     return numero;
 }
 
-void Joueur::setNumero(const int& numero)
+void Joueur::definirNumero(const int& numero)
 {
     this->numero = numero;
 }
@@ -38,7 +38,8 @@ void Joueur::afficherTirs() const
     qDebug() << Q_FUNC_INFO << "numero" << numero;
     for(const Tir& tir: tirs)
     {
-        qDebug() << "score" << tir.getScore() << "temps" << tir.getTemps();
+        qDebug() << "score" << tir.recupererScore() << "temps"
+                 << tir.recupererTemps();
     }
 }
 

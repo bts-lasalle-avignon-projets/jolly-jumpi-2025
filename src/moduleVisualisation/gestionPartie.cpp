@@ -59,7 +59,7 @@ void GestionPartie::commencerPartie()
     etat = EtatPartie::DEBUTEE;
     emit changementEtatPartie(etat);
     communication->envoyerDebutDePartie();
-    demarrerChronometre();
+    chronometrer();
 }
 
 int GestionPartie::recupererChronometre()
@@ -103,7 +103,7 @@ void GestionPartie::relierPistesEtJoueurs()
     }
 }
 
-void GestionPartie::demarrerChronometre()
+void GestionPartie::chronometrer()
 {
     chronometre      = 0;
     QTimer* minuteur = new QTimer(this);
@@ -131,11 +131,12 @@ void GestionPartie::receptionnerTir(const QString& numeroPiste,
     if(etat != EtatPartie::DEBUTEE)
         return;
     qDebug() << Q_FUNC_INFO << "numeroPiste" << numeroPiste << "joueur"
-             << joueurs[numeroPiste]->getNumero() << "scoreTir" << scoreTir;
+             << joueurs[numeroPiste]->recupererNumero() << "scoreTir"
+             << scoreTir;
     joueurs[numeroPiste]->ajouterTir(scoreTir, chronometre);
     joueurs[numeroPiste]->afficherTirs();
     joueurs[numeroPiste]->definirScore(scoreTir);
-    emit tirRecu(joueurs[numeroPiste]->getNumero(), scoreTir);
+    emit tirRecu(joueurs[numeroPiste]->recupererNumero(), scoreTir);
     if(estScoreMax(joueurs[numeroPiste]->recupererScore()))
     {
         finirPartie();
@@ -147,6 +148,8 @@ void GestionPartie::finirPartie()
     qDebug() << Q_FUNC_INFO;
     communication->signalerFinDePartie();
     etat = EtatPartie::FINIE;
+    emit changementEtatPartie(etat);
+    genererClassement();
 }
 
 void GestionPartie::abandonnerPartie()
@@ -163,10 +166,10 @@ int GestionPartie::calculerScoreJoueur(const QString& numeroPiste)
     int score = 0;
     for(const Tir& tir: joueurs[numeroPiste]->recupererTirs())
     {
-        score += tir.getScore();
+        score += tir.recupererScore();
     }
-    qDebug() << Q_FUNC_INFO << "joueur" << joueurs[numeroPiste]->getNumero()
-             << "score" << score;
+    qDebug() << Q_FUNC_INFO << "joueur"
+             << joueurs[numeroPiste]->recupererNumero() << "score" << score;
     return score;
 }
 
@@ -175,4 +178,30 @@ bool GestionPartie::estScoreMax(const int& score)
     if(score >= SCORE_MAX)
         return true;
     return false;
+}
+
+std::vector<QList<QString> > GestionPartie::genererClassement()
+{
+    QList<Joueur*> listeJoueurs = joueurs.values();
+    std::sort(listeJoueurs.begin(),
+              listeJoueurs.end(),
+              [](Joueur* a, Joueur* b)
+              {
+                  return a->recupererScore() > b->recupererScore();
+              });
+
+    std::vector<QList<QString> > classement;
+    int                          place = 1;
+    for(Joueur* joueur: listeJoueurs)
+    {
+        QList<QString> ligneClassement;
+        ligneClassement << QString::number(joueur->recupererNumero());
+        ligneClassement << QString::number(joueur->recupererScore());
+        ligneClassement << QString::number(place);
+        classement.push_back(ligneClassement);
+        place++;
+        qDebug() << Q_FUNC_INFO << ligneClassement;
+    }
+    qDebug() << Q_FUNC_INFO << classement;
+    return classement;
 }

@@ -265,9 +265,9 @@ void Communication::simulerModuleConfiguration()
                                                      "00:00:00:00:00:00",
                                                      "D");
                                                });
-#endif
                                          });
                   });
+#endif
             });
       });
 }

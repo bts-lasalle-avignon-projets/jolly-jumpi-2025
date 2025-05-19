@@ -6,7 +6,7 @@
 #include <QString>
 #include <QMap>
 #include <QTimer>
-#include <functional>
+#include <QLabel>
 
 #define SCORE_MAX 10
 
@@ -37,7 +37,8 @@ class GestionPartie : public QObject
     GestionPartie(Communication* communication, QObject* parent);
     ~GestionPartie();
 
-    void gererPartie();
+    void                         gererPartie();
+    std::vector<QList<QString> > genererClassement();
 
   private:
     int                    nombreJoueurs;
@@ -53,7 +54,7 @@ class GestionPartie : public QObject
     void supprimerJoueurs();
     void configurerPiste();
     void relierPistesEtJoueurs();
-    void demarrerChronometre();
+    void chronometrer();
     int  recupererChronometre();
     int  calculerScoreJoueur(const QString& numeroPiste);
     bool estScoreMax(const int& score);

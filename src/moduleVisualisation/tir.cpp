@@ -12,12 +12,12 @@ Tir::~Tir()
 {
 }
 
-int Tir::getScore() const
+int Tir::recupererScore() const
 {
     return score;
 }
 
-int Tir::getTemps() const
+int Tir::recupererTemps() const
 {
     return temps;
 }
