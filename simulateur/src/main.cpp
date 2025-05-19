@@ -411,10 +411,15 @@ void setup()
 
 #ifdef DEBUG
     Serial.println("[main] ESP32 model   : " + String(ESP.getChipModel()));
-    Serial.println("[main] ESP32 version : " + String(ESP.getCoreVersion()));
 #if ESP_ARDUINO_VERSION >= ESP_ARDUINO_VERSION_VAL(3, 2, 0)
-    Serial.println("[main] SDK version   : " + String(ESP.getSdkVersion()));
+    Serial.println("[main] ESP32 version : " + String(ESP.getCoreVersion()));
+#else
+    Serial.println(
+      "[main] ESP32 version : " + String(ESP_ARDUINO_VERSION_MAJOR) + "." +
+      String(ESP_ARDUINO_VERSION_MINOR) + "." +
+      String(ESP_ARDUINO_VERSION_PATCH));
 #endif
+    Serial.println("[main] SDK version   : " + String(ESP.getSdkVersion()));
     Serial.println("");
     Serial.println("[main] Jolly Jumpi 2025");
     Serial.println("[main] Piste         : " + String(NUMERO_PISTE));
