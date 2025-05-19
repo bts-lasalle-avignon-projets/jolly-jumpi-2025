@@ -155,7 +155,10 @@ void GestionPartie::finirPartie()
 void GestionPartie::abandonnerPartie()
 {
     qDebug() << Q_FUNC_INFO;
+    communication->signalerFinDePartie();
+    supprimerJoueurs();
     etat = EtatPartie::ABANDONNEE;
+    // Changer pour écran Accueil
 }
 
 int GestionPartie::calculerScoreJoueur(const QString& numeroPiste)

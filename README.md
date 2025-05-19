@@ -170,7 +170,7 @@ Quelques diagrammes des échanges :
      
       > - [X] Calculer le score d'un joueur
       > - [ ] Enregistrer les données de la partie en local
-      > - [ ] Abandonner la partie
+      > - [X] Abandonner la partie
       > - [X] Mettre fin à la partie
       > - [X] Envoyer la fin de partie aux autres modules
 
