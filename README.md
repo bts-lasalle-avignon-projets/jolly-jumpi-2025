@@ -151,10 +151,10 @@ Quelques diagrammes des échanges :
       > - [X] Ajouter des joueurs (1 à 8)
       > - [X] Démarrer/Communiquer la configuration de la partie au module de détection
 
-    - Créer chronomètre et minuteur
+    - Créer chronomètre ~~et minuteur~~
 
-      > - [ ] Créer un chronomètre
-      > - [ ] Créer un minuteur (pour le classement et les statistiques joueur)
+      > - [X] Créer un chronomètre
+      > - [ ] ~~Créer un minuteur (pour le classement et les statistiques joueur)~~
     
     - Mettre à jour l'affichage
 

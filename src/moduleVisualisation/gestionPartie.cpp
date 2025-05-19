@@ -2,7 +2,6 @@
 #include "communication.h"
 #include "joueur.h"
 #include <QDebug>
-#include <QTimer>
 
 GestionPartie::GestionPartie(Communication* communication, QObject* parent) :
     QObject(parent), nombreJoueurs(0), modeDeJeu(0), etat(EtatPartie::INCONNU),
@@ -59,6 +58,7 @@ void GestionPartie::commencerPartie()
     relierPistesEtJoueurs();
     etat = EtatPartie::DEBUTEE;
     communication->envoyerDebutDePartie();
+    demarrerChronometre();
 #ifdef SIMULATION_MODULE_CONFIGURATION
     QTimer::singleShot(10000,
                        this,
@@ -69,6 +69,11 @@ void GestionPartie::commencerPartie()
 #endif
 }
 
+int GestionPartie::recupererChronometre()
+{
+    return chronometre;
+}
+
 void GestionPartie::gererConfiguration(QString nombreJoueursRecu,
                                        QString modeDeJeuRecu)
 {
@@ -76,27 +81,12 @@ void GestionPartie::gererConfiguration(QString nombreJoueursRecu,
              << "modeDeJeuRecu" << modeDeJeuRecu;
     nombreJoueurs = nombreJoueursRecu.toInt();
     modeDeJeu     = modeDeJeuRecu.toInt();
-    // creerJoueurs();
-    etat = EtatPartie::CONFIGUREE;
+    etat          = EtatPartie::CONFIGUREE;
     configurerPiste();
 }
 
-/*void GestionPartie::creerJoueurs()
-{
-    qDebug() << Q_FUNC_INFO << "nombreJoueurs" << nombreJoueurs;
-    for(int i = 0; i < nombreJoueurs; i++)
-    {
-        joueurs.push_back(new Joueur());
-    }
-    // joueur relié à une piste dans relierPistesJoueurs()
-}*/
-
 void GestionPartie::supprimerJoueurs()
 {
-    /*for(int i = 0; i < joueurs.size(); ++i)
-    {
-        delete joueurs.at(i);
-    }*/
     joueurs.clear();
 }
 
@@ -119,6 +109,27 @@ void GestionPartie::relierPistesEtJoueurs()
     }
 }
 
+void GestionPartie::demarrerChronometre()
+{
+    chronometre      = 0;
+    QTimer* minuteur = new QTimer(this);
+    connect(minuteur,
+            &QTimer::timeout,
+            this,
+            [this, minuteur]()
+            {
+                if(etat != EtatPartie::DEBUTEE)
+                {
+                    minuteur->stop();
+                    return;
+                }
+                chronometre++;
+                qDebug() << Q_FUNC_INFO << chronometre << "secondes";
+            });
+
+    minuteur->start(1000); // toutes les 1 secondes
+}
+
 void GestionPartie::receptionnerTir(const QString& numeroPiste,
                                     const QString& score)
 {
@@ -126,8 +137,7 @@ void GestionPartie::receptionnerTir(const QString& numeroPiste,
         return;
     qDebug() << Q_FUNC_INFO << "numeroPiste" << numeroPiste << "joueur"
              << joueurs[numeroPiste]->getNumero() << "score" << score;
-    int temps = 0; // quand chrono crée, récupérer le temps
-    joueurs[numeroPiste]->ajouterTir(score.toInt(), temps);
+    joueurs[numeroPiste]->ajouterTir(score.toInt(), chronometre);
     joueurs[numeroPiste]->afficherTirs();
 }
 

@@ -5,6 +5,8 @@
 #include <QVector>
 #include <QString>
 #include <QMap>
+#include <QTimer>
+#include <functional>
 
 class Joueur;
 class Communication;
@@ -44,11 +46,13 @@ class GestionPartie : public QObject
     Communication*         communication;
     bool                   configurationPisteTerminee;
     QMap<QString, Joueur*> joueurs;
+    int                    chronometre;
 
-    void creerJoueurs();
     void supprimerJoueurs();
     void configurerPiste();
     void relierPistesEtJoueurs();
+    void demarrerChronometre();
+    int  recupererChronometre();
 
   private slots:
     void commencerPartie();
