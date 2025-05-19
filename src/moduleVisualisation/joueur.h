@@ -11,6 +11,7 @@ class Joueur
 {
   public:
     Joueur();
+    Joueur(int numero);
     ~Joueur();
     int  getNumero() const;
     void setNumero(const int& numero);

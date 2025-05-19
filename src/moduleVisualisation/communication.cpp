@@ -183,6 +183,7 @@ void Communication::gererAssociation(const QString& message)
     {
         qDebug() << Q_FUNC_INFO << "message" << message;
         confirmerAssociation(message);
+        pistes.append(nettoyerMessage(message));
     }
 }
 
@@ -219,12 +220,17 @@ void Communication::communiquerTirJoueur(const QString& message)
     emit scoreRecu(numeroPiste, scoreTir);
 }
 
+QList<QString> Communication::recupererPistes()
+{
+    return pistes;
+}
+
 #ifdef SIMULATION_MODULE_CONFIGURATION
 void Communication::simulerModuleConfiguration()
 {
     qDebug() << Q_FUNC_INFO;
     QTimer::singleShot(
-      2000,
+      25000,
       this,
       [this]()
       {

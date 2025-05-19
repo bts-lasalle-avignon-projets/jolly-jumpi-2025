@@ -57,6 +57,7 @@ class Communication : public QObject
     QString nettoyerMessage(const QString& message);
     QString extraireElement(const QString& informations, const int& element);
     void    communiquerTirJoueur(const QString& message);
+    QList<QString> recupererPistes();
 #ifdef SIMULATION_MODULE_CONFIGURATION
     void simulerModuleConfiguration();
 #endif
@@ -65,8 +66,9 @@ class Communication : public QObject
     void traiterMessage(QString nom, QString adresse, QString message);
 
   private:
-    Bluetooth*  bluetooth;
-    QStringList typesMessages; // une QMap ?
+    Bluetooth*     bluetooth;
+    QStringList    typesMessages; // une QMap ?
+    QList<QString> pistes;
 
     TypeMessage identifierTypeMessage(const QString& message);
     bool verifierTypeMessage(const QString& message, const QString& caractere);

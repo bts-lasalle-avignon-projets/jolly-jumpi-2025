@@ -6,6 +6,11 @@ Joueur::Joueur() : numero(JOUEUR_INCONNU), score(0), trouPrefere(AUCUN)
     qDebug() << Q_FUNC_INFO;
 }
 
+Joueur::Joueur(int numero) : numero(numero), score(0), trouPrefere(AUCUN)
+{
+    qDebug() << Q_FUNC_INFO << "numero" << numero;
+}
+
 Joueur::~Joueur()
 {
     qDebug() << Q_FUNC_INFO;

@@ -3,9 +3,12 @@
 
 #include <QObject>
 #include <QVector>
+#include <QString>
+#include <QMap>
 
 class Joueur;
 class Communication;
+class Joueur;
 
 namespace Ui
 {
@@ -33,18 +36,19 @@ class GestionPartie : public QObject
     void gererPartie();
 
   private:
-    int                nombreJoueurs;
-    int                modeDeJeu;
-    EtatPartie         etat;
-    double             duree;
-    QVector<Joueur*>   joueurs;
-    Ui::GestionPartie* ui;
-    Communication*     communication;
-    bool               configurationPisteTerminee;
+    int                    nombreJoueurs;
+    int                    modeDeJeu;
+    EtatPartie             etat;
+    double                 duree;
+    Ui::GestionPartie*     ui;
+    Communication*         communication;
+    bool                   configurationPisteTerminee;
+    QMap<QString, Joueur*> joueurs;
 
     void creerJoueurs();
     void supprimerJoueurs();
     void configurerPiste();
+    void relierPistesEtJoueurs();
 
   private slots:
     void commencerPartie();
