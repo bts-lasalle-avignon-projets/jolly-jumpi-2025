@@ -57,6 +57,7 @@ void GestionPartie::commencerPartie()
         return;
     relierPistesEtJoueurs();
     etat = EtatPartie::DEBUTEE;
+    emit changementEtatPartie(etat);
     communication->envoyerDebutDePartie();
     demarrerChronometre();
 #ifdef SIMULATION_MODULE_CONFIGURATION
@@ -83,6 +84,7 @@ void GestionPartie::gererConfiguration(QString nombreJoueursRecu,
     modeDeJeu     = modeDeJeuRecu.toInt();
     etat          = EtatPartie::CONFIGUREE;
     configurerPiste();
+    emit changementEtatPartie(etat);
 }
 
 void GestionPartie::supprimerJoueurs()
@@ -131,14 +133,15 @@ void GestionPartie::demarrerChronometre()
 }
 
 void GestionPartie::receptionnerTir(const QString& numeroPiste,
-                                    const QString& score)
+                                    const QString& scoreTir)
 {
     if(etat != EtatPartie::DEBUTEE)
         return;
     qDebug() << Q_FUNC_INFO << "numeroPiste" << numeroPiste << "joueur"
-             << joueurs[numeroPiste]->getNumero() << "score" << score;
-    joueurs[numeroPiste]->ajouterTir(score.toInt(), chronometre);
+             << joueurs[numeroPiste]->getNumero() << "scoreTir" << scoreTir;
+    joueurs[numeroPiste]->ajouterTir(scoreTir.toInt(), chronometre);
     joueurs[numeroPiste]->afficherTirs();
+    emit tirRecu(joueurs[numeroPiste]->getNumero(), scoreTir.toInt());
     if(estScoreMax(calculerScoreJoueur(numeroPiste)))
     {
         finirPartie();
@@ -158,7 +161,7 @@ void GestionPartie::abandonnerPartie()
     communication->signalerFinDePartie();
     supprimerJoueurs();
     etat = EtatPartie::ABANDONNEE;
-    // Changer pour écran Accueil
+    emit changementEtatPartie(etat);
 }
 
 int GestionPartie::calculerScoreJoueur(const QString& numeroPiste)

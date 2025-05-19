@@ -64,6 +64,10 @@ class GestionPartie : public QObject
     void receptionnerTir(const QString& numeroPiste, const QString& score);
     void finirPartie();
     void abandonnerPartie();
+
+  signals:
+    void changementEtatPartie(EtatPartie etatPartie);
+    void tirRecu(int joueur, int scoreTir);
 };
 
 #endif
