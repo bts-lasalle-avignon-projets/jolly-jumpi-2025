@@ -148,8 +148,8 @@ Quelques diagrammes des échanges :
 
     - Configurer partie
 
-      > - [ ] Ajouter des joueurs (1 à 8)
-      > - [ ] Démarrer/Communiquer la configuration de la partie au module de détection
+      > - [X] Ajouter des joueurs (1 à 8)
+      > - [X] Démarrer/Communiquer la configuration de la partie au module de détection
 
     - Créer chronomètre et minuteur
 

@@ -97,7 +97,7 @@ void IHM::afficherPartie()
     qDebug() << Q_FUNC_INFO;
     if(ihmPartie == nullptr)
     {
-        ihmPartie = new IHMPartie();
+        ihmPartie = new IHMPartie(communication);
     }
     else
     {

@@ -7,6 +7,8 @@ class Tir
     Tir();
     Tir(int score, int temps);
     ~Tir();
+    int getScore() const;
+    int getTemps() const;
 
   private:
     int score;

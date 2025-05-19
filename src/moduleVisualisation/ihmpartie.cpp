@@ -2,12 +2,15 @@
 #include "ui_partie.h"
 #include "ihmClassement.h"
 #include "ihmStatistiquesJoueur.h"
+#include "communication.h"
 #include "gestionPartie.h"
 #include <QDebug>
 
-IHMPartie::IHMPartie(QWidget* parent) :
-    QWidget{ parent }, uiPartie(new Ui::Partie), ihmClassement(nullptr),
-    ihmStatistiquesJoueur(nullptr), gestionPartie(new GestionPartie(this))
+IHMPartie::IHMPartie(Communication* communication, QWidget* parent) :
+    QWidget(parent), uiPartie(new Ui::Partie), ihmClassement(nullptr),
+    ihmStatistiquesJoueur(nullptr), communication(communication),
+    gestionPartie(new GestionPartie(communication, this))
+
 {
     uiPartie->setupUi(this);
 
@@ -45,6 +48,7 @@ IHMPartie::~IHMPartie()
 void IHMPartie::showEvent(QShowEvent* event)
 {
     qDebug() << Q_FUNC_INFO << this;
+    gestionPartie->gererPartie();
 }
 
 void IHMPartie::fermer()

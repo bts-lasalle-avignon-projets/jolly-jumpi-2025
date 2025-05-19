@@ -27,10 +27,10 @@
 #define FIN_MESSAGE   "\n"
 
 // Pour les tests
-#define TEST_ASSOCIATION
+//#define TEST_ASSOCIATION
 
 // Nom du service
-static const QString serviceNom(QStringLiteral("jolly-jumpi"));
+static const QString serviceNom(QStringLiteral("jp-visu"));
 
 class Bluetooth : public QObject
 {
@@ -49,6 +49,7 @@ class Bluetooth : public QObject
     QBluetoothSocket* recupererSocketPeripherique(QString adresse);
     QString           recupererNomPeripherique(QBluetoothSocket* socket);
     QString           recupererNomPeripherique(QString adresse);
+    QString           recupererAdresseModuleConfiguration();
     bool              estPeripheriqueConnecte(QString adresse);
 
   private:
@@ -58,6 +59,7 @@ class Bluetooth : public QObject
     QBluetoothServer*                serveur;
     QMap<QString, QBluetoothSocket*> sockets;
     QMap<QString, QString>           peripheriques;
+    QString                          adresseModuleConfiguration;
 
     void initialiserInterfaceLocal();
     void arreterInterfaceLocal();

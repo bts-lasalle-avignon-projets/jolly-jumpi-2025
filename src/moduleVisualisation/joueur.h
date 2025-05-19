@@ -12,6 +12,10 @@ class Joueur
   public:
     Joueur();
     ~Joueur();
+    int  getNumero() const;
+    void setNumero(const int& numero);
+    void ajouterTir(const int& score, const int& temps);
+    void afficherTirs() const;
 
   private:
     int        numero;
