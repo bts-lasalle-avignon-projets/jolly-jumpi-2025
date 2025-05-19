@@ -7,6 +7,7 @@
 
 // Simulation du module de configuration
 #define SIMULATION_MODULE_CONFIGURATION
+#define SIMULATION_MODULE_CONFIGURATION_ABANDON
 
 #define PREMIER_ELEMENT  0
 #define DEUXIEME_ELEMENT 1

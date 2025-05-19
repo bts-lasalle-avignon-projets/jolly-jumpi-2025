@@ -60,14 +60,6 @@ void GestionPartie::commencerPartie()
     emit changementEtatPartie(etat);
     communication->envoyerDebutDePartie();
     demarrerChronometre();
-#ifdef SIMULATION_MODULE_CONFIGURATION
-    QTimer::singleShot(10000,
-                       this,
-                       [this]()
-                       {
-                           finirPartie();
-                       });
-#endif
 }
 
 int GestionPartie::recupererChronometre()
@@ -133,16 +125,18 @@ void GestionPartie::demarrerChronometre()
 }
 
 void GestionPartie::receptionnerTir(const QString& numeroPiste,
-                                    const QString& scoreTir)
+                                    const QString& score)
 {
+    int scoreTir = score.toInt();
     if(etat != EtatPartie::DEBUTEE)
         return;
     qDebug() << Q_FUNC_INFO << "numeroPiste" << numeroPiste << "joueur"
              << joueurs[numeroPiste]->getNumero() << "scoreTir" << scoreTir;
-    joueurs[numeroPiste]->ajouterTir(scoreTir.toInt(), chronometre);
+    joueurs[numeroPiste]->ajouterTir(scoreTir, chronometre);
     joueurs[numeroPiste]->afficherTirs();
-    emit tirRecu(joueurs[numeroPiste]->getNumero(), scoreTir.toInt());
-    if(estScoreMax(calculerScoreJoueur(numeroPiste)))
+    joueurs[numeroPiste]->definirScore(scoreTir);
+    emit tirRecu(joueurs[numeroPiste]->getNumero(), scoreTir);
+    if(estScoreMax(joueurs[numeroPiste]->recupererScore()))
     {
         finirPartie();
     }

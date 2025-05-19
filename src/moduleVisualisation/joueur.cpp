@@ -46,3 +46,14 @@ QList<Tir> Joueur::recupererTirs() const
 {
     return tirs;
 }
+
+void Joueur::definirScore(const int scoreTir)
+{
+    score += scoreTir;
+    qDebug() << Q_FUNC_INFO << "score" << score;
+}
+
+int Joueur::recupererScore() const
+{
+    return score;
+}

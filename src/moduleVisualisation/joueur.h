@@ -18,6 +18,8 @@ class Joueur
     void       ajouterTir(const int& score, const int& temps);
     void       afficherTirs() const;
     QList<Tir> recupererTirs() const;
+    void       definirScore(const int scoreTir);
+    int        recupererScore() const;
 
   private:
     int        numero;

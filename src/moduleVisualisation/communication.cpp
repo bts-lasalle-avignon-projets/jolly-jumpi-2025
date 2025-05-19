@@ -241,6 +241,33 @@ void Communication::simulerModuleConfiguration()
             [this]()
             {
                 traiterMessage("jp-config-1", "00:00:00:00:00:00", "D");
+#ifdef SIMULATION_MODULE_CONFIGURATION_ABANDON
+                QTimer::singleShot(
+                  5000,
+                  this,
+                  [this]()
+                  {
+                      traiterMessage("jp-config-1", "00:00:00:00:00:00", "F");
+                      QTimer::singleShot(5000,
+                                         this,
+                                         [this]()
+                                         {
+                                             traiterMessage("jp-config-1",
+                                                            "00:00:00:00:00:00",
+                                                            "C2;0");
+                                             QTimer::singleShot(
+                                               5000,
+                                               this,
+                                               [this]()
+                                               {
+                                                   traiterMessage(
+                                                     "jp-config-1",
+                                                     "00:00:00:00:00:00",
+                                                     "D");
+                                               });
+#endif
+                                         });
+                  });
             });
       });
 }
