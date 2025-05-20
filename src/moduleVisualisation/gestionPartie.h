@@ -6,7 +6,9 @@
 #include <QString>
 #include <QMap>
 #include <QTimer>
-#include <functional>
+#include <QLabel>
+
+#define SCORE_MAX 10
 
 class Joueur;
 class Communication;
@@ -35,7 +37,10 @@ class GestionPartie : public QObject
     GestionPartie(Communication* communication, QObject* parent);
     ~GestionPartie();
 
-    void gererPartie();
+    void                         gererPartie();
+    std::vector<QList<QString> > genererClassement();
+    std::vector<QList<QString> > recupererStatistiquesJoueur(
+      const QString& numeroJoueur);
 
   private:
     int                    nombreJoueurs;
@@ -51,8 +56,10 @@ class GestionPartie : public QObject
     void supprimerJoueurs();
     void configurerPiste();
     void relierPistesEtJoueurs();
-    void demarrerChronometre();
+    void chronometrer();
     int  recupererChronometre();
+    int  calculerScoreJoueur(const QString& numeroPiste);
+    bool estScoreMax(const int& score);
 
   private slots:
     void commencerPartie();
@@ -60,6 +67,10 @@ class GestionPartie : public QObject
     void receptionnerTir(const QString& numeroPiste, const QString& score);
     void finirPartie();
     void abandonnerPartie();
+
+  signals:
+    void changementEtatPartie(EtatPartie etatPartie);
+    void tirRecu(int joueur, int scoreTir);
 };
 
 #endif

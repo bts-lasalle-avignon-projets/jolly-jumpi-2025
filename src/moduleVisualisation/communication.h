@@ -7,6 +7,7 @@
 
 // Simulation du module de configuration
 #define SIMULATION_MODULE_CONFIGURATION
+//#define SIMULATION_MODULE_CONFIGURATION_ABANDON
 
 #define PREMIER_ELEMENT  0
 #define DEUXIEME_ELEMENT 1
@@ -48,6 +49,7 @@ class Communication : public QObject
     void    demanderConfirmationAssociation();
     void    confirmerAssociation(const QString& retourAssociation);
     void    envoyerModeDeJeu(const int& modeDeJeu);
+    void    envoyerConfiguration(const int& modeDeJeu, const int& nombreJoueur);
     void    envoyerDebutDePartie();
     void    signalerFinDePartie();
 

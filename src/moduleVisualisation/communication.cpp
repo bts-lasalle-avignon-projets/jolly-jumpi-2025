@@ -132,6 +132,18 @@ void Communication::envoyerModeDeJeu(const int& modeDeJeu)
       QString::number(modeDeJeu));
 }
 
+void Communication::envoyerConfiguration(const int& modeDeJeu,
+                                         const int& nombreJoueur)
+{
+    QString configuration =
+      typesMessages.at(Communication::TypeMessage::CONFIGURATION) +
+      QString::number(modeDeJeu) + ";" + QString::number(nombreJoueur);
+
+    qDebug() << Q_FUNC_INFO << "modeDeJeu" << modeDeJeu << "nombre joueur"
+             << nombreJoueur << "message" << configuration;
+    envoyerMessageGroupe(configuration);
+}
+
 void Communication::envoyerDebutDePartie()
 {
     qDebug() << Q_FUNC_INFO;
@@ -241,6 +253,33 @@ void Communication::simulerModuleConfiguration()
             [this]()
             {
                 traiterMessage("jp-config-1", "00:00:00:00:00:00", "D");
+#ifdef SIMULATION_MODULE_CONFIGURATION_ABANDON
+                QTimer::singleShot(
+                  5000,
+                  this,
+                  [this]()
+                  {
+                      traiterMessage("jp-config-1", "00:00:00:00:00:00", "F");
+                      QTimer::singleShot(5000,
+                                         this,
+                                         [this]()
+                                         {
+                                             traiterMessage("jp-config-1",
+                                                            "00:00:00:00:00:00",
+                                                            "C2;0");
+                                             QTimer::singleShot(
+                                               5000,
+                                               this,
+                                               [this]()
+                                               {
+                                                   traiterMessage(
+                                                     "jp-config-1",
+                                                     "00:00:00:00:00:00",
+                                                     "D");
+                                               });
+                                         });
+                  });
+#endif
             });
       });
 }

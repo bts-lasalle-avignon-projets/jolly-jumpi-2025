@@ -168,11 +168,11 @@ Quelques diagrammes des échanges :
     
     - Gérer événement partie
      
-      > - [ ] Calculer le score d'un joueur
-      > - [ ] Enregistrer les données de la partie en local
-      > - [ ] Abandonner la partie
-      > - [ ] Mettre fin à la partie
-      > - [ ] Envoyer la fin de partie aux autres modules
+      > - [X] Calculer le score d'un joueur
+      > - [X] Enregistrer les données de la partie en local
+      > - [X] Abandonner la partie
+      > - [X] Mettre fin à la partie
+      > - [X] Envoyer la fin de partie aux autres modules
 
 - v0.3 : Ajout d'un historique des parties jouées
 

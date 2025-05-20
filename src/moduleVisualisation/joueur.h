@@ -13,16 +13,26 @@ class Joueur
     Joueur();
     Joueur(int numero);
     ~Joueur();
-    int  getNumero() const;
-    void setNumero(const int& numero);
-    void ajouterTir(const int& score, const int& temps);
-    void afficherTirs() const;
+    int        recupererNumero() const;
+    void       definirNumero(const int& numero);
+    void       ajouterTir(const int& score, const int& temps);
+    void       afficherTirs() const;
+    QList<Tir> recupererTirs() const;
+    void       definirScore(const int scoreTir);
+    int        recupererScore() const;
+
+    std::vector<QList<QString> > genererStatistiquesJoueur();
+    std::vector<QList<QString> > recupererStatistiquesJoueur();
 
   private:
     int        numero;
     int        score;
     int        trouPrefere;
     QList<Tir> tirs;
+
+    void    determinerTrouPreferer(const QList<Tir>& listeTir);
+    int     calculerEcartTir(const int& tempsA, const int& tempsB);
+    QString convertirTemps(const int& secondes);
 };
 
 #endif
