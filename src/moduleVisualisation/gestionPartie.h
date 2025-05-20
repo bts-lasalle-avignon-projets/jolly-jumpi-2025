@@ -39,6 +39,8 @@ class GestionPartie : public QObject
 
     void                         gererPartie();
     std::vector<QList<QString> > genererClassement();
+    std::vector<QList<QString> > recupererStatistiquesJoueur(
+      const QString& numeroJoueur);
 
   private:
     int                    nombreJoueurs;

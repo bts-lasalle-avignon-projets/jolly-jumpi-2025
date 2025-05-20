@@ -169,7 +169,7 @@ Quelques diagrammes des échanges :
     - Gérer événement partie
      
       > - [X] Calculer le score d'un joueur
-      > - [ ] Enregistrer les données de la partie en local
+      > - [X] Enregistrer les données de la partie en local
       > - [X] Abandonner la partie
       > - [X] Mettre fin à la partie
       > - [X] Envoyer la fin de partie aux autres modules

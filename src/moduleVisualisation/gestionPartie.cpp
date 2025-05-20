@@ -149,7 +149,6 @@ void GestionPartie::finirPartie()
     communication->signalerFinDePartie();
     etat = EtatPartie::FINIE;
     emit changementEtatPartie(etat);
-    genererClassement();
 }
 
 void GestionPartie::abandonnerPartie()
@@ -204,4 +203,11 @@ std::vector<QList<QString> > GestionPartie::genererClassement()
     }
     qDebug() << Q_FUNC_INFO << classement;
     return classement;
+}
+
+std::vector<QList<QString> > GestionPartie::recupererStatistiquesJoueur(
+  const QString& numeroJoueur)
+{
+    qDebug() << Q_FUNC_INFO << numeroJoueur;
+    return joueurs[numeroJoueur]->recupererStatistiquesJoueur();
 }
