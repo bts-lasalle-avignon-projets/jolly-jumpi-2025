@@ -132,6 +132,18 @@ void Communication::envoyerModeDeJeu(const int& modeDeJeu)
       QString::number(modeDeJeu));
 }
 
+void Communication::envoyerConfiguration(const int& modeDeJeu,
+                                         const int& nombreJoueur)
+{
+    QString configuration =
+      typesMessages.at(Communication::TypeMessage::CONFIGURATION) +
+      QString::number(modeDeJeu) + ";" + QString::number(nombreJoueur);
+
+    qDebug() << Q_FUNC_INFO << "modeDeJeu" << modeDeJeu << "nombre joueur"
+             << nombreJoueur << "message" << configuration;
+    envoyerMessageGroupe(configuration);
+}
+
 void Communication::envoyerDebutDePartie()
 {
     qDebug() << Q_FUNC_INFO;

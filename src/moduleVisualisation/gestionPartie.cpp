@@ -90,6 +90,8 @@ void GestionPartie::configurerPiste()
     {
         qDebug() << Q_FUNC_INFO;
         communication->envoyerModeDeJeu(modeDeJeu);
+        // attente maj simulateur
+        // communication->envoyerConfiguration(modeDeJeu, nombreJoueurs);
     }
 }
 
