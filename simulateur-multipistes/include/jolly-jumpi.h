@@ -4,7 +4,7 @@
 #include <Arduino.h>
 
 // Configuration table Jolly Jumpi
-#define NB_PISTES     4  //!< Nombre de pistes
+#define NB_PISTES     8  //!< Nombre de pistes
 #define PRECISION_TIR 80 //!< Précision du tir (en %)
 #define NB_TROUS      6
 #define TIR_RAPIDE    2000 //!< Tir réussi rapide (en ms)

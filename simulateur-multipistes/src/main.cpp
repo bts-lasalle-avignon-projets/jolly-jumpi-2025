@@ -624,12 +624,12 @@ void loop()
 #ifdef DEBUG
                     Serial.println("[main] Association");
 #endif
-                    envoyerTrameAssociation();
+                    envoyerTrameAssociation(nbPistes);
                 }
                 break;
             case TypeTrame::MODE_JEU:
                 //$Cm\n
-                if(etatPartie == Finie && estAssocie)
+                if(etatPartie == Finie)
                 {
                     // $Cm;j\n
                     int mode = trame.charAt(2) - '0';
@@ -640,7 +640,9 @@ void loop()
                     digitalWrite(GPIO_LED_ROUGE, LOW);
                     digitalWrite(GPIO_LED_ORANGE, HIGH);
                     digitalWrite(GPIO_LED_VERTE, LOW);
-                    initialiserAffichagePartie(String("Attente départ"));
+                    initialiserAffichagePartie(String("Attente départ - ") +
+                                               String(nbPistes) +
+                                               String(" pistes"));
                     afficheur.afficher();
 #ifdef DEBUG
                     Serial.println("[main] Mode jeu   : " + String(mode));
