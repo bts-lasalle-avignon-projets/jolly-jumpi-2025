@@ -122,16 +122,6 @@ void Communication::confirmerAssociation(const QString& retourAssociation)
     envoyerMessage(adresseModuleConfiguration, retourAssociation);
 }
 
-void Communication::envoyerModeDeJeu(const int& modeDeJeu)
-{
-    qDebug() << Q_FUNC_INFO << "modeDeJeu" << modeDeJeu << "message"
-             << typesMessages.at(Communication::TypeMessage::CONFIGURATION) +
-                  QString::number(modeDeJeu);
-    envoyerMessageGroupe(
-      typesMessages.at(Communication::TypeMessage::CONFIGURATION) +
-      QString::number(modeDeJeu));
-}
-
 void Communication::envoyerConfiguration(const int& modeDeJeu,
                                          const int& nombreJoueur)
 {
@@ -175,27 +165,16 @@ void Communication::communiquerConfiguration(QString message)
 void Communication::gererAssociation(const QString& message)
 {
     qDebug() << Q_FUNC_INFO << message;
-#ifdef TEST_ASSOCIATION
-    // envoyerMessageGroupe("C0");
-    QTimer::singleShot(2000,
-                       this,
-                       [this]()
-                       {
-                           bluetooth->envoyerMessageGroupe("$D\n");
-                           QTimer::singleShot(
-                             10000,
-                             this,
-                             [this]()
-                             {
-                                 bluetooth->envoyerMessageGroupe("$F\n");
-                             });
-                       });
-#endif
+
     if(!nettoyerMessage(message).isEmpty())
     {
         qDebug() << Q_FUNC_INFO << "message" << message;
         confirmerAssociation(message);
-        pistes.append(nettoyerMessage(message));
+        // Génère les numéros de piste
+        QString nombrePistes = message.at(NOMBRE_PISTES);
+        qDebug() << Q_FUNC_INFO << "nombrePistes" << nombrePistes;
+        for(int n = 1; n <= nombrePistes.toInt(); ++n)
+            pistes.append(QString::number(n));
     }
 }
 
@@ -234,7 +213,13 @@ void Communication::communiquerTirJoueur(const QString& message)
 
 QList<QString> Communication::recupererPistes()
 {
+    qDebug() << Q_FUNC_INFO << "pistes" << pistes;
     return pistes;
+}
+
+void Communication::effacerPistes()
+{
+    pistes.clear();
 }
 
 #ifdef SIMULATION_MODULE_CONFIGURATION
@@ -242,11 +227,11 @@ void Communication::simulerModuleConfiguration()
 {
     qDebug() << Q_FUNC_INFO;
     QTimer::singleShot(
-      25000,
+      2000,
       this,
       [this]()
       {
-          traiterMessage("jp-config-1", "00:00:00:00:00:00", "C2;0");
+          traiterMessage("jp-config-1", "00:00:00:00:00:00", "C0;2");
           QTimer::singleShot(
             5000,
             this,
@@ -266,7 +251,7 @@ void Communication::simulerModuleConfiguration()
                                          {
                                              traiterMessage("jp-config-1",
                                                             "00:00:00:00:00:00",
-                                                            "C2;0");
+                                                            "C0;2");
                                              QTimer::singleShot(
                                                5000,
                                                this,

@@ -41,7 +41,6 @@ void GestionPartie::gererPartie()
     /**
      * @todo Initialiser la partie (état, joueurs, ...)
      */
-    relierPistesEtJoueurs();
     supprimerJoueurs();
 #ifdef SIMULATION_MODULE_CONFIGURATION
     qDebug() << Q_FUNC_INFO << "SIMULATION_MODULE_CONFIGURATION";
@@ -82,6 +81,7 @@ void GestionPartie::gererConfiguration(QString nombreJoueursRecu,
 void GestionPartie::supprimerJoueurs()
 {
     joueurs.clear();
+    communication->effacerPistes();
 }
 
 void GestionPartie::configurerPiste()
@@ -89,9 +89,7 @@ void GestionPartie::configurerPiste()
     if(etat == EtatPartie::CONFIGUREE)
     {
         qDebug() << Q_FUNC_INFO;
-        communication->envoyerModeDeJeu(modeDeJeu);
-        // attente maj simulateur
-        // communication->envoyerConfiguration(modeDeJeu, nombreJoueurs);
+        communication->envoyerConfiguration(modeDeJeu, nombreJoueurs);
     }
 }
 
@@ -100,7 +98,7 @@ void GestionPartie::relierPistesEtJoueurs()
     QList<QString> pistes = communication->recupererPistes();
     for(const QString& piste: pistes)
     {
-        qDebug() << Q_FUNC_INFO << "Piste" << piste;
+        qDebug() << Q_FUNC_INFO << "piste" << piste;
         joueurs[piste] = new Joueur(piste.toInt());
     }
 }

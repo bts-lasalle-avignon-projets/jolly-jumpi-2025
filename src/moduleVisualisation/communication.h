@@ -13,8 +13,11 @@
 #define DEUXIEME_ELEMENT 1
 
 // Pour la configuration
-#define NOMBRE_JOUEUR PREMIER_ELEMENT
-#define MODE_DE_JEU   DEUXIEME_ELEMENT
+#define MODE_DE_JEU   PREMIER_ELEMENT
+#define NOMBRE_JOUEUR DEUXIEME_ELEMENT
+
+// Pour l'association
+#define NOMBRE_PISTES DEUXIEME_ELEMENT
 
 // Pour les tirs
 #define NUMERO_PISTE PREMIER_ELEMENT
@@ -48,7 +51,6 @@ class Communication : public QObject
     void    envoyerMessageGroupe(const QString& message);
     void    demanderConfirmationAssociation();
     void    confirmerAssociation(const QString& retourAssociation);
-    void    envoyerModeDeJeu(const int& modeDeJeu);
     void    envoyerConfiguration(const int& modeDeJeu, const int& nombreJoueur);
     void    envoyerDebutDePartie();
     void    signalerFinDePartie();
@@ -60,6 +62,7 @@ class Communication : public QObject
     QString extraireElement(const QString& informations, const int& element);
     void    communiquerTirJoueur(const QString& message);
     QList<QString> recupererPistes();
+    void           effacerPistes();
 #ifdef SIMULATION_MODULE_CONFIGURATION
     void simulerModuleConfiguration();
 #endif

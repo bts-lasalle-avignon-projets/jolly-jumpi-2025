@@ -35,11 +35,10 @@ void Joueur::ajouterTir(const int& score, const int& temps)
 
 void Joueur::afficherTirs() const
 {
-    qDebug() << Q_FUNC_INFO << "numero" << numero;
     for(const Tir& tir: tirs)
     {
-        qDebug() << "score" << tir.recupererScore() << "temps"
-                 << tir.recupererTemps();
+        qDebug() << Q_FUNC_INFO << "numero" << numero << "score"
+                 << tir.recupererScore() << "temps" << tir.recupererTemps();
     }
 }
 
@@ -51,7 +50,7 @@ QList<Tir> Joueur::recupererTirs() const
 void Joueur::definirScore(const int scoreTir)
 {
     score += scoreTir;
-    qDebug() << Q_FUNC_INFO << "score" << score;
+    qDebug() << Q_FUNC_INFO << "numero" << numero << "score" << score;
 }
 
 int Joueur::recupererScore() const
@@ -118,7 +117,7 @@ std::vector<QList<QString> > Joueur::genererStatistiquesJoueur()
         indexTir++;
         tempsTirPrecedent = tir.recupererTemps();
     }
-    qDebug() << Q_FUNC_INFO << statistiquesJoueur;
+    qDebug() << Q_FUNC_INFO << "numero" << numero << statistiquesJoueur;
     return statistiquesJoueur;
 }
 
@@ -132,7 +131,6 @@ QString Joueur::convertirTemps(const int& secondes)
     QString minute  = QString::number(secondes / 60);
     QString seconde = QString::number(secondes % 60);
     QString temps   = minute + ":" + seconde;
-    qDebug() << Q_FUNC_INFO << "Secondes reçue" << secondes << "Conversion"
-             << temps;
+
     return temps;
 }
