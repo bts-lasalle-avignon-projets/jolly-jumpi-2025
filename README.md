@@ -158,13 +158,13 @@ Quelques diagrammes des échanges :
     
     - Mettre à jour l'affichage
 
-      > - [ ] Changer de page
-      > - [ ] Afficher la page Accueil
+      > - [X] Changer de page
+      > - [X] Afficher la page Accueil
       > - [ ] Afficher la page Connexion
-      > - [ ] Afficher la page Jeu
+      > - [X] Afficher la page Jeu
       > - [ ] Mettre à jour la page Jeu
-      > - [ ] Afficher la page Classement à la fin d'une partie (10 seconde)
-      > - [ ] Afficher la page Statistiques:Joueur après la page Classement (10sec par joueur)
+      > - [X] Afficher la page Classement à la fin d'une partie (10 seconde)
+      > - [X] Afficher la page Statistiques:Joueur après la page Classement (10sec par joueur)
     
     - Gérer événement partie
      

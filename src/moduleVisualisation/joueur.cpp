@@ -96,6 +96,21 @@ std::vector<QList<QString> > Joueur::genererStatistiquesJoueur()
     int                          scoreCumuleCroissant = 0;
     QList<Tir>                   listeTir;
     int                          indexTir = 1;
+
+    if(tirs.isEmpty())
+    {
+        QList<QString> ligneStatistiquesJoueur;
+        ligneStatistiquesJoueur << "0"
+                                << "0"
+                                << "0"
+                                << "0"
+                                << "0"
+                                << "0";
+        statistiquesJoueur.push_back(ligneStatistiquesJoueur);
+        qDebug() << Q_FUNC_INFO << "0 tir]" << ligneStatistiquesJoueur;
+        return statistiquesJoueur;
+    }
+
     for(const Tir& tir: tirs)
     {
         listeTir << tir;
@@ -133,4 +148,14 @@ QString Joueur::convertirTemps(const int& secondes)
     QString temps   = minute + ":" + seconde;
 
     return temps;
+}
+
+int Joueur::definirPlace(const int& placeClassement)
+{
+    place = placeClassement;
+}
+
+int Joueur::recupererPlace() const
+{
+    return place;
 }

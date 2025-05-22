@@ -6,7 +6,7 @@
 #include <QString>
 
 // Simulation du module de configuration
-#define SIMULATION_MODULE_CONFIGURATION
+//#define SIMULATION_MODULE_CONFIGURATION
 //#define SIMULATION_MODULE_CONFIGURATION_ABANDON
 
 #define PREMIER_ELEMENT  0
@@ -85,9 +85,11 @@ class Communication : public QObject
     bool estDemandeChangementPage(const QString& message);
 
   signals:
+    void moduleConnectes();
     void configurationRecue(QString nombreJoueursRecu, QString modeDeJeuRecu);
     void scoreRecu(QString numeroPiste, QString scoreTir);
     void partieDemarree();
+    void estEnAttenteDeConfiguration();
     void abandonPartie();
 };
 

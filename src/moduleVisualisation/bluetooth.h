@@ -17,7 +17,7 @@
 #define CLIENT  0 // Mode client (Pi) -> serveur (ESP32 slave)
 // Choix du mode de connexion (client/serveur) pour les modules
 #define MODULE_PISTE         SERVEUR
-#define MODULE_CONFIGURATION CLIENT
+#define MODULE_CONFIGURATION SERVEUR
 
 // Pour le mode client (timeout)
 #define DELAI_CONNEXION 10000

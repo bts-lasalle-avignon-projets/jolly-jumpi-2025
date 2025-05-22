@@ -48,6 +48,12 @@ IHM::IHM(QWidget* parent) :
     uiAccueil->labelDefilementTexte->setText(
       listeMessages.at(numeroMessage++ % listeMessages.count()));
     minuteurDefilement->start(PERIODE_DEFILEMENT);
+
+    connect(communication,
+            &Communication::moduleConnectes,
+            this,
+            &IHM::afficherPartie);
+    //** @todo faire de même pour la page historiques*/
 }
 
 IHM::~IHM()
@@ -91,7 +97,6 @@ void IHM::fermer()
     this->close();
 }
 
-#ifdef SIMULATION_CLAVIER_ACCUEIL
 void IHM::afficherPartie()
 {
     qDebug() << Q_FUNC_INFO;
@@ -104,4 +109,8 @@ void IHM::afficherPartie()
         ihmPartie->show();
     }
 }
-#endif
+
+void IHM::estPartieEnConfiguration()
+{
+    /** @todo faire défiler le texte pour signaler "En config"*/
+}

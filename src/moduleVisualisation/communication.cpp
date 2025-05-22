@@ -40,6 +40,7 @@ void Communication::traiterMessage(QString nom,
     switch(typeMessage)
     {
         case Communication::TypeMessage::CONFIGURATION:
+            emit moduleConnectes();
             communiquerConfiguration(message);
             demanderConfirmationAssociation();
             break;
@@ -227,7 +228,7 @@ void Communication::simulerModuleConfiguration()
 {
     qDebug() << Q_FUNC_INFO;
     QTimer::singleShot(
-      2000,
+      10000,
       this,
       [this]()
       {

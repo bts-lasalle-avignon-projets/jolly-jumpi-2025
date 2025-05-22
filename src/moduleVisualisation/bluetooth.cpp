@@ -547,15 +547,24 @@ void Bluetooth::connecterPeripheriqueDecouvert()
     qDebug() << Q_FUNC_INFO << socket << "nom" << socket->peerName()
              << "adresse" << socket->peerAddress().toString();
 
+    bool trouve = false;
+
 #if MODULE_PISTE == SERVEUR
-    if(!socket->peerName().startsWith(PREFIX_NOM_PISTE))
-        return;
+    if(socket->peerName().startsWith(PREFIX_NOM_PISTE))
+    {
+        trouve = true;
+    }
 #endif
 
 #if MODULE_CONFIGURATION == SERVEUR
-    if(!socket->peerName().startsWith(PREFIX_NOM_MOD_CONFIGURATION))
-        return;
+    if(socket->peerName().startsWith(PREFIX_NOM_MOD_CONFIGURATION))
+    {
+        trouve = true;
+    }
 #endif
+
+    if(!trouve)
+        return;
 
     // On a déjà eu ce client ?
     if(sockets.contains(socket->peerAddress().toString()))

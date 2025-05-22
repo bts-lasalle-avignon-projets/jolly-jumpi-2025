@@ -38,13 +38,12 @@ class IHMPartie : public QWidget
     virtual ~IHMPartie();
 
   signals:
+    void etatPartieModifie(int etatPartie);
 
   private slots:
     void fermer();
-#ifdef SIMULATION_CLAVIER_PARTIE
     void afficherClassement();
     void afficherStatistiquesJoueur();
-#endif
 };
 
 #endif // IHMPARTIE_H

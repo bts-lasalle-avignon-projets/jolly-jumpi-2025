@@ -54,6 +54,9 @@ class IHM : public QWidget
     int         numeroMessage;
     QStringList listeMessages;
 
+    void estPartieEnConfiguration();
+    void supprimerPagePartie();
+
 #ifdef SIMULATION_CLAVIER_ACCUEIL
     void simulerAffichageFenetre();
 #endif
@@ -65,9 +68,8 @@ class IHM : public QWidget
   private slots:
     void defilerTexte();
     void fermer();
-#ifdef SIMULATION_CLAVIER_ACCUEIL
+    // void afficherHistorique();
     void afficherPartie();
-#endif
 };
 
 #endif // IHM_H

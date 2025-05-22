@@ -56,7 +56,7 @@ void GestionPartie::commencerPartie()
         return;
     relierPistesEtJoueurs();
     etat = EtatPartie::DEBUTEE;
-    emit changementEtatPartie(etat);
+    // emit changementEtatPartie(etat);
     communication->envoyerDebutDePartie();
     chronometrer();
 }
@@ -75,7 +75,7 @@ void GestionPartie::gererConfiguration(QString nombreJoueursRecu,
     modeDeJeu     = modeDeJeuRecu.toInt();
     etat          = EtatPartie::CONFIGUREE;
     configurerPiste();
-    emit changementEtatPartie(etat);
+    // emit changementEtatPartie(etat);
 }
 
 void GestionPartie::supprimerJoueurs()
@@ -148,7 +148,24 @@ void GestionPartie::finirPartie()
     qDebug() << Q_FUNC_INFO;
     communication->signalerFinDePartie();
     etat = EtatPartie::FINIE;
-    emit changementEtatPartie(etat);
+    // emit changementEtatPartie(etat);
+    emit demandeClassement();
+    QTimer::singleShot(TEMPS_AFFICHAGE_FENETRE * 1000,
+                       this,
+                       [this]()
+                       {
+                           qDebug() << Q_FUNC_INFO << "afficher statistique";
+                           emit demandeStatistiquesJoueur();
+                           QTimer::singleShot(
+                             TEMPS_AFFICHAGE_FENETRE * nombreJoueurs * 1000,
+                             this,
+                             [this]()
+                             {
+                                 qDebug()
+                                   << Q_FUNC_INFO << "afficher statistique";
+                                 emit estFinPartie();
+                             });
+                       });
 }
 
 void GestionPartie::abandonnerPartie()
@@ -157,7 +174,8 @@ void GestionPartie::abandonnerPartie()
     communication->signalerFinDePartie();
     supprimerJoueurs();
     etat = EtatPartie::ABANDONNEE;
-    emit changementEtatPartie(etat);
+    // emit changementEtatPartie(etat);
+    emit estFinPartie();
 }
 
 int GestionPartie::calculerScoreJoueur(const QString& numeroPiste)
@@ -190,15 +208,16 @@ std::vector<QList<QString> > GestionPartie::genererClassement()
               });
 
     std::vector<QList<QString> > classement;
-    int                          place = 1;
+    int                          placeClassement = 1;
     for(Joueur* joueur: listeJoueurs)
     {
+        joueur->definirPlace(placeClassement);
         QList<QString> ligneClassement;
         ligneClassement << QString::number(joueur->recupererNumero());
         ligneClassement << QString::number(joueur->recupererScore());
-        ligneClassement << QString::number(place);
+        ligneClassement << QString::number(joueur->recupererPlace());
         classement.push_back(ligneClassement);
-        place++;
+        placeClassement++;
         qDebug() << Q_FUNC_INFO << ligneClassement;
     }
     qDebug() << Q_FUNC_INFO << classement;
@@ -210,4 +229,19 @@ std::vector<QList<QString> > GestionPartie::recupererStatistiquesJoueur(
 {
     qDebug() << Q_FUNC_INFO << numeroJoueur;
     return joueurs[numeroJoueur]->recupererStatistiquesJoueur();
+}
+
+int GestionPartie::recupererNombreJoueurs()
+{
+    return nombreJoueurs;
+}
+
+int GestionPartie::recupererScoreJoueur(QString numero)
+{
+    return joueurs[numero]->recupererScore();
+}
+
+int GestionPartie::recupererPlaceJoueur(QString numero)
+{
+    return joueurs[numero]->recupererPlace();
 }

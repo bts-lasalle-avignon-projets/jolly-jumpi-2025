@@ -4,6 +4,7 @@
 #include <QtWidgets>
 
 #define SIMULATION_CLAVIER_CLASSEMENT
+#define NOMBRE_COLONNE_EDITABLE 2
 
 namespace Ui
 {
@@ -19,6 +20,13 @@ class IHMClassement : public QWidget
   private:
     Ui::Classement* uiClassement;
     GestionPartie*  gestionPartie; //!< association vers GestionPartie
+    void            editerLabelChrono();
+    void            editerLabelPremierJoueurNomJoueur(QString numeroJoueur);
+    void            editerLabelPremierJoueurScore(QString score);
+    void            editerLabelNomJoueur(QString ligne, QString numeroJoueur);
+    void            editerLabelScore(QString ligne, QString scoreJoueur);
+    void            editerLabelPlace(QString ligne, QString placeClassement);
+    void            afficherClassement();
 
 #ifdef SIMULATION_CLAVIER_CLASSEMENT
     void simulerClassement();
@@ -31,8 +39,6 @@ class IHMClassement : public QWidget
     explicit IHMClassement(GestionPartie* gestionPartie,
                            QWidget*       parent = nullptr);
     virtual ~IHMClassement();
-
-  signals:
 
   private slots:
     void fermer();

@@ -71,7 +71,6 @@
         <font>
          <family>Ubuntu Condensed</family>
          <pointsize>35</pointsize>
-         <weight>50</weight>
          <bold>false</bold>
         </font>
        </property>
@@ -89,7 +88,6 @@
         <font>
          <family>Ubuntu Condensed</family>
          <pointsize>35</pointsize>
-         <weight>75</weight>
          <bold>true</bold>
         </font>
        </property>
@@ -155,7 +153,6 @@
           <font>
            <family>Ubuntu Condensed</family>
            <pointsize>40</pointsize>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -173,7 +170,6 @@
           <font>
            <family>Ubuntu Condensed</family>
            <pointsize>40</pointsize>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -191,7 +187,6 @@
           <font>
            <family>Ubuntu Condensed</family>
            <pointsize>40</pointsize>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -267,7 +262,6 @@
             <font>
              <family>Ubuntu Condensed</family>
              <pointsize>36</pointsize>
-             <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
@@ -285,7 +279,6 @@
             <font>
              <family>Ubuntu Condensed</family>
              <pointsize>36</pointsize>
-             <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
@@ -303,7 +296,6 @@
             <font>
              <family>Ubuntu Condensed</family>
              <pointsize>36</pointsize>
-             <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
@@ -360,7 +352,7 @@
             </font>
            </property>
            <property name="text">
-            <string>1</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -409,7 +401,7 @@
             </font>
            </property>
            <property name="text">
-            <string>2</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -458,7 +450,7 @@
             </font>
            </property>
            <property name="text">
-            <string>3</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -507,7 +499,7 @@
             </font>
            </property>
            <property name="text">
-            <string>4</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -556,7 +548,7 @@
             </font>
            </property>
            <property name="text">
-            <string>5</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -605,7 +597,7 @@
             </font>
            </property>
            <property name="text">
-            <string>6</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -654,7 +646,7 @@
             </font>
            </property>
            <property name="text">
-            <string>7</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -703,7 +695,7 @@
             </font>
            </property>
            <property name="text">
-            <string>8</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>

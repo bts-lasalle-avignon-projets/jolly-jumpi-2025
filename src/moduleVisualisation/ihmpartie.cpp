@@ -26,6 +26,18 @@ IHMPartie::IHMPartie(Communication* communication, QWidget* parent) :
 #ifdef SIMULATION_CLAVIER_PARTIE
     simulerPartie();
 #endif
+    connect(gestionPartie,
+            &GestionPartie::estFinPartie,
+            this,
+            &IHMPartie::fermer);
+    connect(gestionPartie,
+            &GestionPartie::demandeClassement,
+            this,
+            &IHMPartie::afficherClassement);
+    connect(gestionPartie,
+            &GestionPartie::demandeStatistiquesJoueur,
+            this,
+            &IHMPartie::afficherStatistiquesJoueur);
 }
 
 IHMPartie::~IHMPartie()
