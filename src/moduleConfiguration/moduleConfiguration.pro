@@ -1,4 +1,6 @@
-QT       += core gui
+QT       += \
+    core gui \
+    bluetooth
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -10,12 +12,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
+    bluetooth.cpp \
     communication.cpp \
     gestionPartie.cpp \
     ihmmoduleconfiguration.cpp \
     main.cpp
 
 HEADERS += \
+    bluetooth.h \
     communication.h \
     gestionPartie.h \
     ihmmoduleconfiguration.h
@@ -27,3 +31,6 @@ FORMS += \
 #CONFIG(release, debug|release):DEFINES+=QT_NO_DEBUG_OUTPUT RASPBERRY_PI
 # Les defines pour la version debug
 CONFIG(debug, debug|release):DEFINES+=
+
+RESOURCES += \
+    affichagegif.qrc

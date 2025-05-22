@@ -10,6 +10,9 @@
 #define IHMMODULECONFIGURATION_H
 
 #include <QtWidgets>
+#include <QLabel>
+#include <QMovie>
+#include "bluetooth.h"
 
 /**
  * @def APPLICATION
@@ -42,6 +45,7 @@ class IHMModuleConfiguration : public QMainWindow
   public:
     IHMModuleConfiguration(QWidget* parent = nullptr);
     ~IHMModuleConfiguration();
+    void afficherConnexionFait();
 
   public slots:
     void onLancerClicked();
@@ -49,10 +53,15 @@ class IHMModuleConfiguration : public QMainWindow
     void onConfirmerClicked();
     void mettreAJourAffichageJoueurs();
     void attenteConnexionPiste();
-    void onAnnulerConnexionClicked();
+    void onAnnulerPisteClicked();
+    void onAnnulerModAffClicked();
+    void onContinuerClicked();
+    void onMenuClicked();
+    void onInterrompreClicked();
 
   private:
     Ui::IHMModuleConfiguration* ui;
+    Bluetooth*                  bluetoothInstance;
 };
 
 #endif // IHMMODULECONFIGURATION_H

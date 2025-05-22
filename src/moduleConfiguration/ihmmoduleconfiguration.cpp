@@ -8,6 +8,8 @@
 
 #include "ihmmoduleconfiguration.h"
 #include "ui_ihmmoduleconfiguration.h"
+#include "bluetooth.h"
+
 #include <QDebug>
 /**
  * @brief Constructeur de la classe IHMModuleConfiguration
@@ -20,6 +22,12 @@ IHMModuleConfiguration::IHMModuleConfiguration(QWidget* parent) :
     QMainWindow(parent), ui(new Ui::IHMModuleConfiguration)
 {
     ui->setupUi(this);
+    bluetoothInstance = new Bluetooth(this);
+
+    QMovie* movie = new QMovie(":/images/loader.gif");
+    movie->setScaledSize(ui->labelGif->size());
+    ui->labelGif->setMovie(movie);
+    movie->start();
 
     ui->nombreDeJoueur->setRange(1, 8);
 
@@ -32,15 +40,29 @@ IHMModuleConfiguration::IHMModuleConfiguration(QWidget* parent) :
             this,
             &IHMModuleConfiguration::onLancerClicked);
 
+    connect(ui->lancer,
+            &QPushButton::clicked,
+            bluetoothInstance,
+            &Bluetooth::demarrerServeur);
+
+    connect(ui->annulerModAff,
+            &QPushButton::clicked,
+            this,
+            &IHMModuleConfiguration::onAnnulerModAffClicked);
+    connect(ui->continuer,
+            &QPushButton::clicked,
+            this,
+            &IHMModuleConfiguration::onContinuerClicked);
+
     connect(ui->annuler,
             &QPushButton::clicked,
             this,
             &IHMModuleConfiguration::onAnnulerClicked);
 
-    connect(ui->annulerConnexion,
+    connect(ui->annulerPiste,
             &QPushButton::clicked,
             this,
-            &IHMModuleConfiguration::onAnnulerConnexionClicked);
+            &IHMModuleConfiguration::onAnnulerPisteClicked);
 
     connect(ui->confirmer,
             &QPushButton::clicked,
@@ -60,6 +82,16 @@ IHMModuleConfiguration::IHMModuleConfiguration(QWidget* parent) :
             &IHMModuleConfiguration::attenteConnexionPiste);
     attenteConnexionPiste();
 
+    connect(ui->interrompre,
+            &QPushButton::clicked,
+            this,
+            &IHMModuleConfiguration::onInterrompreClicked);
+
+    connect(ui->menuAccueil,
+            &QPushButton::clicked,
+            this,
+            &IHMModuleConfiguration::onMenuClicked);
+
 #ifdef RASPBERRY_PI
     showFullScreen();
 #endif
@@ -73,6 +105,21 @@ IHMModuleConfiguration::~IHMModuleConfiguration()
 
 void IHMModuleConfiguration::onLancerClicked()
 {
+    ui->stackedWidget->setCurrentWidget(ui->connexionModAff);
+}
+
+void IHMModuleConfiguration::onAnnulerModAffClicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->accueil);
+}
+
+void IHMModuleConfiguration::afficherConnexionFait()
+{
+    ui->stackedWidget->setCurrentWidget(ui->connexionAffichageFait);
+}
+
+void IHMModuleConfiguration::onContinuerClicked()
+{
     ui->stackedWidget->setCurrentWidget(ui->configuration);
 }
 
@@ -81,14 +128,14 @@ void IHMModuleConfiguration::onAnnulerClicked()
     ui->stackedWidget->setCurrentWidget(ui->accueil);
 }
 
-void IHMModuleConfiguration::onAnnulerConnexionClicked()
+void IHMModuleConfiguration::onAnnulerPisteClicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->configuration);
 }
 
 void IHMModuleConfiguration::onConfirmerClicked()
 {
-    ui->stackedWidget->setCurrentWidget(ui->attenteConnexion);
+    ui->stackedWidget->setCurrentWidget(ui->attentePiste);
 }
 
 void IHMModuleConfiguration::mettreAJourAffichageJoueurs()
@@ -118,4 +165,14 @@ void IHMModuleConfiguration::attenteConnexionPiste()
     {
         labelsPistes[i]->setVisible(i < nombreJoueurs);
     }
+}
+
+void IHMModuleConfiguration::onInterrompreClicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->configuration);
+}
+
+void IHMModuleConfiguration::onMenuClicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->accueil);
 }

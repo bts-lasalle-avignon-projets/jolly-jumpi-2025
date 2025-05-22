@@ -1,5 +1,6 @@
 #ifndef COMMUNICATION_H
 #define COMMUNICATION_H
+
 #include <iostream>
 
 class communication
@@ -8,7 +9,12 @@ class communication
     void lancerAppairage();
     void configurerPartie();
     void demanderAffichageStatistique();
+    // void afficherStatistique();
+    void affichageAccueil();
     void interromprePartie();
+    void signalerAssociation();
+    void signalerDemarrage();
+    void signalerFin();
 };
 
 #endif

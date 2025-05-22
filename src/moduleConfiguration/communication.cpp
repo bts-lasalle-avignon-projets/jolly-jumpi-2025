@@ -12,6 +12,15 @@ void communication::demanderAffichageStatistique()
 {
 }
 
+/*void communication::affichageStatistique()
+{
+}
+*/
+
+void communication::affichageAccueil()
+{
+}
+
 void communication::interromprePartie()
 {
 }

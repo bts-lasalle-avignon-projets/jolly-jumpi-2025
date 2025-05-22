@@ -21,7 +21,7 @@ background-color: rgb(255, 255, 255);</string>
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>10</x>
       <y>0</y>
       <width>541</width>
       <height>291</height>
@@ -82,11 +82,112 @@ background-color: rgb(255, 255, 255);</string>
       </property>
      </widget>
     </widget>
+    <widget class="QWidget" name="connexionModAff">
+     <widget class="QPushButton" name="annulerModAff">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>260</y>
+        <width>89</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Annuler</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>90</y>
+        <width>211</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Connexion affichage :</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelGif">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>80</y>
+        <width>51</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+     <zorder>annulerModAff</zorder>
+     <zorder>labelGif</zorder>
+     <zorder>label</zorder>
+    </widget>
+    <widget class="QWidget" name="connexionAffichageFait">
+     <widget class="QPushButton" name="continuer">
+      <property name="geometry">
+       <rect>
+        <x>440</x>
+        <y>250</y>
+        <width>89</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>continuer</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>120</y>
+        <width>211</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Connexion affichage :</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="connexionFait">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>120</y>
+        <width>31</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>../../../../icone-de-coche-verte.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </widget>
     <widget class="QWidget" name="configuration">
      <widget class="QSpinBox" name="nombreDeJoueur">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>20</x>
         <y>30</y>
         <width>48</width>
         <height>26</height>
@@ -96,7 +197,7 @@ background-color: rgb(255, 255, 255);</string>
      <widget class="QLabel" name="labelNombreJoueur">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>20</x>
         <y>10</y>
         <width>131</width>
         <height>17</height>
@@ -116,7 +217,7 @@ background-color: rgb(255, 255, 255);</string>
      <widget class="QLabel" name="labelModeDeJeu">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>20</x>
         <y>130</y>
         <width>91</width>
         <height>17</height>
@@ -290,7 +391,7 @@ background-color: rgb(255, 255, 255);</string>
        <rect>
         <x>390</x>
         <y>150</y>
-        <width>101</width>
+        <width>111</width>
         <height>21</height>
        </rect>
       </property>
@@ -306,7 +407,7 @@ background-color: rgb(255, 255, 255);</string>
      <widget class="QComboBox" name="modeDeJeu">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>20</x>
         <y>150</y>
         <width>121</width>
         <height>25</height>
@@ -368,7 +469,7 @@ background-color: rgb(255, 255, 255);</string>
       </item>
      </widget>
     </widget>
-    <widget class="QWidget" name="attenteConnexion">
+    <widget class="QWidget" name="attentePiste">
      <widget class="QLabel" name="connexionPiste3">
       <property name="geometry">
        <rect>
@@ -513,7 +614,7 @@ background-color: rgb(255, 255, 255);</string>
        <string>Connexion à la piste 1 :</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="annulerConnexion">
+     <widget class="QPushButton" name="annulerPiste">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -670,6 +771,85 @@ background-color: rgb(255, 255, 255);</string>
       </property>
       <property name="text">
        <string>Piste 2 :</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="partieEnCours">
+     <widget class="QPushButton" name="interrompre">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>260</y>
+        <width>89</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Interrompre</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelPartieEnCours">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>40</y>
+        <width>211</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>15</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>La partie est en cours</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelGifCheval">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>110</y>
+        <width>67</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="finDePartie">
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>100</y>
+        <width>241</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>18</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Partie Finis</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="menuAccueil">
+      <property name="geometry">
+       <rect>
+        <x>430</x>
+        <y>250</y>
+        <width>89</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Menu</string>
       </property>
      </widget>
     </widget>

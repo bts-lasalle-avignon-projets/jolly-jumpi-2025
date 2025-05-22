@@ -7,6 +7,9 @@
  */
 
 #include "ihmmoduleconfiguration.h"
+#include "bluetooth.h"
+#include "communication.h"
+#include "gestionPartie.h"
 #include <QApplication>
 
 /**
@@ -24,7 +27,7 @@ int main(int argc, char* argv[])
 {
     QApplication           a(argc, argv);
     IHMModuleConfiguration ihmModuleConfiguration;
-
+    Bluetooth              server(&ihmModuleConfiguration);
     ihmModuleConfiguration.show();
 
     return a.exec();
