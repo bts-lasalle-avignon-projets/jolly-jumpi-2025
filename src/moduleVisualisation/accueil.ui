@@ -56,7 +56,6 @@
        <font>
         <family>Ubuntu Condensed</family>
         <pointsize>72</pointsize>
-        <weight>75</weight>
         <bold>true</bold>
        </font>
       </property>
@@ -157,16 +156,21 @@
      <height>1080</height>
     </rect>
    </property>
-   <property name="styleSheet">
-    <string notr="true">background-image: url(:/accueil/imageARenplacer.jpg);</string>
-   </property>
    <property name="text">
     <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="images/images.qrc">:/accueil/fondHerbe.jpg</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
    </property>
   </widget>
   <zorder>labelFond</zorder>
   <zorder>verticalLayoutWidget</zorder>
  </widget>
- <resources/>
+ <resources>
+  <include location="images/images.qrc"/>
+ </resources>
  <connections/>
 </ui>

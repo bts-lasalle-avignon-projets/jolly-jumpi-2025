@@ -7,9 +7,12 @@ Communication::Communication(QObject* parent) :
 {
     qDebug() << Q_FUNC_INFO << this;
 
-    typesMessages << "C"  // CONFIGURATION
-                  << "D"  // DEBUT_PARTIE
-                  << "F"  // FIN_PARTIE
+    typesMessages << "PC" // CONFIGURATION_PARTIE
+                  << "C"  // CONFIGURATION_PISTE
+                  << "PD" // DEMARRER_PARTIE (ORDRE)
+                  << "PF" // FINIR_PARTIE (ORDRE)
+                  << "D"  // DEBUT_PARTIE (SIGNAL)
+                  << "F"  // FIN_PARTIE (SIGNAL)
                   << "S0" // PAGE_ACCUEIL
                   << "S1" // PAGE_HISTORIQUE
                   << "A"  // ASSOCIATION
@@ -27,6 +30,24 @@ Communication::~Communication()
     qDebug() << Q_FUNC_INFO << this;
 }
 
+bool Communication::estMessageValide(const QString& message)
+{
+    if(message.startsWith(DEBUT_MESSAGE) && message.endsWith(FIN_MESSAGE))
+    {
+        qDebug() << Q_FUNC_INFO << "true";
+        return true;
+    }
+    qDebug() << Q_FUNC_INFO << "false" << message;
+    return false;
+}
+
+QString Communication::nettoyerSeparateursMessage(QString& message)
+{
+    message.remove(DEBUT_MESSAGE);
+    message.remove(FIN_MESSAGE);
+    return message;
+}
+
 void Communication::traiterMessage(QString nom,
                                    QString adresse,
                                    QString message)
@@ -34,20 +55,22 @@ void Communication::traiterMessage(QString nom,
     Communication::TypeMessage typeMessage =
       Communication::TypeMessage::INCONNU;
 
-    typeMessage = identifierTypeMessage(message);
+    if(!estMessageValide(message))
+        return;
+    typeMessage = identifierTypeMessage(nettoyerSeparateursMessage(message));
     qDebug() << Q_FUNC_INFO << "nom" << nom << "adresse" << adresse << "message"
              << message << "typeMessage" << typeMessage;
     switch(typeMessage)
     {
-        case Communication::TypeMessage::CONFIGURATION:
+        case Communication::TypeMessage::CONFIGURATION_PARTIE:
             emit moduleConnectes();
             communiquerConfiguration(message);
             demanderConfirmationAssociation();
             break;
-        case Communication::TypeMessage::DEBUT_PARTIE:
+        case Communication::TypeMessage::DEMARRER_PARTIE:
             emit partieDemarree();
             break;
-        case Communication::TypeMessage::FIN_PARTIE:
+        case Communication::TypeMessage::FINIR_PARTIE:
             emit abandonPartie();
             break;
         case Communication::TypeMessage::PAGE_ACCUEIL:
@@ -108,31 +131,29 @@ void Communication::envoyerMessageGroupe(const QString& message)
 void Communication::demanderConfirmationAssociation()
 {
     qDebug() << Q_FUNC_INFO;
-    envoyerMessageGroupe(
-      typesMessages.at(Communication::TypeMessage::ASSOCIATION));
+    envoyerMessage(bluetooth->recupererAdresseModuleDetectionBalles(),
+                   typesMessages.at(Communication::TypeMessage::ASSOCIATION));
 }
 
 void Communication::confirmerAssociation(const QString& retourAssociation)
 {
-    QString adresseModuleConfiguration =
-      bluetooth->recupererAdresseModuleConfiguration();
-    qDebug() << Q_FUNC_INFO << "adresseModuleConfiguration"
-             << adresseModuleConfiguration << "retourAssociation"
-             << retourAssociation;
+    qDebug() << Q_FUNC_INFO << "retourAssociation" << retourAssociation;
     // Signale la piste au module de configuration
-    envoyerMessage(adresseModuleConfiguration, retourAssociation);
+    envoyerMessage(bluetooth->recupererAdresseModuleConfiguration(),
+                   retourAssociation);
 }
 
 void Communication::envoyerConfiguration(const int& modeDeJeu,
                                          const int& nombreJoueur)
 {
     QString configuration =
-      typesMessages.at(Communication::TypeMessage::CONFIGURATION) +
+      typesMessages.at(Communication::TypeMessage::CONFIGURATION_PISTE) +
       QString::number(modeDeJeu) + ";" + QString::number(nombreJoueur);
 
     qDebug() << Q_FUNC_INFO << "modeDeJeu" << modeDeJeu << "nombre joueur"
              << nombreJoueur << "message" << configuration;
-    envoyerMessageGroupe(configuration);
+    envoyerMessage(bluetooth->recupererAdresseModuleDetectionBalles(),
+                   configuration);
 }
 
 void Communication::envoyerDebutDePartie()

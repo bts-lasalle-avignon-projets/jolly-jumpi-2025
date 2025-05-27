@@ -27,7 +27,6 @@ IHMStatistiquesJoueur::IHMStatistiquesJoueur(GestionPartie* gestionPartie,
             &GestionPartie::estFinPartie,
             this,
             &IHMStatistiquesJoueur::fermer);
-    deroulerStatistiques();
 }
 
 IHMStatistiquesJoueur::~IHMStatistiquesJoueur()
@@ -45,6 +44,7 @@ IHMStatistiquesJoueur::~IHMStatistiquesJoueur()
 void IHMStatistiquesJoueur::showEvent(QShowEvent* event)
 {
     qDebug() << Q_FUNC_INFO << this;
+    deroulerStatistiques();
 }
 
 void IHMStatistiquesJoueur::fermer()

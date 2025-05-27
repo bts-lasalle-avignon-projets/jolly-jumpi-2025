@@ -22,10 +22,6 @@
 // Pour le mode client (timeout)
 #define DELAI_CONNEXION 10000
 
-// Protocole
-#define DEBUT_MESSAGE "$"
-#define FIN_MESSAGE   "\n"
-
 // Pour les tests
 //#define TEST_ASSOCIATION
 
@@ -50,6 +46,7 @@ class Bluetooth : public QObject
     QString           recupererNomPeripherique(QBluetoothSocket* socket);
     QString           recupererNomPeripherique(QString adresse);
     QString           recupererAdresseModuleConfiguration();
+    QString           recupererAdresseModuleDetectionBalles();
     bool              estPeripheriqueConnecte(QString adresse);
 
   private:
@@ -60,6 +57,7 @@ class Bluetooth : public QObject
     QMap<QString, QBluetoothSocket*> sockets;
     QMap<QString, QString>           peripheriques;
     QString                          adresseModuleConfiguration;
+    QString                          adresseModuleDetectionBalles;
 
     void initialiserInterfaceLocal();
     void arreterInterfaceLocal();
@@ -67,8 +65,6 @@ class Bluetooth : public QObject
     void gererAppairage();
     void afficherAppairagePeripherique(QBluetoothDeviceInfo peripherique);
     void appairerPeripherique(QBluetoothDeviceInfo peripherique);
-    bool estMessageValide(const QString& message);
-    void nettoyerMessage(QString& message);
 
   private slots:
     void gererPeripheriqueDecouvert(QBluetoothDeviceInfo peripherique);

@@ -8,6 +8,8 @@
 #include <QTimer>
 #include <QLabel>
 
+#define RPI
+
 #define SCORE_MAX               10
 #define TEMPS_AFFICHAGE_FENETRE 10 // en seconde
 

@@ -2,6 +2,7 @@
     <qresource prefix="/accueil">
         <file>logo.png</file>
         <file>imageARenplacer.jpg</file>
+        <file>fondHerbe.jpg</file>
     </qresource>
     <qresource prefix="/partie">
         <file>cheval.png</file>

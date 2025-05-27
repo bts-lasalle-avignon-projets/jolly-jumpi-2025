@@ -173,23 +173,6 @@ void Bluetooth::appairerPeripherique(QBluetoothDeviceInfo peripherique)
     }
 }
 
-bool Bluetooth::estMessageValide(const QString& message)
-{
-    if(message.startsWith(DEBUT_MESSAGE) && message.endsWith(FIN_MESSAGE))
-    {
-        qDebug() << Q_FUNC_INFO << "true";
-        return true;
-    }
-    qDebug() << Q_FUNC_INFO << "false" << message;
-    return false;
-}
-
-void Bluetooth::nettoyerMessage(QString& message)
-{
-    message.remove(DEBUT_MESSAGE);
-    message.remove(FIN_MESSAGE);
-}
-
 void Bluetooth::demarrerServeur()
 {
     if(serveur == nullptr)
@@ -352,6 +335,11 @@ QString Bluetooth::recupererAdresseModuleConfiguration()
     return adresseModuleConfiguration;
 }
 
+QString Bluetooth::recupererAdresseModuleDetectionBalles()
+{
+    return adresseModuleDetectionBalles;
+}
+
 bool Bluetooth::estPeripheriqueConnecte(QString adresse)
 {
     QBluetoothSocket* socket = recupererSocketPeripherique(adresse);
@@ -480,12 +468,21 @@ void Bluetooth::connecterPeripheriqueDecouvert(
                     delaiConnexion->deleteLater();
                 }
                 peripheriques[adresse] = peripherique.name();
+
+                // on enregistre l'adresse des modules
                 if(peripherique.name().startsWith(PREFIX_NOM_MOD_CONFIGURATION))
                 {
                     adresseModuleConfiguration =
                       recupererAdressePeripherique(socket);
                     qDebug() << Q_FUNC_INFO << "adresseModuleConfiguration"
                              << adresseModuleConfiguration;
+                }
+                if(peripherique.name().startsWith(PREFIX_NOM_PISTE))
+                {
+                    adresseModuleDetectionBalles =
+                      recupererAdressePeripherique(socket);
+                    qDebug() << Q_FUNC_INFO << "adresseModuleDetectionBalles"
+                             << adresseModuleDetectionBalles;
                 }
                 emit peripheriqueDistantConnecte(peripherique);
 #ifdef TEST_ASSOCIATION
@@ -582,12 +579,18 @@ void Bluetooth::connecterPeripheriqueDecouvert()
     // on récupère sa socket
     sockets[socket->peerAddress().toString()] = socket;
 
-    // on enregistre l'adresse du module de configuration
+    // on enregistre l'adresse des modules
     if(socket->peerName().startsWith(PREFIX_NOM_MOD_CONFIGURATION))
     {
         adresseModuleConfiguration = recupererAdressePeripherique(socket);
         qDebug() << Q_FUNC_INFO << "adresseModuleConfiguration"
                  << adresseModuleConfiguration;
+    }
+    if(socket->peerName().startsWith(PREFIX_NOM_PISTE))
+    {
+        adresseModuleDetectionBalles = recupererAdressePeripherique(socket);
+        qDebug() << Q_FUNC_INFO << "adresseModuleDetectionBalles"
+                 << adresseModuleDetectionBalles;
     }
 
     // et on gère les signaux
@@ -667,11 +670,7 @@ void Bluetooth::traiterMessage(QString nom, QString adresse, QString message)
 {
     qDebug() << Q_FUNC_INFO << "nom" << nom << "adresse" << adresse << "message"
              << message;
-    if(estMessageValide(message))
-    {
-        nettoyerMessage(message);
-        emit messageRecu(nom, adresse, message);
-    }
+    emit messageRecu(nom, adresse, message);
 }
 
 void Bluetooth::afficherErreurServeur(QBluetoothServer::Error erreur)

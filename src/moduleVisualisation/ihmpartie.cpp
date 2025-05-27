@@ -38,6 +38,10 @@ IHMPartie::IHMPartie(Communication* communication, QWidget* parent) :
             &GestionPartie::demandeStatistiquesJoueur,
             this,
             &IHMPartie::afficherStatistiquesJoueur);
+    connect(gestionPartie,
+            &GestionPartie::tirRecu,
+            this,
+            &IHMPartie::mettreAJoursAffichage);
 }
 
 IHMPartie::~IHMPartie()
@@ -69,6 +73,36 @@ void IHMPartie::fermer()
     this->close();
 }
 
+void IHMPartie::afficherClassement()
+{
+    qDebug() << Q_FUNC_INFO;
+    if(ihmClassement == nullptr)
+    {
+        ihmClassement = new IHMClassement(gestionPartie);
+    }
+    else
+    {
+        ihmClassement->show();
+    }
+}
+
+void IHMPartie::afficherStatistiquesJoueur()
+{
+    qDebug() << Q_FUNC_INFO;
+    if(ihmStatistiquesJoueur == nullptr)
+    {
+        ihmStatistiquesJoueur = new IHMStatistiquesJoueur(gestionPartie);
+    }
+    else
+    {
+        ihmStatistiquesJoueur->show();
+    }
+}
+
+void IHMPartie::mettreAJoursAffichage(int numero, int scoreTir)
+{
+}
+
 #ifdef SIMULATION_CLAVIER_PARTIE
 void IHMPartie::simulerPartie()
 {
@@ -95,31 +129,5 @@ void IHMPartie::simulerPartie()
             SIGNAL(triggered()),
             this,
             SLOT(afficherStatistiquesJoueur()));
-}
-
-void IHMPartie::afficherClassement()
-{
-    qDebug() << Q_FUNC_INFO;
-    if(ihmClassement == nullptr)
-    {
-        ihmClassement = new IHMClassement(gestionPartie);
-    }
-    else
-    {
-        ihmClassement->show();
-    }
-}
-
-void IHMPartie::afficherStatistiquesJoueur()
-{
-    qDebug() << Q_FUNC_INFO;
-    if(ihmStatistiquesJoueur == nullptr)
-    {
-        ihmStatistiquesJoueur = new IHMStatistiquesJoueur(gestionPartie);
-    }
-    else
-    {
-        ihmStatistiquesJoueur->show();
-    }
 }
 #endif

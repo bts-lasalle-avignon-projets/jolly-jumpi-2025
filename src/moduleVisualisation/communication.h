@@ -9,6 +9,10 @@
 //#define SIMULATION_MODULE_CONFIGURATION
 //#define SIMULATION_MODULE_CONFIGURATION_ABANDON
 
+// Protocole
+#define DEBUT_MESSAGE "$"
+#define FIN_MESSAGE   "\n"
+
 #define PREMIER_ELEMENT  0
 #define DEUXIEME_ELEMENT 1
 
@@ -32,7 +36,10 @@ class Communication : public QObject
     enum TypeMessage
     {
         INCONNU = -1,
-        CONFIGURATION,
+        CONFIGURATION_PARTIE,
+        CONFIGURATION_PISTE,
+        DEMARRER_PARTIE,
+        FINIR_PARTIE,
         DEBUT_PARTIE,
         FIN_PARTIE,
         PAGE_ACCUEIL,
@@ -74,8 +81,9 @@ class Communication : public QObject
     Bluetooth*     bluetooth;
     QStringList    typesMessages; // une QMap ?
     QList<QString> pistes;
-
-    TypeMessage identifierTypeMessage(const QString& message);
+    bool           estMessageValide(const QString& message);
+    QString        nettoyerSeparateursMessage(QString& message);
+    TypeMessage    identifierTypeMessage(const QString& message);
     bool verifierTypeMessage(const QString& message, const QString& caractere);
     bool estMessageConfiguration(const QString& message);
     bool estFinDePartie(const QString& message);

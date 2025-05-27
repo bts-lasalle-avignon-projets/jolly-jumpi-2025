@@ -11,6 +11,8 @@
 
 #include <QtWidgets>
 
+#define TELEVISION
+
 /**
  * @def NOM_MODULE
  * @brief Le nom du module de visualisation
@@ -54,6 +56,9 @@ class IHM : public QWidget
     int         numeroMessage;
     QStringList listeMessages;
 
+    QPixmap fondEcran;
+
+    void redimentionnerElements();
     void estPartieEnConfiguration();
     void supprimerPagePartie();
 

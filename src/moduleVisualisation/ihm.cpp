@@ -33,12 +33,21 @@ IHM::IHM(QWidget* parent) :
                    QString(VERSION_MODULE));
 
 #ifdef RPI
+    QRect ecran   = QApplication::desktop()->screenGeometry();
+    int   largeur = ecran.width();
+    int   hauteur = ecran.height();
+    qDebug() << "largeur" << largeur; // Largeur
+    qDebug() << "hauteur" << hauteur; // Hauteur
+    setFixedSize(largeur, hauteur);
     showFullScreen();
 #else
     showMaximized();
 #endif
 #ifdef SIMULATION_CLAVIER_ACCUEIL
     simulerAffichageFenetre();
+#endif
+#ifdef TELEVISION
+    redimentionnerElements();
 #endif
 
     listeMessages << "BTS CIEL IR"
@@ -64,6 +73,15 @@ IHM::~IHM()
     qDebug() << Q_FUNC_INFO << this;
 }
 
+void IHM::redimentionnerElements()
+{
+    QLabel* labelFond = findChild<QLabel*>("labelFond");
+    labelFond->setGeometry(0, 0, width(), height());
+    QVBoxLayout* verticalLayoutPrincipal =
+      findChild<QVBoxLayout*>("verticalLayoutPrincipal");
+    this->setLayout(verticalLayoutPrincipal);
+}
+
 void IHM::defilerTexte()
 {
     uiAccueil->labelDefilementTexte->setText(
@@ -73,7 +91,8 @@ void IHM::defilerTexte()
 #ifdef SIMULATION_CLAVIER_ACCUEIL
 /**
  * @fn IHM::simulerAffichageFenetre
- * @brief méthode pour créer les raccourcis clavier (pour les tests seulement)
+ * @brief méthode pour créer les raccourcis clavier (pour les tests
+ * seulement)
  */
 void IHM::simulerAffichageFenetre()
 {

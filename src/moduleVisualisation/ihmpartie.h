@@ -4,6 +4,7 @@
 #include <QtWidgets>
 
 #define SIMULATION_CLAVIER_PARTIE
+#define RPI
 
 namespace Ui
 {
@@ -44,6 +45,7 @@ class IHMPartie : public QWidget
     void fermer();
     void afficherClassement();
     void afficherStatistiquesJoueur();
+    void mettreAJoursAffichage(int numero, int scoreTir);
 };
 
 #endif // IHMPARTIE_H

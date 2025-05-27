@@ -25,7 +25,6 @@ IHMClassement::IHMClassement(GestionPartie* gestionPartie, QWidget* parent) :
             &GestionPartie::estFinPartie,
             this,
             &IHMClassement::fermer);
-    afficherClassement();
 }
 
 IHMClassement::~IHMClassement()
@@ -43,6 +42,7 @@ IHMClassement::~IHMClassement()
 void IHMClassement::showEvent(QShowEvent* event)
 {
     qDebug() << Q_FUNC_INFO << this;
+    afficherClassement();
 }
 
 void IHMClassement::fermer()
@@ -54,7 +54,7 @@ void IHMClassement::fermer()
 void IHMClassement::editerLabelChrono()
 {
     uiClassement->labelTemps->setText(
-      QString::number(gestionPartie->recupererChronometre()));
+      QString::number(gestionPartie->recupererChronometre()) + "s");
 }
 
 void IHMClassement::editerLabelPremierJoueurNomJoueur(QString numeroJoueur)

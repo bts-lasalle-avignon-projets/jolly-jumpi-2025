@@ -52,7 +52,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap>../../../../Téléchargements/cheval.png</pixmap>
+       <pixmap resource="images/images.qrc">:/partie/cheval.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -116,7 +116,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap>../../../../Téléchargements/cheval.png</pixmap>
+       <pixmap resource="images/images.qrc">:/partie/cheval.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -180,7 +180,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap>../../../../Téléchargements/cheval.png</pixmap>
+       <pixmap resource="images/images.qrc">:/partie/cheval.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -244,7 +244,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap>../../../../Téléchargements/cheval.png</pixmap>
+       <pixmap resource="images/images.qrc">:/partie/cheval.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -308,7 +308,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap>../../../../Téléchargements/cheval.png</pixmap>
+       <pixmap resource="images/images.qrc">:/partie/cheval.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -372,7 +372,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap>../../../../Téléchargements/cheval.png</pixmap>
+       <pixmap resource="images/images.qrc">:/partie/cheval.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -436,7 +436,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap>../../../../Téléchargements/cheval.png</pixmap>
+       <pixmap resource="images/images.qrc">:/partie/cheval.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -500,7 +500,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap>../../../../Téléchargements/cheval.png</pixmap>
+       <pixmap resource="images/images.qrc">:/partie/cheval.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -580,6 +580,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="images/images.qrc"/>
+ </resources>
  <connections/>
 </ui>
