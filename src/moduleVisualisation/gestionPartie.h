@@ -31,7 +31,6 @@ class GestionPartie : public QObject
         INCONNU = -1,
         CONFIGUREE,
         DEBUTEE,
-        ATTENTE_FIN,
         FINIE,
         ABANDONNEE,
         NB_ETATS

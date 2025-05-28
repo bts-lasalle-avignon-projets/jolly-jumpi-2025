@@ -27,8 +27,10 @@ class IHMPartie : public QWidget
     Communication*         communication; //!< association vers Communication
     GestionPartie*         gestionPartie; //!< composition vers GestionPartie
 
-    void creerChevaux(int nombreJoueurs);
+    void creerLigneCourse(int nombreJoueurs);
     void initialiserEmplacementLabel();
+    void deplacerLigneArrivee();
+    void creerLigneArrivee(QString ligne);
 
 #ifdef SIMULATION_CLAVIER_PARTIE
     void simulerPartie();

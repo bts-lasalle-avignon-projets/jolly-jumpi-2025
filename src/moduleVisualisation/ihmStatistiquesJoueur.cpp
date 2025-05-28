@@ -44,6 +44,7 @@ IHMStatistiquesJoueur::~IHMStatistiquesJoueur()
 void IHMStatistiquesJoueur::showEvent(QShowEvent* event)
 {
     qDebug() << Q_FUNC_INFO << this;
+    redimensionnerLabel();
     deroulerStatistiques();
 }
 
@@ -202,6 +203,45 @@ void IHMStatistiquesJoueur::reitialiserLabel()
         editerLabelTempsTir(numeroLigne, "");
         editerLabelEcartTir(numeroLigne, "");
         editerLabelTrouPrefere(numeroLigne, "");
+    }
+}
+
+void IHMStatistiquesJoueur::appliquerMiseEnForme(QLayout* layout,
+                                                 int      taillePolice)
+{
+    for(int i = 0; i < layout->count(); ++i)
+    {
+        QLayoutItem* item = layout->itemAt(i);
+
+        if(QWidget* widget = item->widget())
+        {
+            if(QLabel* label = qobject_cast<QLabel*>(widget))
+            {
+                QFont police = label->font();
+                police.setPointSize(taillePolice);
+                label->setFont(police);
+            }
+        }
+        else if(QLayout* sousLayout = item->layout())
+        {
+            // Appel récursif pour gérer les layouts imbriqués
+            appliquerMiseEnForme(sousLayout, taillePolice);
+        }
+    }
+}
+
+void IHMStatistiquesJoueur::redimensionnerLabel()
+{
+    qDebug() << Q_FUNC_INFO;
+    // int          tailleTitre = 30;
+    int          tailleTexte = 20;
+    QVBoxLayout* vLayoutTableauStatistiques =
+      findChild<QVBoxLayout*>("vLayoutTableauStatistiques");
+
+    if(vLayoutTableauStatistiques)
+    {
+        qDebug() << Q_FUNC_INFO << "Trouvé" << vLayoutTableauStatistiques;
+        appliquerMiseEnForme(vLayoutTableauStatistiques, tailleTexte);
     }
 }
 

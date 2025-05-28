@@ -136,7 +136,6 @@ QString GestionPartie::convertirTemps(const int& secondes)
         temps = minute + ":0" + seconde;
     else
         temps = minute + ":" + seconde;
-    qDebug() << Q_FUNC_INFO << "temps" << temps;
     return temps;
 }
 
@@ -149,29 +148,33 @@ void GestionPartie::receptionnerTir(const QString& numeroPiste,
     qDebug() << Q_FUNC_INFO << "numeroPiste" << numeroPiste << "joueur"
              << joueurs[numeroPiste]->recupererNumero() << "scoreTir"
              << scoreTir;
-    joueurs[numeroPiste]->ajouterTir(scoreTir, chronometre);
-    joueurs[numeroPiste]->afficherTirs();
-    joueurs[numeroPiste]->definirScore(scoreTir);
-    if(etat != EtatPartie::ATTENTE_FIN)
+    if(etat != EtatPartie::FINIE)
     {
         emit tirRecu(QString::number(joueurs[numeroPiste]->recupererNumero()),
                      scoreTir);
     }
+    joueurs[numeroPiste]->ajouterTir(scoreTir, chronometre);
+    joueurs[numeroPiste]->afficherTirs();
+    joueurs[numeroPiste]->definirScore(scoreTir);
+
     if(estScoreMax(joueurs[numeroPiste]->recupererScore()))
     {
-        QTimer::singleShot(200,
+        // Le timer permet à IHMPartie de recevoir le tir
+        QTimer::singleShot(500,
                            this,
                            [this]()
                            {
-                               etat = EtatPartie::ATTENTE_FIN;
-                           });
-        QTimer::singleShot(2500,
-                           this,
-                           [this]()
-                           {
-                               qDebug()
-                                 << Q_FUNC_INFO << "reception score fermee";
-                               finirPartie();
+                               etat = EtatPartie::FINIE;
+                               QTimer::singleShot(
+                                 2500,
+                                 this,
+                                 [this]()
+                                 {
+                                     qDebug()
+                                       << Q_FUNC_INFO
+                                       << "partie fini, reception score fermee";
+                                     finirPartie();
+                                 });
                            });
     }
 }
@@ -180,7 +183,6 @@ void GestionPartie::finirPartie()
 {
     qDebug() << Q_FUNC_INFO;
     communication->signalerFinDePartie();
-    etat = EtatPartie::FINIE;
     // emit changementEtatPartie(etat);
     emit demandeClassement();
     QTimer::singleShot(TEMPS_AFFICHAGE_FENETRE * 1000,

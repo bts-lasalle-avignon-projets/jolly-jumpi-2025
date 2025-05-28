@@ -7,5 +7,6 @@
     <qresource prefix="/partie">
         <file>cheval.png</file>
         <file>cheminARemplacer.png</file>
+        <file>ligneArrivee.jpg</file>
     </qresource>
 </RCC>

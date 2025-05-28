@@ -108,7 +108,6 @@ std::vector<QList<QString> > Joueur::genererStatistiquesJoueur()
                                 << "0"
                                 << "0";
         statistiquesJoueur.push_back(ligneStatistiquesJoueur);
-        qDebug() << Q_FUNC_INFO << "0 tir]" << ligneStatistiquesJoueur;
         return statistiquesJoueur;
     }
 
@@ -128,7 +127,6 @@ std::vector<QList<QString> > Joueur::genererStatistiquesJoueur()
         ligneStatistiquesJoueur << convertirTemps(ecartTir);
         ligneStatistiquesJoueur << QString::number(trouPrefere);
         statistiquesJoueur.push_back(ligneStatistiquesJoueur);
-        qDebug() << Q_FUNC_INFO << ligneStatistiquesJoueur;
 
         indexTir++;
         tempsTirPrecedent = tir.recupererTemps();

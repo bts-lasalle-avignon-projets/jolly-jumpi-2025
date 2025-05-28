@@ -36,6 +36,8 @@ class IHMStatistiquesJoueur : public QWidget
     void afficherStatistiques(const QString numero);
     void deroulerStatistiques();
     void reitialiserLabel();
+    void appliquerMiseEnForme(QLayout* layout, int taillePolice);
+    void redimensionnerLabel();
 
 #ifdef SIMULATION_CLAVIER_STATISTIQUESJOUEUR
     void simulerStatistiquesJoueur();
