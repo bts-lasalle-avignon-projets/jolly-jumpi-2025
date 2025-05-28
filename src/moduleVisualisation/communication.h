@@ -13,6 +13,8 @@
 #define DEBUT_MESSAGE "$"
 #define FIN_MESSAGE   "\n"
 
+#define NOMBRE_JOUEUR_MAX 8
+
 #define PREMIER_ELEMENT  0
 #define DEUXIEME_ELEMENT 1
 

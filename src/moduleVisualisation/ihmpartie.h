@@ -27,6 +27,9 @@ class IHMPartie : public QWidget
     Communication*         communication; //!< association vers Communication
     GestionPartie*         gestionPartie; //!< composition vers GestionPartie
 
+    void creerChevaux(int nombreJoueurs);
+    void initialiserEmplacementLabel();
+
 #ifdef SIMULATION_CLAVIER_PARTIE
     void simulerPartie();
 #endif
@@ -45,7 +48,8 @@ class IHMPartie : public QWidget
     void fermer();
     void afficherClassement();
     void afficherStatistiquesJoueur();
-    void mettreAJoursAffichage(int numero, int scoreTir);
+    void mettreAJoursCourse(QString numero, int scoreTir);
+    void mettreAJoursChronometre(int secondes);
 };
 
 #endif // IHMPARTIE_H

@@ -45,11 +45,11 @@
           <enum>Qt::Horizontal</enum>
          </property>
          <property name="sizeType">
-          <enum>QSizePolicy::Preferred</enum>
+          <enum>QSizePolicy::Maximum</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>400</width>
+           <width>200</width>
            <height>20</height>
           </size>
          </property>
@@ -73,6 +73,22 @@
         </widget>
        </item>
        <item>
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::MinimumExpanding</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
         <widget class="QLabel" name="labelScore">
          <property name="font">
           <font>
@@ -88,6 +104,22 @@
           <set>Qt::AlignCenter</set>
          </property>
         </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::MinimumExpanding</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
        </item>
        <item>
         <widget class="QLabel" name="labelPlace">
@@ -112,11 +144,11 @@
           <enum>Qt::Horizontal</enum>
          </property>
          <property name="sizeType">
-          <enum>QSizePolicy::Preferred</enum>
+          <enum>QSizePolicy::Maximum</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>400</width>
+           <width>200</width>
            <height>20</height>
           </size>
          </property>
@@ -151,7 +183,7 @@
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>300</width>
+         <width>200</width>
          <height>0</height>
         </size>
        </property>
@@ -2179,7 +2211,7 @@
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>300</width>
+         <width>200</width>
          <height>20</height>
         </size>
        </property>

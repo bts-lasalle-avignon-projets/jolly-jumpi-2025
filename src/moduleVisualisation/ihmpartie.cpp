@@ -5,6 +5,7 @@
 #include "communication.h"
 #include "gestionPartie.h"
 #include <QDebug>
+#include <QPropertyAnimation>
 
 IHMPartie::IHMPartie(Communication* communication, QWidget* parent) :
     QWidget(parent), uiPartie(new Ui::Partie), ihmClassement(nullptr),
@@ -41,7 +42,15 @@ IHMPartie::IHMPartie(Communication* communication, QWidget* parent) :
     connect(gestionPartie,
             &GestionPartie::tirRecu,
             this,
-            &IHMPartie::mettreAJoursAffichage);
+            &IHMPartie::mettreAJoursCourse);
+    connect(gestionPartie,
+            &GestionPartie::creerChevaux,
+            this,
+            &IHMPartie::creerChevaux);
+    connect(gestionPartie,
+            &GestionPartie::avancementChronometre,
+            this,
+            &IHMPartie::mettreAJoursChronometre);
 }
 
 IHMPartie::~IHMPartie()
@@ -65,6 +74,7 @@ void IHMPartie::showEvent(QShowEvent* event)
 {
     qDebug() << Q_FUNC_INFO << this;
     gestionPartie->gererPartie();
+    initialiserEmplacementLabel();
 }
 
 void IHMPartie::fermer()
@@ -99,8 +109,116 @@ void IHMPartie::afficherStatistiquesJoueur()
     }
 }
 
-void IHMPartie::mettreAJoursAffichage(int numero, int scoreTir)
+void IHMPartie::creerChevaux(int nombreJoueurs)
 {
+    qDebug() << Q_FUNC_INFO << "nombreJoueurs" << nombreJoueurs;
+    for(int i = 0; i < NOMBRE_JOUEUR_MAX; i++)
+    {
+        QString ligne    = QString::number(i + 1);
+        QString nomLabel = QString("labelCheval") + ligne;
+        QLabel* label    = this->findChild<QLabel*>(nomLabel);
+        QPixmap pixmap(":/partie/cheval.png");
+
+        if(label)
+        {
+            if(i < nombreJoueurs)
+            {
+                label->setPixmap(pixmap);
+                label->setScaledContents(true);
+            }
+            else
+            {
+                label->clear();
+            }
+        }
+        else
+            qDebug() << Q_FUNC_INFO << "Label" << nomLabel << "non trouvé";
+    }
+}
+
+void IHMPartie::mettreAJoursCourse(QString numero, int scoreTir)
+{
+    qDebug() << Q_FUNC_INFO << "numero" << numero << "scoreTir" << scoreTir;
+    QString nomLabel = "labelCheval" + numero;
+    QLabel* label    = findChild<QLabel*>(nomLabel);
+    if(!label)
+    {
+        qDebug() << Q_FUNC_INFO << "Label" << nomLabel << "non trouvé";
+        return;
+    }
+
+    QWidget* parentWidget = label->parentWidget();
+    if(!parentWidget)
+    {
+        qDebug() << Q_FUNC_INFO << "parentWidget non trouvé";
+        return;
+    }
+
+    int pointManquant = SCORE_MAX -
+                        gestionPartie->recupererScoreJoueur(numero) +
+                        scoreTir; // +scoreTir sinon compte 1 coup en avance
+    int avancement   = 0;
+    int segmentEcran = (parentWidget->width() - label->width()) / SCORE_MAX;
+    int multiplicateurTemps = 1;
+
+    if(scoreTir <= pointManquant)
+    {
+        avancement          = segmentEcran * scoreTir;
+        multiplicateurTemps = multiplicateurTemps * scoreTir;
+        qDebug() << Q_FUNC_INFO << "pointManquant <= au scorTir";
+    }
+    else
+    {
+        avancement          = segmentEcran * pointManquant;
+        multiplicateurTemps = multiplicateurTemps * pointManquant;
+        qDebug() << Q_FUNC_INFO << "pointManquant > au scorTir";
+    }
+
+    qDebug() << Q_FUNC_INFO << "numero" << numero << "segmentEcran"
+             << segmentEcran << "pointManquant" << pointManquant << "avancement"
+             << avancement << "multiplicateurTemps" << multiplicateurTemps;
+
+    QPoint posActuelle = label->pos();
+    QPoint nouvellePosition =
+      QPoint(posActuelle.x() + avancement, posActuelle.y());
+    QPropertyAnimation* avancer = new QPropertyAnimation(label, "pos");
+    avancer->setDuration(multiplicateurTemps * 400);
+    avancer->setStartValue(posActuelle);
+    avancer->setEndValue(nouvellePosition);
+    avancer->start(QAbstractAnimation::DeleteWhenStopped);
+}
+
+void IHMPartie::initialiserEmplacementLabel()
+{
+    qDebug() << Q_FUNC_INFO;
+    for(int i = 0; i < NOMBRE_JOUEUR_MAX; i++)
+    {
+        QString numero   = QString::number(i + 1);
+        QString nomLabel = "labelCheval" + numero;
+        QLabel* label    = findChild<QLabel*>(nomLabel);
+        if(!label)
+        {
+            qDebug() << Q_FUNC_INFO << "Label" << nomLabel << "non trouvé";
+            return;
+        }
+
+        QWidget* parentWidget = label->parentWidget();
+        if(!parentWidget)
+        {
+            qDebug() << Q_FUNC_INFO << "parentWidget non trouvé";
+            return;
+        }
+        QPoint positionY        = label->pos();
+        QPoint positionInitiale = QPoint(0, positionY.y());
+        label->move(positionInitiale);
+    }
+}
+
+void IHMPartie::mettreAJoursChronometre(int secondes)
+{
+    qDebug() << Q_FUNC_INFO;
+    uiPartie->lcdNumberChonometre->display(
+      gestionPartie->convertirTemps(secondes));
 }
 
 #ifdef SIMULATION_CLAVIER_PARTIE

@@ -192,10 +192,10 @@ void IHMStatistiquesJoueur::afficherStatistiques(const QString numero)
 
 void IHMStatistiquesJoueur::reitialiserLabel()
 {
+    qDebug() << Q_FUNC_INFO;
     for(int i = 0; i < NOMBRE_MAX_TIR_POSSIBLE; i++)
     {
         QString numeroLigne = QString::number(i + 1);
-        qDebug() << Q_FUNC_INFO << "ligne" << numeroLigne << "réinitialisé";
         editerLabelNumeroTir(numeroLigne, "");
         editerLabelScoreTir(numeroLigne, "");
         editerLabelScoreCumule(numeroLigne, "");

@@ -31,6 +31,7 @@ class GestionPartie : public QObject
         INCONNU = -1,
         CONFIGUREE,
         DEBUTEE,
+        ATTENTE_FIN,
         FINIE,
         ABANDONNEE,
         NB_ETATS
@@ -44,10 +45,11 @@ class GestionPartie : public QObject
     std::vector<QList<QString> > genererClassement();
     std::vector<QList<QString> > recupererStatistiquesJoueur(
       const QString& numeroJoueur);
-    int recupererNombreJoueurs();
-    int recupererChronometre();
-    int recupererScoreJoueur(QString numero);
-    int recupererPlaceJoueur(QString numero);
+    int     recupererNombreJoueurs();
+    int     recupererChronometre();
+    int     recupererScoreJoueur(QString numero);
+    int     recupererPlaceJoueur(QString numero);
+    QString convertirTemps(const int& secondes);
 
   private:
     int                    nombreJoueurs;
@@ -76,10 +78,12 @@ class GestionPartie : public QObject
 
   signals:
     // void changementEtatPartie(EtatPartie etatPartie);
-    void tirRecu(int joueur, int scoreTir);
+    void tirRecu(QString numeroJoueur, int scoreTir);
     void demandeClassement();
     void demandeStatistiquesJoueur();
     void estFinPartie();
+    void creerChevaux(int nombreJoueurs);
+    void avancementChronometre(int);
 };
 
 #endif

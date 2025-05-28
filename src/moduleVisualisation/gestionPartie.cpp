@@ -75,6 +75,7 @@ void GestionPartie::gererConfiguration(QString nombreJoueursRecu,
     modeDeJeu     = modeDeJeuRecu.toInt();
     etat          = EtatPartie::CONFIGUREE;
     configurerPiste();
+    emit creerChevaux(nombreJoueurs);
     // emit changementEtatPartie(etat);
 }
 
@@ -118,10 +119,25 @@ void GestionPartie::chronometrer()
                     return;
                 }
                 chronometre++;
-                qDebug() << Q_FUNC_INFO << chronometre << "secondes";
+                emit avancementChronometre(chronometre);
+                if(chronometre % 5 == 0)
+                    qDebug() << Q_FUNC_INFO << chronometre << "secondes";
             });
 
     minuteur->start(1000); // toutes les 1 secondes
+}
+
+QString GestionPartie::convertirTemps(const int& secondes)
+{
+    QString temps;
+    QString minute  = QString::number(secondes / 60);
+    QString seconde = QString::number(secondes % 60);
+    if(seconde.toInt() < 10)
+        temps = minute + ":0" + seconde;
+    else
+        temps = minute + ":" + seconde;
+    qDebug() << Q_FUNC_INFO << "temps" << temps;
+    return temps;
 }
 
 void GestionPartie::receptionnerTir(const QString& numeroPiste,
@@ -136,10 +152,27 @@ void GestionPartie::receptionnerTir(const QString& numeroPiste,
     joueurs[numeroPiste]->ajouterTir(scoreTir, chronometre);
     joueurs[numeroPiste]->afficherTirs();
     joueurs[numeroPiste]->definirScore(scoreTir);
-    emit tirRecu(joueurs[numeroPiste]->recupererNumero(), scoreTir);
+    if(etat != EtatPartie::ATTENTE_FIN)
+    {
+        emit tirRecu(QString::number(joueurs[numeroPiste]->recupererNumero()),
+                     scoreTir);
+    }
     if(estScoreMax(joueurs[numeroPiste]->recupererScore()))
     {
-        finirPartie();
+        QTimer::singleShot(200,
+                           this,
+                           [this]()
+                           {
+                               etat = EtatPartie::ATTENTE_FIN;
+                           });
+        QTimer::singleShot(2500,
+                           this,
+                           [this]()
+                           {
+                               qDebug()
+                                 << Q_FUNC_INFO << "reception score fermee";
+                               finirPartie();
+                           });
     }
 }
 
@@ -213,14 +246,13 @@ std::vector<QList<QString> > GestionPartie::genererClassement()
     {
         joueur->definirPlace(placeClassement);
         QList<QString> ligneClassement;
+        ligneClassement << QString::number(joueur->recupererPlace());
         ligneClassement << QString::number(joueur->recupererNumero());
         ligneClassement << QString::number(joueur->recupererScore());
-        ligneClassement << QString::number(joueur->recupererPlace());
         classement.push_back(ligneClassement);
         placeClassement++;
         qDebug() << Q_FUNC_INFO << ligneClassement;
     }
-    qDebug() << Q_FUNC_INFO << classement;
     return classement;
 }
 

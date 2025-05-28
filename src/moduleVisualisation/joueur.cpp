@@ -91,6 +91,7 @@ int Joueur::calculerEcartTir(const int& tempsA, const int& tempsB)
 
 std::vector<QList<QString> > Joueur::genererStatistiquesJoueur()
 {
+    qDebug() << Q_FUNC_INFO;
     std::vector<QList<QString> > statistiquesJoueur;
     int                          tempsTirPrecedent    = 0;
     int                          scoreCumuleCroissant = 0;
@@ -124,7 +125,7 @@ std::vector<QList<QString> > Joueur::genererStatistiquesJoueur()
         ligneStatistiquesJoueur << QString::number(tir.recupererScore());
         ligneStatistiquesJoueur << QString::number(scoreCumuleCroissant);
         ligneStatistiquesJoueur << convertirTemps(tir.recupererTemps());
-        ligneStatistiquesJoueur << QString::number(ecartTir) + "s";
+        ligneStatistiquesJoueur << convertirTemps(ecartTir);
         ligneStatistiquesJoueur << QString::number(trouPrefere);
         statistiquesJoueur.push_back(ligneStatistiquesJoueur);
         qDebug() << Q_FUNC_INFO << ligneStatistiquesJoueur;
@@ -132,7 +133,6 @@ std::vector<QList<QString> > Joueur::genererStatistiquesJoueur()
         indexTir++;
         tempsTirPrecedent = tir.recupererTemps();
     }
-    qDebug() << Q_FUNC_INFO << "numero" << numero << statistiquesJoueur;
     return statistiquesJoueur;
 }
 
@@ -143,10 +143,14 @@ std::vector<QList<QString> > Joueur::recupererStatistiquesJoueur()
 
 QString Joueur::convertirTemps(const int& secondes)
 {
+    QString temps;
     QString minute  = QString::number(secondes / 60);
     QString seconde = QString::number(secondes % 60);
-    QString temps   = minute + ":" + seconde;
-
+    if(seconde.toInt() < 10)
+        temps = minute + ":0" + seconde;
+    else
+        temps = minute + ":" + seconde;
+    qDebug() << Q_FUNC_INFO << "temps" << temps;
     return temps;
 }
 

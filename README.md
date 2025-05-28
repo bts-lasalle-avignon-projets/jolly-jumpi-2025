@@ -162,7 +162,7 @@ Quelques diagrammes des échanges :
       > - [X] Afficher la page Accueil
       > - [ ] Afficher la page Connexion
       > - [X] Afficher la page Jeu
-      > - [ ] Mettre à jour la page Jeu
+      > - [X] Mettre à jour la page Jeu
       > - [X] Afficher la page Classement à la fin d'une partie (10 seconde)
       > - [X] Afficher la page Statistiques:Joueur après la page Classement (10sec par joueur)
     

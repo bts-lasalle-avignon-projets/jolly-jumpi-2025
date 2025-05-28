@@ -6,6 +6,10 @@
 #define SIMULATION_CLAVIER_CLASSEMENT
 #define NOMBRE_COLONNE_EDITABLE 2
 
+#define INDEX_PLACE  0
+#define INDEX_NUMERO 1
+#define INDEX_SCORE  2
+
 namespace Ui
 {
 class Classement;
@@ -27,6 +31,8 @@ class IHMClassement : public QWidget
     void            editerLabelScore(QString ligne, QString scoreJoueur);
     void            editerLabelPlace(QString ligne, QString placeClassement);
     void            afficherClassement();
+    void            redimensionnerLabel();
+    void            appliquerMiseEnForme(QLayout* layout, int taillePolice);
 
 #ifdef SIMULATION_CLAVIER_CLASSEMENT
     void simulerClassement();

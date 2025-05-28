@@ -32,23 +32,13 @@
      <property name="text">
       <string>CLASSEMENT</string>
      </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-   </item>
-   <item>
-    <spacer name="vSpacer_ClxCh">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
    </item>
    <item>
     <layout class="QHBoxLayout" name="hLayoutChrono">
@@ -137,11 +127,11 @@
           <enum>Qt::Horizontal</enum>
          </property>
          <property name="sizeType">
-          <enum>QSizePolicy::Preferred</enum>
+          <enum>QSizePolicy::Maximum</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>400</width>
+           <width>300</width>
            <height>20</height>
           </size>
          </property>
@@ -159,10 +149,29 @@
          <property name="text">
           <string/>
          </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
          </property>
         </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Minimum</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
        </item>
        <item>
         <widget class="QLabel" name="labelPJScore">
@@ -176,10 +185,29 @@
          <property name="text">
           <string/>
          </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
          </property>
         </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Minimum</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
        </item>
        <item>
         <widget class="QLabel" name="labelPlace">
@@ -193,6 +221,9 @@
          <property name="text">
           <string>1ER</string>
          </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
          </property>
@@ -204,11 +235,11 @@
           <enum>Qt::Horizontal</enum>
          </property>
          <property name="sizeType">
-          <enum>QSizePolicy::Preferred</enum>
+          <enum>QSizePolicy::Maximum</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>400</width>
+           <width>300</width>
            <height>20</height>
           </size>
          </property>
@@ -243,7 +274,7 @@
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>400</width>
+         <width>200</width>
          <height>0</height>
         </size>
        </property>
@@ -257,6 +288,26 @@
        <item>
         <layout class="QHBoxLayout" name="hLayoutEnteteClassement">
          <item>
+          <widget class="QLabel" name="labelEntetePlace">
+           <property name="font">
+            <font>
+             <family>Ubuntu Condensed</family>
+             <pointsize>36</pointsize>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Place</string>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QLabel" name="labelEnteteJoueur">
            <property name="font">
             <font>
@@ -267,6 +318,9 @@
            </property>
            <property name="text">
             <string>Joueur</string>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -285,22 +339,8 @@
            <property name="text">
             <string>Score</string>
            </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="labelEntetePlace">
-           <property name="font">
-            <font>
-             <family>Ubuntu Condensed</family>
-             <pointsize>36</pointsize>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>Place</string>
+           <property name="scaledContents">
+            <bool>true</bool>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -312,6 +352,21 @@
        <item>
         <layout class="QHBoxLayout" name="hLayoutJ1">
          <item>
+          <widget class="QLabel" name="labelP1">
+           <property name="font">
+            <font>
+             <pointsize>36</pointsize>
+            </font>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QLabel" name="labelJ1">
            <property name="font">
             <font>
@@ -320,6 +375,9 @@
            </property>
            <property name="text">
             <string/>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -339,13 +397,20 @@
            <property name="text">
             <string/>
            </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="hLayoutJ2">
          <item>
-          <widget class="QLabel" name="labelP1">
+          <widget class="QLabel" name="labelP2">
            <property name="font">
             <font>
              <pointsize>36</pointsize>
@@ -359,10 +424,6 @@
            </property>
           </widget>
          </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="hLayoutJ2">
          <item>
           <widget class="QLabel" name="labelJ2">
            <property name="font">
@@ -393,8 +454,12 @@
            </property>
           </widget>
          </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="hLayoutJ3">
          <item>
-          <widget class="QLabel" name="labelP2">
+          <widget class="QLabel" name="labelP3">
            <property name="font">
             <font>
              <pointsize>36</pointsize>
@@ -408,10 +473,6 @@
            </property>
           </widget>
          </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="hLayoutJ3">
          <item>
           <widget class="QLabel" name="labelJ3">
            <property name="font">
@@ -442,8 +503,12 @@
            </property>
           </widget>
          </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="hLayoutJ4">
          <item>
-          <widget class="QLabel" name="labelP3">
+          <widget class="QLabel" name="labelP4">
            <property name="font">
             <font>
              <pointsize>36</pointsize>
@@ -457,10 +522,6 @@
            </property>
           </widget>
          </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="hLayoutJ4">
          <item>
           <widget class="QLabel" name="labelJ4">
            <property name="font">
@@ -491,8 +552,12 @@
            </property>
           </widget>
          </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="hLayoutJ5">
          <item>
-          <widget class="QLabel" name="labelP4">
+          <widget class="QLabel" name="labelP5">
            <property name="font">
             <font>
              <pointsize>36</pointsize>
@@ -506,10 +571,6 @@
            </property>
           </widget>
          </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="hLayoutJ5">
          <item>
           <widget class="QLabel" name="labelJ5">
            <property name="font">
@@ -540,8 +601,12 @@
            </property>
           </widget>
          </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="hLayoutJ6">
          <item>
-          <widget class="QLabel" name="labelP5">
+          <widget class="QLabel" name="labelP6">
            <property name="font">
             <font>
              <pointsize>36</pointsize>
@@ -555,10 +620,6 @@
            </property>
           </widget>
          </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="hLayoutJ6">
          <item>
           <widget class="QLabel" name="labelJ6">
            <property name="font">
@@ -589,8 +650,12 @@
            </property>
           </widget>
          </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="hLayoutJ7">
          <item>
-          <widget class="QLabel" name="labelP6">
+          <widget class="QLabel" name="labelP7">
            <property name="font">
             <font>
              <pointsize>36</pointsize>
@@ -604,10 +669,6 @@
            </property>
           </widget>
          </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="hLayoutJ7">
          <item>
           <widget class="QLabel" name="labelJ7">
            <property name="font">
@@ -638,8 +699,12 @@
            </property>
           </widget>
          </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="hLayoutJ8">
          <item>
-          <widget class="QLabel" name="labelP7">
+          <widget class="QLabel" name="labelP8">
            <property name="font">
             <font>
              <pointsize>36</pointsize>
@@ -653,10 +718,6 @@
            </property>
           </widget>
          </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="hLayoutJ8">
          <item>
           <widget class="QLabel" name="labelJ8">
            <property name="font">
@@ -674,21 +735,6 @@
          </item>
          <item>
           <widget class="QLabel" name="labelS8">
-           <property name="font">
-            <font>
-             <pointsize>36</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="labelP8">
            <property name="font">
             <font>
              <pointsize>36</pointsize>
@@ -732,7 +778,7 @@
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>400</width>
+         <width>200</width>
          <height>20</height>
         </size>
        </property>

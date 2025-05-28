@@ -42,6 +42,7 @@ IHMClassement::~IHMClassement()
 void IHMClassement::showEvent(QShowEvent* event)
 {
     qDebug() << Q_FUNC_INFO << this;
+    redimensionnerLabel();
     afficherClassement();
 }
 
@@ -54,7 +55,7 @@ void IHMClassement::fermer()
 void IHMClassement::editerLabelChrono()
 {
     uiClassement->labelTemps->setText(
-      QString::number(gestionPartie->recupererChronometre()) + "s");
+      gestionPartie->convertirTemps(gestionPartie->recupererChronometre()));
 }
 
 void IHMClassement::editerLabelPremierJoueurNomJoueur(QString numeroJoueur)
@@ -112,13 +113,55 @@ void IHMClassement::afficherClassement()
         QList<QString> ligneClassement = classement[i];
         if(i == 0)
         {
-            editerLabelPremierJoueurNomJoueur(ligneClassement[0]);
-            editerLabelPremierJoueurScore(ligneClassement[1]);
+            editerLabelPremierJoueurNomJoueur(ligneClassement[INDEX_NUMERO]);
+            editerLabelPremierJoueurScore(ligneClassement[INDEX_SCORE]);
         }
+        editerLabelPlace(numero, ligneClassement[INDEX_PLACE]);
+        editerLabelNomJoueur(numero, ligneClassement[INDEX_NUMERO]);
+        editerLabelScore(numero, ligneClassement[INDEX_SCORE]);
+    }
+}
 
-        editerLabelNomJoueur(numero, ligneClassement[0]);
-        editerLabelScore(numero, ligneClassement[1]);
-        editerLabelPlace(numero, ligneClassement[2]);
+void IHMClassement::appliquerMiseEnForme(QLayout* layout, int taillePolice)
+{
+    for(int i = 0; i < layout->count(); ++i)
+    {
+        QLayoutItem* item = layout->itemAt(i);
+
+        if(QWidget* widget = item->widget())
+        {
+            if(QLabel* label = qobject_cast<QLabel*>(widget))
+            {
+                QFont police = label->font();
+                police.setPointSize(taillePolice);
+                label->setFont(police);
+            }
+        }
+        else if(QLayout* sousLayout = item->layout())
+        {
+            // Appel récursif pour gérer les layouts imbriqués
+            appliquerMiseEnForme(sousLayout, taillePolice);
+        }
+    }
+}
+
+void IHMClassement::redimensionnerLabel()
+{
+    int          tailleTitre = 30;
+    int          tailleTexte = 20;
+    QHBoxLayout* hLayoutPJ   = findChild<QHBoxLayout*>("hLayoutPJ");
+    QVBoxLayout* vLayoutTableauClassement =
+      findChild<QVBoxLayout*>("vLayoutTableauClassement");
+    if(hLayoutPJ)
+    {
+        qDebug() << Q_FUNC_INFO << "Trouvé" << hLayoutPJ;
+        appliquerMiseEnForme(hLayoutPJ, tailleTitre);
+    }
+
+    if(vLayoutTableauClassement)
+    {
+        qDebug() << Q_FUNC_INFO << "Trouvé" << vLayoutTableauClassement;
+        appliquerMiseEnForme(vLayoutTableauClassement, tailleTexte);
     }
 }
 
