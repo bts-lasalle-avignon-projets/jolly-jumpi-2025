@@ -10,6 +10,7 @@
 
 #define RPI
 
+#define NOMBRE_JOUEUR_MAX       8
 #define SCORE_MAX               10
 #define TEMPS_AFFICHAGE_FENETRE 10 // en seconde
 

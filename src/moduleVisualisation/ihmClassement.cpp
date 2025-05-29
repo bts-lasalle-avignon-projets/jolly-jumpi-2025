@@ -43,6 +43,7 @@ void IHMClassement::showEvent(QShowEvent* event)
 {
     qDebug() << Q_FUNC_INFO << this;
     redimensionnerLabel();
+    reitialiserLabel();
     afficherClassement();
 }
 
@@ -162,6 +163,18 @@ void IHMClassement::redimensionnerLabel()
     {
         qDebug() << Q_FUNC_INFO << "Trouvé" << vLayoutTableauClassement;
         appliquerMiseEnForme(vLayoutTableauClassement, tailleTexte);
+    }
+}
+
+void IHMClassement::reitialiserLabel()
+{
+    qDebug() << Q_FUNC_INFO;
+    for(int i = 0; i < NOMBRE_JOUEUR_MAX; i++)
+    {
+        QString numeroLigne = QString::number(i + 1);
+        editerLabelPlace(numeroLigne, "");
+        editerLabelNomJoueur(numeroLigne, "");
+        editerLabelScore(numeroLigne, "");
     }
 }
 

@@ -33,6 +33,7 @@ class IHMClassement : public QWidget
     void            afficherClassement();
     void            redimensionnerLabel();
     void            appliquerMiseEnForme(QLayout* layout, int taillePolice);
+    void            reitialiserLabel();
 
 #ifdef SIMULATION_CLAVIER_CLASSEMENT
     void simulerClassement();
