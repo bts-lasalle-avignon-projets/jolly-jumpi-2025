@@ -14,6 +14,16 @@ IHMStatistiquesJoueur::IHMStatistiquesJoueur(GestionPartie* gestionPartie,
     setWindowTitle(QString(""));
 
     qDebug() << Q_FUNC_INFO << this << "gestionPartie" << gestionPartie;
+    nomLabelsEntete << "Joueur" // JOUEUR
+                    << "Score"  // SCORE
+                    << "Place"; // PLACE
+
+    nomLabels << "L"      // NUMERO_TIR
+              << "P"      // SCORE_TIR
+              << "S"      // SCORE_CUMULE
+              << "T"      // TEMPS_TIR
+              << "E"      // ECART_TIR
+              << "TPref"; // TROU_PREFERE
 
 #ifdef RPI
     showFullScreen();
@@ -54,86 +64,37 @@ void IHMStatistiquesJoueur::fermer()
     this->close();
 }
 
-void IHMStatistiquesJoueur::editerLabelNomJoueur(QString numeroJoueur)
+void IHMStatistiquesJoueur::editerLabelEntete(const QString numero,
+                                              int           indexLabelEntete)
 {
-    uiStatistiquesJoueur->labelJoueur->setText("Joueur " + numeroJoueur);
-}
-
-void IHMStatistiquesJoueur::editerLabelScore(QString scoreJoueur)
-{
-    uiStatistiquesJoueur->labelScore->setText("Score " + scoreJoueur);
-}
-
-void IHMStatistiquesJoueur::editerLabelPlace(QString placeJoueur)
-{
-    uiStatistiquesJoueur->labelPlace->setText("Place " + placeJoueur);
-}
-
-void IHMStatistiquesJoueur::editerLabelNumeroTir(QString ligne, QString numero)
-{
-    QString nomLabel = QString("labelL") + ligne;
-    QLabel* label    = this->findChild<QLabel*>(nomLabel);
-
-    if(label)
-        label->setText(numero);
+    QString valeur;
+    if(indexLabelEntete == JOUEUR)
+        valeur = numero;
+    else if(indexLabelEntete == SCORE)
+        valeur = QString::number(gestionPartie->recupererScoreJoueur(numero));
+    else if(indexLabelEntete == PLACE)
+        valeur = QString::number(gestionPartie->recupererPlaceJoueur(numero));
     else
-        qDebug() << Q_FUNC_INFO << "label" << nomLabel << "non trouvé";
+    {
+        qDebug() << Q_FUNC_INFO << "indexLabelEntete invalide"
+                 << indexLabelEntete;
+        return;
+    }
+
+    editerLabel(nomLabelsEntete[indexLabelEntete],
+                nomLabelsEntete[indexLabelEntete] + " " + valeur);
 }
 
-void IHMStatistiquesJoueur::editerLabelScoreTir(QString ligne, QString scoreTir)
+void IHMStatistiquesJoueur::editerLabel(const QString& labelRecherche,
+                                        const QString& valeur)
 {
-    QString nomLabel = QString("labelP") + ligne;
+    QString nomLabel = "label" + labelRecherche;
     QLabel* label    = this->findChild<QLabel*>(nomLabel);
 
     if(label)
-        label->setText(scoreTir);
-    else
-        qDebug() << Q_FUNC_INFO << "label" << nomLabel << "non trouvé";
-}
-
-void IHMStatistiquesJoueur::editerLabelScoreCumule(QString ligne,
-                                                   QString scoreCumule)
-{
-    QString nomLabel = QString("labelS") + ligne;
-    QLabel* label    = this->findChild<QLabel*>(nomLabel);
-
-    if(label)
-        label->setText(scoreCumule);
-    else
-        qDebug() << Q_FUNC_INFO << "label" << nomLabel << "non trouvé";
-}
-
-void IHMStatistiquesJoueur::editerLabelTempsTir(QString ligne, QString tempsTir)
-{
-    QString nomLabel = QString("labelT") + ligne;
-    QLabel* label    = this->findChild<QLabel*>(nomLabel);
-
-    if(label)
-        label->setText(tempsTir);
-    else
-        qDebug() << Q_FUNC_INFO << "label" << nomLabel << "non trouvé";
-}
-
-void IHMStatistiquesJoueur::editerLabelEcartTir(QString ligne,
-                                                QString tempsEntreTir)
-{
-    QString nomLabel = QString("labelE") + ligne;
-    QLabel* label    = this->findChild<QLabel*>(nomLabel);
-
-    if(label)
-        label->setText(tempsEntreTir);
-    else
-        qDebug() << Q_FUNC_INFO << "label" << nomLabel << "non trouvé";
-}
-
-void IHMStatistiquesJoueur::editerLabelTrouPrefere(QString ligne,
-                                                   QString tourPrefere)
-{
-    QString nomLabel = QString("labelTPref") + ligne;
-    QLabel* label    = this->findChild<QLabel*>(nomLabel);
-
-    if(label)
-        label->setText(tourPrefere);
+    {
+        label->setText(valeur);
+    }
     else
         qDebug() << Q_FUNC_INFO << "label" << nomLabel << "non trouvé";
 }
@@ -154,7 +115,8 @@ void IHMStatistiquesJoueur::deroulerStatistiquesSuivant()
     indexJoueurStatistiques++;
     if(indexJoueurStatistiques < gestionPartie->recupererNombreJoueurs())
     {
-        QTimer::singleShot(TEMPS_AFFICHAGE_JOUEUR * 1000,
+        QTimer::singleShot(gestionPartie->recupererTempsAffichageFenetre() *
+                             1000,
                            this,
                            SLOT(deroulerStatistiquesSuivant()));
     }
@@ -166,43 +128,30 @@ void IHMStatistiquesJoueur::deroulerStatistiquesSuivant()
 
 void IHMStatistiquesJoueur::afficherStatistiques(const QString numero)
 {
-    qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << numero;
     std::vector<QList<QString> > statistiques =
       gestionPartie->recupererStatistiquesJoueur(numero);
-    reitialiserLabel();
-    for(int ligne = 0; ligne < statistiques.size(); ++ligne)
+    for(int indexLabelEntete = 0; indexLabelEntete < NB_LABELS_ENTETE;
+        ++indexLabelEntete)
     {
-        QList<QString> elementsStatistiques = statistiques[ligne];
-        QString        numeroLigne          = QString::number(ligne + 1);
-
-        editerLabelNomJoueur(numero);
-        editerLabelScore(
-          QString::number(gestionPartie->recupererScoreJoueur(numero)));
-        editerLabelPlace(
-          QString::number(gestionPartie->recupererPlaceJoueur(numero)));
-        editerLabelNumeroTir(numeroLigne, elementsStatistiques[0]);
-        editerLabelScoreTir(numeroLigne, elementsStatistiques[1]);
-        editerLabelScoreCumule(numeroLigne, elementsStatistiques[2]);
-        editerLabelTempsTir(numeroLigne, elementsStatistiques[3]);
-        editerLabelEcartTir(numeroLigne, elementsStatistiques[4]);
-        editerLabelTrouPrefere(numeroLigne, elementsStatistiques[5]);
-        qDebug() << Q_FUNC_INFO << "ligne" << numeroLigne
-                 << elementsStatistiques;
+        editerLabelEntete(numero, indexLabelEntete);
     }
-}
-
-void IHMStatistiquesJoueur::reitialiserLabel()
-{
-    qDebug() << Q_FUNC_INFO;
-    for(int i = 0; i < NOMBRE_MAX_TIR_POSSIBLE; i++)
+    for(int ligne = 0; ligne < gestionPartie->recupererScoreMax(); ++ligne)
     {
-        QString numeroLigne = QString::number(i + 1);
-        editerLabelNumeroTir(numeroLigne, "");
-        editerLabelScoreTir(numeroLigne, "");
-        editerLabelScoreCumule(numeroLigne, "");
-        editerLabelTempsTir(numeroLigne, "");
-        editerLabelEcartTir(numeroLigne, "");
-        editerLabelTrouPrefere(numeroLigne, "");
+        QString numeroLigne = QString::number(ligne + 1);
+
+        for(int indexLabel = 0; indexLabel < NB_LABELS; ++indexLabel)
+        {
+            if(ligne < statistiques.size())
+            {
+                QList<QString> elementsStatistiques = statistiques[ligne];
+                editerLabel(nomLabels[indexLabel] + numeroLigne,
+                            elementsStatistiques[indexLabel]);
+            }
+            else
+                editerLabel(nomLabels[indexLabel] + numeroLigne, "");
+            // vide les tirs fantomes
+        }
     }
 }
 

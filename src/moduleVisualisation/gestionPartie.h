@@ -50,6 +50,8 @@ class GestionPartie : public QObject
     int     recupererScoreJoueur(QString numero);
     int     recupererPlaceJoueur(QString numero);
     QString convertirTemps(const int& secondes);
+    int     recupererScoreMax();
+    int     recupererTempsAffichageFenetre();
 
   private:
     int                    nombreJoueurs;

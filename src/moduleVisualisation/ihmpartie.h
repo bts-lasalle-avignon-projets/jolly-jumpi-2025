@@ -26,11 +26,26 @@ class IHMPartie : public QWidget
     IHMStatistiquesJoueur* ihmStatistiquesJoueur;
     Communication*         communication; //!< association vers Communication
     GestionPartie*         gestionPartie; //!< composition vers GestionPartie
+    QStringList            nomLabels;
+    QList<QPixmap>         listePixmaps;
+    enum NomLabels
+    {
+        INCONNU = -1,
+        LIGNE_ARRIVEE,
+        CHEVAL,
+        NB_LABELS
+    };
 
-    void creerLigneCourse(int nombreJoueurs);
-    void initialiserEmplacementLabel();
-    void deplacerLigneArrivee();
-    void creerLigneArrivee(QString ligne);
+    QLabel* recupererLabel(const QString labelRecherche);
+    void    creerLigneCourse(int nombreJoueurs);
+
+    void editerLabelPixmap(QLabel*        label,
+                           const QPixmap& pixmap,
+                           const QString& numeroLigne);
+    void initialiserEmplacementLabel(QLabel* label, const int& index);
+    void faireAvancerCheval(QLabel*    label,
+                            const int& avancement,
+                            const int& multiplicateurTemps);
 
 #ifdef SIMULATION_CLAVIER_PARTIE
     void simulerPartie();

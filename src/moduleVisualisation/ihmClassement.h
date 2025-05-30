@@ -24,16 +24,23 @@ class IHMClassement : public QWidget
   private:
     Ui::Classement* uiClassement;
     GestionPartie*  gestionPartie; //!< association vers GestionPartie
-    void            editerLabelChrono();
-    void            editerLabelPremierJoueurNomJoueur(QString numeroJoueur);
-    void            editerLabelPremierJoueurScore(QString score);
-    void            editerLabelNomJoueur(QString ligne, QString numeroJoueur);
-    void            editerLabelScore(QString ligne, QString scoreJoueur);
-    void            editerLabelPlace(QString ligne, QString placeClassement);
-    void            afficherClassement();
-    void            redimensionnerLabel();
-    void            appliquerMiseEnForme(QLayout* layout, int taillePolice);
-    void            reitialiserLabel();
+    QStringList     nomLabels;
+    enum NomLabels
+    {
+        INCONNU = -1,
+        PLACE,
+        JOUEUR,
+        SCORE,
+        NB_LABELS
+    };
+
+    void editerLabelChrono();
+    void editerLabelPremierJoueurNomJoueur(QString numeroJoueur);
+    void editerLabelPremierJoueurScore(QString score);
+    void editerLabel(const QString& labelRecherche, const QString& valeur);
+    void afficherClassement();
+    void redimensionnerLabel();
+    void appliquerMiseEnForme(QLayout* layout, int taillePolice);
 
 #ifdef SIMULATION_CLAVIER_CLASSEMENT
     void simulerClassement();

@@ -62,6 +62,7 @@ class Communication : public QObject
     void    confirmerAssociation(const QString& retourAssociation);
     void    envoyerConfiguration(const int& modeDeJeu, const int& nombreJoueur);
     void    envoyerDebutDePartie();
+    void    arreterPartie();
     void    signalerFinDePartie();
 
     void    communiquerConfiguration(QString message);

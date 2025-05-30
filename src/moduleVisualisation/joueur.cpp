@@ -148,7 +148,6 @@ QString Joueur::convertirTemps(const int& secondes)
         temps = minute + ":0" + seconde;
     else
         temps = minute + ":" + seconde;
-    qDebug() << Q_FUNC_INFO << "temps" << temps;
     return temps;
 }
 

@@ -56,7 +56,6 @@ void GestionPartie::commencerPartie()
         return;
     relierPistesEtJoueurs();
     etat = EtatPartie::DEBUTEE;
-    // emit changementEtatPartie(etat);
     communication->envoyerDebutDePartie();
     chronometrer();
 }
@@ -76,7 +75,6 @@ void GestionPartie::gererConfiguration(QString nombreJoueursRecu,
     etat          = EtatPartie::CONFIGUREE;
     configurerPiste();
     emit creerChevaux(nombreJoueurs);
-    // emit changementEtatPartie(etat);
 }
 
 void GestionPartie::supprimerJoueurs()
@@ -148,7 +146,7 @@ void GestionPartie::receptionnerTir(const QString& numeroPiste,
     qDebug() << Q_FUNC_INFO << "numeroPiste" << numeroPiste << "joueur"
              << joueurs[numeroPiste]->recupererNumero() << "scoreTir"
              << scoreTir;
-    if(etat != EtatPartie::FINIE)
+    if(etat != EtatPartie::FINIE || etat != EtatPartie::ABANDONNEE)
     {
         emit tirRecu(QString::number(joueurs[numeroPiste]->recupererNumero()),
                      scoreTir);
@@ -159,58 +157,50 @@ void GestionPartie::receptionnerTir(const QString& numeroPiste,
 
     if(estScoreMax(joueurs[numeroPiste]->recupererScore()))
     {
-        // Le timer permet à IHMPartie de recevoir le tir
-        QTimer::singleShot(500,
-                           this,
-                           [this]()
-                           {
-                               etat = EtatPartie::FINIE;
-                               QTimer::singleShot(
-                                 2500,
-                                 this,
-                                 [this]()
-                                 {
-                                     qDebug()
-                                       << Q_FUNC_INFO
-                                       << "partie fini, reception score fermee";
-                                     finirPartie();
-                                 });
-                           });
+        finirPartie();
     }
 }
 
 void GestionPartie::finirPartie()
 {
-    qDebug() << Q_FUNC_INFO;
-    communication->signalerFinDePartie();
-    // emit changementEtatPartie(etat);
-    emit demandeClassement();
-    QTimer::singleShot(TEMPS_AFFICHAGE_FENETRE * 1000,
-                       this,
-                       [this]()
-                       {
-                           qDebug() << Q_FUNC_INFO << "afficher statistique";
-                           emit demandeStatistiquesJoueur();
-                           QTimer::singleShot(
-                             TEMPS_AFFICHAGE_FENETRE * nombreJoueurs * 1000,
-                             this,
-                             [this]()
-                             {
-                                 qDebug()
-                                   << Q_FUNC_INFO << "afficher statistique";
-                                 emit estFinPartie();
-                             });
-                       });
+    // Le timer permet à IHMPartie de recevoir le dernier tir
+    QTimer::singleShot(
+      500,
+      this,
+      [this]()
+      {
+          qDebug() << Q_FUNC_INFO << "partie fini, reception score fermee";
+          etat = EtatPartie::FINIE;
+          communication->arreterPartie();
+          emit demandeClassement();
+          QTimer::singleShot(
+            TEMPS_AFFICHAGE_FENETRE * 1000,
+            this,
+            [this]()
+            {
+                qDebug() << Q_FUNC_INFO << "afficher statistique";
+                emit demandeStatistiquesJoueur();
+                QTimer::singleShot(
+                  TEMPS_AFFICHAGE_FENETRE * nombreJoueurs * 1000,
+                  this,
+                  [this]()
+                  {
+                      qDebug() << Q_FUNC_INFO << "afficher statistique";
+                      emit estFinPartie();
+                      communication->signalerFinDePartie();
+                  });
+            });
+      });
 }
 
 void GestionPartie::abandonnerPartie()
 {
     qDebug() << Q_FUNC_INFO;
-    communication->signalerFinDePartie();
     supprimerJoueurs();
     etat = EtatPartie::ABANDONNEE;
-    // emit changementEtatPartie(etat);
     emit estFinPartie();
+    communication->arreterPartie();
+    communication->signalerFinDePartie();
 }
 
 int GestionPartie::calculerScoreJoueur(const QString& numeroPiste)
@@ -278,4 +268,14 @@ int GestionPartie::recupererScoreJoueur(QString numero)
 int GestionPartie::recupererPlaceJoueur(QString numero)
 {
     return joueurs[numero]->recupererPlace();
+}
+
+int GestionPartie::recupererScoreMax()
+{
+    return SCORE_MAX;
+}
+
+int GestionPartie::recupererTempsAffichageFenetre()
+{
+    return TEMPS_AFFICHAGE_FENETRE;
 }

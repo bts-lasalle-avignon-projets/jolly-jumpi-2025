@@ -163,11 +163,18 @@ void Communication::envoyerDebutDePartie()
       typesMessages.at(Communication::TypeMessage::DEBUT_PARTIE));
 }
 
+void Communication::arreterPartie()
+{
+    qDebug() << Q_FUNC_INFO;
+    envoyerMessage(bluetooth->recupererAdresseModuleDetectionBalles(),
+                   typesMessages.at(Communication::TypeMessage::FIN_PARTIE));
+}
+
 void Communication::signalerFinDePartie()
 {
     qDebug() << Q_FUNC_INFO;
-    envoyerMessageGroupe(
-      typesMessages.at(Communication::TypeMessage::FIN_PARTIE));
+    envoyerMessage(bluetooth->recupererAdresseModuleConfiguration(),
+                   typesMessages.at(Communication::TypeMessage::FIN_PARTIE));
 }
 
 void Communication::communiquerConfiguration(QString message)

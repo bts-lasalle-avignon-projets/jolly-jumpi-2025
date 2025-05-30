@@ -13,6 +13,10 @@ IHMClassement::IHMClassement(GestionPartie* gestionPartie, QWidget* parent) :
 
     qDebug() << Q_FUNC_INFO << this << "gestionPartie" << gestionPartie;
 
+    nomLabels << "P"  // PLACE
+              << "J"  // JOUEUR
+              << "S"; // SCORE
+
 #ifdef RPI
     showFullScreen();
 #else
@@ -43,7 +47,6 @@ void IHMClassement::showEvent(QShowEvent* event)
 {
     qDebug() << Q_FUNC_INFO << this;
     redimensionnerLabel();
-    reitialiserLabel();
     afficherClassement();
 }
 
@@ -69,35 +72,16 @@ void IHMClassement::editerLabelPremierJoueurScore(QString score)
     uiClassement->labelPJScore->setText("Score: " + score);
 }
 
-void IHMClassement::editerLabelNomJoueur(QString ligne, QString numeroJoueur)
+void IHMClassement::editerLabel(const QString& labelRecherche,
+                                const QString& valeur)
 {
-    QString nomLabel = QString("labelJ") + ligne;
+    QString nomLabel = "label" + labelRecherche;
     QLabel* label    = this->findChild<QLabel*>(nomLabel);
 
     if(label)
-        label->setText(numeroJoueur);
-    else
-        qDebug() << Q_FUNC_INFO << "Label" << nomLabel << "non trouvé";
-}
-
-void IHMClassement::editerLabelScore(QString ligne, QString scoreJoueur)
-{
-    QString nomLabel = QString("labelS") + ligne;
-    QLabel* label    = this->findChild<QLabel*>(nomLabel);
-
-    if(label)
-        label->setText(scoreJoueur);
-    else
-        qDebug() << Q_FUNC_INFO << "label" << nomLabel << "non trouvé";
-}
-
-void IHMClassement::editerLabelPlace(QString ligne, QString placeClassement)
-{
-    QString nomLabel = QString("labelP") + ligne;
-    QLabel* label    = this->findChild<QLabel*>(nomLabel);
-
-    if(label)
-        label->setText(placeClassement);
+    {
+        label->setText(valeur);
+    }
     else
         qDebug() << Q_FUNC_INFO << "label" << nomLabel << "non trouvé";
 }
@@ -108,18 +92,25 @@ void IHMClassement::afficherClassement()
     std::vector<QList<QString> > classement;
     classement = gestionPartie->genererClassement();
     editerLabelChrono();
-    for(int i = 0; i < gestionPartie->recupererNombreJoueurs(); ++i)
+
+    for(int i = 0; i < NOMBRE_JOUEUR_MAX; ++i)
     {
-        QString        numero          = QString::number(i + 1);
-        QList<QString> ligneClassement = classement[i];
+        QString               numeroLigne = QString::number(i + 1);
+        const QList<QString>& ligne       = classement[i];
         if(i == 0)
         {
-            editerLabelPremierJoueurNomJoueur(ligneClassement[INDEX_NUMERO]);
-            editerLabelPremierJoueurScore(ligneClassement[INDEX_SCORE]);
+            editerLabelPremierJoueurNomJoueur(ligne[JOUEUR]);
+            editerLabelPremierJoueurScore(ligne[SCORE]);
         }
-        editerLabelPlace(numero, ligneClassement[INDEX_PLACE]);
-        editerLabelNomJoueur(numero, ligneClassement[INDEX_NUMERO]);
-        editerLabelScore(numero, ligneClassement[INDEX_SCORE]);
+        for(int indexLabel = 0; indexLabel < NB_LABELS; ++indexLabel)
+        {
+            if(i < gestionPartie->recupererNombreJoueurs())
+                editerLabel(nomLabels[indexLabel] + numeroLigne,
+                            ligne[indexLabel]);
+            else
+                editerLabel(nomLabels[indexLabel] + numeroLigne, "");
+            // vide les joueurs fantomes
+        }
     }
 }
 
@@ -163,18 +154,6 @@ void IHMClassement::redimensionnerLabel()
     {
         qDebug() << Q_FUNC_INFO << "Trouvé" << vLayoutTableauClassement;
         appliquerMiseEnForme(vLayoutTableauClassement, tailleTexte);
-    }
-}
-
-void IHMClassement::reitialiserLabel()
-{
-    qDebug() << Q_FUNC_INFO;
-    for(int i = 0; i < NOMBRE_JOUEUR_MAX; i++)
-    {
-        QString numeroLigne = QString::number(i + 1);
-        editerLabelPlace(numeroLigne, "");
-        editerLabelNomJoueur(numeroLigne, "");
-        editerLabelScore(numeroLigne, "");
     }
 }
 
