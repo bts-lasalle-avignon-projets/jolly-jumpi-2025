@@ -1,0 +1,133 @@
+format 224
+
+classinstancecanvas 128002 classinstance_ref 128386 // 
+  xyz 281.3 10.3 2000 life_line_z 2000
+end
+classinstancecanvas 128130 classinstance_ref 128514 // 
+  xyz 651.9 7 2000 life_line_z 2000
+end
+classinstancecanvas 128258 classinstance_ref 128258 // 
+  xyz 30.5 6.9 2000 life_line_z 2000
+end
+fragment 130562 "loop"
+  xyzwh 290.2 250.8 2000 486 280
+end
+fragment 133506 "alt"
+  form "else" xyzwh 68.2 205.9 1995 718 472
+end
+textcanvas 134274 "--------------------------------------------------------------------------------------------------------------------------------------------------
+else"
+  xyzwh 71 546.2 2005 720 46
+durationcanvas 128514 classinstance_ref 128258 // :ModuleConfiguration
+  xyzwh 100 91 2010 11 40
+end
+durationcanvas 128642 classinstance_ref 128002 // :ModuleVisualisation
+  xyzwh 348 93.5 2010 11 556
+  overlappingdurationcanvas 128898
+    xyzwh 354 103.5 2020 11 48
+  end
+  overlappingdurationcanvas 130690
+    xyzwh 354 274.2 2020 11 266
+    overlappingdurationcanvas 130946
+      xyzwh 360 297.8 2030 11 133
+      overlappingdurationcanvas 131202
+	xyzwh 366 350 2040 11 29
+      end
+      overlappingdurationcanvas 131458
+	xyzwh 366 391.2 2040 11 32
+      end
+    end
+    overlappingdurationcanvas 132482
+      xyzwh 360 444.9 2030 11 30
+    end
+    overlappingdurationcanvas 132738
+      xyzwh 360 486.4 2030 11 30
+    end
+  end
+  overlappingdurationcanvas 134018
+    xyzwh 354 214.2 2020 11 29
+  end
+  overlappingdurationcanvas 134402
+    xyzwh 354 575 2020 11 25
+  end
+end
+durationcanvas 129922 classinstance_ref 128130 // :ModuleDetectionDeBalle
+  xyzwh 734 180.2 2010 11 474
+  overlappingdurationcanvas 133250
+    xyzwh 740 610.7 2020 11 34
+  end
+end
+durationcanvas 130306 classinstance_ref 128258 // :ModuleConfiguration
+  xyzwh 100 611 2010 11 27
+end
+msg 128770 synchronous
+  from durationcanvas_ref 128514
+  to durationcanvas_ref 128642
+  yz 94 2015 explicitmsg "Demarre la partie"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 166 79
+reflexivemsg 129026 asynchronous
+  to durationcanvas_ref 128898
+  yz 120 2025 explicitmsg "traite le message"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 396 126
+msg 130050 asynchronous
+  from durationcanvas_ref 128642
+  to durationcanvas_ref 129922
+  yz 179 2015 explicitmsg "Demarre la partie"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 406 164
+msg 130434 return
+  from durationcanvas_ref 128642
+  to durationcanvas_ref 130306
+  yz 613 2015 explicitmsg "signale la fin de la partie"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 149 598
+msg 130818 asynchronous
+  from durationcanvas_ref 129922
+  to durationcanvas_ref 130690
+  yz 275 2025 explicitmsg "envoie numero piste + score"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 422 263
+reflexivemsg 131074 asynchronous
+  to durationcanvas_ref 130946
+  yz 299 2035 explicitmsg "traite message"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 399 332
+reflexivemsg 131330 asynchronous
+  to durationcanvas_ref 131202
+  yz 328 2045 explicitmsg "récupère numero piste"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 403 362
+reflexivemsg 131586 asynchronous
+  to durationcanvas_ref 131458
+  yz 366 2045 explicitmsg "récupère score"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 407 406
+reflexivemsg 132610 asynchronous
+  to durationcanvas_ref 132482
+  yz 413 2035 explicitmsg "met à jour affichage"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 400 457
+reflexivemsg 132866 asynchronous
+  to durationcanvas_ref 132738
+  yz 450 2035 explicitmsg "enregistre données en locale"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 398 499
+msg 133378 asynchronous
+  from durationcanvas_ref 128642
+  to durationcanvas_ref 133250
+  yz 614 2025 explicitmsg "arrete la partie"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 501 599
+reflexivemsg 134146 asynchronous
+  to durationcanvas_ref 134018
+  yz 197 2025 explicitmsg "score max atteint ?"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 395 219
+reflexivemsg 134530 asynchronous
+  to durationcanvas_ref 134402
+  yz 518 2025 explicitmsg "enregistre les données dans la BDD"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 391 575
+end

@@ -62,7 +62,7 @@ Jolly Jumpi est développé en **C++** avec le _framework_ **Qt**.
 
 - Interrompre une partie
 
-![](./images/Readme/DiagrammeDeSequence-InterromprePartie.webp)
+![](./images/Readme/diagrammeSequenceAbandon.png)
 
 ## Diagramme de classes
 
@@ -72,7 +72,7 @@ Jolly Jumpi est développé en **C++** avec le _framework_ **Qt**.
 
 - Module de visualisation
 
-![](./images/Readme/DiagrammeDeClasse-moduleVisualisation.webp)
+![](./images/Readme/DiagrammeDeClasse-moduleVisualisation.png)
 
 ## Protocole de communication
 
@@ -80,13 +80,13 @@ Jolly Jumpi est développé en **C++** avec le _framework_ **Qt**.
 
 Quelques diagrammes des échanges :
 
-![](./images/Readme/DiagrammeDesEchanges-Configuration.webp)
+![](./images/Readme/DiagrammeDesEchangesV2-Configuration.png)
 
-![](./images/Readme/DiagrammeDesEchanges-GestionPartie.webp)
+![](./images/Readme/DiagrammeDesEchanges-GestionPartie.png)
 
-![](./images/Readme/DiagrammeDesEchanges-AfficherStat.webp)
+![](./images/Readme/DiagrammeDesEchangesV2-AbandonPartie.png)
 
-![](./images/Readme/DiagrammeDesEchanges-InterromprePartie.webp)
+![](./images/Readme/DiagrammeDesEchangesV2-AfficherStats.png)
 
 ## Changelog
 

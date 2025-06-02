@@ -1,7 +1,7 @@
 format 224
 "DiagrammeULM_module_visualisation"
-  revision 10
-  modified_by 42 "tv"
+  revision 13
+  modified_by 2 "btssn2"
   cpp_root_dir "../../"
 
 
@@ -773,6 +773,11 @@ format 224
 	    classrelation_ref 130946 // <aggregation>
       end
     end
+
+    classdiagram 154242 "iteration2"
+      classdiagramsettings member_max_width 0 end
+      size A0
+    end
   end
 
   usecaseview 128002 "DiagrammeCasUtilisation"
@@ -1099,7 +1104,26 @@ format 224
       mysql_decl ""
       
     end
+
+    sequencediagram 160898 "configurationPartie"
+      sequencediagramsettings end
+      overlapping_bars size A4
+    end
+
+    sequencediagram 161154 "abandonPartie"
+      sequencediagramsettings end
+      overlapping_bars size A4
+    end
+
+    sequencediagram 161282 "gestionPartie"
+      sequencediagramsettings end
+      overlapping_bars size A4
+    end
   end
 
   package_ref 134570 // moduleVisualisation
+
+  package_ref 128002 // src
+
+  package_ref 128258 // simulateur
 end
