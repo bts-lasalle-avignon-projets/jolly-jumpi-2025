@@ -17,7 +17,7 @@ Communication::Communication(QObject* parent) :
                   << "S1" // PAGE_HISTORIQUE
                   << "A"  // ASSOCIATION
                   << "T"; // TIR
-
+    communiquerModulesConnectes();
     connect(bluetooth,
             &Bluetooth::messageRecu,
             this,
@@ -63,7 +63,7 @@ void Communication::traiterMessage(QString nom,
     switch(typeMessage)
     {
         case Communication::TypeMessage::CONFIGURATION_PARTIE:
-            emit moduleConnectes();
+            emit configurationEnCours();
             communiquerConfiguration(message);
             demanderConfirmationAssociation();
             break;
@@ -249,6 +249,25 @@ QList<QString> Communication::recupererPistes()
 void Communication::effacerPistes()
 {
     pistes.clear();
+}
+
+void Communication::communiquerModulesConnectes()
+{
+    QTimer* minuteur = new QTimer(this);
+    connect(minuteur,
+            &QTimer::timeout,
+            this,
+            [this, minuteur]()
+            {
+                if(bluetooth->getNbConnectes() == NOMBRE_MODULE)
+                {
+                    minuteur->stop();
+                    emit modulesConnectes();
+                    return;
+                }
+            });
+
+    minuteur->start(5000); // toutes les 1 secondes
 }
 
 #ifdef SIMULATION_MODULE_CONFIGURATION

@@ -131,10 +131,39 @@ QWidget#Ligne8
        <bool>false</bool>
       </property>
      </widget>
+     <widget class="QLabel" name="labelNumero1">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>50</y>
+        <width>110</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <italic>false</italic>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color : rgb(255, 255, 255)</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="scaledContents">
+       <bool>false</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
      <zorder>labelLigneArrivee1</zorder>
      <zorder>labelHerbeHaute1</zorder>
      <zorder>labelCheval1</zorder>
      <zorder>labelHerbeBasse1</zorder>
+     <zorder>labelNumero1</zorder>
     </widget>
    </item>
    <item>
@@ -221,10 +250,39 @@ QWidget#Ligne8
        <bool>false</bool>
       </property>
      </widget>
+     <widget class="QLabel" name="labelNumero2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>50</y>
+        <width>110</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <italic>false</italic>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color : rgb(255, 255, 255)</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="scaledContents">
+       <bool>false</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
      <zorder>labelLigneArrivee2</zorder>
      <zorder>labelHerbeHaute2</zorder>
      <zorder>labelCheval2</zorder>
      <zorder>labelHerbeBasse2</zorder>
+     <zorder>labelNumero2</zorder>
     </widget>
    </item>
    <item>
@@ -308,10 +366,39 @@ QWidget#Ligne8
        <bool>false</bool>
       </property>
      </widget>
+     <widget class="QLabel" name="labelNumero3">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>50</y>
+        <width>110</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <italic>false</italic>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color : rgb(255, 255, 255)</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="scaledContents">
+       <bool>false</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
      <zorder>labelLigneArrivee3</zorder>
      <zorder>labelHerbeHaute3</zorder>
      <zorder>labelCheval3</zorder>
      <zorder>labelHerbeBasse3</zorder>
+     <zorder>labelNumero3</zorder>
     </widget>
    </item>
    <item>
@@ -395,10 +482,39 @@ QWidget#Ligne8
        <bool>false</bool>
       </property>
      </widget>
+     <widget class="QLabel" name="labelNumero4">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>50</y>
+        <width>110</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <italic>false</italic>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color : rgb(255, 255, 255)</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="scaledContents">
+       <bool>false</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
      <zorder>labelLigneArrivee4</zorder>
      <zorder>labelHerbeHaute4</zorder>
      <zorder>labelCheval4</zorder>
      <zorder>labelHerbeBasse4</zorder>
+     <zorder>labelNumero4</zorder>
     </widget>
    </item>
    <item>
@@ -482,10 +598,39 @@ QWidget#Ligne8
        <bool>false</bool>
       </property>
      </widget>
+     <widget class="QLabel" name="labelNumero5">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>50</y>
+        <width>110</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <italic>false</italic>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color : rgb(255, 255, 255)</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="scaledContents">
+       <bool>false</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
      <zorder>labelLigneArrivee5</zorder>
      <zorder>labelHerbeHaute5</zorder>
      <zorder>labelCheval5</zorder>
      <zorder>labelHerbeBasse5</zorder>
+     <zorder>labelNumero5</zorder>
     </widget>
    </item>
    <item>
@@ -569,10 +714,39 @@ QWidget#Ligne8
        <bool>false</bool>
       </property>
      </widget>
+     <widget class="QLabel" name="labelNumero6">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>50</y>
+        <width>110</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <italic>false</italic>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color : rgb(255, 255, 255)</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="scaledContents">
+       <bool>false</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
      <zorder>labelLigneArrivee6</zorder>
      <zorder>labelHerbeHaute6</zorder>
      <zorder>labelCheval6</zorder>
      <zorder>labelHerbeBasse6</zorder>
+     <zorder>labelNumero6</zorder>
     </widget>
    </item>
    <item>
@@ -656,10 +830,39 @@ QWidget#Ligne8
        <bool>false</bool>
       </property>
      </widget>
+     <widget class="QLabel" name="labelNumero7">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>50</y>
+        <width>110</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <italic>false</italic>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color : rgb(255, 255, 255)</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="scaledContents">
+       <bool>false</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
      <zorder>labelLigneArrivee7</zorder>
      <zorder>labelHerbeHaute7</zorder>
      <zorder>labelCheval7</zorder>
      <zorder>labelHerbeBasse7</zorder>
+     <zorder>labelNumero7</zorder>
     </widget>
    </item>
    <item>
@@ -743,10 +946,39 @@ QWidget#Ligne8
        <bool>false</bool>
       </property>
      </widget>
+     <widget class="QLabel" name="labelNumero8">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>50</y>
+        <width>110</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <italic>false</italic>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color : rgb(255, 255, 255)</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="scaledContents">
+       <bool>false</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
      <zorder>labelLigneArrivee8</zorder>
      <zorder>labelHerbeHaute8</zorder>
      <zorder>labelCheval8</zorder>
      <zorder>labelHerbeBasse8</zorder>
+     <zorder>labelNumero8</zorder>
     </widget>
    </item>
    <item>

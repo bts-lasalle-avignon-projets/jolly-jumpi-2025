@@ -32,6 +32,7 @@ class IHMPartie : public QWidget
     {
         INCONNU = -1,
         LIGNE_ARRIVEE,
+        NUMERO,
         CHEVAL,
         NB_LABELS
     };
@@ -43,9 +44,10 @@ class IHMPartie : public QWidget
                            const QPixmap& pixmap,
                            const QString& numeroLigne);
     void initialiserEmplacementLabel(QLabel* label, const int& index);
-    void faireAvancerCheval(QLabel*    label,
-                            const int& avancement,
-                            const int& multiplicateurTemps);
+    void faireAvancerLabel(QLabel*    label,
+                           const int& avancement,
+                           const int& multiplicateurTemps);
+    void editerLabelText(QLabel* label, QString ligne);
 
 #ifdef SIMULATION_CLAVIER_PARTIE
     void simulerPartie();

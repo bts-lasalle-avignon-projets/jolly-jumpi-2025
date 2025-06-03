@@ -54,7 +54,9 @@ class IHM : public QWidget
 
     QTimer*     minuteurDefilement;
     int         numeroMessage;
+    int         numeroTitre;
     QStringList listeMessages;
+    QStringList listeTitres;
 
     QPixmap fondEcran;
 
@@ -72,6 +74,8 @@ class IHM : public QWidget
 
   private slots:
     void defilerTexte();
+    void defilerTitre();
+    void mettreAJourListeTitres();
     void fermer();
     // void afficherHistorique();
     void afficherPartie();

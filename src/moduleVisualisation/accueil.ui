@@ -40,7 +40,7 @@
        <enum>Qt::Vertical</enum>
       </property>
       <property name="sizeType">
-       <enum>QSizePolicy::Preferred</enum>
+       <enum>QSizePolicy::Ignored</enum>
       </property>
       <property name="sizeHint" stdset="0">
        <size>
@@ -71,20 +71,39 @@
      </widget>
     </item>
     <item>
+     <widget class="QLabel" name="labelLogo">
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="images/images.qrc">:/images/pageAccueil/logo.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>false</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
      <spacer name="vSpacerTitrexBienvenue">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Ignored</enum>
+      </property>
       <property name="sizeHint" stdset="0">
        <size>
-        <width>20</width>
-        <height>40</height>
+        <width>10</width>
+        <height>10</height>
        </size>
       </property>
      </spacer>
     </item>
     <item>
-     <widget class="QLabel" name="labelBienvenue">
+     <widget class="QLabel" name="labelDefilementTitre">
       <property name="font">
        <font>
         <pointsize>72</pointsize>
@@ -97,22 +116,6 @@
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-    </item>
-    <item>
-     <spacer name="vSpacerBienvenuexDefTexte">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeType">
-       <enum>QSizePolicy::Preferred</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>35</height>
-       </size>
-      </property>
-     </spacer>
     </item>
     <item>
      <widget class="QLabel" name="labelDefilementTexte">
@@ -135,7 +138,7 @@
        <enum>Qt::Vertical</enum>
       </property>
       <property name="sizeType">
-       <enum>QSizePolicy::Preferred</enum>
+       <enum>QSizePolicy::Expanding</enum>
       </property>
       <property name="sizeHint" stdset="0">
        <size>
@@ -160,7 +163,7 @@
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="images/images.qrc">:/accueil/fondHerbe.jpg</pixmap>
+    <pixmap resource="images/images.qrc">:/images/pageAccueil/fondHerbe.jpg</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>

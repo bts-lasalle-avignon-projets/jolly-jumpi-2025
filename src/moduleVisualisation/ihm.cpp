@@ -53,13 +53,24 @@ IHM::IHM(QWidget* parent) :
     listeMessages << "BTS CIEL IR"
                   << "LaSalle Avignon"
                   << "Nicolas Pessina";
+    listeTitres << "BIENVENUE!"
+                << "Attente connexion";
+
     connect(minuteurDefilement, SIGNAL(timeout()), this, SLOT(defilerTexte()));
+    connect(minuteurDefilement, SIGNAL(timeout()), this, SLOT(defilerTitre()));
     uiAccueil->labelDefilementTexte->setText(
       listeMessages.at(numeroMessage++ % listeMessages.count()));
+    uiAccueil->labelDefilementTitre->setText(
+      listeTitres.at(numeroTitre++ % listeTitres.count()));
     minuteurDefilement->start(PERIODE_DEFILEMENT);
 
     connect(communication,
-            &Communication::moduleConnectes,
+            &Communication::modulesConnectes,
+            this,
+            &IHM::mettreAJourListeTitres);
+
+    connect(communication,
+            &Communication::configurationEnCours,
             this,
             &IHM::afficherPartie);
     //** @todo faire de même pour la page historiques*/
@@ -86,6 +97,17 @@ void IHM::defilerTexte()
 {
     uiAccueil->labelDefilementTexte->setText(
       listeMessages.at(numeroMessage++ % listeMessages.count()));
+}
+
+void IHM::defilerTitre()
+{
+    uiAccueil->labelDefilementTitre->setText(
+      listeTitres.at(numeroTitre++ % listeTitres.count()));
+}
+
+void IHM::mettreAJourListeTitres()
+{
+    listeTitres[1] = "attente configuration";
 }
 
 #ifdef SIMULATION_CLAVIER_ACCUEIL

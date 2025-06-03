@@ -218,6 +218,9 @@
            <bold>true</bold>
           </font>
          </property>
+         <property name="styleSheet">
+          <string notr="true">color:rgb(255, 255, 0);</string>
+         </property>
          <property name="text">
           <string>1ER</string>
          </property>
@@ -358,6 +361,12 @@
              <pointsize>36</pointsize>
             </font>
            </property>
+           <property name="styleSheet">
+            <string notr="true">color:rgb(255, 255, 0);</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
            <property name="scaledContents">
             <bool>true</bool>
            </property>
@@ -372,6 +381,9 @@
             <font>
              <pointsize>36</pointsize>
             </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color:rgb(255, 255, 0);</string>
            </property>
            <property name="text">
             <string/>
@@ -394,6 +406,9 @@
            <property name="layoutDirection">
             <enum>Qt::LeftToRight</enum>
            </property>
+           <property name="styleSheet">
+            <string notr="true">color:rgb(255, 255, 0);</string>
+           </property>
            <property name="text">
             <string/>
            </property>
@@ -415,6 +430,9 @@
             <font>
              <pointsize>36</pointsize>
             </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color:rgb(223, 223, 223)</string>
            </property>
            <property name="text">
             <string/>
@@ -464,6 +482,9 @@
             <font>
              <pointsize>36</pointsize>
             </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color:rgb(255, 170, 0)</string>
            </property>
            <property name="text">
             <string/>

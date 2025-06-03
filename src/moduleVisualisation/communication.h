@@ -9,6 +9,8 @@
 //#define SIMULATION_MODULE_CONFIGURATION
 //#define SIMULATION_MODULE_CONFIGURATION_ABANDON
 
+#define NOMBRE_MODULE 2
+
 // Protocole
 #define DEBUT_MESSAGE "$"
 #define FIN_MESSAGE   "\n"
@@ -94,10 +96,12 @@ class Communication : public QObject
     bool estDemandePageAccueil(const QString& message);
     bool estDemandePageHistorique(const QString& message);
     bool estDemandeChangementPage(const QString& message);
+    void communiquerModulesConnectes();
 
   signals:
-    void moduleConnectes();
+    void modulesConnectes();
     void configurationRecue(QString nombreJoueursRecu, QString modeDeJeuRecu);
+    void configurationEnCours();
     void scoreRecu(QString numeroPiste, QString scoreTir);
     void partieDemarree();
     void estEnAttenteDeConfiguration();

@@ -20,10 +20,18 @@ IHMPartie::IHMPartie(Communication* communication, QWidget* parent) :
     qDebug() << Q_FUNC_INFO << this;
 
     nomLabels << "LigneArrivee" // LIGNE_ARRIVEE
+              << "Numero"       // NUMERO
               << "Cheval";      // CHEVAL
 
-    listePixmaps << QString(":/partie/ligneArrivee.jpg")
-                 << QString(":/partie/cheval.png");
+    listePixmaps << QString(":/images/pagePartie/ligneArrivee.jpg")
+                 << QString(":/images/pagePartie/chevaux/chevalMarron.png")
+                 << QString(":/images/pagePartie/chevaux/chevalJaune.png")
+                 << QString(":/images/pagePartie/chevaux/chevalBleuFonce.png")
+                 << QString(":/images/pagePartie/chevaux/chevalGris.png")
+                 << QString(":/images/pagePartie/chevaux/chevalRouge.png")
+                 << QString(":/images/pagePartie/chevaux/chevalBleuClair.png")
+                 << QString(":/images/pagePartie/chevaux/chevalViolet.png")
+                 << QString(":/images/pagePartie/chevaux/chevalNoir.png");
 
 #ifdef RPI
     showFullScreen();
@@ -80,7 +88,7 @@ void IHMPartie::showEvent(QShowEvent* event)
 {
     qDebug() << Q_FUNC_INFO << this;
     gestionPartie->gererPartie();
-    uiPartie->lcdNumberChonometre->display("0:00");
+    uiPartie->lcdNumberChonometre->display("-:--");
 }
 
 void IHMPartie::fermer()
@@ -138,7 +146,14 @@ void IHMPartie::creerLigneCourse(int nombreJoueurs)
             QLabel* label = recupererLabel(nomLabels[index] + ligne);
             if(label)
             {
-                editerLabelPixmap(label, listePixmaps[index], ligne);
+                if(index == LIGNE_ARRIVEE)
+                    editerLabelPixmap(label, listePixmaps[index], ligne);
+                else if(index == NUMERO)
+                    editerLabelText(label, ligne);
+                else
+                    editerLabelPixmap(label,
+                                      listePixmaps[ligne.toInt()],
+                                      ligne);
                 initialiserEmplacementLabel(label, index);
             }
         }
@@ -170,7 +185,6 @@ void IHMPartie::initialiserEmplacementLabel(QLabel* label, const int& index)
     QPoint positionDefaut;
     qDebug() << Q_FUNC_INFO << "largeurCheval" << largeurCheval
              << "taille label" << label->width() << "taille ecran" << width();
-    ;
 
     if(index == LIGNE_ARRIVEE)
     {
@@ -182,6 +196,8 @@ void IHMPartie::initialiserEmplacementLabel(QLabel* label, const int& index)
           positionActuelle.y()); // s'adapte à tout les écrans et scoreMax
         qDebug() << Q_FUNC_INFO << positionDefaut;
     }
+    else if(index == NUMERO)
+        positionDefaut = QPoint(10, positionActuelle.y());
     else
         positionDefaut = QPoint(0, positionActuelle.y());
 
@@ -198,17 +214,20 @@ void IHMPartie::mettreAJoursChronometre(int secondes)
 void IHMPartie::mettreAJoursCourse(QString numero, int scoreTir)
 {
     qDebug() << Q_FUNC_INFO << "numero" << numero << "scoreTir" << scoreTir;
-    QString nomLabel = "Cheval" + numero;
-    QLabel* label    = recupererLabel(nomLabel);
-    if(!label)
+    QString nomLabelCheval = nomLabels[CHEVAL] + numero;
+    QString nomLabelNumero = nomLabels[NUMERO] + numero;
+    QLabel* labelCheval    = recupererLabel(nomLabelCheval);
+    QLabel* labelNumero    = recupererLabel(nomLabelNumero);
+    if(!labelCheval || !labelNumero)
     {
-        qDebug() << Q_FUNC_INFO << "label" << nomLabel << "non trouvé";
+        qDebug() << Q_FUNC_INFO << "labels" << labelCheval << labelNumero
+                 << "non trouvés";
         return;
     }
 
     int pointManquant = SCORE_MAX - gestionPartie->recupererScoreJoueur(numero);
     int avancement    = 0;
-    int segmentEcran  = (width() - label->width()) / SCORE_MAX;
+    int segmentEcran  = (width() - labelCheval->width()) / SCORE_MAX;
     int multiplicateurTemps = 1;
 
     if(scoreTir <= pointManquant)
@@ -224,12 +243,13 @@ void IHMPartie::mettreAJoursCourse(QString numero, int scoreTir)
         qDebug() << Q_FUNC_INFO << "pointManquant > au scorTir";
     }
 
-    faireAvancerCheval(label, avancement, multiplicateurTemps);
+    faireAvancerLabel(labelCheval, avancement, multiplicateurTemps);
+    faireAvancerLabel(labelNumero, avancement, multiplicateurTemps);
 }
 
-void IHMPartie::faireAvancerCheval(QLabel*    label,
-                                   const int& avancement,
-                                   const int& multiplicateurTemps)
+void IHMPartie::faireAvancerLabel(QLabel*    label,
+                                  const int& avancement,
+                                  const int& multiplicateurTemps)
 {
     QPoint posActuelle = label->pos();
     QPoint nouvellePosition =
@@ -239,6 +259,11 @@ void IHMPartie::faireAvancerCheval(QLabel*    label,
     avancer->setStartValue(posActuelle);
     avancer->setEndValue(nouvellePosition);
     avancer->start(QAbstractAnimation::DeleteWhenStopped);
+}
+
+void IHMPartie::editerLabelText(QLabel* label, QString ligne)
+{
+    label->setText(ligne);
 }
 
 #ifdef SIMULATION_CLAVIER_PARTIE
