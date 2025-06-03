@@ -54,7 +54,7 @@ IHM::IHM(QWidget* parent) :
                   << "LaSalle Avignon"
                   << "Nicolas Pessina";
     listeTitres << "BIENVENUE!"
-                << "Attente connexion";
+                << "Attente de connexion";
 
     connect(minuteurDefilement, SIGNAL(timeout()), this, SLOT(defilerTexte()));
     connect(minuteurDefilement, SIGNAL(timeout()), this, SLOT(defilerTitre()));
@@ -107,7 +107,7 @@ void IHM::defilerTitre()
 
 void IHM::mettreAJourListeTitres()
 {
-    listeTitres[1] = "attente configuration";
+    listeTitres[1] = "Attente de configuration";
 }
 
 #ifdef SIMULATION_CLAVIER_ACCUEIL
