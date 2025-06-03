@@ -50,21 +50,23 @@ QString Communication::nettoyerSeparateursMessage(QString& message)
 
 void Communication::traiterMessage(QString nom,
                                    QString adresse,
-                                   QString message)
+                                   QString messageRecu)
 {
     Communication::TypeMessage typeMessage =
       Communication::TypeMessage::INCONNU;
 
-    if(!estMessageValide(message))
+    if(!estMessageValide(messageRecu))
         return;
-    typeMessage = identifierTypeMessage(nettoyerSeparateursMessage(message));
+    QString message = nettoyerSeparateursMessage(messageRecu);
+    typeMessage     = identifierTypeMessage(message);
     qDebug() << Q_FUNC_INFO << "nom" << nom << "adresse" << adresse << "message"
-             << message << "typeMessage" << typeMessage;
+             << messageRecu << "typeMessage" << typeMessage;
+    QString informations = nettoyerMessage(message, typesMessages[typeMessage]);
     switch(typeMessage)
     {
         case Communication::TypeMessage::CONFIGURATION_PARTIE:
             emit configurationEnCours();
-            communiquerConfiguration(message);
+            communiquerConfiguration(informations);
             demanderConfirmationAssociation();
             break;
         case Communication::TypeMessage::DEMARRER_PARTIE:
@@ -78,10 +80,10 @@ void Communication::traiterMessage(QString nom,
             gererChangementPage();
             break;
         case Communication::TypeMessage::ASSOCIATION:
-            gererAssociation(message);
+            gererAssociation(informations);
             break;
         case Communication::TypeMessage::TIR:
-            communiquerTirJoueur(message);
+            communiquerTirJoueur(informations);
             break;
         default:
             qDebug() << Q_FUNC_INFO << "typeMessage inconnu !";
@@ -138,9 +140,10 @@ void Communication::demanderConfirmationAssociation()
 void Communication::confirmerAssociation(const QString& retourAssociation)
 {
     qDebug() << Q_FUNC_INFO << "retourAssociation" << retourAssociation;
-    // Signale la piste au module de configuration
+    // Signale les pistes au module de configuration
     envoyerMessage(bluetooth->recupererAdresseModuleConfiguration(),
-                   retourAssociation);
+                   typesMessages.at(Communication::TypeMessage::ASSOCIATION) +
+                     retourAssociation);
 }
 
 void Communication::envoyerConfiguration(const int& modeDeJeu,
@@ -177,17 +180,17 @@ void Communication::signalerFinDePartie()
                    typesMessages.at(Communication::TypeMessage::FIN_PARTIE));
 }
 
-void Communication::communiquerConfiguration(QString message)
+void Communication::communiquerConfiguration(QString informations)
 {
-    QString informations = nettoyerMessage(message);
     QString nombreJoueursRecu;
     QString modeDeJeuRecu;
 
     nombreJoueursRecu = extraireElement(informations, NOMBRE_JOUEUR);
     modeDeJeuRecu     = extraireElement(informations, MODE_DE_JEU);
 
-    qDebug() << Q_FUNC_INFO << "message" << message << "nombreJoueursRecu"
-             << nombreJoueursRecu << "modeDeJeuRecu" << modeDeJeuRecu;
+    qDebug() << Q_FUNC_INFO << "informations" << informations
+             << "nombreJoueursRecu" << nombreJoueursRecu << "modeDeJeuRecu"
+             << modeDeJeuRecu;
     emit configurationRecue(nombreJoueursRecu, modeDeJeuRecu);
 }
 
@@ -195,7 +198,7 @@ void Communication::gererAssociation(const QString& message)
 {
     qDebug() << Q_FUNC_INFO << message;
 
-    if(!nettoyerMessage(message).isEmpty())
+    if(!message.isEmpty())
     {
         qDebug() << Q_FUNC_INFO << "message" << message;
         confirmerAssociation(message);
@@ -212,10 +215,11 @@ void Communication::gererChangementPage()
     qDebug() << Q_FUNC_INFO;
 }
 
-QString Communication::nettoyerMessage(const QString& message)
+QString Communication::nettoyerMessage(const QString& message,
+                                       const QString& caracteres)
 {
     QString messageCopie = message;
-    return messageCopie.remove(0, 1);
+    return messageCopie.remove(caracteres);
 }
 
 QString Communication::extraireElement(const QString& informations,
@@ -225,10 +229,9 @@ QString Communication::extraireElement(const QString& informations,
     return messageDecompose[element];
 }
 
-void Communication::communiquerTirJoueur(const QString& message)
+void Communication::communiquerTirJoueur(const QString& informations)
 {
-    qDebug() << Q_FUNC_INFO << message;
-    QString informations = nettoyerMessage(message);
+    qDebug() << Q_FUNC_INFO << informations;
     QString numeroPiste;
     QString scoreTir;
 

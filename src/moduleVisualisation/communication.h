@@ -25,7 +25,7 @@
 #define NOMBRE_JOUEUR DEUXIEME_ELEMENT
 
 // Pour l'association
-#define NOMBRE_PISTES DEUXIEME_ELEMENT
+#define NOMBRE_PISTES PREMIER_ELEMENT
 
 // Pour les tirs
 #define NUMERO_PISTE PREMIER_ELEMENT
@@ -67,12 +67,12 @@ class Communication : public QObject
     void    arreterPartie();
     void    signalerFinDePartie();
 
-    void    communiquerConfiguration(QString message);
+    void    communiquerConfiguration(QString informations);
     void    gererAssociation(const QString& message);
     void    gererChangementPage();
-    QString nettoyerMessage(const QString& message);
+    QString nettoyerMessage(const QString& message, const QString& caracteres);
     QString extraireElement(const QString& informations, const int& element);
-    void    communiquerTirJoueur(const QString& message);
+    void    communiquerTirJoueur(const QString& informations);
     QList<QString> recupererPistes();
     void           effacerPistes();
 #ifdef SIMULATION_MODULE_CONFIGURATION
