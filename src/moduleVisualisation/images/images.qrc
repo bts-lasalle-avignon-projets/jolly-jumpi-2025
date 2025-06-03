@@ -1,10 +1,16 @@
 <RCC>
-    <qresource prefix="/accueil">
-        <file>logo.png</file>
-        <file>imageARenplacer.jpg</file>
-    </qresource>
-    <qresource prefix="/partie">
-        <file>cheval.png</file>
-        <file>cheminARemplacer.png</file>
+    <qresource prefix="/images">
+        <file>pageAccueil/fondHerbe.jpg</file>
+        <file>pagePartie/cheminARemplacer.png</file>
+        <file>pagePartie/ligneArrivee.jpg</file>
+        <file>pagePartie/chevaux/chevalBleuClair.png</file>
+        <file>pagePartie/chevaux/chevalBleuFonce.png</file>
+        <file>pagePartie/chevaux/chevalGris.png</file>
+        <file>pagePartie/chevaux/chevalJaune.png</file>
+        <file>pagePartie/chevaux/chevalMarron.png</file>
+        <file>pagePartie/chevaux/chevalNoir.png</file>
+        <file>pagePartie/chevaux/chevalRouge.png</file>
+        <file>pagePartie/chevaux/chevalViolet.png</file>
+        <file>pageAccueil/logo.png</file>
     </qresource>
 </RCC>

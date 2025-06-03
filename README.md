@@ -62,7 +62,7 @@ Jolly Jumpi est développé en **C++** avec le _framework_ **Qt**.
 
 - Interrompre une partie
 
-![](./images/Readme/DiagrammeDeSequence-InterromprePartie.webp)
+![](./images/Readme/diagrammeSequenceAbandon.png)
 
 ## Diagramme de classes
 
@@ -72,7 +72,7 @@ Jolly Jumpi est développé en **C++** avec le _framework_ **Qt**.
 
 - Module de visualisation
 
-![](./images/Readme/DiagrammeDeClasse-moduleVisualisation.webp)
+![](./images/Readme/DiagrammeDeClasse-moduleVisualisation.png)
 
 ## Protocole de communication
 
@@ -80,13 +80,13 @@ Jolly Jumpi est développé en **C++** avec le _framework_ **Qt**.
 
 Quelques diagrammes des échanges :
 
-![](./images/Readme/DiagrammeDesEchanges-Configuration.webp)
+![](./images/Readme/DiagrammeDesEchangesV2-Configuration.png)
 
-![](./images/Readme/DiagrammeDesEchanges-GestionPartie.webp)
+![](./images/Readme/DiagrammeDesEchangesV2-GestionPartie.png)
 
-![](./images/Readme/DiagrammeDesEchanges-AfficherStat.webp)
+![](./images/Readme/DiagrammeDesEchangesV2-AbandonPartie.png)
 
-![](./images/Readme/DiagrammeDesEchanges-InterromprePartie.webp)
+![](./images/Readme/DiagrammeDesEchangesV2-AfficherStats.png)
 
 ## Changelog
 
@@ -144,24 +144,35 @@ Quelques diagrammes des échanges :
     > - [ ] Créer l'affichage de connexion
     > - [ ] Créer l'affichage de la partie en cours
 
-  - Module de visualisation : 
+  - Module de visualisation : Gérer partie
 
-    > - [ ] Ajouter des joueurs (1 à 8)
-    > - [ ] Ajouter un chronomètre
-    > - [ ] Ajouter un minuteur (pour le classement et les statistiques joueur)
-    > - [ ] Changer de page
-    > - [ ] Afficher la page Accueil
-    > - [ ] Afficher la page Connexion
-    > - [ ] Afficher la page Jeu
-    > - [ ] Afficher la page Classement à la fin d'une partie (10 seconde)
-    > - [ ] Afficher la page Statistiques:Joueur après la page Classement (10sec par joueur)
-    > - [ ] Démarrer/Communiquer la configuration de la partie au module de détection
-    > - [ ] Calculer le score d'un joueur
-    > - [ ] Enregistrer les données de la partie en local
-    > - [ ] Stocker les données de la partie dans une base de données
-    > - [ ] Mettre fin à la partie
-    > - [ ] Abandonner la partie
-    > - [ ] Envoyer la fin de partie aux autres modules
+    - Configurer partie
+
+      > - [X] Ajouter des joueurs (1 à 8)
+      > - [X] Démarrer/Communiquer la configuration de la partie au module de détection
+
+    - Créer chronomètre ~~et minuteur~~
+
+      > - [X] Créer un chronomètre
+      > - [ ] ~~Créer un minuteur (pour le classement et les statistiques joueur)~~
+    
+    - Mettre à jour l'affichage
+
+      > - [X] Changer de page
+      > - [X] Afficher la page Accueil
+      > - [X] ~~Afficher la page Connexion~~ Afficher info état connexion
+      > - [X] Afficher la page Jeu
+      > - [X] Mettre à jour la page Jeu
+      > - [X] Afficher la page Classement à la fin d'une partie (10 seconde)
+      > - [X] Afficher la page Statistiques:Joueur après la page Classement (10sec par joueur)
+    
+    - Gérer événement partie
+     
+      > - [X] Calculer le score d'un joueur
+      > - [X] Enregistrer les données de la partie en local
+      > - [X] Abandonner la partie
+      > - [X] Mettre fin à la partie
+      > - [X] Envoyer la fin de partie aux autres modules
 
 - v0.3 : Ajout d'un historique des parties jouées
 
@@ -170,11 +181,7 @@ Quelques diagrammes des échanges :
     > - [ ] Créer la page Statistiques:Globales
     > - [ ] Afficher la page Statistiques:Globales
 
-- Version 0.4 : Ajout des différents modes de jeu
-
-- Version 0.5 : Modification de l'interface graphique
-
-- Version 1.0 : Ajout du bluetooth
+- Version 1.0 : Modification de l'interface graphique
 
 ## Défauts constatés non corrigés
 

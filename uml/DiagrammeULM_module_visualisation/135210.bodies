@@ -1,0 +1,110 @@
+class Joueur
+!!!137386.cpp!!!	Joueur()
+    qDebug() << Q_FUNC_INFO;
+!!!155778.cpp!!!	Joueur(in numero : int)
+    qDebug() << Q_FUNC_INFO << "numero" << numero;
+!!!137514.cpp!!!	~Joueur()
+    qDebug() << Q_FUNC_INFO;
+!!!155906.cpp!!!	recupererNumero() : int
+    return numero;
+!!!156034.cpp!!!	definirNumero(in numero : int) : void
+    this->numero = numero;
+!!!156162.cpp!!!	ajouterTir(in score : int, in temps : int) : void
+    qDebug() << Q_FUNC_INFO << "numero" << numero << "score" << score << "temps"
+             << temps;
+    tirs.append(Tir(score, temps));
+!!!156290.cpp!!!	afficherTirs() : void
+    for(const Tir& tir: tirs)
+    {
+        qDebug() << Q_FUNC_INFO << "numero" << numero << "score"
+                 << tir.recupererScore() << "temps" << tir.recupererTemps();
+    }
+!!!156418.cpp!!!	recupererTirs() : QList<Tir>
+    return tirs;
+!!!156546.cpp!!!	definirScore(in scoreTir : int) : void
+    score += scoreTir;
+    qDebug() << Q_FUNC_INFO << "numero" << numero << "score" << score;
+!!!156674.cpp!!!	recupererScore() : int
+    return score;
+!!!156802.cpp!!!	definirPlace(in placeClassement : int) : int
+    place = placeClassement;
+!!!156930.cpp!!!	recupererPlace() : int
+    return place;
+!!!157058.cpp!!!	genererStatistiquesJoueur() : std::vector<QList<QString> >
+    qDebug() << Q_FUNC_INFO;
+    std::vector<QList<QString> > statistiquesJoueur;
+    int                          tempsTirPrecedent    = 0;
+    int                          scoreCumuleCroissant = 0;
+    QList<Tir>                   listeTir;
+    int                          indexTir = 1;
+
+    if(tirs.isEmpty())
+    {
+        QList<QString> ligneStatistiquesJoueur;
+        ligneStatistiquesJoueur << "0"
+                                << "0"
+                                << "0"
+                                << "0"
+                                << "0"
+                                << "0";
+        statistiquesJoueur.push_back(ligneStatistiquesJoueur);
+        return statistiquesJoueur;
+    }
+
+    for(const Tir& tir: tirs)
+    {
+        listeTir << tir;
+        determinerTrouPreferer(listeTir);
+        scoreCumuleCroissant += tir.recupererScore();
+        int ecartTir =
+          calculerEcartTir(tempsTirPrecedent, tir.recupererTemps());
+
+        QList<QString> ligneStatistiquesJoueur;
+        ligneStatistiquesJoueur << QString::number(indexTir);
+        ligneStatistiquesJoueur << QString::number(tir.recupererScore());
+        ligneStatistiquesJoueur << QString::number(scoreCumuleCroissant);
+        ligneStatistiquesJoueur << convertirTemps(tir.recupererTemps());
+        ligneStatistiquesJoueur << convertirTemps(ecartTir);
+        ligneStatistiquesJoueur << QString::number(trouPrefere);
+        statistiquesJoueur.push_back(ligneStatistiquesJoueur);
+
+        indexTir++;
+        tempsTirPrecedent = tir.recupererTemps();
+    }
+    return statistiquesJoueur;
+!!!157186.cpp!!!	recupererStatistiquesJoueur() : std::vector<QList<QString> >
+    return genererStatistiquesJoueur();
+!!!157314.cpp!!!	determinerTrouPreferer(in listeTir : QList<Tir>) : void
+    QMap<int, int> frequenceScore;
+
+    for(const Tir& tir: listeTir)
+    {
+        frequenceScore[tir.recupererScore()]++;
+    }
+
+    int scoreRetenu    = 0;
+    int maxOccurrences = 0;
+
+    for(auto indexScore = frequenceScore.begin();
+        indexScore != frequenceScore.end();
+        indexScore++)
+    {
+        if(indexScore.value() > maxOccurrences)
+        {
+            scoreRetenu    = indexScore.key();
+            maxOccurrences = indexScore.value();
+        }
+    }
+
+    trouPrefere = scoreRetenu;
+!!!157442.cpp!!!	calculerEcartTir(in tempsA : int, in tempsB : int) : int
+    return tempsB - tempsA;
+!!!157570.cpp!!!	convertirTemps(in secondes : int) : QString
+    QString temps;
+    QString minute  = QString::number(secondes / 60);
+    QString seconde = QString::number(secondes % 60);
+    if(seconde.toInt() < 10)
+        temps = minute + ":0" + seconde;
+    else
+        temps = minute + ":" + seconde;
+    return temps;

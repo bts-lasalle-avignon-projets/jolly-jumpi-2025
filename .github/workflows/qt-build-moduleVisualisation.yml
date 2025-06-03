@@ -1,0 +1,33 @@
+name: Qt Build moduleVisualisation
+# .github/workflows/qt-build-moduleVisualisation.yml
+
+on:
+  push:
+    branches: [ "develop", "main" ]
+  pull_request:
+    branches: [ "develop", "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v2
+        with:
+          version: "5.15.2"
+          host: "linux"
+          target: "desktop"
+          setup-python: false
+
+      - name: Run qmake
+        run: |
+          cd src/moduleVisualisation && qmake
+
+      - name: Run make
+        run: |
+          cd src/moduleVisualisation && make

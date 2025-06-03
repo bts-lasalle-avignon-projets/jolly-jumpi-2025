@@ -1,0 +1,97 @@
+format 224
+"build-moduleVisualisation-Desktop-Debug" // src::build-moduleVisualisation-Desktop-Debug::build-moduleVisualisation-Desktop-Debug
+  revision 1
+  modified_by 2 "btssn2"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  cpp_h_dir "src/build-moduleVisualisation-Desktop-Debug/"
+  cpp_src_dir "src/build-moduleVisualisation-Desktop-Debug/"
+  classview 135042 "build-moduleVisualisation-Desktop-Debug"
+    
+    classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    sequencediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    
+    activitydiagramsettings
+     end
+    class 156418 "initializer"
+      visibility package stereotype "struct"
+      cpp_decl "${comment}${template}struct ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      operation 157954 "initializer"
+	cpp_inline public explicit_return_type ""
+	nparams 0
+	cpp_decl "    ${comment}${inline}${name}${(}${)}${volatile}${throw}${abstract} { QT_RCC_MANGLE_NAMESPACE(qInitResources_images)(); };
+"
+	
+	
+	
+	
+      end
+
+      operation 158082 "~initializer"
+	cpp_inline public explicit_return_type ""
+	nparams 0
+	cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw}${abstract} { QT_RCC_MANGLE_NAMESPACE(qCleanupResources_images)(); };
+"
+	
+	
+	
+	
+      end
+    end
+  end
+
+  deploymentview 128514 "build-moduleVisualisation-Desktop-Debug"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+  end
+end

@@ -45,11 +45,11 @@
           <enum>Qt::Horizontal</enum>
          </property>
          <property name="sizeType">
-          <enum>QSizePolicy::Preferred</enum>
+          <enum>QSizePolicy::Maximum</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>400</width>
+           <width>200</width>
            <height>20</height>
           </size>
          </property>
@@ -61,7 +61,6 @@
           <font>
            <family>Ubuntu Condensed</family>
            <pointsize>40</pointsize>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -72,6 +71,22 @@
           <set>Qt::AlignCenter</set>
          </property>
         </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::MinimumExpanding</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
        </item>
        <item>
         <widget class="QLabel" name="labelScore">
@@ -79,7 +94,6 @@
           <font>
            <family>Ubuntu Condensed</family>
            <pointsize>40</pointsize>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -92,12 +106,27 @@
         </widget>
        </item>
        <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::MinimumExpanding</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
         <widget class="QLabel" name="labelPlace">
          <property name="font">
           <font>
            <family>Ubuntu Condensed</family>
            <pointsize>40</pointsize>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -115,11 +144,11 @@
           <enum>Qt::Horizontal</enum>
          </property>
          <property name="sizeType">
-          <enum>QSizePolicy::Preferred</enum>
+          <enum>QSizePolicy::Maximum</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>400</width>
+           <width>200</width>
            <height>20</height>
           </size>
          </property>
@@ -154,7 +183,7 @@
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>300</width>
+         <width>200</width>
          <height>0</height>
         </size>
        </property>
@@ -173,7 +202,6 @@
             <font>
              <family>Ubuntu Condensed</family>
              <pointsize>27</pointsize>
-             <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
@@ -191,7 +219,6 @@
             <font>
              <family>Ubuntu Condensed</family>
              <pointsize>27</pointsize>
-             <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
@@ -209,7 +236,6 @@
             <font>
              <family>Ubuntu Condensed</family>
              <pointsize>27</pointsize>
-             <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
@@ -227,7 +253,6 @@
             <font>
              <family>Ubuntu Condensed</family>
              <pointsize>27</pointsize>
-             <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
@@ -245,7 +270,6 @@
             <font>
              <family>Ubuntu Condensed</family>
              <pointsize>27</pointsize>
-             <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
@@ -263,7 +287,6 @@
             <font>
              <family>Ubuntu Condensed</family>
              <pointsize>27</pointsize>
-             <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
@@ -287,7 +310,7 @@
             </font>
            </property>
            <property name="text">
-            <string>1</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -384,7 +407,7 @@
             </font>
            </property>
            <property name="text">
-            <string>2</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -478,7 +501,7 @@
             </font>
            </property>
            <property name="text">
-            <string>3</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -572,7 +595,7 @@
             </font>
            </property>
            <property name="text">
-            <string>4</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -666,7 +689,7 @@
             </font>
            </property>
            <property name="text">
-            <string>5</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -760,7 +783,7 @@
             </font>
            </property>
            <property name="text">
-            <string>6</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -854,7 +877,7 @@
             </font>
            </property>
            <property name="text">
-            <string>7</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -948,7 +971,7 @@
             </font>
            </property>
            <property name="text">
-            <string>8</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -1042,7 +1065,7 @@
             </font>
            </property>
            <property name="text">
-            <string>9</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -1136,7 +1159,7 @@
             </font>
            </property>
            <property name="text">
-            <string>10</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -1230,7 +1253,7 @@
             </font>
            </property>
            <property name="text">
-            <string>11</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -1324,7 +1347,7 @@
             </font>
            </property>
            <property name="text">
-            <string>12</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -1418,7 +1441,7 @@
             </font>
            </property>
            <property name="text">
-            <string>13</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -1512,7 +1535,7 @@
             </font>
            </property>
            <property name="text">
-            <string>14</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -1606,7 +1629,7 @@
             </font>
            </property>
            <property name="text">
-            <string>15</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -1700,7 +1723,7 @@
             </font>
            </property>
            <property name="text">
-            <string>16</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -1794,7 +1817,7 @@
             </font>
            </property>
            <property name="text">
-            <string>17</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -1888,7 +1911,7 @@
             </font>
            </property>
            <property name="text">
-            <string>18</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -1982,7 +2005,7 @@
             </font>
            </property>
            <property name="text">
-            <string>19</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -2076,7 +2099,7 @@
             </font>
            </property>
            <property name="text">
-            <string>20</string>
+            <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -2188,7 +2211,7 @@
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>300</width>
+         <width>200</width>
          <height>20</height>
         </size>
        </property>

@@ -17,20 +17,16 @@
 #define CLIENT  0 // Mode client (Pi) -> serveur (ESP32 slave)
 // Choix du mode de connexion (client/serveur) pour les modules
 #define MODULE_PISTE         SERVEUR
-#define MODULE_CONFIGURATION CLIENT
+#define MODULE_CONFIGURATION SERVEUR
 
 // Pour le mode client (timeout)
 #define DELAI_CONNEXION 10000
 
-// Protocole
-#define DEBUT_MESSAGE "$"
-#define FIN_MESSAGE   "\n"
-
 // Pour les tests
-#define TEST_ASSOCIATION
+//#define TEST_ASSOCIATION
 
 // Nom du service
-static const QString serviceNom(QStringLiteral("jolly-jumpi"));
+static const QString serviceNom(QStringLiteral("jp-visu"));
 
 class Bluetooth : public QObject
 {
@@ -49,6 +45,8 @@ class Bluetooth : public QObject
     QBluetoothSocket* recupererSocketPeripherique(QString adresse);
     QString           recupererNomPeripherique(QBluetoothSocket* socket);
     QString           recupererNomPeripherique(QString adresse);
+    QString           recupererAdresseModuleConfiguration();
+    QString           recupererAdresseModuleDetectionBalles();
     bool              estPeripheriqueConnecte(QString adresse);
 
   private:
@@ -58,6 +56,8 @@ class Bluetooth : public QObject
     QBluetoothServer*                serveur;
     QMap<QString, QBluetoothSocket*> sockets;
     QMap<QString, QString>           peripheriques;
+    QString                          adresseModuleConfiguration;
+    QString                          adresseModuleDetectionBalles;
 
     void initialiserInterfaceLocal();
     void arreterInterfaceLocal();
@@ -65,8 +65,6 @@ class Bluetooth : public QObject
     void gererAppairage();
     void afficherAppairagePeripherique(QBluetoothDeviceInfo peripherique);
     void appairerPeripherique(QBluetoothDeviceInfo peripherique);
-    bool estMessageValide(const QString& message);
-    void nettoyerMessage(QString& message);
 
   private slots:
     void gererPeripheriqueDecouvert(QBluetoothDeviceInfo peripherique);

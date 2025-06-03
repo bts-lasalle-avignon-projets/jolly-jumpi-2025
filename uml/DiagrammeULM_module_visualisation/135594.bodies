@@ -1,0 +1,5 @@
+class Tir
+!!!157698.cpp!!!	recupererScore() : int
+    return score;
+!!!157826.cpp!!!	recupererTemps() : int
+    return temps;

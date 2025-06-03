@@ -1,15 +1,207 @@
 class GestionPartie
-!!!136746.cpp!!!	GestionPartie(inout parent : QObject)
+!!!136746.cpp!!!	GestionPartie(inout communication : Communication, inout parent : QObject)
     qDebug() << Q_FUNC_INFO << this;
-    for(int i = 0; i < nombreJoueurs; ++i)
-    {
-        joueurs.push_back(new Joueur());
-    }
+
+    connect(communication,
+            &Communication::configurationRecue,
+            this,
+            &GestionPartie::gererConfiguration);
+    connect(communication,
+            &Communication::partieDemarree,
+            this,
+            &GestionPartie::commencerPartie);
+    connect(communication,
+            &Communication::scoreRecu,
+            this,
+            &GestionPartie::receptionnerTir);
+    /**
+     * @todo Fin de partie
+     */
+    connect(communication,
+            &Communication::abandonPartie,
+            this,
+            &GestionPartie::abandonnerPartie);
 !!!136874.cpp!!!	~GestionPartie()
-    for(int i = 0; i < nombreJoueurs; ++i)
-    {
-        delete joueurs.at(i);
-    }
+    supprimerJoueurs();
     qDebug() << Q_FUNC_INFO << this;
+!!!147458.cpp!!!	gererPartie() : void
+    /**
+     * @todo Initialiser la partie (état, joueurs, ...)
+     */
+    supprimerJoueurs();
+#ifdef SIMULATION_MODULE_CONFIGURATION
+    qDebug() << Q_FUNC_INFO << "SIMULATION_MODULE_CONFIGURATION";
+    communication->simulerModuleConfiguration();
+#endif
+!!!147586.cpp!!!	genererClassement() : std::vector<QList<QString> >
+    QList<Joueur*> listeJoueurs = joueurs.values();
+    std::sort(listeJoueurs.begin(),
+              listeJoueurs.end(),
+              [](Joueur* a, Joueur* b)
+              {
+                  return a->recupererScore() > b->recupererScore();
+              });
+
+    std::vector<QList<QString> > classement;
+    int                          placeClassement = 1;
+    for(Joueur* joueur: listeJoueurs)
+    {
+        joueur->definirPlace(placeClassement);
+        QList<QString> ligneClassement;
+        ligneClassement << QString::number(joueur->recupererPlace());
+        ligneClassement << QString::number(joueur->recupererNumero());
+        ligneClassement << QString::number(joueur->recupererScore());
+        classement.push_back(ligneClassement);
+        placeClassement++;
+        qDebug() << Q_FUNC_INFO << ligneClassement;
+    }
+    return classement;
+!!!147714.cpp!!!	recupererStatistiquesJoueur(in numeroJoueur : QString) : std::vector<QList<QString> >
+    qDebug() << Q_FUNC_INFO << numeroJoueur;
+    return joueurs[numeroJoueur]->recupererStatistiquesJoueur();
+!!!147842.cpp!!!	recupererNombreJoueurs() : int
+    return nombreJoueurs;
+!!!147970.cpp!!!	recupererChronometre() : int
+    return chronometre;
+!!!148098.cpp!!!	recupererScoreJoueur(in numero : QString) : int
+    return joueurs[numero]->recupererScore();
+!!!148226.cpp!!!	recupererPlaceJoueur(in numero : QString) : int
+    return joueurs[numero]->recupererPlace();
+!!!165634.cpp!!!	convertirTemps(in secondes : int) : QString
+    QString temps;
+    QString minute  = QString::number(secondes / 60);
+    QString seconde = QString::number(secondes % 60);
+    if(seconde.toInt() < 10)
+        temps = minute + ":0" + seconde;
+    else
+        temps = minute + ":" + seconde;
+    return temps;
+!!!165762.cpp!!!	recupererScoreMax() : int
+    return SCORE_MAX;
+!!!165890.cpp!!!	recupererTempsAffichageFenetre() : int
+    return TEMPS_AFFICHAGE_FENETRE;
+!!!148354.cpp!!!	supprimerJoueurs() : void
+    joueurs.clear();
+    communication->effacerPistes();
+!!!148482.cpp!!!	configurerPiste() : void
+    if(etat == EtatPartie::CONFIGUREE)
+    {
+        qDebug() << Q_FUNC_INFO;
+        communication->envoyerConfiguration(modeDeJeu, nombreJoueurs);
+    }
+!!!148610.cpp!!!	relierPistesEtJoueurs() : void
+    QList<QString> pistes = communication->recupererPistes();
+    for(const QString& piste: pistes)
+    {
+        qDebug() << Q_FUNC_INFO << "piste" << piste;
+        joueurs[piste] = new Joueur(piste.toInt());
+    }
+!!!148738.cpp!!!	chronometrer() : void
+    chronometre      = 0;
+    QTimer* minuteur = new QTimer(this);
+    connect(minuteur,
+            &QTimer::timeout,
+            this,
+            [this, minuteur]()
+            {
+                if(etat != EtatPartie::DEBUTEE)
+                {
+                    minuteur->stop();
+                    return;
+                }
+                chronometre++;
+                emit avancementChronometre(chronometre);
+                if(chronometre % 5 == 0)
+                    qDebug() << Q_FUNC_INFO << chronometre << "secondes";
+            });
+
+    minuteur->start(1000); // toutes les 1 secondes
+!!!148866.cpp!!!	calculerScoreJoueur(in numeroPiste : QString) : int
+    int score = 0;
+    for(const Tir& tir: joueurs[numeroPiste]->recupererTirs())
+    {
+        score += tir.recupererScore();
+    }
+    qDebug() << Q_FUNC_INFO << "joueur"
+             << joueurs[numeroPiste]->recupererNumero() << "score" << score;
+    return score;
+!!!148994.cpp!!!	estScoreMax(in score : int) : bool
+    if(score >= SCORE_MAX)
+        return true;
+    return false;
 !!!137002.cpp!!!	commencerPartie() : void
     qDebug() << Q_FUNC_INFO;
+
+    if(etat != EtatPartie::CONFIGUREE)
+        return;
+    relierPistesEtJoueurs();
+    etat = EtatPartie::DEBUTEE;
+    communication->envoyerDebutDePartie();
+    chronometrer();
+!!!149122.cpp!!!	gererConfiguration(in nombreJoueursRecu : QString, in modeDeJeuRecu : QString) : void
+    qDebug() << Q_FUNC_INFO << "nombreJoueursRecu" << nombreJoueursRecu
+             << "modeDeJeuRecu" << modeDeJeuRecu;
+    nombreJoueurs = nombreJoueursRecu.toInt();
+    modeDeJeu     = modeDeJeuRecu.toInt();
+    etat          = EtatPartie::CONFIGUREE;
+    configurerPiste();
+    emit creerChevaux(nombreJoueurs);
+!!!149250.cpp!!!	receptionnerTir(in numeroPiste : QString, in score : QString) : void
+    int scoreTir = score.toInt();
+    if(etat != EtatPartie::DEBUTEE)
+        return;
+    qDebug() << Q_FUNC_INFO << "numeroPiste" << numeroPiste << "joueur"
+             << joueurs[numeroPiste]->recupererNumero() << "scoreTir"
+             << scoreTir;
+    if(etat != EtatPartie::FINIE || etat != EtatPartie::ABANDONNEE)
+    {
+        emit tirRecu(QString::number(joueurs[numeroPiste]->recupererNumero()),
+                     scoreTir);
+    }
+    joueurs[numeroPiste]->ajouterTir(scoreTir, chronometre);
+    joueurs[numeroPiste]->afficherTirs();
+    joueurs[numeroPiste]->definirScore(scoreTir);
+
+    if(estScoreMax(joueurs[numeroPiste]->recupererScore()))
+    {
+        finirPartie();
+    }
+!!!149378.cpp!!!	finirPartie() : void
+    // Le timer permet à IHMPartie de recevoir le dernier tir
+    QTimer::singleShot(
+      500,
+      this,
+      [this]()
+      {
+          qDebug() << Q_FUNC_INFO << "partie fini, reception score fermee";
+          etat = EtatPartie::FINIE;
+          communication->arreterPartie();
+          emit demandeClassement();
+          QTimer::singleShot(
+            TEMPS_AFFICHAGE_FENETRE * 1000,
+            this,
+            [this]()
+            {
+                qDebug() << Q_FUNC_INFO << "afficher statistique";
+                emit demandeStatistiquesJoueur();
+                QTimer::singleShot(
+                  TEMPS_AFFICHAGE_FENETRE * nombreJoueurs * 1000,
+                  this,
+                  [this]()
+                  {
+                      qDebug() << Q_FUNC_INFO << "afficher statistique";
+                      emit estFinPartie();
+                      communication->signalerFinDePartie();
+                  });
+            });
+      });
+!!!149506.cpp!!!	abandonnerPartie() : void
+    qDebug() << Q_FUNC_INFO;
+    supprimerJoueurs();
+    etat = EtatPartie::ABANDONNEE;
+    emit estFinPartie();
+    communication->arreterPartie();
+    communication->signalerFinDePartie();
+!!!149634.cpp!!!	tirRecu(in numeroJoueur : QString, in scoreTir : int) : void
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)) };
+    QMetaObject::activate(this, &staticMetaObject, 1, _a);

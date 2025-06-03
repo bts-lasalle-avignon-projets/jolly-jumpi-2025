@@ -11,6 +11,8 @@
 
 #include <QtWidgets>
 
+#define TELEVISION
+
 /**
  * @def NOM_MODULE
  * @brief Le nom du module de visualisation
@@ -52,7 +54,15 @@ class IHM : public QWidget
 
     QTimer*     minuteurDefilement;
     int         numeroMessage;
+    int         numeroTitre;
     QStringList listeMessages;
+    QStringList listeTitres;
+
+    QPixmap fondEcran;
+
+    void redimentionnerElements();
+    void estPartieEnConfiguration();
+    void supprimerPagePartie();
 
 #ifdef SIMULATION_CLAVIER_ACCUEIL
     void simulerAffichageFenetre();
@@ -64,10 +74,11 @@ class IHM : public QWidget
 
   private slots:
     void defilerTexte();
+    void defilerTitre();
+    void mettreAJourListeTitres();
     void fermer();
-#ifdef SIMULATION_CLAVIER_ACCUEIL
+    // void afficherHistorique();
     void afficherPartie();
-#endif
 };
 
 #endif // IHM_H

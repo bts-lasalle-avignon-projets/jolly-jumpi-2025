@@ -33,6 +33,12 @@ IHM::IHM(QWidget* parent) :
                    QString(VERSION_MODULE));
 
 #ifdef RPI
+    QRect ecran   = QApplication::desktop()->screenGeometry();
+    int   largeur = ecran.width();
+    int   hauteur = ecran.height();
+    qDebug() << "largeur" << largeur; // Largeur
+    qDebug() << "hauteur" << hauteur; // Hauteur
+    setFixedSize(largeur, hauteur);
     showFullScreen();
 #else
     showMaximized();
@@ -40,14 +46,34 @@ IHM::IHM(QWidget* parent) :
 #ifdef SIMULATION_CLAVIER_ACCUEIL
     simulerAffichageFenetre();
 #endif
+#ifdef TELEVISION
+    redimentionnerElements();
+#endif
 
     listeMessages << "BTS CIEL IR"
                   << "LaSalle Avignon"
                   << "Nicolas Pessina";
+    listeTitres << "BIENVENUE!"
+                << "Attente de connexion";
+
     connect(minuteurDefilement, SIGNAL(timeout()), this, SLOT(defilerTexte()));
+    connect(minuteurDefilement, SIGNAL(timeout()), this, SLOT(defilerTitre()));
     uiAccueil->labelDefilementTexte->setText(
       listeMessages.at(numeroMessage++ % listeMessages.count()));
+    uiAccueil->labelDefilementTitre->setText(
+      listeTitres.at(numeroTitre++ % listeTitres.count()));
     minuteurDefilement->start(PERIODE_DEFILEMENT);
+
+    connect(communication,
+            &Communication::modulesConnectes,
+            this,
+            &IHM::mettreAJourListeTitres);
+
+    connect(communication,
+            &Communication::configurationEnCours,
+            this,
+            &IHM::afficherPartie);
+    //** @todo faire de même pour la page historiques*/
 }
 
 IHM::~IHM()
@@ -58,16 +84,37 @@ IHM::~IHM()
     qDebug() << Q_FUNC_INFO << this;
 }
 
+void IHM::redimentionnerElements()
+{
+    QLabel* labelFond = findChild<QLabel*>("labelFond");
+    labelFond->setGeometry(0, 0, width(), height());
+    QVBoxLayout* verticalLayoutPrincipal =
+      findChild<QVBoxLayout*>("verticalLayoutPrincipal");
+    this->setLayout(verticalLayoutPrincipal);
+}
+
 void IHM::defilerTexte()
 {
     uiAccueil->labelDefilementTexte->setText(
       listeMessages.at(numeroMessage++ % listeMessages.count()));
 }
 
+void IHM::defilerTitre()
+{
+    uiAccueil->labelDefilementTitre->setText(
+      listeTitres.at(numeroTitre++ % listeTitres.count()));
+}
+
+void IHM::mettreAJourListeTitres()
+{
+    listeTitres[1] = "Attente de configuration";
+}
+
 #ifdef SIMULATION_CLAVIER_ACCUEIL
 /**
  * @fn IHM::simulerAffichageFenetre
- * @brief méthode pour créer les raccourcis clavier (pour les tests seulement)
+ * @brief méthode pour créer les raccourcis clavier (pour les tests
+ * seulement)
  */
 void IHM::simulerAffichageFenetre()
 {
@@ -91,17 +138,20 @@ void IHM::fermer()
     this->close();
 }
 
-#ifdef SIMULATION_CLAVIER_ACCUEIL
 void IHM::afficherPartie()
 {
     qDebug() << Q_FUNC_INFO;
     if(ihmPartie == nullptr)
     {
-        ihmPartie = new IHMPartie();
+        ihmPartie = new IHMPartie(communication);
     }
     else
     {
         ihmPartie->show();
     }
 }
-#endif
+
+void IHM::estPartieEnConfiguration()
+{
+    /** @todo faire défiler le texte pour signaler "En config"*/
+}

@@ -1,0 +1,50 @@
+format 224
+
+classinstancecanvas 128002 classinstance_ref 128386 // 
+  xyz 281 10 2000 life_line_z 2000
+end
+classinstancecanvas 128130 classinstance_ref 128514 // 
+  xyz 651 7 2000 life_line_z 2000
+end
+classinstancecanvas 128258 classinstance_ref 128258 // 
+  xyz 30 6 2000 life_line_z 2000
+end
+durationcanvas 128514 classinstance_ref 128258 // :ModuleConfiguration
+  xyzwh 100 136 2010 11 40
+end
+durationcanvas 128642 classinstance_ref 128002 // :ModuleVisualisation
+  xyzwh 348 58 2010 11 237
+  overlappingdurationcanvas 128898
+    xyzwh 354 147 2020 11 26
+  end
+end
+durationcanvas 130306 classinstance_ref 128258 // :ModuleConfiguration
+  xyzwh 100 272 2010 11 39
+end
+durationcanvas 130562 classinstance_ref 128130 // :ModuleDetectionDeBalle
+  xyzwh 734 55 2010 11 191
+end
+msg 128770 synchronous
+  from durationcanvas_ref 128514
+  to durationcanvas_ref 128642
+  yz 137 2015 explicitmsg "Abandonne la partie"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 162 122
+reflexivemsg 129026 asynchronous
+  to durationcanvas_ref 128898
+  yz 159 2025 explicitmsg "traite le message"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 390 157
+msg 130434 return
+  from durationcanvas_ref 128642
+  to durationcanvas_ref 130306
+  yz 272 2015 explicitmsg "signale la fin de la partie"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 149 257
+msg 130690 asynchronous
+  from durationcanvas_ref 128642
+  to durationcanvas_ref 130562
+  yz 209 2015 explicitmsg "arrete la partie"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 498 194
+end
