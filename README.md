@@ -181,11 +181,7 @@ Quelques diagrammes des échanges :
     > - [ ] Créer la page Statistiques:Globales
     > - [ ] Afficher la page Statistiques:Globales
 
-- Version 0.4 : Ajout des différents modes de jeu
-
-- Version 0.5 : Modification de l'interface graphique
-
-- Version 1.0 : Ajout du bluetooth
+- Version 1.0 : Modification de l'interface graphique
 
 ## Défauts constatés non corrigés
 
