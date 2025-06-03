@@ -82,7 +82,7 @@ Quelques diagrammes des échanges :
 
 ![](./images/Readme/DiagrammeDesEchangesV2-Configuration.png)
 
-![](./images/Readme/DiagrammeDesEchanges-GestionPartie.png)
+![](./images/Readme/DiagrammeDesEchangesV2-GestionPartie.png)
 
 ![](./images/Readme/DiagrammeDesEchangesV2-AbandonPartie.png)
 
@@ -160,7 +160,7 @@ Quelques diagrammes des échanges :
 
       > - [X] Changer de page
       > - [X] Afficher la page Accueil
-      > - [ ] Afficher la page Connexion
+      > - [X] ~~Afficher la page Connexion~~ Afficher info état connexion
       > - [X] Afficher la page Jeu
       > - [X] Mettre à jour la page Jeu
       > - [X] Afficher la page Classement à la fin d'une partie (10 seconde)
