@@ -225,37 +225,23 @@ void IHMPartie::mettreAJoursCourse(QString numero, int scoreTir)
         return;
     }
 
-    int pointManquant = SCORE_MAX - gestionPartie->recupererScoreJoueur(numero);
-    int avancement    = 0;
-    int segmentEcran  = (width() - labelCheval->width()) / SCORE_MAX;
-    int multiplicateurTemps = 1;
+    int segmentEcran   = (width() - labelCheval->width()) / SCORE_MAX;
+    int avancement     = segmentEcran * scoreTir;
+    int tempsAnimation = scoreTir * TEMPS_ANIMATION;
 
-    if(scoreTir <= pointManquant)
-    {
-        avancement          = segmentEcran * scoreTir;
-        multiplicateurTemps = multiplicateurTemps * scoreTir;
-        qDebug() << Q_FUNC_INFO << "pointManquant <= au scorTir";
-    }
-    else
-    {
-        avancement          = segmentEcran * pointManquant;
-        multiplicateurTemps = multiplicateurTemps * pointManquant;
-        qDebug() << Q_FUNC_INFO << "pointManquant > au scorTir";
-    }
-
-    faireAvancerLabel(labelCheval, avancement, multiplicateurTemps);
-    faireAvancerLabel(labelNumero, avancement, multiplicateurTemps);
+    faireAvancerLabel(labelCheval, avancement, tempsAnimation);
+    faireAvancerLabel(labelNumero, avancement, tempsAnimation);
 }
 
 void IHMPartie::faireAvancerLabel(QLabel*    label,
                                   const int& avancement,
-                                  const int& multiplicateurTemps)
+                                  const int& tempsAnimation)
 {
     QPoint posActuelle = label->pos();
     QPoint nouvellePosition =
       QPoint(posActuelle.x() + avancement, posActuelle.y());
     QPropertyAnimation* avancer = new QPropertyAnimation(label, "pos");
-    avancer->setDuration(multiplicateurTemps * 400);
+    avancer->setDuration(tempsAnimation);
     avancer->setStartValue(posActuelle);
     avancer->setEndValue(nouvellePosition);
     avancer->start(QAbstractAnimation::DeleteWhenStopped);
