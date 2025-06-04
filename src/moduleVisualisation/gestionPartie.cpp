@@ -148,8 +148,23 @@ void GestionPartie::receptionnerTir(const QString& numeroPiste,
              << scoreTir;
     if(etat != EtatPartie::FINIE || etat != EtatPartie::ABANDONNEE)
     {
+        int pointManquant  = SCORE_MAX - joueurs[numeroPiste]->recupererScore();
+        int scoreRecevable = 0;
+
+        if(scoreTir <= pointManquant)
+        {
+            scoreRecevable = scoreTir;
+            qDebug() << Q_FUNC_INFO << "pointManquant <= au scorTir";
+            tempsAttenteFinAnimation = (SCORE_TIR_MAX + 1) * TEMPS_ANIMATION;
+        }
+        else
+        {
+            scoreRecevable           = pointManquant;
+            tempsAttenteFinAnimation = (pointManquant + 1) * TEMPS_ANIMATION;
+            qDebug() << Q_FUNC_INFO << "pointManquant > au scorTir";
+        }
         emit tirRecu(QString::number(joueurs[numeroPiste]->recupererNumero()),
-                     scoreTir);
+                     scoreRecevable);
     }
     joueurs[numeroPiste]->ajouterTir(scoreTir, chronometre);
     joueurs[numeroPiste]->afficherTirs();
@@ -163,15 +178,16 @@ void GestionPartie::receptionnerTir(const QString& numeroPiste,
 
 void GestionPartie::finirPartie()
 {
+    communication->arreterPartie();
     // Le timer permet à IHMPartie de recevoir le dernier tir
     QTimer::singleShot(
-      500,
+      tempsAttenteFinAnimation,
       this,
       [this]()
       {
           qDebug() << Q_FUNC_INFO << "partie fini, reception score fermee";
           etat = EtatPartie::FINIE;
-          communication->arreterPartie();
+
           emit demandeClassement();
           QTimer::singleShot(
             TEMPS_AFFICHAGE_FENETRE * 1000,

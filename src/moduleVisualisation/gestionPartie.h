@@ -12,7 +12,9 @@
 
 #define NOMBRE_JOUEUR_MAX       8
 #define SCORE_MAX               10
-#define TEMPS_AFFICHAGE_FENETRE 10 // en seconde
+#define TEMPS_AFFICHAGE_FENETRE 3   // en seconde
+#define TEMPS_ANIMATION         400 // mini seconde
+#define SCORE_TIR_MAX           5
 
 class Joueur;
 class Communication;
@@ -63,6 +65,7 @@ class GestionPartie : public QObject
     bool                   configurationPisteTerminee;
     QMap<QString, Joueur*> joueurs;
     int                    chronometre;
+    int                    tempsAttenteFinAnimation;
 
     void supprimerJoueurs();
     void configurerPiste();
