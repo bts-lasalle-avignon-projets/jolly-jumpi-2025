@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Projet Jolly-Jumpi:  Fichier source de ihmpartie.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="customdoxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="projet-logo.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Projet Jolly-Jumpi
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">BTS CIEL IR LaSalle Avignon 2025</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('ihmpartie_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">ihmpartie.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="ihmpartie_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef IHMPARTIE_H</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define IHMPARTIE_H</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;QtWidgets&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="ihmpartie_8h.html#adeadcbb8860f21775d3f63ff9d77e25b">    6</a></span>&#160;<span class="preprocessor">#define SIMULATION_CLAVIER_PARTIE</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="ihmpartie_8h.html#a954b61d0bed4bfa938d89c7590c45fb4">    7</a></span>&#160;<span class="preprocessor">#define RPI</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_ui.html">Ui</a></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">class </span>Partie;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;}</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">class </span><a class="code" href="class_i_h_m_classement.html">IHMClassement</a>;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">class </span><a class="code" href="class_i_h_m_statistiques_joueur.html">IHMStatistiquesJoueur</a>;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">class </span><a class="code" href="class_communication.html">Communication</a>;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">class </span><a class="code" href="class_gestion_partie.html">GestionPartie</a>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="class_i_h_m_partie.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_i_h_m_partie.html">IHMPartie</a> : <span class="keyword">public</span> <a class="code" href="class_q_widget.html">QWidget</a></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;{</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    Q_OBJECT</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="class_i_h_m_partie.html#a7b2e9b1772b0f8f6bf60eb12fa7ea3c7">   24</a></span>&#160;    Ui::Partie*            <a class="code" href="class_i_h_m_partie.html#a7b2e9b1772b0f8f6bf60eb12fa7ea3c7">uiPartie</a>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="class_i_h_m_partie.html#a1ff93393740b7479fbe2baca381f4c51">   25</a></span>&#160;    <a class="code" href="class_i_h_m_classement.html">IHMClassement</a>*         <a class="code" href="class_i_h_m_partie.html#a1ff93393740b7479fbe2baca381f4c51">ihmClassement</a>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="class_i_h_m_partie.html#afeee55a36e41be3c4b0320af8ad98de5">   26</a></span>&#160;    <a class="code" href="class_i_h_m_statistiques_joueur.html">IHMStatistiquesJoueur</a>* <a class="code" href="class_i_h_m_partie.html#afeee55a36e41be3c4b0320af8ad98de5">ihmStatistiquesJoueur</a>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="class_i_h_m_partie.html#a26940836334bc988cac8594a0e431932">   27</a></span>&#160;    <a class="code" href="class_communication.html">Communication</a>*         <a class="code" href="class_i_h_m_partie.html#a26940836334bc988cac8594a0e431932">communication</a>; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="class_i_h_m_partie.html#afd9398663403e1cd449d77ba86005688">   28</a></span>&#160;    <a class="code" href="class_gestion_partie.html">GestionPartie</a>*         <a class="code" href="class_i_h_m_partie.html#afd9398663403e1cd449d77ba86005688">gestionPartie</a>; </div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="class_i_h_m_partie.html#a218ec48ca7787eefa3c8cfbe468b8d88">   29</a></span>&#160;    QStringList            <a class="code" href="class_i_h_m_partie.html#a218ec48ca7787eefa3c8cfbe468b8d88">nomLabels</a>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="class_i_h_m_partie.html#ae970552b1155f2e180ff5746d8ddce79">   30</a></span>&#160;    QList&lt;QPixmap&gt;         <a class="code" href="class_i_h_m_partie.html#ae970552b1155f2e180ff5746d8ddce79">listePixmaps</a>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="class_i_h_m_partie.html#a944758a6a6e437e1d7a529ed11163e73">   31</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="class_i_h_m_partie.html#a944758a6a6e437e1d7a529ed11163e73">NomLabels</a></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    {</div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="class_i_h_m_partie.html#a944758a6a6e437e1d7a529ed11163e73af97f66bfdd58b67df9f67259194a3395">   33</a></span>&#160;        <a class="code" href="class_i_h_m_partie.html#a944758a6a6e437e1d7a529ed11163e73af97f66bfdd58b67df9f67259194a3395">INCONNU</a> = -1,</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="class_i_h_m_partie.html#a944758a6a6e437e1d7a529ed11163e73a92503baebf81e9345e1f7a65c42b925d">   34</a></span>&#160;        <a class="code" href="class_i_h_m_partie.html#a944758a6a6e437e1d7a529ed11163e73a92503baebf81e9345e1f7a65c42b925d">LIGNE_ARRIVEE</a>,</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="class_i_h_m_partie.html#a944758a6a6e437e1d7a529ed11163e73a7dcb0509d0939a1d751cf875196e7e3c">   35</a></span>&#160;        <a class="code" href="class_i_h_m_partie.html#a944758a6a6e437e1d7a529ed11163e73a7dcb0509d0939a1d751cf875196e7e3c">NUMERO</a>,</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="class_i_h_m_partie.html#a944758a6a6e437e1d7a529ed11163e73a02baf017eb614b0d2faae00270f0b542">   36</a></span>&#160;        <a class="code" href="class_i_h_m_partie.html#a944758a6a6e437e1d7a529ed11163e73a02baf017eb614b0d2faae00270f0b542">CHEVAL</a>,</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <a class="code" href="class_i_h_m_partie.html#a944758a6a6e437e1d7a529ed11163e73a3ab13cf055747f8fdc36e1c328acf020">NB_LABELS</a></div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="class_i_h_m_partie.html#a944758a6a6e437e1d7a529ed11163e73a3ab13cf055747f8fdc36e1c328acf020">   38</a></span>&#160;    };</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    QLabel* <a class="code" href="class_i_h_m_partie.html#abe6bb82e4cfed81db0db5940947e27a4">recupererLabel</a>(<span class="keyword">const</span> QString labelRecherche);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">void</span>    <a class="code" href="class_i_h_m_partie.html#ab2cb019478a740756c9b596299464986">creerLigneCourse</a>(<span class="keywordtype">int</span> nombreJoueurs);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_i_h_m_partie.html#ae5b6c8adbf9319146ac84d84770fab33">editerLabelPixmap</a>(QLabel*        label,</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                           <span class="keyword">const</span> QPixmap&amp; pixmap,</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                           <span class="keyword">const</span> QString&amp; numeroLigne);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_i_h_m_partie.html#aa294488148f5c358fb85253c44b9f4d5">initialiserEmplacementLabel</a>(QLabel* label, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; index);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_i_h_m_partie.html#a8fcb25c00670b3d756a165c585174e19">faireAvancerLabel</a>(QLabel*    label,</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                           <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; avancement,</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                           <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; multiplicateurTemps);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_i_h_m_partie.html#aa5151072bbe4dca4a3ab6ec100aa493b">editerLabelText</a>(QLabel* label, QString ligne);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#ifdef SIMULATION_CLAVIER_PARTIE</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_i_h_m_partie.html#a7439d567ee3b8c836303def278e4d533">simulerPartie</a>();</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_i_h_m_partie.html#abdef47a792eae3d99c8fd79af3f39335">showEvent</a>(QShowEvent* event);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="class_i_h_m_partie.html#a63f3bccd04a70a774f8316708ddc1bb8">IHMPartie</a>(<a class="code" href="class_communication.html">Communication</a>* <a class="code" href="class_i_h_m_partie.html#a26940836334bc988cac8594a0e431932">communication</a>, <a class="code" href="class_q_widget.html">QWidget</a>* parent = <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_i_h_m_partie.html#adf4aaa4fee5d15677891a2968466e28e">~IHMPartie</a>();</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  signals:</div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="class_i_h_m_partie.html#a75e8b6f72b5720942966ee42ac20d199">   64</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_i_h_m_partie.html#a75e8b6f72b5720942966ee42ac20d199">etatPartieModifie</a>(<span class="keywordtype">int</span> etatPartie);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <span class="keyword">private</span> slots:</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_i_h_m_partie.html#a062b1adbc75f3b8e952bdb190a37618b">fermer</a>();</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_i_h_m_partie.html#ad9b054eb562cdba316f137d0a4e25df6">afficherClassement</a>();</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_i_h_m_partie.html#ac4f3050d1448716b37029c88871baf21">afficherStatistiquesJoueur</a>();</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_i_h_m_partie.html#af5d91f95b6c55476fcd33402103dd5cd">mettreAJoursCourse</a>(QString numero, <span class="keywordtype">int</span> scoreTir);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_i_h_m_partie.html#a919e092da52e2226693755a0a04ec545">mettreAJoursChronometre</a>(<span class="keywordtype">int</span> secondes);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;};</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// IHMPARTIE_H</span></div>
+<div class="ttc" id="aclass_communication_html"><div class="ttname"><a href="class_communication.html">Communication</a></div><div class="ttdef"><b>Definition:</b> <a href="communication_8h_source.html#l00036">communication.h:37</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html"><div class="ttname"><a href="class_gestion_partie.html">GestionPartie</a></div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8h_source.html#l00028">gestionPartie.h:29</a></div></div>
+<div class="ttc" id="aclass_i_h_m_classement_html"><div class="ttname"><a href="class_i_h_m_classement.html">IHMClassement</a></div><div class="ttdef"><b>Definition:</b> <a href="ihm_classement_8h_source.html#l00020">ihmClassement.h:21</a></div></div>
+<div class="ttc" id="aclass_i_h_m_partie_html"><div class="ttname"><a href="class_i_h_m_partie.html">IHMPartie</a></div><div class="ttdef"><b>Definition:</b> <a href="ihmpartie_8h_source.html#l00019">ihmpartie.h:20</a></div></div>
+<div class="ttc" id="aclass_i_h_m_partie_html_a062b1adbc75f3b8e952bdb190a37618b"><div class="ttname"><a href="class_i_h_m_partie.html#a062b1adbc75f3b8e952bdb190a37618b">IHMPartie::fermer</a></div><div class="ttdeci">void fermer()</div><div class="ttdef"><b>Definition:</b> <a href="ihmpartie_8cpp_source.html#l00094">ihmpartie.cpp:94</a></div></div>
+<div class="ttc" id="aclass_i_h_m_partie_html_a1ff93393740b7479fbe2baca381f4c51"><div class="ttname"><a href="class_i_h_m_partie.html#a1ff93393740b7479fbe2baca381f4c51">IHMPartie::ihmClassement</a></div><div class="ttdeci">IHMClassement * ihmClassement</div><div class="ttdef"><b>Definition:</b> <a href="ihmpartie_8h_source.html#l00025">ihmpartie.h:25</a></div></div>
+<div class="ttc" id="aclass_i_h_m_partie_html_a218ec48ca7787eefa3c8cfbe468b8d88"><div class="ttname"><a href="class_i_h_m_partie.html#a218ec48ca7787eefa3c8cfbe468b8d88">IHMPartie::nomLabels</a></div><div class="ttdeci">QStringList nomLabels</div><div class="ttdef"><b>Definition:</b> <a href="ihmpartie_8h_source.html#l00029">ihmpartie.h:29</a></div></div>
+<div class="ttc" id="aclass_i_h_m_partie_html_a26940836334bc988cac8594a0e431932"><div class="ttname"><a href="class_i_h_m_partie.html#a26940836334bc988cac8594a0e431932">IHMPartie::communication</a></div><div class="ttdeci">Communication * communication</div><div class="ttdoc">association vers Communication</div><div class="ttdef"><b>Definition:</b> <a href="ihmpartie_8h_source.html#l00027">ihmpartie.h:27</a></div></div>
+<div class="ttc" id="aclass_i_h_m_partie_html_a63f3bccd04a70a774f8316708ddc1bb8"><div class="ttname"><a href="class_i_h_m_partie.html#a63f3bccd04a70a774f8316708ddc1bb8">IHMPartie::IHMPartie</a></div><div class="ttdeci">IHMPartie(Communication *communication, QWidget *parent=nullptr)</div><div class="ttdef"><b>Definition:</b> <a href="ihmpartie_8cpp_source.html#l00010">ihmpartie.cpp:10</a></div></div>
+<div class="ttc" id="aclass_i_h_m_partie_html_a7439d567ee3b8c836303def278e4d533"><div class="ttname"><a href="class_i_h_m_partie.html#a7439d567ee3b8c836303def278e4d533">IHMPartie::simulerPartie</a></div><div class="ttdeci">void simulerPartie()</div><div class="ttdef"><b>Definition:</b> <a href="ihmpartie_8cpp_source.html#l00256">ihmpartie.cpp:256</a></div></div>
+<div class="ttc" id="aclass_i_h_m_partie_html_a75e8b6f72b5720942966ee42ac20d199"><div class="ttname"><a href="class_i_h_m_partie.html#a75e8b6f72b5720942966ee42ac20d199">IHMPartie::etatPartieModifie</a></div><div class="ttdeci">void etatPartieModifie(int etatPartie)</div></div>
+<div class="ttc" id="aclass_i_h_m_partie_html_a7b2e9b1772b0f8f6bf60eb12fa7ea3c7"><div class="ttname"><a href="class_i_h_m_partie.html#a7b2e9b1772b0f8f6bf60eb12fa7ea3c7">IHMPartie::uiPartie</a></div><div class="ttdeci">Ui::Partie * uiPartie</div><div class="ttdef"><b>Definition:</b> <a href="ihmpartie_8h_source.html#l00024">ihmpartie.h:24</a></div></div>
+<div class="ttc" id="aclass_i_h_m_partie_html_a8fcb25c00670b3d756a165c585174e19"><div class="ttname"><a href="class_i_h_m_partie.html#a8fcb25c00670b3d756a165c585174e19">IHMPartie::faireAvancerLabel</a></div><div class="ttdeci">void faireAvancerLabel(QLabel *label, const int &amp;avancement, const int &amp;multiplicateurTemps)</div><div class="ttdef"><b>Definition:</b> <a href="ihmpartie_8cpp_source.html#l00236">ihmpartie.cpp:236</a></div></div>
+<div class="ttc" id="aclass_i_h_m_partie_html_a919e092da52e2226693755a0a04ec545"><div class="ttname"><a href="class_i_h_m_partie.html#a919e092da52e2226693755a0a04ec545">IHMPartie::mettreAJoursChronometre</a></div><div class="ttdeci">void mettreAJoursChronometre(int secondes)</div><div class="ttdef"><b>Definition:</b> <a href="ihmpartie_8cpp_source.html#l00207">ihmpartie.cpp:207</a></div></div>
+<div class="ttc" id="aclass_i_h_m_partie_html_a944758a6a6e437e1d7a529ed11163e73"><div class="ttname"><a href="class_i_h_m_partie.html#a944758a6a6e437e1d7a529ed11163e73">IHMPartie::NomLabels</a></div><div class="ttdeci">NomLabels</div><div class="ttdef"><b>Definition:</b> <a href="ihmpartie_8h_source.html#l00031">ihmpartie.h:32</a></div></div>
+<div class="ttc" id="aclass_i_h_m_partie_html_a944758a6a6e437e1d7a529ed11163e73a02baf017eb614b0d2faae00270f0b542"><div class="ttname"><a href="class_i_h_m_partie.html#a944758a6a6e437e1d7a529ed11163e73a02baf017eb614b0d2faae00270f0b542">IHMPartie::CHEVAL</a></div><div class="ttdeci">@ CHEVAL</div><div class="ttdef"><b>Definition:</b> <a href="ihmpartie_8h_source.html#l00036">ihmpartie.h:36</a></div></div>
+<div class="ttc" id="aclass_i_h_m_partie_html_a944758a6a6e437e1d7a529ed11163e73a3ab13cf055747f8fdc36e1c328acf020"><div class="ttname"><a href="class_i_h_m_partie.html#a944758a6a6e437e1d7a529ed11163e73a3ab13cf055747f8fdc36e1c328acf020">IHMPartie::NB_LABELS</a></div><div class="ttdeci">@ NB_LABELS</div><div class="ttdef"><b>Definition:</b> <a href="ihmpartie_8h_source.html#l00038">ihmpartie.h:37</a></div></div>
+<div class="ttc" id="aclass_i_h_m_partie_html_a944758a6a6e437e1d7a529ed11163e73a7dcb0509d0939a1d751cf875196e7e3c"><div class="ttname"><a href="class_i_h_m_partie.html#a944758a6a6e437e1d7a529ed11163e73a7dcb0509d0939a1d751cf875196e7e3c">IHMPartie::NUMERO</a></div><div class="ttdeci">@ NUMERO</div><div class="ttdef"><b>Definition:</b> <a href="ihmpartie_8h_source.html#l00035">ihmpartie.h:35</a></div></div>
+<div class="ttc" id="aclass_i_h_m_partie_html_a944758a6a6e437e1d7a529ed11163e73a92503baebf81e9345e1f7a65c42b925d"><div class="ttname"><a href="class_i_h_m_partie.html#a944758a6a6e437e1d7a529ed11163e73a92503baebf81e9345e1f7a65c42b925d">IHMPartie::LIGNE_ARRIVEE</a></div><div class="ttdeci">@ LIGNE_ARRIVEE</div><div class="ttdef"><b>Definition:</b> <a href="ihmpartie_8h_source.html#l00034">ihmpartie.h:34</a></div></div>
+<div class="ttc" id="aclass_i_h_m_partie_html_a944758a6a6e437e1d7a529ed11163e73af97f66bfdd58b67df9f67259194a3395"><div class="ttname"><a href="class_i_h_m_partie.html#a944758a6a6e437e1d7a529ed11163e73af97f66bfdd58b67df9f67259194a3395">IHMPartie::INCONNU</a></div><div class="ttdeci">@ INCONNU</div><div class="ttdef"><b>Definition:</b> <a href="ihmpartie_8h_source.html#l00033">ihmpartie.h:33</a></div></div>
+<div class="ttc" id="aclass_i_h_m_partie_html_aa294488148f5c358fb85253c44b9f4d5"><div class="ttname"><a href="class_i_h_m_partie.html#aa294488148f5c358fb85253c44b9f4d5">IHMPartie::initialiserEmplacementLabel</a></div><div class="ttdeci">void initialiserEmplacementLabel(QLabel *label, const int &amp;index)</div><div class="ttdef"><b>Definition:</b> <a href="ihmpartie_8cpp_source.html#l00178">ihmpartie.cpp:178</a></div></div>
+<div class="ttc" id="aclass_i_h_m_partie_html_aa5151072bbe4dca4a3ab6ec100aa493b"><div class="ttname"><a href="class_i_h_m_partie.html#aa5151072bbe4dca4a3ab6ec100aa493b">IHMPartie::editerLabelText</a></div><div class="ttdeci">void editerLabelText(QLabel *label, QString ligne)</div><div class="ttdef"><b>Definition:</b> <a href="ihmpartie_8cpp_source.html#l00250">ihmpartie.cpp:250</a></div></div>
+<div class="ttc" id="aclass_i_h_m_partie_html_ab2cb019478a740756c9b596299464986"><div class="ttname"><a href="class_i_h_m_partie.html#ab2cb019478a740756c9b596299464986">IHMPartie::creerLigneCourse</a></div><div class="ttdeci">void creerLigneCourse(int nombreJoueurs)</div><div class="ttdef"><b>Definition:</b> <a href="ihmpartie_8cpp_source.html#l00138">ihmpartie.cpp:138</a></div></div>
+<div class="ttc" id="aclass_i_h_m_partie_html_abdef47a792eae3d99c8fd79af3f39335"><div class="ttname"><a href="class_i_h_m_partie.html#abdef47a792eae3d99c8fd79af3f39335">IHMPartie::showEvent</a></div><div class="ttdeci">void showEvent(QShowEvent *event)</div><div class="ttdoc">S'exécute à chaque fois que la fenêtre est affichée.</div><div class="ttdef"><b>Definition:</b> <a href="ihmpartie_8cpp_source.html#l00087">ihmpartie.cpp:87</a></div></div>
+<div class="ttc" id="aclass_i_h_m_partie_html_abe6bb82e4cfed81db0db5940947e27a4"><div class="ttname"><a href="class_i_h_m_partie.html#abe6bb82e4cfed81db0db5940947e27a4">IHMPartie::recupererLabel</a></div><div class="ttdeci">QLabel * recupererLabel(const QString labelRecherche)</div><div class="ttdef"><b>Definition:</b> <a href="ihmpartie_8cpp_source.html#l00126">ihmpartie.cpp:126</a></div></div>
+<div class="ttc" id="aclass_i_h_m_partie_html_ac4f3050d1448716b37029c88871baf21"><div class="ttname"><a href="class_i_h_m_partie.html#ac4f3050d1448716b37029c88871baf21">IHMPartie::afficherStatistiquesJoueur</a></div><div class="ttdeci">void afficherStatistiquesJoueur()</div><div class="ttdef"><b>Definition:</b> <a href="ihmpartie_8cpp_source.html#l00113">ihmpartie.cpp:113</a></div></div>
+<div class="ttc" id="aclass_i_h_m_partie_html_ad9b054eb562cdba316f137d0a4e25df6"><div class="ttname"><a href="class_i_h_m_partie.html#ad9b054eb562cdba316f137d0a4e25df6">IHMPartie::afficherClassement</a></div><div class="ttdeci">void afficherClassement()</div><div class="ttdef"><b>Definition:</b> <a href="ihmpartie_8cpp_source.html#l00100">ihmpartie.cpp:100</a></div></div>
+<div class="ttc" id="aclass_i_h_m_partie_html_adf4aaa4fee5d15677891a2968466e28e"><div class="ttname"><a href="class_i_h_m_partie.html#adf4aaa4fee5d15677891a2968466e28e">IHMPartie::~IHMPartie</a></div><div class="ttdeci">virtual ~IHMPartie()</div><div class="ttdef"><b>Definition:</b> <a href="ihmpartie_8cpp_source.html#l00070">ihmpartie.cpp:70</a></div></div>
+<div class="ttc" id="aclass_i_h_m_partie_html_ae5b6c8adbf9319146ac84d84770fab33"><div class="ttname"><a href="class_i_h_m_partie.html#ae5b6c8adbf9319146ac84d84770fab33">IHMPartie::editerLabelPixmap</a></div><div class="ttdeci">void editerLabelPixmap(QLabel *label, const QPixmap &amp;pixmap, const QString &amp;numeroLigne)</div><div class="ttdef"><b>Definition:</b> <a href="ihmpartie_8cpp_source.html#l00163">ihmpartie.cpp:163</a></div></div>
+<div class="ttc" id="aclass_i_h_m_partie_html_ae970552b1155f2e180ff5746d8ddce79"><div class="ttname"><a href="class_i_h_m_partie.html#ae970552b1155f2e180ff5746d8ddce79">IHMPartie::listePixmaps</a></div><div class="ttdeci">QList&lt; QPixmap &gt; listePixmaps</div><div class="ttdef"><b>Definition:</b> <a href="ihmpartie_8h_source.html#l00030">ihmpartie.h:30</a></div></div>
+<div class="ttc" id="aclass_i_h_m_partie_html_af5d91f95b6c55476fcd33402103dd5cd"><div class="ttname"><a href="class_i_h_m_partie.html#af5d91f95b6c55476fcd33402103dd5cd">IHMPartie::mettreAJoursCourse</a></div><div class="ttdeci">void mettreAJoursCourse(QString numero, int scoreTir)</div><div class="ttdef"><b>Definition:</b> <a href="ihmpartie_8cpp_source.html#l00214">ihmpartie.cpp:214</a></div></div>
+<div class="ttc" id="aclass_i_h_m_partie_html_afd9398663403e1cd449d77ba86005688"><div class="ttname"><a href="class_i_h_m_partie.html#afd9398663403e1cd449d77ba86005688">IHMPartie::gestionPartie</a></div><div class="ttdeci">GestionPartie * gestionPartie</div><div class="ttdoc">composition vers GestionPartie</div><div class="ttdef"><b>Definition:</b> <a href="ihmpartie_8h_source.html#l00028">ihmpartie.h:28</a></div></div>
+<div class="ttc" id="aclass_i_h_m_partie_html_afeee55a36e41be3c4b0320af8ad98de5"><div class="ttname"><a href="class_i_h_m_partie.html#afeee55a36e41be3c4b0320af8ad98de5">IHMPartie::ihmStatistiquesJoueur</a></div><div class="ttdeci">IHMStatistiquesJoueur * ihmStatistiquesJoueur</div><div class="ttdef"><b>Definition:</b> <a href="ihmpartie_8h_source.html#l00026">ihmpartie.h:26</a></div></div>
+<div class="ttc" id="aclass_i_h_m_statistiques_joueur_html"><div class="ttname"><a href="class_i_h_m_statistiques_joueur.html">IHMStatistiquesJoueur</a></div><div class="ttdef"><b>Definition:</b> <a href="ihm_statistiques_joueur_8h_source.html#l00016">ihmStatistiquesJoueur.h:17</a></div></div>
+<div class="ttc" id="aclass_q_widget_html"><div class="ttname"><a href="class_q_widget.html">QWidget</a></div></div>
+<div class="ttc" id="anamespace_ui_html"><div class="ttname"><a href="namespace_ui.html">Ui</a></div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8h_source.html#l00023">gestionPartie.h:24</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.1-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ec9dc5a0e466c8fbfbd740e90e63c0cf.html">moduleVisualisation</a></li><li class="navelem"><a class="el" href="ihmpartie_8h.html">ihmpartie.h</a></li>
+    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Jeudi 5 Juin 2025 12:44:43 pour Projet Jolly-Jumpi par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.9.1&nbsp;</li>
+  </ul>
+</div>
+</body>
+</html>

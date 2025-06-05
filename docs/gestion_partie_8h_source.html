@@ -1,0 +1,247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Projet Jolly-Jumpi:  Fichier source de gestionPartie.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="customdoxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="projet-logo.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Projet Jolly-Jumpi
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">BTS CIEL IR LaSalle Avignon 2025</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('gestion_partie_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">gestionPartie.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="gestion_partie_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef GESTION_PARTIE_H</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define GESTION_PARTIE_H</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;QObject&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;QVector&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;QString&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;QMap&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;QTimer&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;QLabel&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="gestion_partie_8h.html#a954b61d0bed4bfa938d89c7590c45fb4">   11</a></span>&#160;<span class="preprocessor">#define RPI</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="gestion_partie_8h.html#aa9992f12296545001263ec3609b2c8ee">   13</a></span>&#160;<span class="preprocessor">#define NOMBRE_JOUEUR_MAX       8</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="gestion_partie_8h.html#a01deca592d490bb28261283633b500c3">   14</a></span>&#160;<span class="preprocessor">#define SCORE_MAX               10</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="gestion_partie_8h.html#a3a73c5900b1df208396cd4c1d528f905">   15</a></span>&#160;<span class="preprocessor">#define TEMPS_AFFICHAGE_FENETRE 3   </span><span class="comment">// en seconde</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="gestion_partie_8h.html#aaaceb6b8490a6d62501252c18a753f89">   16</a></span>&#160;<span class="preprocessor">#define TEMPS_ANIMATION         400 </span><span class="comment">// mini seconde</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="gestion_partie_8h.html#ae880810feeaf127db544e5ac8e5470bf">   17</a></span>&#160;<span class="preprocessor">#define SCORE_TIR_MAX           5</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">class </span><a class="code" href="class_joueur.html">Joueur</a>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">class </span><a class="code" href="class_communication.html">Communication</a>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">class </span><a class="code" href="class_joueur.html">Joueur</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="namespace_ui.html">   23</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_ui.html">Ui</a></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;{</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">class </span><a class="code" href="class_gestion_partie.html">GestionPartie</a>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="class_gestion_partie.html">   28</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_gestion_partie.html">GestionPartie</a> : <span class="keyword">public</span> <a class="code" href="class_q_object.html">QObject</a></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;{</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    Q_OBJECT</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="class_gestion_partie.html#a80a3de97d8451caed5788d8ef151aa10">   32</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="class_gestion_partie.html#a80a3de97d8451caed5788d8ef151aa10">EtatPartie</a></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    {</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="class_gestion_partie.html#a80a3de97d8451caed5788d8ef151aa10a94281b1d1758d8f63ca3df02c63afd10">   34</a></span>&#160;        <a class="code" href="class_gestion_partie.html#a80a3de97d8451caed5788d8ef151aa10a94281b1d1758d8f63ca3df02c63afd10">INCONNU</a> = -1,</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="class_gestion_partie.html#a80a3de97d8451caed5788d8ef151aa10a0d09b360a98b38c2caf716cf6effb088">   35</a></span>&#160;        <a class="code" href="class_gestion_partie.html#a80a3de97d8451caed5788d8ef151aa10a0d09b360a98b38c2caf716cf6effb088">CONFIGUREE</a>,</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="class_gestion_partie.html#a80a3de97d8451caed5788d8ef151aa10ac33b972a20c7c99285203c86eb9fceb1">   36</a></span>&#160;        <a class="code" href="class_gestion_partie.html#a80a3de97d8451caed5788d8ef151aa10ac33b972a20c7c99285203c86eb9fceb1">DEBUTEE</a>,</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="class_gestion_partie.html#a80a3de97d8451caed5788d8ef151aa10af9985906ede903dafa7885fb3cba3d58">   37</a></span>&#160;        <a class="code" href="class_gestion_partie.html#a80a3de97d8451caed5788d8ef151aa10af9985906ede903dafa7885fb3cba3d58">FINIE</a>,</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="class_gestion_partie.html#a80a3de97d8451caed5788d8ef151aa10a8872a846d75672550ebda0b54ef6bb43">   38</a></span>&#160;        <a class="code" href="class_gestion_partie.html#a80a3de97d8451caed5788d8ef151aa10a8872a846d75672550ebda0b54ef6bb43">ABANDONNEE</a>,</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <a class="code" href="class_gestion_partie.html#a80a3de97d8451caed5788d8ef151aa10a933d2ef5ccc1def2a4aa1e457d806fc7">NB_ETATS</a></div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="class_gestion_partie.html#a80a3de97d8451caed5788d8ef151aa10a933d2ef5ccc1def2a4aa1e457d806fc7">   40</a></span>&#160;    };</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="class_gestion_partie.html#a9f0afd2b656442dad23461ca48f5e596">GestionPartie</a>(<a class="code" href="class_communication.html">Communication</a>* <a class="code" href="class_gestion_partie.html#ada422b0349111e373d28d50349413284">communication</a>, <a class="code" href="class_q_object.html">QObject</a>* parent);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="class_gestion_partie.html#aa2ccdbae3e4817b4411d4a95321e0c3e">~GestionPartie</a>();</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">void</span>                         <a class="code" href="class_gestion_partie.html#a7311475bab00cc0b63ae939b49829608">gererPartie</a>();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    std::vector&lt;QList&lt;QString&gt; &gt; <a class="code" href="class_gestion_partie.html#a5276650b44fbfa471efec4ffa0f403dd">genererClassement</a>();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    std::vector&lt;QList&lt;QString&gt; &gt; <a class="code" href="class_gestion_partie.html#a3bf9286d3f3d1984add2e0d8e6982d67">recupererStatistiquesJoueur</a>(</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;      <span class="keyword">const</span> QString&amp; numeroJoueur);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">int</span>     <a class="code" href="class_gestion_partie.html#a872bc70032ae6f9e29b6102359a97585">recupererNombreJoueurs</a>();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">int</span>     <a class="code" href="class_gestion_partie.html#a7a9747f105e446994ff80cc0ce63e802">recupererChronometre</a>();</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">int</span>     <a class="code" href="class_gestion_partie.html#a5a6ebe4d13a7f0ae509847df7f6ceda9">recupererScoreJoueur</a>(QString numero);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">int</span>     <a class="code" href="class_gestion_partie.html#a756c085226c530c5758f10ac3a58d0a4">recupererPlaceJoueur</a>(QString numero);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    QString <a class="code" href="class_gestion_partie.html#acf693eecfe28cca8e67a46533adb61ec">convertirTemps</a>(<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; secondes);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">int</span>     <a class="code" href="class_gestion_partie.html#a2380f3fcbe6ab5e51b7bafceb45e9418">recupererScoreMax</a>();</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">int</span>     <a class="code" href="class_gestion_partie.html#ae3fbd2d05978af05b49cc30b6d97d8a5">recupererTempsAffichageFenetre</a>();</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="class_gestion_partie.html#a8690c7349a7f0b0ac3efe8df6ec673fa">   59</a></span>&#160;    <span class="keywordtype">int</span>                    <a class="code" href="class_gestion_partie.html#a8690c7349a7f0b0ac3efe8df6ec673fa">nombreJoueurs</a>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="class_gestion_partie.html#a905f7be76bd978fbc056874a18ced3be">   60</a></span>&#160;    <span class="keywordtype">int</span>                    <a class="code" href="class_gestion_partie.html#a905f7be76bd978fbc056874a18ced3be">modeDeJeu</a>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="class_gestion_partie.html#aa933e15ba1a2887ea8b591919c7c4f84">   61</a></span>&#160;    <a class="code" href="class_gestion_partie.html#a80a3de97d8451caed5788d8ef151aa10">EtatPartie</a>             <a class="code" href="class_gestion_partie.html#aa933e15ba1a2887ea8b591919c7c4f84">etat</a>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="class_gestion_partie.html#a3439be69e3f92992273cd56916231151">   62</a></span>&#160;    <span class="keywordtype">double</span>                 <a class="code" href="class_gestion_partie.html#a3439be69e3f92992273cd56916231151">duree</a>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="class_gestion_partie.html#a91c04274ec094a558a9594c5a414814f">   63</a></span>&#160;    Ui::GestionPartie*     <a class="code" href="class_gestion_partie.html#a91c04274ec094a558a9594c5a414814f">ui</a>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="class_gestion_partie.html#ada422b0349111e373d28d50349413284">   64</a></span>&#160;    <a class="code" href="class_communication.html">Communication</a>*         <a class="code" href="class_gestion_partie.html#ada422b0349111e373d28d50349413284">communication</a>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="class_gestion_partie.html#ac6c5eddba6248d673490fc2563e1cfe4">   65</a></span>&#160;    <span class="keywordtype">bool</span>                   <a class="code" href="class_gestion_partie.html#ac6c5eddba6248d673490fc2563e1cfe4">configurationPisteTerminee</a>;</div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="class_gestion_partie.html#af09ae839d00b6dc9ee360f5228c39eee">   66</a></span>&#160;    QMap&lt;QString, Joueur*&gt; <a class="code" href="class_gestion_partie.html#af09ae839d00b6dc9ee360f5228c39eee">joueurs</a>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="class_gestion_partie.html#a56f79052f578197364e0bcc2fc94dc24">   67</a></span>&#160;    <span class="keywordtype">int</span>                    <a class="code" href="class_gestion_partie.html#a56f79052f578197364e0bcc2fc94dc24">chronometre</a>;</div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="class_gestion_partie.html#a0ccd7f4abecd474351ba8f111a67db0a">   68</a></span>&#160;    <span class="keywordtype">int</span>                    <a class="code" href="class_gestion_partie.html#a0ccd7f4abecd474351ba8f111a67db0a">tempsAttenteFinAnimation</a>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_gestion_partie.html#af204d73782f1d3473fd657e094eab9e5">supprimerJoueurs</a>();</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_gestion_partie.html#ada94fd4073183f45979a9c86dbd6570a">configurerPiste</a>();</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_gestion_partie.html#a03be165b6d2b3d0e76443922e031a107">relierPistesEtJoueurs</a>();</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_gestion_partie.html#ac393af9e7dc3ceb0287ec3fb28ccf856">chronometrer</a>();</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">int</span>  <a class="code" href="class_gestion_partie.html#a1ca4e596b3775123c45870c1c66b1f24">calculerScoreJoueur</a>(<span class="keyword">const</span> QString&amp; numeroPiste);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_gestion_partie.html#a903b68b141d681f37145258fdcc4d5cc">estScoreMax</a>(<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; score);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <span class="keyword">private</span> slots:</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_gestion_partie.html#a7f80703333e88dd5014be46d43f9565f">commencerPartie</a>();</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_gestion_partie.html#afad62c983d43afe756eee82a3785cb47">gererConfiguration</a>(QString nombreJoueursRecu, QString modeDeJeuRecu);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_gestion_partie.html#a4fd9840da6c369e0c59ec0d096fc76a0">receptionnerTir</a>(<span class="keyword">const</span> QString&amp; numeroPiste, <span class="keyword">const</span> QString&amp; score);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_gestion_partie.html#a924448fff0e1f7f75400bfe9ddcf800a">finirPartie</a>();</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_gestion_partie.html#a4ec904ea71886a034fdada93251ff16f">abandonnerPartie</a>();</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  signals:</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="comment">// void changementEtatPartie(EtatPartie etatPartie);</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="class_gestion_partie.html#a401cb4e76aafafc9fd44211a704680a1">   86</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_gestion_partie.html#a401cb4e76aafafc9fd44211a704680a1">tirRecu</a>(QString numeroJoueur, <span class="keywordtype">int</span> scoreTir);</div>
+<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="class_gestion_partie.html#a7094c8f0680fbead01ec8995dc0a3633">   87</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_gestion_partie.html#a7094c8f0680fbead01ec8995dc0a3633">demandeClassement</a>();</div>
+<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="class_gestion_partie.html#a4272136b1ad70c553138416686b46f2d">   88</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_gestion_partie.html#a4272136b1ad70c553138416686b46f2d">demandeStatistiquesJoueur</a>();</div>
+<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="class_gestion_partie.html#aa5ee10ab4d7baacd4c649f3a20a49588">   89</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_gestion_partie.html#aa5ee10ab4d7baacd4c649f3a20a49588">estFinPartie</a>();</div>
+<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="class_gestion_partie.html#aaf3fb38c58df69a21e768257031ac1a1">   90</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_gestion_partie.html#aaf3fb38c58df69a21e768257031ac1a1">creerChevaux</a>(<span class="keywordtype">int</span> <a class="code" href="class_gestion_partie.html#a8690c7349a7f0b0ac3efe8df6ec673fa">nombreJoueurs</a>);</div>
+<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="class_gestion_partie.html#a6fbacfc647c72f03ff67f10512f78727">   91</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_gestion_partie.html#a6fbacfc647c72f03ff67f10512f78727">avancementChronometre</a>(<span class="keywordtype">int</span>);</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;};</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aclass_communication_html"><div class="ttname"><a href="class_communication.html">Communication</a></div><div class="ttdef"><b>Definition:</b> <a href="communication_8h_source.html#l00036">communication.h:37</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html"><div class="ttname"><a href="class_gestion_partie.html">GestionPartie</a></div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8h_source.html#l00028">gestionPartie.h:29</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a03be165b6d2b3d0e76443922e031a107"><div class="ttname"><a href="class_gestion_partie.html#a03be165b6d2b3d0e76443922e031a107">GestionPartie::relierPistesEtJoueurs</a></div><div class="ttdeci">void relierPistesEtJoueurs()</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8cpp_source.html#l00095">gestionPartie.cpp:95</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a0ccd7f4abecd474351ba8f111a67db0a"><div class="ttname"><a href="class_gestion_partie.html#a0ccd7f4abecd474351ba8f111a67db0a">GestionPartie::tempsAttenteFinAnimation</a></div><div class="ttdeci">int tempsAttenteFinAnimation</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8h_source.html#l00068">gestionPartie.h:68</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a1ca4e596b3775123c45870c1c66b1f24"><div class="ttname"><a href="class_gestion_partie.html#a1ca4e596b3775123c45870c1c66b1f24">GestionPartie::calculerScoreJoueur</a></div><div class="ttdeci">int calculerScoreJoueur(const QString &amp;numeroPiste)</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8cpp_source.html#l00222">gestionPartie.cpp:222</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a2380f3fcbe6ab5e51b7bafceb45e9418"><div class="ttname"><a href="class_gestion_partie.html#a2380f3fcbe6ab5e51b7bafceb45e9418">GestionPartie::recupererScoreMax</a></div><div class="ttdeci">int recupererScoreMax()</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8cpp_source.html#l00289">gestionPartie.cpp:289</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a3439be69e3f92992273cd56916231151"><div class="ttname"><a href="class_gestion_partie.html#a3439be69e3f92992273cd56916231151">GestionPartie::duree</a></div><div class="ttdeci">double duree</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8h_source.html#l00062">gestionPartie.h:62</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a3bf9286d3f3d1984add2e0d8e6982d67"><div class="ttname"><a href="class_gestion_partie.html#a3bf9286d3f3d1984add2e0d8e6982d67">GestionPartie::recupererStatistiquesJoueur</a></div><div class="ttdeci">std::vector&lt; QList&lt; QString &gt; &gt; recupererStatistiquesJoueur(const QString &amp;numeroJoueur)</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8cpp_source.html#l00267">gestionPartie.cpp:267</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a401cb4e76aafafc9fd44211a704680a1"><div class="ttname"><a href="class_gestion_partie.html#a401cb4e76aafafc9fd44211a704680a1">GestionPartie::tirRecu</a></div><div class="ttdeci">void tirRecu(QString numeroJoueur, int scoreTir)</div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a4272136b1ad70c553138416686b46f2d"><div class="ttname"><a href="class_gestion_partie.html#a4272136b1ad70c553138416686b46f2d">GestionPartie::demandeStatistiquesJoueur</a></div><div class="ttdeci">void demandeStatistiquesJoueur()</div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a4ec904ea71886a034fdada93251ff16f"><div class="ttname"><a href="class_gestion_partie.html#a4ec904ea71886a034fdada93251ff16f">GestionPartie::abandonnerPartie</a></div><div class="ttdeci">void abandonnerPartie()</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8cpp_source.html#l00212">gestionPartie.cpp:212</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a4fd9840da6c369e0c59ec0d096fc76a0"><div class="ttname"><a href="class_gestion_partie.html#a4fd9840da6c369e0c59ec0d096fc76a0">GestionPartie::receptionnerTir</a></div><div class="ttdeci">void receptionnerTir(const QString &amp;numeroPiste, const QString &amp;score)</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8cpp_source.html#l00140">gestionPartie.cpp:140</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a5276650b44fbfa471efec4ffa0f403dd"><div class="ttname"><a href="class_gestion_partie.html#a5276650b44fbfa471efec4ffa0f403dd">GestionPartie::genererClassement</a></div><div class="ttdeci">std::vector&lt; QList&lt; QString &gt; &gt; genererClassement()</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8cpp_source.html#l00241">gestionPartie.cpp:241</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a56f79052f578197364e0bcc2fc94dc24"><div class="ttname"><a href="class_gestion_partie.html#a56f79052f578197364e0bcc2fc94dc24">GestionPartie::chronometre</a></div><div class="ttdeci">int chronometre</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8h_source.html#l00067">gestionPartie.h:67</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a5a6ebe4d13a7f0ae509847df7f6ceda9"><div class="ttname"><a href="class_gestion_partie.html#a5a6ebe4d13a7f0ae509847df7f6ceda9">GestionPartie::recupererScoreJoueur</a></div><div class="ttdeci">int recupererScoreJoueur(QString numero)</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8cpp_source.html#l00279">gestionPartie.cpp:279</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a6fbacfc647c72f03ff67f10512f78727"><div class="ttname"><a href="class_gestion_partie.html#a6fbacfc647c72f03ff67f10512f78727">GestionPartie::avancementChronometre</a></div><div class="ttdeci">void avancementChronometre(int)</div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a7094c8f0680fbead01ec8995dc0a3633"><div class="ttname"><a href="class_gestion_partie.html#a7094c8f0680fbead01ec8995dc0a3633">GestionPartie::demandeClassement</a></div><div class="ttdeci">void demandeClassement()</div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a7311475bab00cc0b63ae939b49829608"><div class="ttname"><a href="class_gestion_partie.html#a7311475bab00cc0b63ae939b49829608">GestionPartie::gererPartie</a></div><div class="ttdeci">void gererPartie()</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8cpp_source.html#l00039">gestionPartie.cpp:39</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a756c085226c530c5758f10ac3a58d0a4"><div class="ttname"><a href="class_gestion_partie.html#a756c085226c530c5758f10ac3a58d0a4">GestionPartie::recupererPlaceJoueur</a></div><div class="ttdeci">int recupererPlaceJoueur(QString numero)</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8cpp_source.html#l00284">gestionPartie.cpp:284</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a7a9747f105e446994ff80cc0ce63e802"><div class="ttname"><a href="class_gestion_partie.html#a7a9747f105e446994ff80cc0ce63e802">GestionPartie::recupererChronometre</a></div><div class="ttdeci">int recupererChronometre()</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8cpp_source.html#l00063">gestionPartie.cpp:63</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a7f80703333e88dd5014be46d43f9565f"><div class="ttname"><a href="class_gestion_partie.html#a7f80703333e88dd5014be46d43f9565f">GestionPartie::commencerPartie</a></div><div class="ttdeci">void commencerPartie()</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8cpp_source.html#l00051">gestionPartie.cpp:51</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a80a3de97d8451caed5788d8ef151aa10"><div class="ttname"><a href="class_gestion_partie.html#a80a3de97d8451caed5788d8ef151aa10">GestionPartie::EtatPartie</a></div><div class="ttdeci">EtatPartie</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8h_source.html#l00032">gestionPartie.h:33</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a80a3de97d8451caed5788d8ef151aa10a0d09b360a98b38c2caf716cf6effb088"><div class="ttname"><a href="class_gestion_partie.html#a80a3de97d8451caed5788d8ef151aa10a0d09b360a98b38c2caf716cf6effb088">GestionPartie::CONFIGUREE</a></div><div class="ttdeci">@ CONFIGUREE</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8h_source.html#l00035">gestionPartie.h:35</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a80a3de97d8451caed5788d8ef151aa10a8872a846d75672550ebda0b54ef6bb43"><div class="ttname"><a href="class_gestion_partie.html#a80a3de97d8451caed5788d8ef151aa10a8872a846d75672550ebda0b54ef6bb43">GestionPartie::ABANDONNEE</a></div><div class="ttdeci">@ ABANDONNEE</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8h_source.html#l00038">gestionPartie.h:38</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a80a3de97d8451caed5788d8ef151aa10a933d2ef5ccc1def2a4aa1e457d806fc7"><div class="ttname"><a href="class_gestion_partie.html#a80a3de97d8451caed5788d8ef151aa10a933d2ef5ccc1def2a4aa1e457d806fc7">GestionPartie::NB_ETATS</a></div><div class="ttdeci">@ NB_ETATS</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8h_source.html#l00040">gestionPartie.h:39</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a80a3de97d8451caed5788d8ef151aa10a94281b1d1758d8f63ca3df02c63afd10"><div class="ttname"><a href="class_gestion_partie.html#a80a3de97d8451caed5788d8ef151aa10a94281b1d1758d8f63ca3df02c63afd10">GestionPartie::INCONNU</a></div><div class="ttdeci">@ INCONNU</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8h_source.html#l00034">gestionPartie.h:34</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a80a3de97d8451caed5788d8ef151aa10ac33b972a20c7c99285203c86eb9fceb1"><div class="ttname"><a href="class_gestion_partie.html#a80a3de97d8451caed5788d8ef151aa10ac33b972a20c7c99285203c86eb9fceb1">GestionPartie::DEBUTEE</a></div><div class="ttdeci">@ DEBUTEE</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8h_source.html#l00036">gestionPartie.h:36</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a80a3de97d8451caed5788d8ef151aa10af9985906ede903dafa7885fb3cba3d58"><div class="ttname"><a href="class_gestion_partie.html#a80a3de97d8451caed5788d8ef151aa10af9985906ede903dafa7885fb3cba3d58">GestionPartie::FINIE</a></div><div class="ttdeci">@ FINIE</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8h_source.html#l00037">gestionPartie.h:37</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a8690c7349a7f0b0ac3efe8df6ec673fa"><div class="ttname"><a href="class_gestion_partie.html#a8690c7349a7f0b0ac3efe8df6ec673fa">GestionPartie::nombreJoueurs</a></div><div class="ttdeci">int nombreJoueurs</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8h_source.html#l00059">gestionPartie.h:59</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a872bc70032ae6f9e29b6102359a97585"><div class="ttname"><a href="class_gestion_partie.html#a872bc70032ae6f9e29b6102359a97585">GestionPartie::recupererNombreJoueurs</a></div><div class="ttdeci">int recupererNombreJoueurs()</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8cpp_source.html#l00274">gestionPartie.cpp:274</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a903b68b141d681f37145258fdcc4d5cc"><div class="ttname"><a href="class_gestion_partie.html#a903b68b141d681f37145258fdcc4d5cc">GestionPartie::estScoreMax</a></div><div class="ttdeci">bool estScoreMax(const int &amp;score)</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8cpp_source.html#l00234">gestionPartie.cpp:234</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a905f7be76bd978fbc056874a18ced3be"><div class="ttname"><a href="class_gestion_partie.html#a905f7be76bd978fbc056874a18ced3be">GestionPartie::modeDeJeu</a></div><div class="ttdeci">int modeDeJeu</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8h_source.html#l00060">gestionPartie.h:60</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a91c04274ec094a558a9594c5a414814f"><div class="ttname"><a href="class_gestion_partie.html#a91c04274ec094a558a9594c5a414814f">GestionPartie::ui</a></div><div class="ttdeci">Ui::GestionPartie * ui</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8h_source.html#l00063">gestionPartie.h:63</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a924448fff0e1f7f75400bfe9ddcf800a"><div class="ttname"><a href="class_gestion_partie.html#a924448fff0e1f7f75400bfe9ddcf800a">GestionPartie::finirPartie</a></div><div class="ttdeci">void finirPartie()</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8cpp_source.html#l00179">gestionPartie.cpp:179</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_a9f0afd2b656442dad23461ca48f5e596"><div class="ttname"><a href="class_gestion_partie.html#a9f0afd2b656442dad23461ca48f5e596">GestionPartie::GestionPartie</a></div><div class="ttdeci">GestionPartie(Communication *communication, QObject *parent)</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8cpp_source.html#l00006">gestionPartie.cpp:6</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_aa2ccdbae3e4817b4411d4a95321e0c3e"><div class="ttname"><a href="class_gestion_partie.html#aa2ccdbae3e4817b4411d4a95321e0c3e">GestionPartie::~GestionPartie</a></div><div class="ttdeci">~GestionPartie()</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8cpp_source.html#l00033">gestionPartie.cpp:33</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_aa5ee10ab4d7baacd4c649f3a20a49588"><div class="ttname"><a href="class_gestion_partie.html#aa5ee10ab4d7baacd4c649f3a20a49588">GestionPartie::estFinPartie</a></div><div class="ttdeci">void estFinPartie()</div></div>
+<div class="ttc" id="aclass_gestion_partie_html_aa933e15ba1a2887ea8b591919c7c4f84"><div class="ttname"><a href="class_gestion_partie.html#aa933e15ba1a2887ea8b591919c7c4f84">GestionPartie::etat</a></div><div class="ttdeci">EtatPartie etat</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8h_source.html#l00061">gestionPartie.h:61</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_aaf3fb38c58df69a21e768257031ac1a1"><div class="ttname"><a href="class_gestion_partie.html#aaf3fb38c58df69a21e768257031ac1a1">GestionPartie::creerChevaux</a></div><div class="ttdeci">void creerChevaux(int nombreJoueurs)</div></div>
+<div class="ttc" id="aclass_gestion_partie_html_ac393af9e7dc3ceb0287ec3fb28ccf856"><div class="ttname"><a href="class_gestion_partie.html#ac393af9e7dc3ceb0287ec3fb28ccf856">GestionPartie::chronometrer</a></div><div class="ttdeci">void chronometrer()</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8cpp_source.html#l00105">gestionPartie.cpp:105</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_ac6c5eddba6248d673490fc2563e1cfe4"><div class="ttname"><a href="class_gestion_partie.html#ac6c5eddba6248d673490fc2563e1cfe4">GestionPartie::configurationPisteTerminee</a></div><div class="ttdeci">bool configurationPisteTerminee</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8h_source.html#l00065">gestionPartie.h:65</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_acf693eecfe28cca8e67a46533adb61ec"><div class="ttname"><a href="class_gestion_partie.html#acf693eecfe28cca8e67a46533adb61ec">GestionPartie::convertirTemps</a></div><div class="ttdeci">QString convertirTemps(const int &amp;secondes)</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8cpp_source.html#l00128">gestionPartie.cpp:128</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_ada422b0349111e373d28d50349413284"><div class="ttname"><a href="class_gestion_partie.html#ada422b0349111e373d28d50349413284">GestionPartie::communication</a></div><div class="ttdeci">Communication * communication</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8h_source.html#l00064">gestionPartie.h:64</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_ada94fd4073183f45979a9c86dbd6570a"><div class="ttname"><a href="class_gestion_partie.html#ada94fd4073183f45979a9c86dbd6570a">GestionPartie::configurerPiste</a></div><div class="ttdeci">void configurerPiste()</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8cpp_source.html#l00086">gestionPartie.cpp:86</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_ae3fbd2d05978af05b49cc30b6d97d8a5"><div class="ttname"><a href="class_gestion_partie.html#ae3fbd2d05978af05b49cc30b6d97d8a5">GestionPartie::recupererTempsAffichageFenetre</a></div><div class="ttdeci">int recupererTempsAffichageFenetre()</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8cpp_source.html#l00294">gestionPartie.cpp:294</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_af09ae839d00b6dc9ee360f5228c39eee"><div class="ttname"><a href="class_gestion_partie.html#af09ae839d00b6dc9ee360f5228c39eee">GestionPartie::joueurs</a></div><div class="ttdeci">QMap&lt; QString, Joueur * &gt; joueurs</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8h_source.html#l00066">gestionPartie.h:66</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_af204d73782f1d3473fd657e094eab9e5"><div class="ttname"><a href="class_gestion_partie.html#af204d73782f1d3473fd657e094eab9e5">GestionPartie::supprimerJoueurs</a></div><div class="ttdeci">void supprimerJoueurs()</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8cpp_source.html#l00080">gestionPartie.cpp:80</a></div></div>
+<div class="ttc" id="aclass_gestion_partie_html_afad62c983d43afe756eee82a3785cb47"><div class="ttname"><a href="class_gestion_partie.html#afad62c983d43afe756eee82a3785cb47">GestionPartie::gererConfiguration</a></div><div class="ttdeci">void gererConfiguration(QString nombreJoueursRecu, QString modeDeJeuRecu)</div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8cpp_source.html#l00068">gestionPartie.cpp:68</a></div></div>
+<div class="ttc" id="aclass_joueur_html"><div class="ttname"><a href="class_joueur.html">Joueur</a></div><div class="ttdef"><b>Definition:</b> <a href="joueur_8h_source.html#l00010">joueur.h:11</a></div></div>
+<div class="ttc" id="aclass_q_object_html"><div class="ttname"><a href="class_q_object.html">QObject</a></div></div>
+<div class="ttc" id="anamespace_ui_html"><div class="ttname"><a href="namespace_ui.html">Ui</a></div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8h_source.html#l00023">gestionPartie.h:24</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.1-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ec9dc5a0e466c8fbfbd740e90e63c0cf.html">moduleVisualisation</a></li><li class="navelem"><a class="el" href="gestion_partie_8h.html">gestionPartie.h</a></li>
+    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Jeudi 5 Juin 2025 12:44:43 pour Projet Jolly-Jumpi par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.9.1&nbsp;</li>
+  </ul>
+</div>
+</body>
+</html>
