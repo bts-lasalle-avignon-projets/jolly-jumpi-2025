@@ -49,13 +49,24 @@ class IHM
     listeMessages << "BTS CIEL IR"
                   << "LaSalle Avignon"
                   << "Nicolas Pessina";
+    listeTitres << "BIENVENUE!"
+                << "Attente de connexion";
+
     connect(minuteurDefilement, SIGNAL(timeout()), this, SLOT(defilerTexte()));
+    connect(minuteurDefilement, SIGNAL(timeout()), this, SLOT(defilerTitre()));
     uiAccueil->labelDefilementTexte->setText(
       listeMessages.at(numeroMessage++ % listeMessages.count()));
+    uiAccueil->labelDefilementTitre->setText(
+      listeTitres.at(numeroTitre++ % listeTitres.count()));
     minuteurDefilement->start(PERIODE_DEFILEMENT);
 
     connect(communication,
-            &Communication::moduleConnectes,
+            &Communication::modulesConnectes,
+            this,
+            &IHM::mettreAJourListeTitres);
+
+    connect(communication,
+            &Communication::configurationEnCours,
             this,
             &IHM::afficherPartie);
     //** @todo faire de même pour la page historiques*/
@@ -67,6 +78,11 @@ class IHM
 !!!150530.cpp!!!	defilerTexte() : void
     uiAccueil->labelDefilementTexte->setText(
       listeMessages.at(numeroMessage++ % listeMessages.count()));
+!!!175746.cpp!!!	defilerTitre() : void
+    uiAccueil->labelDefilementTitre->setText(
+      listeTitres.at(numeroTitre++ % listeTitres.count()));
+!!!175874.cpp!!!	mettreAJourListeTitres() : void
+    listeTitres[1] = "Attente de configuration";
 !!!150658.cpp!!!	fermer() : void
     this->close();
 !!!150786.cpp!!!	afficherPartie() : void

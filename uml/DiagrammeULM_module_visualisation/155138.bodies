@@ -661,11 +661,11 @@ class Bluetooth
     qDebug() << Q_FUNC_INFO << socket << "nom"
              << recupererNomPeripherique(socket) << "adresse"
              << recupererAdressePeripherique(socket) << messageEtat;
-!!!143106.cpp!!!	peripheriqueDistantTrouve(in peripherique : QBluetoothDeviceInfo) : void
+!!!143106.cpp!!!	peripheriqueDistantTrouve(in _t1 : QBluetoothDeviceInfo) : void
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
 !!!143746.cpp!!!	rechercheTerminee() : void
     QMetaObject::activate(this, &staticMetaObject, 5, nullptr);
-!!!143874.cpp!!!	messageRecu(in nom : QString, in adresse : QString, in message : QString) : void
+!!!143874.cpp!!!	messageRecu(in _t1 : QString, in _t2 : QString, in _t3 : QString) : void
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)) };
     QMetaObject::activate(this, &staticMetaObject, 6, _a);

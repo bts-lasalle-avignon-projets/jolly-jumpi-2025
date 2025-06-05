@@ -155,8 +155,23 @@ class GestionPartie
              << scoreTir;
     if(etat != EtatPartie::FINIE || etat != EtatPartie::ABANDONNEE)
     {
+        int pointManquant  = SCORE_MAX - joueurs[numeroPiste]->recupererScore();
+        int scoreRecevable = 0;
+
+        if(scoreTir <= pointManquant)
+        {
+            scoreRecevable = scoreTir;
+            qDebug() << Q_FUNC_INFO << "pointManquant <= au scorTir";
+            tempsAttenteFinAnimation = (SCORE_TIR_MAX + 1) * TEMPS_ANIMATION;
+        }
+        else
+        {
+            scoreRecevable           = pointManquant;
+            tempsAttenteFinAnimation = (pointManquant + 1) * TEMPS_ANIMATION;
+            qDebug() << Q_FUNC_INFO << "pointManquant > au scorTir";
+        }
         emit tirRecu(QString::number(joueurs[numeroPiste]->recupererNumero()),
-                     scoreTir);
+                     scoreRecevable);
     }
     joueurs[numeroPiste]->ajouterTir(scoreTir, chronometre);
     joueurs[numeroPiste]->afficherTirs();
@@ -167,15 +182,16 @@ class GestionPartie
         finirPartie();
     }
 !!!149378.cpp!!!	finirPartie() : void
+    communication->arreterPartie();
     // Le timer permet à IHMPartie de recevoir le dernier tir
     QTimer::singleShot(
-      500,
+      tempsAttenteFinAnimation,
       this,
       [this]()
       {
           qDebug() << Q_FUNC_INFO << "partie fini, reception score fermee";
           etat = EtatPartie::FINIE;
-          communication->arreterPartie();
+
           emit demandeClassement();
           QTimer::singleShot(
             TEMPS_AFFICHAGE_FENETRE * 1000,
@@ -202,6 +218,18 @@ class GestionPartie
     emit estFinPartie();
     communication->arreterPartie();
     communication->signalerFinDePartie();
-!!!149634.cpp!!!	tirRecu(in numeroJoueur : QString, in scoreTir : int) : void
+!!!149634.cpp!!!	tirRecu(in _t1 : QString, in _t2 : int) : void
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)) };
-    QMetaObject::activate(this, &staticMetaObject, 1, _a);
+    QMetaObject::activate(this, &staticMetaObject, 0, _a);
+!!!149762.cpp!!!	demandeClassement() : void
+    QMetaObject::activate(this, &staticMetaObject, 1, nullptr);
+!!!149890.cpp!!!	demandeStatistiquesJoueur() : void
+    QMetaObject::activate(this, &staticMetaObject, 2, nullptr);
+!!!150018.cpp!!!	estFinPartie() : void
+    QMetaObject::activate(this, &staticMetaObject, 3, nullptr);
+!!!166018.cpp!!!	creerChevaux(in _t1 : int) : void
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 4, _a);
+!!!166146.cpp!!!	avancementChronometre(in _t1 : int) : void
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 5, _a);
