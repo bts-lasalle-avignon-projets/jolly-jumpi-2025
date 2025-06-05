@@ -1,0 +1,295 @@
+format 224
+"build-moduleVisualisation-Desktop-Debug" // src::build-moduleVisualisation-Desktop-Debug
+  revision 3
+  modified_by 2 "btssn2"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  cpp_h_dir "src/build-moduleVisualisation-Desktop-Debug/"
+  cpp_src_dir "src/build-moduleVisualisation-Desktop-Debug/"
+  cpp_namespace "Ui"
+  classview 134914 "build-moduleVisualisation-Desktop-Debug"
+    
+    classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    sequencediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    
+    activitydiagramsettings
+     end
+    class 155906 "Accueil"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 147330 // <generalisation>
+	relation 145666 ---|>
+	  a public
+	    cpp default "${type}"
+	    classrelation_ref 147330 // <generalisation>
+	  b parent class_ref 157058 // typedef2
+      end
+    end
+
+    class 156034 "Classement"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 147458 // <generalisation>
+	relation 145794 ---|>
+	  a public
+	    cpp default "${type}"
+	    classrelation_ref 147458 // <generalisation>
+	  b parent class_ref 157186 // typedef3
+      end
+    end
+
+    class 156162 "Partie"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 147586 // <generalisation>
+	relation 145922 ---|>
+	  a public
+	    cpp default "${type}"
+	    classrelation_ref 147586 // <generalisation>
+	  b parent class_ref 157314 // typedef4
+      end
+    end
+
+    class 156290 "StatistiquesJoueur"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 147714 // <generalisation>
+	relation 146050 ---|>
+	  a public
+	    cpp default "${type}"
+	    classrelation_ref 147714 // <generalisation>
+	  b parent class_ref 157442 // typedef5
+      end
+    end
+
+    class 157058 "typedef2"
+      visibility package stereotype "typedef" explicit_base_type "Ui_Accueil"
+      cpp_decl "${comment}typedef ${type} ${name};
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+
+    class 157186 "typedef3"
+      visibility package stereotype "typedef" explicit_base_type "Ui_Classement"
+      cpp_decl "${comment}typedef ${type} ${name};
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+
+    class 157314 "typedef4"
+      visibility package stereotype "typedef" explicit_base_type "Ui_Partie"
+      cpp_decl "${comment}typedef ${type} ${name};
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+
+    class 157442 "typedef5"
+      visibility package stereotype "typedef" explicit_base_type "Ui_StatistiquesJoueur"
+      cpp_decl "${comment}typedef ${type} ${name};
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+  end
+
+  package_ref 128898 // build-moduleVisualisation-Desktop-Debug
+
+  deploymentview 128258 "build-moduleVisualisation-Desktop-Debug"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 135682 "ui_accueil"
+      stereotype "source"
+      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
+#define ${NAMESPACE}_${NAME}_H
+
+${comment}
+${includes}
+${declarations}
+${namespace_start}
+${definition}
+${namespace_end}
+#endif
+"
+      cpp_src "${comment}
+${includes}
+${namespace_start}
+${members}
+${namespace_end}"
+      associated_elems
+	class_ref 155906 // Accueil
+      end
+    end
+
+    artifact 135810 "ui_classement"
+      stereotype "source"
+      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
+#define ${NAMESPACE}_${NAME}_H
+
+${comment}
+${includes}
+${declarations}
+${namespace_start}
+${definition}
+${namespace_end}
+#endif
+"
+      cpp_src "${comment}
+${includes}
+${namespace_start}
+${members}
+${namespace_end}"
+      associated_elems
+	class_ref 156034 // Classement
+      end
+    end
+
+    artifact 135938 "ui_partie"
+      stereotype "source"
+      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
+#define ${NAMESPACE}_${NAME}_H
+
+${comment}
+${includes}
+${declarations}
+${namespace_start}
+${definition}
+${namespace_end}
+#endif
+"
+      cpp_src "${comment}
+${includes}
+${namespace_start}
+${members}
+${namespace_end}"
+      associated_elems
+	class_ref 156162 // Partie
+      end
+    end
+
+    artifact 136066 "ui_statistiquesJoueur"
+      stereotype "source"
+      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
+#define ${NAMESPACE}_${NAME}_H
+
+${comment}
+${includes}
+${declarations}
+${namespace_start}
+${definition}
+${namespace_end}
+#endif
+"
+      cpp_src "${comment}
+${includes}
+${namespace_start}
+${members}
+${namespace_end}"
+      associated_elems
+	class_ref 156290 // StatistiquesJoueur
+      end
+    end
+  end
+end

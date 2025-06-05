@@ -1,0 +1,459 @@
+format 224
+"afficheur" // simulateur::lib::afficheur
+  revision 3
+  modified_by 2 "btssn2"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  cpp_h_dir "simulateur/lib/afficheur/"
+  cpp_src_dir "simulateur/lib/afficheur/"
+  classview 134786 "afficheur"
+    
+    classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    sequencediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    
+    activitydiagramsettings
+     end
+    class 155778 "Afficheur"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "@class Afficheur
+
+@brief Déclaration de la classe Afficheur qui permet de gérer l'écran OLED SSD1306
+
+@author Thierry Vaira
+
+@version 0.1
+
+"
+      classrelation 137730 // <generalisation>
+	relation 136066 ---|>
+	  a public
+	    cpp default "${type}"
+	    classrelation_ref 137730 // <generalisation>
+	  b parent class_ref 156802 // typedef1
+      end
+
+      operation 137858 "Afficheur"
+	preserve_cpp_body_indent public explicit_return_type ""
+	nparams 3
+	  param in name "adresseI2C" explicit_type "int"
+	    defaultvalue "ADRESSE_I2C_OLED_DEFAUT"
+	  param in name "brocheSDA" explicit_type "int"
+	    defaultvalue "BROCHE_I2C_SDA_DEFAUT"
+	  param in name "brocheSCL" explicit_type "int"
+	    defaultvalue "BROCHE_I2C_SCL_DEFAUT"
+	cpp_decl "    ${comment}${inline}${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}, ${t2} ${p2}${v2}${)}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Constructeur de la classe Afficheur
+//
+//@fn Afficheur::Afficheur
+//
+//@param adresseI2C int l'adresse I2C de l'afficheur
+//@param brocheSDA int broche I2C SDA
+//@param brocheSCL int broche I2C SCL
+//
+
+${inline}${typeprefix}${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}${)} : SSD1306Wire(adresseI2C, brocheSDA, brocheSCL)
+${throw}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      class 156930 "Ligne"
+	visibility package stereotype "enum"
+	cpp_decl "${comment}enum ${name} {
+${items}};
+"
+	java_decl ""
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	mysql_decl ""
+	
+	attribute 138498 "Ligne1"
+	  public type class_ref 156930 // Ligne
+	  init_value " 0"
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 138626 "Ligne2"
+	  public type class_ref 156930 // Ligne
+	  init_value " 1"
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 138754 "Ligne3"
+	  public type class_ref 156930 // Ligne
+	  init_value " 2"
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 138882 "Ligne4"
+	  public type class_ref 156930 // Ligne
+	  init_value " 3"
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 139010 "NbLignes"
+	  public type class_ref 156930 // Ligne
+	  init_value " 4"
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+      end
+
+      operation 137986 "initialiser"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Initialise l'afficheur SSD1306Wire
+//
+//@fn Afficheur::initialiser
+//
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 138114 "effacer"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Efface l'afficheur
+//
+//@fn Afficheur::effacer
+//
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 138242 "afficher"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Affiche les différentes lignes de l'afficheur
+//
+//@fn Afficheur::afficher
+//
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 138370 "setTitre"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 1
+	  param in name "titre" explicit_type "String"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Fixe un titre à afficher
+//
+//@fn Afficheur::setTitre
+//
+//@param titre String le titre à afficher
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 138498 "setSTitre"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 1
+	  param in name "stitre" explicit_type "String"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Fixe un sous-titre à afficher
+//
+//@fn Afficheur::setSTitre
+//
+//@param stitre String le sous-titre à afficher
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 138626 "setMessageLigne"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 2
+	  param in name "ligne" type class_ref 156930 // Ligne
+	  param in name "message" explicit_type "String"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Fixe un message à un numéro de ligne
+//
+//@fn Afficheur::setMessageLigne
+//
+//@param ligne Ligne numéro de ligne pour le message
+//@param message String le message à afficher sur le numéro de ligne correspondant
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 138754 "getMessageLigne"
+	preserve_cpp_body_indent public explicit_return_type "String"
+	nparams 1
+	  param in name "ligne" type class_ref 156930 // Ligne
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      attribute 139138 "titre"
+	private explicit_type "String"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "!< un titre affiché sur la première ligne de l'écran"
+      end
+
+      attribute 139266 "stitre"
+	private explicit_type "String"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "!< un sous-titre affiché sur la première ligne de l'écran"
+      end
+
+      attribute 139394 "messages"
+	private explicit_type "String"
+	multiplicity "[NbLignes]"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${multiplicity}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "!< les messages à afficher pour chaque ligne"
+      end
+
+      operation 138882 "afficherTitre"
+	preserve_cpp_body_indent private explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Méthodes privées
+//
+//@brief Affiche un titre sur l'afficheur
+//
+//@fn Afficheur::afficherTitre
+//
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 139010 "afficherMessage"
+	preserve_cpp_body_indent private explicit_return_type "void"
+	nparams 2
+	  param in name "ligne" explicit_type "int"
+	  param in name "message" explicit_type "String"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Affiche un message sur une ligne de l'afficheur
+//
+//@fn Afficheur::afficherMessage
+//
+//@param ligne int numéro de ligne pour le message
+//@param message String le message à afficher sur le numéro de ligne correspondant
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+    end
+
+    class 156802 "typedef1"
+      visibility package stereotype "typedef" explicit_base_type "SSD1306Wire"
+      cpp_decl "${comment}typedef ${type} ${name};
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+  end
+
+  deploymentview 128130 "afficheur"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 128130 "afficheur"
+      stereotype "source"
+      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
+#define ${NAMESPACE}_${NAME}_H
+
+${comment}
+${includes}
+${declarations}
+${namespace_start}
+${definition}
+${namespace_end}
+#endif
+"
+      cpp_src "${comment}
+${includes}
+${namespace_start}
+${members}
+${namespace_end}"
+      associated_elems
+	class_ref 155778 // Afficheur
+      end
+    end
+  end
+end

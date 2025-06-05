@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Projet Jolly-Jumpi:  Fichier source de ihmStatistiquesJoueur.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="customdoxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="projet-logo.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Projet Jolly-Jumpi
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">BTS CIEL IR LaSalle Avignon 2025</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('ihm_statistiques_joueur_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">ihmStatistiquesJoueur.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="ihm_statistiques_joueur_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef IHMSTATISTIQUESJOUEUR_H</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define IHMSTATISTIQUESJOUEUR_H</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;QtWidgets&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="ihm_statistiques_joueur_8h.html#a3e5fc180eb1677faf4bebb8532d5fddd">    6</a></span>&#160;<span class="preprocessor">#define SIMULATION_CLAVIER_STATISTIQUESJOUEUR</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="ihm_statistiques_joueur_8h.html#a26217e254eb0bad01137e8134be32787">    7</a></span>&#160;<span class="preprocessor">#define NOMBRE_COLONNE_STATISTIQUES 6</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_ui.html">Ui</a></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">class </span>StatistiquesJoueur;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;}</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">class </span><a class="code" href="class_gestion_partie.html">GestionPartie</a>;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="class_i_h_m_statistiques_joueur.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_i_h_m_statistiques_joueur.html">IHMStatistiquesJoueur</a> : <span class="keyword">public</span> <a class="code" href="class_q_widget.html">QWidget</a></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    Q_OBJECT</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="class_i_h_m_statistiques_joueur.html#a0a8ad0c48b0c3ad8b33737c096e014b0">   21</a></span>&#160;    Ui::StatistiquesJoueur* <a class="code" href="class_i_h_m_statistiques_joueur.html#a0a8ad0c48b0c3ad8b33737c096e014b0">uiStatistiquesJoueur</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="class_i_h_m_statistiques_joueur.html#a7a4174729fcbc024c88c1ef5e7e66f47">   22</a></span>&#160;    <a class="code" href="class_gestion_partie.html">GestionPartie</a>*          <a class="code" href="class_i_h_m_statistiques_joueur.html#a7a4174729fcbc024c88c1ef5e7e66f47">gestionPartie</a>; </div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="class_i_h_m_statistiques_joueur.html#a0e88bd426d28dfcb3ca4dc3239d4fcb2">   23</a></span>&#160;    <span class="keywordtype">int</span>                     <a class="code" href="class_i_h_m_statistiques_joueur.html#a0e88bd426d28dfcb3ca4dc3239d4fcb2">indexJoueurStatistiques</a>;</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="class_i_h_m_statistiques_joueur.html#ad4809ef0ba33242140ef1a6ac19c0084">   24</a></span>&#160;    QStringList             <a class="code" href="class_i_h_m_statistiques_joueur.html#ad4809ef0ba33242140ef1a6ac19c0084">nomLabelsEntete</a>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="class_i_h_m_statistiques_joueur.html#a3ff3907e859771ec7626e1d0782ff7ae">   25</a></span>&#160;    QStringList             <a class="code" href="class_i_h_m_statistiques_joueur.html#a3ff3907e859771ec7626e1d0782ff7ae">nomLabels</a>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="class_i_h_m_statistiques_joueur.html#a1ce5a8bb34ddf753c94e70e6a312a4d9">   26</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="class_i_h_m_statistiques_joueur.html#a1ce5a8bb34ddf753c94e70e6a312a4d9">NomLabelsEntete</a></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    {</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="class_i_h_m_statistiques_joueur.html#a1ce5a8bb34ddf753c94e70e6a312a4d9a51f0da1c1efd5da3ed4856c5eac73c37">   28</a></span>&#160;        <a class="code" href="class_i_h_m_statistiques_joueur.html#a1ce5a8bb34ddf753c94e70e6a312a4d9a51f0da1c1efd5da3ed4856c5eac73c37">JOUEUR</a> = 0,</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="class_i_h_m_statistiques_joueur.html#a1ce5a8bb34ddf753c94e70e6a312a4d9a159d4c50ebace9996d1d0107770b3015">   29</a></span>&#160;        <a class="code" href="class_i_h_m_statistiques_joueur.html#a1ce5a8bb34ddf753c94e70e6a312a4d9a159d4c50ebace9996d1d0107770b3015">SCORE</a>,</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="class_i_h_m_statistiques_joueur.html#a1ce5a8bb34ddf753c94e70e6a312a4d9a57d813afa5b14d3a55d2eee044caccd8">   30</a></span>&#160;        <a class="code" href="class_i_h_m_statistiques_joueur.html#a1ce5a8bb34ddf753c94e70e6a312a4d9a57d813afa5b14d3a55d2eee044caccd8">PLACE</a>,</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <a class="code" href="class_i_h_m_statistiques_joueur.html#a1ce5a8bb34ddf753c94e70e6a312a4d9aec3cf981f4f7c83b8573bac043f490d5">NB_LABELS_ENTETE</a></div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="class_i_h_m_statistiques_joueur.html#a1ce5a8bb34ddf753c94e70e6a312a4d9aec3cf981f4f7c83b8573bac043f490d5">   32</a></span>&#160;    };</div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="class_i_h_m_statistiques_joueur.html#ad1e9edf662e4c0af29904f5209311a1c">   33</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="class_i_h_m_statistiques_joueur.html#ad1e9edf662e4c0af29904f5209311a1c">NomLabels</a></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    {</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="class_i_h_m_statistiques_joueur.html#ad1e9edf662e4c0af29904f5209311a1ca3b8800df39e173dc4b15ce8240a2974b">   35</a></span>&#160;        <a class="code" href="class_i_h_m_statistiques_joueur.html#ad1e9edf662e4c0af29904f5209311a1ca3b8800df39e173dc4b15ce8240a2974b">NUMERO_TIR</a> = 0,</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="class_i_h_m_statistiques_joueur.html#ad1e9edf662e4c0af29904f5209311a1ca97056e930d1f04b224bba327a7048ad2">   36</a></span>&#160;        <a class="code" href="class_i_h_m_statistiques_joueur.html#ad1e9edf662e4c0af29904f5209311a1ca97056e930d1f04b224bba327a7048ad2">SCORE_TIR</a>,</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="class_i_h_m_statistiques_joueur.html#ad1e9edf662e4c0af29904f5209311a1ca2ecbbb332bdf8f8dedefacc2a79761ed">   37</a></span>&#160;        <a class="code" href="class_i_h_m_statistiques_joueur.html#ad1e9edf662e4c0af29904f5209311a1ca2ecbbb332bdf8f8dedefacc2a79761ed">SCORE_CUMULE</a>,</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="class_i_h_m_statistiques_joueur.html#ad1e9edf662e4c0af29904f5209311a1ca09e9f542090f82b8f9b99833456f71b3">   38</a></span>&#160;        <a class="code" href="class_i_h_m_statistiques_joueur.html#ad1e9edf662e4c0af29904f5209311a1ca09e9f542090f82b8f9b99833456f71b3">TEMPS_TIR</a>,</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="class_i_h_m_statistiques_joueur.html#ad1e9edf662e4c0af29904f5209311a1ca887ffab400f6b60d61bc8b8e5f07e2f7">   39</a></span>&#160;        <a class="code" href="class_i_h_m_statistiques_joueur.html#ad1e9edf662e4c0af29904f5209311a1ca887ffab400f6b60d61bc8b8e5f07e2f7">ECART_TIR</a>,</div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="class_i_h_m_statistiques_joueur.html#ad1e9edf662e4c0af29904f5209311a1ca773e16f7f4f66065393391a1c6912e57">   40</a></span>&#160;        <a class="code" href="class_i_h_m_statistiques_joueur.html#ad1e9edf662e4c0af29904f5209311a1ca773e16f7f4f66065393391a1c6912e57">TROU_PREFERE</a>,</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <a class="code" href="class_i_h_m_statistiques_joueur.html#ad1e9edf662e4c0af29904f5209311a1cad7d4001329a33f6ea358e17ad672ad3c">NB_LABELS</a></div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="class_i_h_m_statistiques_joueur.html#ad1e9edf662e4c0af29904f5209311a1cad7d4001329a33f6ea358e17ad672ad3c">   42</a></span>&#160;    };</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_i_h_m_statistiques_joueur.html#a680cbe88753ab1910b8febc623e3fbb7">editerLabelEntete</a>(<span class="keyword">const</span> QString numero, <span class="keywordtype">int</span> indexLabelEntete);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_i_h_m_statistiques_joueur.html#a308a1651034a0438d4a27bd0d150e9e8">editerLabel</a>(<span class="keyword">const</span> QString&amp; labelRecherche, <span class="keyword">const</span> QString&amp; valeur);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_i_h_m_statistiques_joueur.html#a1f02d923b3954daa9b7b94e3cee0f719">afficherStatistiques</a>(<span class="keyword">const</span> QString numero);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_i_h_m_statistiques_joueur.html#a492d1604de6882173e511a1ac3067063">deroulerStatistiques</a>();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_i_h_m_statistiques_joueur.html#aee445baa0b12bfd355ebcc2a71037f3e">appliquerMiseEnForme</a>(QLayout* layout, <span class="keywordtype">int</span> taillePolice);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_i_h_m_statistiques_joueur.html#aacfdd0a1f445d53ab2c58d33a26e7dd6">redimensionnerLabel</a>();</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#ifdef SIMULATION_CLAVIER_STATISTIQUESJOUEUR</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_i_h_m_statistiques_joueur.html#ab837a60e8b399af9efcd5320e2943e0f">simulerStatistiquesJoueur</a>();</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_i_h_m_statistiques_joueur.html#a2ceb98129b5bc987c8c658e51efe0ba7">showEvent</a>(QShowEvent* event);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="class_i_h_m_statistiques_joueur.html#a5e86b8ddfbb1f3aaae4de64563909be3">IHMStatistiquesJoueur</a>(<a class="code" href="class_gestion_partie.html">GestionPartie</a>* <a class="code" href="class_i_h_m_statistiques_joueur.html#a7a4174729fcbc024c88c1ef5e7e66f47">gestionPartie</a>,</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                                   <a class="code" href="class_q_widget.html">QWidget</a>*       parent = <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_i_h_m_statistiques_joueur.html#ae4c767738c5b7be791dd410bb06ff406">~IHMStatistiquesJoueur</a>();</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keyword">private</span> slots:</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_i_h_m_statistiques_joueur.html#aa5f3c7f806e6fe90cc425afd4884a972">fermer</a>();</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_i_h_m_statistiques_joueur.html#ae12a45bdc1c30b58c8111035c7ec1c3e">deroulerStatistiquesSuivant</a>();</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;};</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// IHMPARTIE_H</span></div>
+<div class="ttc" id="aclass_gestion_partie_html"><div class="ttname"><a href="class_gestion_partie.html">GestionPartie</a></div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8h_source.html#l00028">gestionPartie.h:29</a></div></div>
+<div class="ttc" id="aclass_i_h_m_statistiques_joueur_html"><div class="ttname"><a href="class_i_h_m_statistiques_joueur.html">IHMStatistiquesJoueur</a></div><div class="ttdef"><b>Definition:</b> <a href="ihm_statistiques_joueur_8h_source.html#l00016">ihmStatistiquesJoueur.h:17</a></div></div>
+<div class="ttc" id="aclass_i_h_m_statistiques_joueur_html_a0a8ad0c48b0c3ad8b33737c096e014b0"><div class="ttname"><a href="class_i_h_m_statistiques_joueur.html#a0a8ad0c48b0c3ad8b33737c096e014b0">IHMStatistiquesJoueur::uiStatistiquesJoueur</a></div><div class="ttdeci">Ui::StatistiquesJoueur * uiStatistiquesJoueur</div><div class="ttdef"><b>Definition:</b> <a href="ihm_statistiques_joueur_8h_source.html#l00021">ihmStatistiquesJoueur.h:21</a></div></div>
+<div class="ttc" id="aclass_i_h_m_statistiques_joueur_html_a0e88bd426d28dfcb3ca4dc3239d4fcb2"><div class="ttname"><a href="class_i_h_m_statistiques_joueur.html#a0e88bd426d28dfcb3ca4dc3239d4fcb2">IHMStatistiquesJoueur::indexJoueurStatistiques</a></div><div class="ttdeci">int indexJoueurStatistiques</div><div class="ttdef"><b>Definition:</b> <a href="ihm_statistiques_joueur_8h_source.html#l00023">ihmStatistiquesJoueur.h:23</a></div></div>
+<div class="ttc" id="aclass_i_h_m_statistiques_joueur_html_a1ce5a8bb34ddf753c94e70e6a312a4d9"><div class="ttname"><a href="class_i_h_m_statistiques_joueur.html#a1ce5a8bb34ddf753c94e70e6a312a4d9">IHMStatistiquesJoueur::NomLabelsEntete</a></div><div class="ttdeci">NomLabelsEntete</div><div class="ttdef"><b>Definition:</b> <a href="ihm_statistiques_joueur_8h_source.html#l00026">ihmStatistiquesJoueur.h:27</a></div></div>
+<div class="ttc" id="aclass_i_h_m_statistiques_joueur_html_a1ce5a8bb34ddf753c94e70e6a312a4d9a159d4c50ebace9996d1d0107770b3015"><div class="ttname"><a href="class_i_h_m_statistiques_joueur.html#a1ce5a8bb34ddf753c94e70e6a312a4d9a159d4c50ebace9996d1d0107770b3015">IHMStatistiquesJoueur::SCORE</a></div><div class="ttdeci">@ SCORE</div><div class="ttdef"><b>Definition:</b> <a href="ihm_statistiques_joueur_8h_source.html#l00029">ihmStatistiquesJoueur.h:29</a></div></div>
+<div class="ttc" id="aclass_i_h_m_statistiques_joueur_html_a1ce5a8bb34ddf753c94e70e6a312a4d9a51f0da1c1efd5da3ed4856c5eac73c37"><div class="ttname"><a href="class_i_h_m_statistiques_joueur.html#a1ce5a8bb34ddf753c94e70e6a312a4d9a51f0da1c1efd5da3ed4856c5eac73c37">IHMStatistiquesJoueur::JOUEUR</a></div><div class="ttdeci">@ JOUEUR</div><div class="ttdef"><b>Definition:</b> <a href="ihm_statistiques_joueur_8h_source.html#l00028">ihmStatistiquesJoueur.h:28</a></div></div>
+<div class="ttc" id="aclass_i_h_m_statistiques_joueur_html_a1ce5a8bb34ddf753c94e70e6a312a4d9a57d813afa5b14d3a55d2eee044caccd8"><div class="ttname"><a href="class_i_h_m_statistiques_joueur.html#a1ce5a8bb34ddf753c94e70e6a312a4d9a57d813afa5b14d3a55d2eee044caccd8">IHMStatistiquesJoueur::PLACE</a></div><div class="ttdeci">@ PLACE</div><div class="ttdef"><b>Definition:</b> <a href="ihm_statistiques_joueur_8h_source.html#l00030">ihmStatistiquesJoueur.h:30</a></div></div>
+<div class="ttc" id="aclass_i_h_m_statistiques_joueur_html_a1ce5a8bb34ddf753c94e70e6a312a4d9aec3cf981f4f7c83b8573bac043f490d5"><div class="ttname"><a href="class_i_h_m_statistiques_joueur.html#a1ce5a8bb34ddf753c94e70e6a312a4d9aec3cf981f4f7c83b8573bac043f490d5">IHMStatistiquesJoueur::NB_LABELS_ENTETE</a></div><div class="ttdeci">@ NB_LABELS_ENTETE</div><div class="ttdef"><b>Definition:</b> <a href="ihm_statistiques_joueur_8h_source.html#l00032">ihmStatistiquesJoueur.h:31</a></div></div>
+<div class="ttc" id="aclass_i_h_m_statistiques_joueur_html_a1f02d923b3954daa9b7b94e3cee0f719"><div class="ttname"><a href="class_i_h_m_statistiques_joueur.html#a1f02d923b3954daa9b7b94e3cee0f719">IHMStatistiquesJoueur::afficherStatistiques</a></div><div class="ttdeci">void afficherStatistiques(const QString numero)</div><div class="ttdef"><b>Definition:</b> <a href="ihm_statistiques_joueur_8cpp_source.html#l00129">ihmStatistiquesJoueur.cpp:129</a></div></div>
+<div class="ttc" id="aclass_i_h_m_statistiques_joueur_html_a2ceb98129b5bc987c8c658e51efe0ba7"><div class="ttname"><a href="class_i_h_m_statistiques_joueur.html#a2ceb98129b5bc987c8c658e51efe0ba7">IHMStatistiquesJoueur::showEvent</a></div><div class="ttdeci">void showEvent(QShowEvent *event)</div><div class="ttdef"><b>Definition:</b> <a href="ihm_statistiques_joueur_8cpp_source.html#l00054">ihmStatistiquesJoueur.cpp:54</a></div></div>
+<div class="ttc" id="aclass_i_h_m_statistiques_joueur_html_a308a1651034a0438d4a27bd0d150e9e8"><div class="ttname"><a href="class_i_h_m_statistiques_joueur.html#a308a1651034a0438d4a27bd0d150e9e8">IHMStatistiquesJoueur::editerLabel</a></div><div class="ttdeci">void editerLabel(const QString &amp;labelRecherche, const QString &amp;valeur)</div><div class="ttdef"><b>Definition:</b> <a href="ihm_statistiques_joueur_8cpp_source.html#l00088">ihmStatistiquesJoueur.cpp:88</a></div></div>
+<div class="ttc" id="aclass_i_h_m_statistiques_joueur_html_a3ff3907e859771ec7626e1d0782ff7ae"><div class="ttname"><a href="class_i_h_m_statistiques_joueur.html#a3ff3907e859771ec7626e1d0782ff7ae">IHMStatistiquesJoueur::nomLabels</a></div><div class="ttdeci">QStringList nomLabels</div><div class="ttdef"><b>Definition:</b> <a href="ihm_statistiques_joueur_8h_source.html#l00025">ihmStatistiquesJoueur.h:25</a></div></div>
+<div class="ttc" id="aclass_i_h_m_statistiques_joueur_html_a492d1604de6882173e511a1ac3067063"><div class="ttname"><a href="class_i_h_m_statistiques_joueur.html#a492d1604de6882173e511a1ac3067063">IHMStatistiquesJoueur::deroulerStatistiques</a></div><div class="ttdeci">void deroulerStatistiques()</div><div class="ttdef"><b>Definition:</b> <a href="ihm_statistiques_joueur_8cpp_source.html#l00102">ihmStatistiquesJoueur.cpp:102</a></div></div>
+<div class="ttc" id="aclass_i_h_m_statistiques_joueur_html_a5e86b8ddfbb1f3aaae4de64563909be3"><div class="ttname"><a href="class_i_h_m_statistiques_joueur.html#a5e86b8ddfbb1f3aaae4de64563909be3">IHMStatistiquesJoueur::IHMStatistiquesJoueur</a></div><div class="ttdeci">IHMStatistiquesJoueur(GestionPartie *gestionPartie, QWidget *parent=nullptr)</div><div class="ttdef"><b>Definition:</b> <a href="ihm_statistiques_joueur_8cpp_source.html#l00006">ihmStatistiquesJoueur.cpp:6</a></div></div>
+<div class="ttc" id="aclass_i_h_m_statistiques_joueur_html_a680cbe88753ab1910b8febc623e3fbb7"><div class="ttname"><a href="class_i_h_m_statistiques_joueur.html#a680cbe88753ab1910b8febc623e3fbb7">IHMStatistiquesJoueur::editerLabelEntete</a></div><div class="ttdeci">void editerLabelEntete(const QString numero, int indexLabelEntete)</div><div class="ttdef"><b>Definition:</b> <a href="ihm_statistiques_joueur_8cpp_source.html#l00067">ihmStatistiquesJoueur.cpp:67</a></div></div>
+<div class="ttc" id="aclass_i_h_m_statistiques_joueur_html_a7a4174729fcbc024c88c1ef5e7e66f47"><div class="ttname"><a href="class_i_h_m_statistiques_joueur.html#a7a4174729fcbc024c88c1ef5e7e66f47">IHMStatistiquesJoueur::gestionPartie</a></div><div class="ttdeci">GestionPartie * gestionPartie</div><div class="ttdoc">association vers GestionPartie</div><div class="ttdef"><b>Definition:</b> <a href="ihm_statistiques_joueur_8h_source.html#l00022">ihmStatistiquesJoueur.h:22</a></div></div>
+<div class="ttc" id="aclass_i_h_m_statistiques_joueur_html_aa5f3c7f806e6fe90cc425afd4884a972"><div class="ttname"><a href="class_i_h_m_statistiques_joueur.html#aa5f3c7f806e6fe90cc425afd4884a972">IHMStatistiquesJoueur::fermer</a></div><div class="ttdeci">void fermer()</div><div class="ttdef"><b>Definition:</b> <a href="ihm_statistiques_joueur_8cpp_source.html#l00061">ihmStatistiquesJoueur.cpp:61</a></div></div>
+<div class="ttc" id="aclass_i_h_m_statistiques_joueur_html_aacfdd0a1f445d53ab2c58d33a26e7dd6"><div class="ttname"><a href="class_i_h_m_statistiques_joueur.html#aacfdd0a1f445d53ab2c58d33a26e7dd6">IHMStatistiquesJoueur::redimensionnerLabel</a></div><div class="ttdeci">void redimensionnerLabel()</div><div class="ttdef"><b>Definition:</b> <a href="ihm_statistiques_joueur_8cpp_source.html#l00182">ihmStatistiquesJoueur.cpp:182</a></div></div>
+<div class="ttc" id="aclass_i_h_m_statistiques_joueur_html_ab837a60e8b399af9efcd5320e2943e0f"><div class="ttname"><a href="class_i_h_m_statistiques_joueur.html#ab837a60e8b399af9efcd5320e2943e0f">IHMStatistiquesJoueur::simulerStatistiquesJoueur</a></div><div class="ttdeci">void simulerStatistiquesJoueur()</div><div class="ttdef"><b>Definition:</b> <a href="ihm_statistiques_joueur_8cpp_source.html#l00198">ihmStatistiquesJoueur.cpp:198</a></div></div>
+<div class="ttc" id="aclass_i_h_m_statistiques_joueur_html_ad1e9edf662e4c0af29904f5209311a1c"><div class="ttname"><a href="class_i_h_m_statistiques_joueur.html#ad1e9edf662e4c0af29904f5209311a1c">IHMStatistiquesJoueur::NomLabels</a></div><div class="ttdeci">NomLabels</div><div class="ttdef"><b>Definition:</b> <a href="ihm_statistiques_joueur_8h_source.html#l00033">ihmStatistiquesJoueur.h:34</a></div></div>
+<div class="ttc" id="aclass_i_h_m_statistiques_joueur_html_ad1e9edf662e4c0af29904f5209311a1ca09e9f542090f82b8f9b99833456f71b3"><div class="ttname"><a href="class_i_h_m_statistiques_joueur.html#ad1e9edf662e4c0af29904f5209311a1ca09e9f542090f82b8f9b99833456f71b3">IHMStatistiquesJoueur::TEMPS_TIR</a></div><div class="ttdeci">@ TEMPS_TIR</div><div class="ttdef"><b>Definition:</b> <a href="ihm_statistiques_joueur_8h_source.html#l00038">ihmStatistiquesJoueur.h:38</a></div></div>
+<div class="ttc" id="aclass_i_h_m_statistiques_joueur_html_ad1e9edf662e4c0af29904f5209311a1ca2ecbbb332bdf8f8dedefacc2a79761ed"><div class="ttname"><a href="class_i_h_m_statistiques_joueur.html#ad1e9edf662e4c0af29904f5209311a1ca2ecbbb332bdf8f8dedefacc2a79761ed">IHMStatistiquesJoueur::SCORE_CUMULE</a></div><div class="ttdeci">@ SCORE_CUMULE</div><div class="ttdef"><b>Definition:</b> <a href="ihm_statistiques_joueur_8h_source.html#l00037">ihmStatistiquesJoueur.h:37</a></div></div>
+<div class="ttc" id="aclass_i_h_m_statistiques_joueur_html_ad1e9edf662e4c0af29904f5209311a1ca3b8800df39e173dc4b15ce8240a2974b"><div class="ttname"><a href="class_i_h_m_statistiques_joueur.html#ad1e9edf662e4c0af29904f5209311a1ca3b8800df39e173dc4b15ce8240a2974b">IHMStatistiquesJoueur::NUMERO_TIR</a></div><div class="ttdeci">@ NUMERO_TIR</div><div class="ttdef"><b>Definition:</b> <a href="ihm_statistiques_joueur_8h_source.html#l00035">ihmStatistiquesJoueur.h:35</a></div></div>
+<div class="ttc" id="aclass_i_h_m_statistiques_joueur_html_ad1e9edf662e4c0af29904f5209311a1ca773e16f7f4f66065393391a1c6912e57"><div class="ttname"><a href="class_i_h_m_statistiques_joueur.html#ad1e9edf662e4c0af29904f5209311a1ca773e16f7f4f66065393391a1c6912e57">IHMStatistiquesJoueur::TROU_PREFERE</a></div><div class="ttdeci">@ TROU_PREFERE</div><div class="ttdef"><b>Definition:</b> <a href="ihm_statistiques_joueur_8h_source.html#l00040">ihmStatistiquesJoueur.h:40</a></div></div>
+<div class="ttc" id="aclass_i_h_m_statistiques_joueur_html_ad1e9edf662e4c0af29904f5209311a1ca887ffab400f6b60d61bc8b8e5f07e2f7"><div class="ttname"><a href="class_i_h_m_statistiques_joueur.html#ad1e9edf662e4c0af29904f5209311a1ca887ffab400f6b60d61bc8b8e5f07e2f7">IHMStatistiquesJoueur::ECART_TIR</a></div><div class="ttdeci">@ ECART_TIR</div><div class="ttdef"><b>Definition:</b> <a href="ihm_statistiques_joueur_8h_source.html#l00039">ihmStatistiquesJoueur.h:39</a></div></div>
+<div class="ttc" id="aclass_i_h_m_statistiques_joueur_html_ad1e9edf662e4c0af29904f5209311a1ca97056e930d1f04b224bba327a7048ad2"><div class="ttname"><a href="class_i_h_m_statistiques_joueur.html#ad1e9edf662e4c0af29904f5209311a1ca97056e930d1f04b224bba327a7048ad2">IHMStatistiquesJoueur::SCORE_TIR</a></div><div class="ttdeci">@ SCORE_TIR</div><div class="ttdef"><b>Definition:</b> <a href="ihm_statistiques_joueur_8h_source.html#l00036">ihmStatistiquesJoueur.h:36</a></div></div>
+<div class="ttc" id="aclass_i_h_m_statistiques_joueur_html_ad1e9edf662e4c0af29904f5209311a1cad7d4001329a33f6ea358e17ad672ad3c"><div class="ttname"><a href="class_i_h_m_statistiques_joueur.html#ad1e9edf662e4c0af29904f5209311a1cad7d4001329a33f6ea358e17ad672ad3c">IHMStatistiquesJoueur::NB_LABELS</a></div><div class="ttdeci">@ NB_LABELS</div><div class="ttdef"><b>Definition:</b> <a href="ihm_statistiques_joueur_8h_source.html#l00042">ihmStatistiquesJoueur.h:41</a></div></div>
+<div class="ttc" id="aclass_i_h_m_statistiques_joueur_html_ad4809ef0ba33242140ef1a6ac19c0084"><div class="ttname"><a href="class_i_h_m_statistiques_joueur.html#ad4809ef0ba33242140ef1a6ac19c0084">IHMStatistiquesJoueur::nomLabelsEntete</a></div><div class="ttdeci">QStringList nomLabelsEntete</div><div class="ttdef"><b>Definition:</b> <a href="ihm_statistiques_joueur_8h_source.html#l00024">ihmStatistiquesJoueur.h:24</a></div></div>
+<div class="ttc" id="aclass_i_h_m_statistiques_joueur_html_ae12a45bdc1c30b58c8111035c7ec1c3e"><div class="ttname"><a href="class_i_h_m_statistiques_joueur.html#ae12a45bdc1c30b58c8111035c7ec1c3e">IHMStatistiquesJoueur::deroulerStatistiquesSuivant</a></div><div class="ttdeci">void deroulerStatistiquesSuivant()</div><div class="ttdef"><b>Definition:</b> <a href="ihm_statistiques_joueur_8cpp_source.html#l00109">ihmStatistiquesJoueur.cpp:109</a></div></div>
+<div class="ttc" id="aclass_i_h_m_statistiques_joueur_html_ae4c767738c5b7be791dd410bb06ff406"><div class="ttname"><a href="class_i_h_m_statistiques_joueur.html#ae4c767738c5b7be791dd410bb06ff406">IHMStatistiquesJoueur::~IHMStatistiquesJoueur</a></div><div class="ttdeci">virtual ~IHMStatistiquesJoueur()</div><div class="ttdef"><b>Definition:</b> <a href="ihm_statistiques_joueur_8cpp_source.html#l00042">ihmStatistiquesJoueur.cpp:42</a></div></div>
+<div class="ttc" id="aclass_i_h_m_statistiques_joueur_html_aee445baa0b12bfd355ebcc2a71037f3e"><div class="ttname"><a href="class_i_h_m_statistiques_joueur.html#aee445baa0b12bfd355ebcc2a71037f3e">IHMStatistiquesJoueur::appliquerMiseEnForme</a></div><div class="ttdeci">void appliquerMiseEnForme(QLayout *layout, int taillePolice)</div><div class="ttdef"><b>Definition:</b> <a href="ihm_statistiques_joueur_8cpp_source.html#l00158">ihmStatistiquesJoueur.cpp:158</a></div></div>
+<div class="ttc" id="aclass_q_widget_html"><div class="ttname"><a href="class_q_widget.html">QWidget</a></div></div>
+<div class="ttc" id="anamespace_ui_html"><div class="ttname"><a href="namespace_ui.html">Ui</a></div><div class="ttdef"><b>Definition:</b> <a href="gestion_partie_8h_source.html#l00023">gestionPartie.h:24</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.1-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ec9dc5a0e466c8fbfbd740e90e63c0cf.html">moduleVisualisation</a></li><li class="navelem"><a class="el" href="ihm_statistiques_joueur_8h.html">ihmStatistiquesJoueur.h</a></li>
+    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Jeudi 5 Juin 2025 12:44:43 pour Projet Jolly-Jumpi par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.9.1&nbsp;</li>
+  </ul>
+</div>
+</body>
+</html>

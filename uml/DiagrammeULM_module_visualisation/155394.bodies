@@ -1,0 +1,217 @@
+class IHMPartie
+!!!166786.cpp!!!	recupererLabel(in labelRecherche : QString) : QLabel
+    QString nomLabel = "label" + labelRecherche;
+    QLabel* label    = this->findChild<QLabel*>(nomLabel);
+    if(!label)
+    {
+        qDebug() << Q_FUNC_INFO << "label" << label << "non trouvé";
+        return nullptr;
+    }
+    return label;
+!!!166914.cpp!!!	creerLigneCourse(in nombreJoueurs : int) : void
+    qDebug() << Q_FUNC_INFO << "nombreJoueurs" << nombreJoueurs;
+    for(int i = 0; i < NOMBRE_JOUEUR_MAX; i++)
+    {
+        QString ligne = QString::number(i + 1);
+        for(int index = 0; index < NB_LABELS; index++)
+        {
+            QLabel* label = recupererLabel(nomLabels[index] + ligne);
+            if(label)
+            {
+                if(index == LIGNE_ARRIVEE)
+                    editerLabelPixmap(label, listePixmaps[index], ligne);
+                else if(index == NUMERO)
+                    editerLabelText(label, ligne);
+                else
+                    editerLabelPixmap(label,
+                                      listePixmaps[ligne.toInt()],
+                                      ligne);
+                initialiserEmplacementLabel(label, index);
+            }
+        }
+    }
+!!!167042.cpp!!!	editerLabelPixmap(inout label : QLabel, in pixmap : QPixmap, in numeroLigne : QString) : void
+    qDebug() << Q_FUNC_INFO << "numeroLigne" << numeroLigne;
+
+    if(numeroLigne.toInt() <= gestionPartie->recupererNombreJoueurs())
+    {
+        label->setPixmap(pixmap);
+        label->setScaledContents(true);
+    }
+    else
+        label->clear();
+!!!167170.cpp!!!	initialiserEmplacementLabel(inout label : QLabel, in index : int) : void
+    qDebug() << Q_FUNC_INFO;
+
+    int largeurCheval = recupererLabel(nomLabels[CHEVAL] + "1")->width();
+
+    QPoint positionActuelle = label->pos(); // seul Y nous intéresse
+    QPoint positionDefaut;
+    qDebug() << Q_FUNC_INFO << "largeurCheval" << largeurCheval
+             << "taille label" << label->width() << "taille ecran" << width();
+
+    if(index == LIGNE_ARRIVEE)
+    {
+        QScreen* ecran = this->screen();
+        int      largeurEcranUtilise =
+          (ecran->size() * ecran->devicePixelRatio()).width();
+        positionDefaut = QPoint(
+          largeurEcranUtilise - (largeurCheval / (SCORE_MAX / 10)),
+          positionActuelle.y()); // s'adapte à tout les écrans et scoreMax
+        qDebug() << Q_FUNC_INFO << positionDefaut;
+    }
+    else if(index == NUMERO)
+        positionDefaut = QPoint(10, positionActuelle.y());
+    else
+        positionDefaut = QPoint(0, positionActuelle.y());
+
+    label->move(positionDefaut);
+!!!174594.cpp!!!	faireAvancerLabel(inout label : QLabel, in avancement : int, in tempsAnimation : int) : void
+    QPoint posActuelle = label->pos();
+    QPoint nouvellePosition =
+      QPoint(posActuelle.x() + avancement, posActuelle.y());
+    QPropertyAnimation* avancer = new QPropertyAnimation(label, "pos");
+    avancer->setDuration(tempsAnimation);
+    avancer->setStartValue(posActuelle);
+    avancer->setEndValue(nouvellePosition);
+    avancer->start(QAbstractAnimation::DeleteWhenStopped);
+!!!174722.cpp!!!	editerLabelText(inout label : QLabel, in ligne : QString) : void
+    label->setText(ligne);
+!!!152450.cpp!!!	simulerPartie() : void
+    // Touche Q -> fermer
+    QAction* quitter = new QAction(this);
+    quitter->setShortcut(QKeySequence(QKeySequence(Qt::Key_Q)));
+    addAction(quitter);
+    connect(quitter, SIGNAL(triggered()), this, SLOT(fermer()));
+
+    // Touche C -> affichage Classement
+    QAction* affichageClassement = new QAction(this);
+    affichageClassement->setShortcut(QKeySequence(Qt::Key_C));
+    addAction(affichageClassement);
+    connect(affichageClassement,
+            SIGNAL(triggered()),
+            this,
+            SLOT(afficherClassement()));
+
+    // Touche S -> affichage Statistiques
+    QAction* affichageStatistiques = new QAction(this);
+    affichageStatistiques->setShortcut(QKeySequence(Qt::Key_S));
+    addAction(affichageStatistiques);
+    connect(affichageStatistiques,
+            SIGNAL(triggered()),
+            this,
+            SLOT(afficherStatistiquesJoueur()));
+!!!152578.cpp!!!	showEvent(inout event : QShowEvent) : void
+    qDebug() << Q_FUNC_INFO << this;
+    gestionPartie->gererPartie();
+    uiPartie->lcdNumberChonometre->display("-:--");
+!!!152706.cpp!!!	IHMPartie(inout communication : Communication, inout parent : QWidget = nullptr)
+    uiPartie->setupUi(this);
+
+    setWindowTitle(QString(""));
+
+    qDebug() << Q_FUNC_INFO << this;
+
+    nomLabels << "LigneArrivee" // LIGNE_ARRIVEE
+              << "Numero"       // NUMERO
+              << "Cheval";      // CHEVAL
+
+    listePixmaps << QString(":/images/pagePartie/ligneArrivee.jpg")
+                 << QString(":/images/pagePartie/chevaux/chevalMarron.png")
+                 << QString(":/images/pagePartie/chevaux/chevalJaune.png")
+                 << QString(":/images/pagePartie/chevaux/chevalBleuFonce.png")
+                 << QString(":/images/pagePartie/chevaux/chevalGris.png")
+                 << QString(":/images/pagePartie/chevaux/chevalRouge.png")
+                 << QString(":/images/pagePartie/chevaux/chevalBleuClair.png")
+                 << QString(":/images/pagePartie/chevaux/chevalViolet.png")
+                 << QString(":/images/pagePartie/chevaux/chevalNoir.png");
+
+#ifdef RPI
+    showFullScreen();
+#else
+    showMaximized();
+#endif
+#ifdef SIMULATION_CLAVIER_PARTIE
+    simulerPartie();
+#endif
+    connect(gestionPartie,
+            &GestionPartie::estFinPartie,
+            this,
+            &IHMPartie::fermer);
+    connect(gestionPartie,
+            &GestionPartie::demandeClassement,
+            this,
+            &IHMPartie::afficherClassement);
+    connect(gestionPartie,
+            &GestionPartie::demandeStatistiquesJoueur,
+            this,
+            &IHMPartie::afficherStatistiquesJoueur);
+    connect(gestionPartie,
+            &GestionPartie::tirRecu,
+            this,
+            &IHMPartie::mettreAJoursCourse);
+    connect(gestionPartie,
+            &GestionPartie::creerChevaux,
+            this,
+            &IHMPartie::creerLigneCourse);
+    connect(gestionPartie,
+            &GestionPartie::avancementChronometre,
+            this,
+            &IHMPartie::mettreAJoursChronometre);
+!!!152834.cpp!!!	~IHMPartie()
+    if(ihmClassement != nullptr)
+        delete ihmClassement;
+    if(ihmStatistiquesJoueur != nullptr)
+        delete ihmStatistiquesJoueur;
+    delete gestionPartie;
+    delete uiPartie;
+    qDebug() << Q_FUNC_INFO << this;
+!!!152962.cpp!!!	etatPartieModifie(in _t1 : int) : void
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 0, _a);
+!!!153090.cpp!!!	fermer() : void
+    qDebug() << Q_FUNC_INFO << this;
+    this->close();
+!!!153218.cpp!!!	afficherClassement() : void
+    qDebug() << Q_FUNC_INFO;
+    if(ihmClassement == nullptr)
+    {
+        ihmClassement = new IHMClassement(gestionPartie);
+    }
+    else
+    {
+        ihmClassement->show();
+    }
+!!!153346.cpp!!!	afficherStatistiquesJoueur() : void
+    qDebug() << Q_FUNC_INFO;
+    if(ihmStatistiquesJoueur == nullptr)
+    {
+        ihmStatistiquesJoueur = new IHMStatistiquesJoueur(gestionPartie);
+    }
+    else
+    {
+        ihmStatistiquesJoueur->show();
+    }
+!!!167426.cpp!!!	mettreAJoursCourse(in numero : QString, in scoreTir : int) : void
+    qDebug() << Q_FUNC_INFO << "numero" << numero << "scoreTir" << scoreTir;
+    QString nomLabelCheval = nomLabels[CHEVAL] + numero;
+    QString nomLabelNumero = nomLabels[NUMERO] + numero;
+    QLabel* labelCheval    = recupererLabel(nomLabelCheval);
+    QLabel* labelNumero    = recupererLabel(nomLabelNumero);
+    if(!labelCheval || !labelNumero)
+    {
+        qDebug() << Q_FUNC_INFO << "labels" << labelCheval << labelNumero
+                 << "non trouvés";
+        return;
+    }
+
+    int segmentEcran   = (width() - labelCheval->width()) / SCORE_MAX;
+    int avancement     = segmentEcran * scoreTir;
+    int tempsAnimation = scoreTir * TEMPS_ANIMATION;
+
+    faireAvancerLabel(labelCheval, avancement, tempsAnimation);
+    faireAvancerLabel(labelNumero, avancement, tempsAnimation);
+!!!167554.cpp!!!	mettreAJoursChronometre(in secondes : int) : void
+    qDebug() << Q_FUNC_INFO;
+    uiPartie->lcdNumberChonometre->display(
+      gestionPartie->convertirTemps(secondes));

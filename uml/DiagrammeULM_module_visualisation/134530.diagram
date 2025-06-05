@@ -1,0 +1,54 @@
+format 224
+
+classcanvas 128002 class_ref 135298 // Joueur
+  simpleclassdiagramsettings end
+  xyz 16.1356 173.147 2000
+end
+usecasecanvas 128130 usecase_ref 128002 // Visualiser la course
+  xyzwh 198 189 3005 64 32 label_xy 168 224
+end
+usecasecanvas 128258 usecase_ref 128130 // Visualiser les résultats de la course
+  xyzwh 199 101 3005 64 32 label_xy 116 135
+end
+usecasecanvas 128386 usecase_ref 128258 // Visualiser l'historique des courses
+  xyzwh 198 300 3005 64 32 label_xy 120 333
+end
+usecasecanvas 128514 usecase_ref 128386 // Dialoguer avec le module de détection de balle
+  xyzwh 479 191 3005 64 32 label_xy 362 224
+end
+usecasecanvas 128642 usecase_ref 128514 // Dialoguer avec le module de configuration
+  xyzwh 480 300 3005 64 32 label_xy 378 334
+end
+usecasecanvas 128770 usecase_ref 128642 // Visualiser le classement
+  xyzwh 479 33 3005 64 32 label_xy 435 65
+end
+usecasecanvas 128898 usecase_ref 128770 // Visualiser les statistiques de chaque joueur
+  xyzwh 480 96 3005 64 32 label_xy 373 132
+end
+textcanvas 129666 "<<include>>"
+  xyzwh 313 73 3011 81 16
+textcanvas 129794 "<<include>>"
+  xyzwh 335 105 3011 81 16
+textcanvas 129922 "<<include>>"
+  xyzwh 323 197 3011 81 16
+textcanvas 130050 "<<include>>"
+  xyzwh 331 309 3011 81 16
+simplerelationcanvas 129026 simplerelation_ref 128002
+  from ref 128258 z 3006 to ref 128770
+end
+simplerelationcanvas 129154 simplerelation_ref 128130
+  from ref 128258 z 3006 to ref 128898
+end
+simplerelationcanvas 129282 simplerelation_ref 128258
+  from ref 128130 z 3006 to ref 128514
+end
+simplerelationcanvas 129410 simplerelation_ref 128386
+  from ref 128386 z 3006 to ref 128642
+end
+line 130178 ----
+  from ref 128258 z 3006 to ref 128002
+line 130306 ----
+  from ref 128130 z 3006 to ref 128002
+line 130434 ----
+  from ref 128386 z 3006 to ref 128002
+end

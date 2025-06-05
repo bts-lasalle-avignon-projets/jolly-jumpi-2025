@@ -1,0 +1,8 @@
+<map id="IHMClassement" name="IHMClassement">
+<area shape="rect" id="node1" title=" " alt="" coords="5,1872,201,2155"/>
+<area shape="rect" id="node2" href="$class_q_widget.html" title=" " alt="" coords="43,1512,121,1589"/>
+<area shape="rect" id="node3" href="$class_gestion_partie.html" title=" " alt="" coords="146,1292,407,1809"/>
+<area shape="rect" id="node4" href="$class_q_object.html" title=" " alt="" coords="237,5,311,83"/>
+<area shape="rect" id="node5" href="$class_communication.html" title=" " alt="" coords="261,815,533,1229"/>
+<area shape="rect" id="node6" href="$class_bluetooth.html" title=" " alt="" coords="311,132,607,752"/>
+</map>

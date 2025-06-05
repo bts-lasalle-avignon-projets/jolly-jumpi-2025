@@ -1,0 +1,97 @@
+class IHM
+!!!166274.cpp!!!	redimentionnerElements() : void
+    QLabel* labelFond = findChild<QLabel*>("labelFond");
+    labelFond->setGeometry(0, 0, width(), height());
+    QVBoxLayout* verticalLayoutPrincipal =
+      findChild<QVBoxLayout*>("verticalLayoutPrincipal");
+    this->setLayout(verticalLayoutPrincipal);
+!!!150146.cpp!!!	estPartieEnConfiguration() : void
+    /** @todo faire défiler le texte pour signaler "En config"*/
+!!!150402.cpp!!!	simulerAffichageFenetre() : void
+    // les touches pour "changer" de fenêtre avec le clavier
+    // Touche Q -> fermer
+    QAction* quitter = new QAction(this);
+    quitter->setShortcut(QKeySequence(QKeySequence(Qt::Key_Q)));
+    addAction(quitter);
+    connect(quitter, SIGNAL(triggered()), this, SLOT(fermer()));
+
+    // Touche P -> affichage Partie
+    QAction* affichagePartie = new QAction(this);
+    affichagePartie->setShortcut(QKeySequence(Qt::Key_P));
+    addAction(affichagePartie);
+    connect(affichagePartie, SIGNAL(triggered()), this, SLOT(afficherPartie()));
+!!!137130.cpp!!!	IHM(inout parent : QWidget = nullptr)
+    uiAccueil->setupUi(this);
+
+    qDebug() << Q_FUNC_INFO << this;
+
+    setWindowTitle(QString(NOM_MODULE) + QString(" v") +
+                   QString(VERSION_MODULE));
+
+#ifdef RPI
+    QRect ecran   = QApplication::desktop()->screenGeometry();
+    int   largeur = ecran.width();
+    int   hauteur = ecran.height();
+    qDebug() << "largeur" << largeur; // Largeur
+    qDebug() << "hauteur" << hauteur; // Hauteur
+    setFixedSize(largeur, hauteur);
+    showFullScreen();
+#else
+    showMaximized();
+#endif
+#ifdef SIMULATION_CLAVIER_ACCUEIL
+    simulerAffichageFenetre();
+#endif
+#ifdef TELEVISION
+    redimentionnerElements();
+#endif
+
+    listeMessages << "BTS CIEL IR"
+                  << "LaSalle Avignon"
+                  << "Nicolas Pessina";
+    listeTitres << "BIENVENUE!"
+                << "Attente de connexion";
+
+    connect(minuteurDefilement, SIGNAL(timeout()), this, SLOT(defilerTexte()));
+    connect(minuteurDefilement, SIGNAL(timeout()), this, SLOT(defilerTitre()));
+    uiAccueil->labelDefilementTexte->setText(
+      listeMessages.at(numeroMessage++ % listeMessages.count()));
+    uiAccueil->labelDefilementTitre->setText(
+      listeTitres.at(numeroTitre++ % listeTitres.count()));
+    minuteurDefilement->start(PERIODE_DEFILEMENT);
+
+    connect(communication,
+            &Communication::modulesConnectes,
+            this,
+            &IHM::mettreAJourListeTitres);
+
+    connect(communication,
+            &Communication::configurationEnCours,
+            this,
+            &IHM::afficherPartie);
+    //** @todo faire de même pour la page historiques*/
+!!!137258.cpp!!!	~IHM()
+    if(ihmPartie != nullptr)
+        delete ihmPartie;
+    delete uiAccueil;
+    qDebug() << Q_FUNC_INFO << this;
+!!!150530.cpp!!!	defilerTexte() : void
+    uiAccueil->labelDefilementTexte->setText(
+      listeMessages.at(numeroMessage++ % listeMessages.count()));
+!!!175746.cpp!!!	defilerTitre() : void
+    uiAccueil->labelDefilementTitre->setText(
+      listeTitres.at(numeroTitre++ % listeTitres.count()));
+!!!175874.cpp!!!	mettreAJourListeTitres() : void
+    listeTitres[1] = "Attente de configuration";
+!!!150658.cpp!!!	fermer() : void
+    this->close();
+!!!150786.cpp!!!	afficherPartie() : void
+    qDebug() << Q_FUNC_INFO;
+    if(ihmPartie == nullptr)
+    {
+        ihmPartie = new IHMPartie(communication);
+    }
+    else
+    {
+        ihmPartie->show();
+    }
