@@ -25,8 +25,9 @@ IHMModuleConfiguration::IHMModuleConfiguration(QWidget* parent) :
     bluetoothInstance = new Bluetooth(this);
 
     QMovie* movie = new QMovie(":/images/loader.gif");
-    movie->setScaledSize(ui->labelGif->size());
-    ui->labelGif->setMovie(movie);
+
+    movie->setScaledSize(ui->labelGif_2->size());
+    ui->labelGif_2->setMovie(movie);
     movie->start();
 
     ui->nombreDeJoueur->setRange(1, 8);
@@ -39,20 +40,6 @@ IHMModuleConfiguration::IHMModuleConfiguration(QWidget* parent) :
             &QPushButton::clicked,
             this,
             &IHMModuleConfiguration::onLancerClicked);
-
-    connect(ui->lancer,
-            &QPushButton::clicked,
-            bluetoothInstance,
-            &Bluetooth::demarrerServeur);
-
-    connect(ui->annulerModAff,
-            &QPushButton::clicked,
-            this,
-            &IHMModuleConfiguration::onAnnulerModAffClicked);
-    connect(ui->continuer,
-            &QPushButton::clicked,
-            this,
-            &IHMModuleConfiguration::onContinuerClicked);
 
     connect(ui->annuler,
             &QPushButton::clicked,
@@ -76,11 +63,10 @@ IHMModuleConfiguration::IHMModuleConfiguration(QWidget* parent) :
 
     mettreAJourAffichageJoueurs();
 
-    connect(ui->nombreDeJoueur,
-            QOverload<int>::of(&QSpinBox::valueChanged),
+    connect(ui->demarrer,
+            &QPushButton::clicked,
             this,
-            &IHMModuleConfiguration::attenteConnexionPiste);
-    attenteConnexionPiste();
+            &IHMModuleConfiguration::onDemarrerClicked);
 
     connect(ui->interrompre,
             &QPushButton::clicked,
@@ -92,6 +78,15 @@ IHMModuleConfiguration::IHMModuleConfiguration(QWidget* parent) :
             this,
             &IHMModuleConfiguration::onMenuClicked);
 
+    connect(bluetoothInstance,
+            &Bluetooth::associationReussie,
+            this,
+            &IHMModuleConfiguration::gererAssociationReussie);
+
+    connect(bluetoothInstance,
+            &Bluetooth::partieDemarree,
+            this,
+            &IHMModuleConfiguration::gererDemarragePartie);
 #ifdef RASPBERRY_PI
     showFullScreen();
 #endif
@@ -105,22 +100,12 @@ IHMModuleConfiguration::~IHMModuleConfiguration()
 
 void IHMModuleConfiguration::onLancerClicked()
 {
-    ui->stackedWidget->setCurrentWidget(ui->connexionModAff);
+    ui->stackedWidget->setCurrentWidget(ui->configuration);
 }
 
-void IHMModuleConfiguration::onAnnulerModAffClicked()
+void IHMModuleConfiguration::afficherArreter()
 {
     ui->stackedWidget->setCurrentWidget(ui->accueil);
-}
-
-void IHMModuleConfiguration::afficherConnexionFait()
-{
-    ui->stackedWidget->setCurrentWidget(ui->connexionAffichageFait);
-}
-
-void IHMModuleConfiguration::onContinuerClicked()
-{
-    ui->stackedWidget->setCurrentWidget(ui->configuration);
 }
 
 void IHMModuleConfiguration::onAnnulerClicked()
@@ -132,9 +117,39 @@ void IHMModuleConfiguration::onAnnulerPisteClicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->configuration);
 }
+static int modeToInt(const QString& mode)
+{
+    if(mode == "Normal")
+        return 0;
+    if(mode == "Aléatoire")
+        return 1;
+    if(mode == "Temps")
+        return 2;
+    return 0;
+}
 
 void IHMModuleConfiguration::onConfirmerClicked()
 {
+    bluetoothInstance->envoyer("$A\n");
+    int nombreJoueurs = ui->nombreDeJoueur->value();
+
+    QString modeTexte = ui->modeDeJeu->currentText();
+
+    int mode = 0;
+    if(modeTexte == "Normal")
+        mode = 0;
+    else if(modeTexte == "Aléatoire")
+        mode = 1;
+    else if(modeTexte == "Temps")
+        mode = 2;
+    else
+        qWarning() << "Mode de jeu inconnu : " << modeTexte;
+
+    QString trame = QString("$PC%1;%2\n").arg(mode).arg(nombreJoueurs);
+    qDebug() << "[Trame envoyée] " << trame;
+
+    bluetoothInstance->envoyer(trame);
+
     ui->stackedWidget->setCurrentWidget(ui->attentePiste);
 }
 
@@ -152,21 +167,10 @@ void IHMModuleConfiguration::mettreAJourAffichageJoueurs()
     }
 }
 
-void IHMModuleConfiguration::attenteConnexionPiste()
+void IHMModuleConfiguration::onDemarrerClicked()
 {
-    int nombreJoueurs = ui->nombreDeJoueur->value();
-
-    QLabel* labelsPistes[] = { ui->connexionPiste1, ui->connexionPiste2,
-                               ui->connexionPiste3, ui->connexionPiste4,
-                               ui->connexionPiste5, ui->connexionPiste6,
-                               ui->connexionPiste7, ui->connexionPiste8 };
-
-    for(int i = 0; i < 8; ++i)
-    {
-        labelsPistes[i]->setVisible(i < nombreJoueurs);
-    }
+    bluetoothInstance->envoyer("$PD\n");
 }
-
 void IHMModuleConfiguration::onInterrompreClicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->configuration);
@@ -175,4 +179,21 @@ void IHMModuleConfiguration::onInterrompreClicked()
 void IHMModuleConfiguration::onMenuClicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->accueil);
+}
+
+void IHMModuleConfiguration::gererAssociationReussie()
+{
+    int     nombreJoueurs = ui->nombreDeJoueur->value();
+    QString modeTexte     = ui->modeDeJeu->currentText();
+    int     mode          = modeToInt(modeTexte);
+
+    QString trame = QString("$PC%1;%2\n").arg(mode).arg(nombreJoueurs);
+    bluetoothInstance->envoyer(trame);
+
+    ui->stackedWidget->setCurrentWidget(ui->connexionReussie);
+}
+
+void IHMModuleConfiguration::gererDemarragePartie()
+{
+    ui->stackedWidget->setCurrentWidget(ui->partieEnCours);
 }

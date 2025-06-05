@@ -1,71 +1,101 @@
 #include "bluetooth.h"
 #include "ihmmoduleconfiguration.h"
-#include "ui_ihmmoduleconfiguration.h"
+
+#include <QDebug>
 
 Bluetooth::Bluetooth(IHMModuleConfiguration* ihmModuleConfiguration) :
+    QObject(ihmModuleConfiguration),
     ihmModuleConfiguration(ihmModuleConfiguration), server(nullptr)
 {
+    demarrerServeur();
+}
+
+Bluetooth::~Bluetooth()
+{
+    arreterServeur();
 }
 
 void Bluetooth::demarrerServeur()
 {
     if(server)
     {
-        qWarning() << "Serveur déjà démarré.";
+        qWarning() << "Bluetooth déjà démarré.";
         return;
     }
 
     server = new QBluetoothServer(QBluetoothServiceInfo::RfcommProtocol, this);
 
+    connect(server,
+            &QBluetoothServer::newConnection,
+            this,
+            &Bluetooth::clientConnecte);
+
     if(!server->listen())
     {
-        qWarning() << "Impossible de démarrer le serveur Bluetooth.";
+        qWarning() << "Impossible de démarrer le Bluetooth.";
         delete server;
         server = nullptr;
     }
     else
     {
-        ihmModuleConfiguration->afficherConnexionFait();
-
-        qDebug() << "Serveur Bluetooth démarré.";
+        qDebug() << "Bluetooth démarré.";
     }
-    connect(server,
-            &QBluetoothServer::newConnection,
-            this,
-            &Bluetooth::nouvelleConnexion);
 }
 
-void Bluetooth::nouvelleConnexion()
+void Bluetooth::clientConnecte()
 {
-    QBluetoothSocket* socket = server->nextPendingConnection();
-    if(!socket)
+    QBluetoothSocket* nouveauClient = server->nextPendingConnection();
+    if(!nouveauClient)
         return;
 
-    sockets.append(socket);
+    qDebug() << "Client Bluetooth connecté.";
 
-    connect(socket,
-            &QBluetoothSocket::readyRead,
-            this,
-            &Bluetooth::traiterDonnees);
-    connect(socket,
+    sockets << nouveauClient;
+
+    connect(nouveauClient,
             &QBluetoothSocket::disconnected,
             this,
             &Bluetooth::deconnexion);
 
-    qDebug() << "Nouvelle connexion Bluetooth de"
-             << socket->peerAddress().toString();
+    connect(nouveauClient, &QBluetoothSocket::readyRead, this, [=]() {
+        while(nouveauClient->canReadLine())
+        {
+            QString ligne =
+              QString::fromUtf8(nouveauClient->readLine()).trimmed();
+            qDebug() << "[Bluetooth] Reçu :" << ligne;
 
-    socket->write("Connectée à la table virtuelle\r\n");
-}
+            if(ligne == "$Ap")
+            {
+                emit associationReussie();
+            }
+            else if(ligne == "$D")
+            {
+                emit partieDemarree();
+            }
+            else if(ligne == "$F")
+            {
+                emit partieTerminee();
+            }
+        }
+    });
+};
 
-void Bluetooth::traiterDonnees()
+void Bluetooth::envoyer(const QString& trame)
 {
-    QBluetoothSocket* socket = qobject_cast<QBluetoothSocket*>(sender());
-    if(!socket)
-        return;
+    QByteArray donnees = trame.toUtf8();
 
-    QByteArray data = socket->readAll();
-    qDebug() << "Données reçues:" << data;
+    for(QBluetoothSocket* s: sockets)
+    {
+        if(s->isOpen())
+        {
+            s->write(donnees);
+            qDebug() << "[Bluetooth] Trame envoyée :" << trame;
+        }
+        else
+        {
+            qWarning() << "[Bluetooth] Socket non connecté.";
+        }
+    }
 }
 
 void Bluetooth::deconnexion()
@@ -77,4 +107,27 @@ void Bluetooth::deconnexion()
     sockets.removeAll(socket);
     socket->deleteLater();
     qDebug() << "Client Bluetooth déconnecté.";
+}
+
+void Bluetooth::arreterServeur()
+{
+    for(QBluetoothSocket* socket: sockets)
+    {
+        if(socket->isOpen())
+            socket->close();
+        socket->deleteLater();
+    }
+    sockets.clear();
+
+    if(server)
+    {
+        server->close();
+        server->deleteLater();
+        server = nullptr;
+        qDebug() << "Bluetooth arrêté.";
+    }
+    else
+    {
+        qWarning() << "aucun Bluetooth à arrêter.";
+    }
 }

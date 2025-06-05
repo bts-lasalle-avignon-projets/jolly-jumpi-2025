@@ -45,19 +45,22 @@ class IHMModuleConfiguration : public QMainWindow
   public:
     IHMModuleConfiguration(QWidget* parent = nullptr);
     ~IHMModuleConfiguration();
-    void afficherConnexionFait();
+
+    void afficherArreter();
 
   public slots:
     void onLancerClicked();
     void onAnnulerClicked();
     void onConfirmerClicked();
     void mettreAJourAffichageJoueurs();
-    void attenteConnexionPiste();
     void onAnnulerPisteClicked();
-    void onAnnulerModAffClicked();
-    void onContinuerClicked();
     void onMenuClicked();
     void onInterrompreClicked();
+    void onDemarrerClicked();
+
+  private slots:
+    void gererDemarragePartie();
+    void gererAssociationReussie();
 
   private:
     Ui::IHMModuleConfiguration* ui;

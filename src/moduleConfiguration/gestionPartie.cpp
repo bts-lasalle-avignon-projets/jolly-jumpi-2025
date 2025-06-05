@@ -1,11 +1,11 @@
 #include "gestionPartie.h"
+#include <QString>
+#include <QDebug>
 
-void gestionPartie::configurerJoueur()
+void gestionPartie::configurerPartie(int mode, int nbJoueurs)
 {
-}
-
-void gestionPartie::configurerMode()
-{
+    QString trame = QString("$PC%1;%2\n").arg(mode).arg(nbJoueurs);
+    qDebug() << "Envoi trame : " << trame;
 }
 
 void gestionPartie::lancerPartie()

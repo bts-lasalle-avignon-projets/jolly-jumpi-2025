@@ -7,9 +7,7 @@ class communication
 {
   public:
     void lancerAppairage();
-    void configurerPartie();
     void demanderAffichageStatistique();
-    // void afficherStatistique();
     void affichageAccueil();
     void interromprePartie();
     void signalerAssociation();

@@ -1,12 +1,10 @@
 #ifndef BLUETOOTH_H
 #define BLUETOOTH_H
 
+#include <QObject>
 #include <QBluetoothServer>
 #include <QBluetoothSocket>
-#include <QBluetoothServiceInfo>
-#include <QBluetoothAddress>
-#include <QBluetoothUuid>
-#include <QBluetoothLocalDevice>
+#include <QList>
 
 class IHMModuleConfiguration;
 
@@ -15,19 +13,27 @@ class Bluetooth : public QObject
     Q_OBJECT
 
   public:
-    Bluetooth(IHMModuleConfiguration* ihmModuleConfiguration);
-    QBluetoothServer* getServer() const;
+    explicit Bluetooth(IHMModuleConfiguration* ihmModuleConfiguration);
+    ~Bluetooth();
 
-  public slots:
-    void demarrerServeur();
-    void nouvelleConnexion();
-    void traiterDonnees();
+    void envoyer(const QString& trame);
+    void arreterServeur();
+
+  signals:
+    void associationReussie();
+    void partieDemarree();
+    void partieTerminee(); // optionnel
+
+  private slots:
+    void clientConnecte();
     void deconnexion();
 
   private:
-    IHMModuleConfiguration*  ihmModuleConfiguration;
+    void demarrerServeur();
+
     QBluetoothServer*        server;
     QList<QBluetoothSocket*> sockets;
+    IHMModuleConfiguration*  ihmModuleConfiguration;
 };
 
 #endif // BLUETOOTH_H

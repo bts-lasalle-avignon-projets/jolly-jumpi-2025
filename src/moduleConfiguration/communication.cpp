@@ -1,21 +1,13 @@
 #include "communication.h"
-
+#include <QString>
+#include <QDebug>
 void communication::lancerAppairage()
-{
-}
-
-void communication::configurerPartie()
 {
 }
 
 void communication::demanderAffichageStatistique()
 {
 }
-
-/*void communication::affichageStatistique()
-{
-}
-*/
 
 void communication::affichageAccueil()
 {
