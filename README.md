@@ -2,6 +2,7 @@
 
 - [Projet 2025 : Jolly-Jumpi](#projet-2025--jolly-jumpi)
   - [Présentation](#présentation)
+  - [Aperçu des applications](#aperçu-des-applications)
   - [Fonctionnalités](#fonctionnalités)
   - [Scénarios](#scénarios)
   - [Diagramme de classes](#diagramme-de-classes)
@@ -39,6 +40,12 @@ Le matériel est :
 Jolly Jumpi est développé en **C++** avec le _framework_ **Qt**.
 
 ![](./images/Readme/compositionSysteme.webp)
+
+## Aperçu des applications
+
+- Le module de visualisation :
+
+![](./images/Readme/jollyJumPi_moduleVisualisation_tele.gif)
 
 ## Fonctionnalités
 
@@ -90,8 +97,6 @@ Quelques diagrammes des échanges :
 
 ## Changelog
 
-## TODO
-
 > Les versions sont numérotées de la manière suivante : `vX.Y.Z`
 >
 > - X = Mise à jour majeure
@@ -102,19 +107,12 @@ Quelques diagrammes des échanges :
 
   - Les bases
 
-    > - [X] Créer des différents diagrammes
+    > - [x] Créer des différents diagrammes
     > - [X] Définir le protocole de communication
 
   - Créer le squelette du projet
 
     > - [X] Créer de l'arborescence commune
-
-  - Module de configuration : Créer la base
-
-    > - [ ] Créer les classes
-    > - [ ] Créer les attributs
-    > - [ ] Créer le menu d'accueil
-    > - [ ] Créer le menu de configuration
 
   - Module de visualisation : Créer les classes et attributs
 
@@ -137,12 +135,6 @@ Quelques diagrammes des échanges :
     > - [X] Envoyer un message
 
 - v0.2 : Jeu de base (en mode simulation)
-  
-  - Module de configuration :
-  
-    > - [ ] Personnaliser le nombre de joueurs
-    > - [ ] Créer l'affichage de connexion
-    > - [ ] Créer l'affichage de la partie en cours
 
   - Module de visualisation : Gérer partie
 
@@ -151,10 +143,9 @@ Quelques diagrammes des échanges :
       > - [X] Ajouter des joueurs (1 à 8)
       > - [X] Démarrer/Communiquer la configuration de la partie au module de détection
 
-    - Créer chronomètre ~~et minuteur~~
+    - Créer chronomètre
 
       > - [X] Créer un chronomètre
-      > - [ ] ~~Créer un minuteur (pour le classement et les statistiques joueur)~~
     
     - Mettre à jour l'affichage
 
@@ -173,6 +164,26 @@ Quelques diagrammes des échanges :
       > - [X] Abandonner la partie
       > - [X] Mettre fin à la partie
       > - [X] Envoyer la fin de partie aux autres modules
+
+
+## TODO
+
+- v0.1 : Structure de base
+
+  - Module de configuration : Créer la base
+
+    > - [ ] Créer les classes
+    > - [ ] Créer les attributs
+    > - [ ] Créer le menu d'accueil
+    > - [ ] Créer le menu de configuration
+
+- v0.2 : Jeu de base (en mode simulation)
+  
+  - Module de configuration :
+  
+    > - [ ] Personnaliser le nombre de joueurs
+    > - [ ] Créer l'affichage de connexion
+    > - [ ] Créer l'affichage de la partie en cours
 
 - v0.3 : Ajout d'un historique des parties jouées
 

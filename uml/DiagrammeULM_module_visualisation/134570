@@ -1,6 +1,6 @@
 format 224
 "moduleVisualisation" // moduleVisualisation
-  revision 4
+  revision 5
   modified_by 2 "btssn2"
   // class settings
   
@@ -311,7 +311,6 @@ ${items}};
 	  mysql_decl ""
 	  MysqlColumn
 	end
-
       end
 
       operation 135210 "Communication"
@@ -457,7 +456,7 @@ ${body}}
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
 	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
+${body}}
 "
 	
 	
@@ -482,7 +481,7 @@ ${body}}
       operation 144642 "communiquerConfiguration"
 	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 1
-	  param in name "message" explicit_type "QString"
+	  param in name "informations" explicit_type "QString"
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
 "
 	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
@@ -525,11 +524,12 @@ ${body}}
 
       operation 145026 "nettoyerMessage"
 	preserve_cpp_body_indent public explicit_return_type "QString"
-	nparams 1
+	nparams 2
 	  param in name "message" explicit_type "QString"
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} & ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+	  param in name "caracteres" explicit_type "QString"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} & ${p0}${v0}, const ${t1} & ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}const ${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}const ${t0} & ${p0}, const ${t1} & ${p1}${)}${const}${volatile}${throw}${staticnl}{
 ${body}}
 "
 	
@@ -557,7 +557,7 @@ ${body}}
       operation 145282 "communiquerTirJoueur"
 	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 1
-	  param in name "message" explicit_type "QString"
+	  param in name "informations" explicit_type "QString"
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} & ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
 "
 	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}const ${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
@@ -626,7 +626,7 @@ ${body}}
 	nparams 3
 	  param in name "nom" explicit_type "QString"
 	  param in name "adresse" explicit_type "QString"
-	  param in name "message" explicit_type "QString"
+	  param in name "messageRecu" explicit_type "QString"
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}, ${t2} ${p2}${v2}${)}${const}${volatile}${throw}${abstract};
 "
 	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}${)}${const}${throw}${staticnl}{
@@ -679,8 +679,8 @@ ${body}}
 	  param in name "message" explicit_type "QString"
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} & ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}const ${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
 "
 	
 	
@@ -694,8 +694,8 @@ ${body}}
 	  param inout name "message" explicit_type "QString"
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} & ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
 "
 	
 	
@@ -806,6 +806,20 @@ ${body}}
 	
       end
 
+      operation 175362 "communiquerModulesConnectes"
+	preserve_cpp_body_indent private explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
       extra_member 128642 "signals"
 	
 	cpp "  signals:" ""
@@ -816,7 +830,7 @@ ${body}}
 	mysql ""
       end
 
-      operation 146690 "moduleConnectes"
+      operation 175490 "modulesConnectes"
 	private explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -830,9 +844,27 @@ ${body}}
       operation 146818 "configurationRecue"
 	preserve_cpp_body_indent private explicit_return_type "void"
 	nparams 2
-	  param in name "nombreJoueursRecu" explicit_type "QString"
-	  param in name "modeDeJeuRecu" explicit_type "QString"
+	  param in name "_t1" explicit_type "QString"
+	  param in name "_t2" explicit_type "QString"
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// SIGNAL 1
+
+// SIGNAL 1
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 175618 "configurationEnCours"
+	private explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
 	
 	
@@ -843,9 +875,16 @@ ${body}}
       operation 146946 "scoreRecu"
 	preserve_cpp_body_indent private explicit_return_type "void"
 	nparams 2
-	  param in name "numeroPiste" explicit_type "QString"
-	  param in name "scoreTir" explicit_type "QString"
+	  param in name "_t1" explicit_type "QString"
+	  param in name "_t2" explicit_type "QString"
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// SIGNAL 2
+
+// SIGNAL 2
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
 "
 	
 	
@@ -858,6 +897,13 @@ ${body}}
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
+	cpp_def "// SIGNAL 3
+
+// SIGNAL 3
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
 	
 	
 	
@@ -865,9 +911,16 @@ ${body}}
       end
 
       operation 147202 "estEnAttenteDeConfiguration"
-	private explicit_return_type "void"
+	preserve_cpp_body_indent private explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// SIGNAL 4
+
+// SIGNAL 4
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
 "
 	
 	
@@ -880,11 +933,19 @@ ${body}}
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
+	cpp_def "// SIGNAL 5
+
+// SIGNAL 5
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
 	
 	
 	
 	
       end
+
     end
 
     class 134954 "GestionPartie"
@@ -1138,8 +1199,8 @@ ${body}}
 	  param in name "secondes" explicit_type "int"
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} & ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}const ${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
 "
 	
 	
@@ -1153,7 +1214,7 @@ ${body}}
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
 	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
+${body}}
 "
 	
 	
@@ -1167,7 +1228,7 @@ ${body}}
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
 	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
+${body}}
 "
 	
 	
@@ -1264,6 +1325,18 @@ ${body}}
       end
 
       attribute 142850 "chronometre"
+	private explicit_type "int"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 161026 "tempsAttenteFinAnimation"
 	private explicit_type "int"
 	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
 "
@@ -1458,9 +1531,16 @@ ${body}}
       operation 149634 "tirRecu"
 	preserve_cpp_body_indent private explicit_return_type "void"
 	nparams 2
-	  param in name "numeroJoueur" explicit_type "QString"
-	  param in name "scoreTir" explicit_type "int"
+	  param in name "_t1" explicit_type "QString"
+	  param in name "_t2" explicit_type "int"
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// SIGNAL 0
+
+// SIGNAL 0
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
 "
 	
 	
@@ -1470,9 +1550,16 @@ ${body}}
       end
 
       operation 149762 "demandeClassement"
-	private explicit_return_type "void"
+	preserve_cpp_body_indent private explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// SIGNAL 1
+
+// SIGNAL 1
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
 "
 	
 	
@@ -1481,9 +1568,16 @@ ${body}}
       end
 
       operation 149890 "demandeStatistiquesJoueur"
-	private explicit_return_type "void"
+	preserve_cpp_body_indent private explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// SIGNAL 2
+
+// SIGNAL 2
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
 "
 	
 	
@@ -1492,9 +1586,16 @@ ${body}}
       end
 
       operation 150018 "estFinPartie"
-	private explicit_return_type "void"
+	preserve_cpp_body_indent private explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// SIGNAL 3
+
+// SIGNAL 3
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
 "
 	
 	
@@ -1503,10 +1604,17 @@ ${body}}
       end
 
       operation 166018 "creerChevaux"
-	private explicit_return_type "void"
+	preserve_cpp_body_indent private explicit_return_type "void"
 	nparams 1
-	  param in name "nombreJoueurs" explicit_type "int"
+	  param in name "_t1" explicit_type "int"
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// SIGNAL 4
+
+// SIGNAL 4
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
 "
 	
 	
@@ -1515,10 +1623,17 @@ ${body}}
       end
 
       operation 166146 "avancementChronometre"
-	private explicit_return_type "void"
+	preserve_cpp_body_indent private explicit_return_type "void"
 	nparams 1
-	  param in name "" explicit_type "int"
+	  param in name "_t1" explicit_type "int"
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// SIGNAL 5
+
+// SIGNAL 5
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
 "
 	
 	
@@ -1897,16 +2012,13 @@ ${inlines}
 	mysql ""
       end
 
-      attribute 150658 "uiAccueil"
-	private explicit_type "Ui::Accueil"
-	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+      classrelation 148226 // uiAccueil (<unidirectional association>)
+	relation 146562 --->
+	  a role_name "uiAccueil" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
 "
-	java_decl ""
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
+	    classrelation_ref 148226 // uiAccueil (<unidirectional association>)
+	  b parent class_ref 155906 // Accueil
       end
 
       classrelation 139138 // ihmPartie (<unidirectional association>)
@@ -1951,7 +2063,31 @@ ${inlines}
 	MysqlColumn
       end
 
+      attribute 161154 "numeroTitre"
+	private explicit_type "int"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
       attribute 143234 "listeMessages"
+	private explicit_type "QStringList"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 161282 "listeTitres"
 	private explicit_type "QStringList"
 	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
 "
@@ -1981,7 +2117,7 @@ ${inlines}
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
 	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
+${body}}
 "
 	
 	
@@ -2091,6 +2227,34 @@ ${body}}
 "
 	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
 ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 175746 "defilerTitre"
+	preserve_cpp_body_indent private explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 175874 "mettreAJourListeTitres"
+	preserve_cpp_body_indent private explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
 "
 	
 	
@@ -2467,35 +2631,5 @@ ${namespace_end}"
       end
     end
 
-    artifact 135466 "main"
-      stereotype "source"
-      cpp_src "//
-//
-//@file main.cpp
-//@brief Programme principal
-//@details Crée et affiche la fenêtre principale de l'application
-//moduleVisualisation
-//@author Nicolas Pessina
-//@version 1.0
-//
-//@param argc
-//@param argv[]
-//@return int
-//
-//
-
-int main(int argc, char* argv[])
-{
-    QApplication a(argc, argv);
-    IHM          ihm;
-
-    ihm.show();
-
-    return a.exec();
-}
-"
-      associated_elems
-      end
-    end
   end
 end

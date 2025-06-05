@@ -18,7 +18,14 @@ class IHMPartie
             QLabel* label = recupererLabel(nomLabels[index] + ligne);
             if(label)
             {
-                editerLabelPixmap(label, listePixmaps[index], ligne);
+                if(index == LIGNE_ARRIVEE)
+                    editerLabelPixmap(label, listePixmaps[index], ligne);
+                else if(index == NUMERO)
+                    editerLabelText(label, ligne);
+                else
+                    editerLabelPixmap(label,
+                                      listePixmaps[ligne.toInt()],
+                                      ligne);
                 initialiserEmplacementLabel(label, index);
             }
         }
@@ -42,7 +49,6 @@ class IHMPartie
     QPoint positionDefaut;
     qDebug() << Q_FUNC_INFO << "largeurCheval" << largeurCheval
              << "taille label" << label->width() << "taille ecran" << width();
-    ;
 
     if(index == LIGNE_ARRIVEE)
     {
@@ -54,19 +60,23 @@ class IHMPartie
           positionActuelle.y()); // s'adapte à tout les écrans et scoreMax
         qDebug() << Q_FUNC_INFO << positionDefaut;
     }
+    else if(index == NUMERO)
+        positionDefaut = QPoint(10, positionActuelle.y());
     else
         positionDefaut = QPoint(0, positionActuelle.y());
 
     label->move(positionDefaut);
-!!!167298.cpp!!!	faireAvancerCheval(inout label : QLabel, in avancement : int, in multiplicateurTemps : int) : void
+!!!174594.cpp!!!	faireAvancerLabel(inout label : QLabel, in avancement : int, in tempsAnimation : int) : void
     QPoint posActuelle = label->pos();
     QPoint nouvellePosition =
       QPoint(posActuelle.x() + avancement, posActuelle.y());
     QPropertyAnimation* avancer = new QPropertyAnimation(label, "pos");
-    avancer->setDuration(multiplicateurTemps * 400);
+    avancer->setDuration(tempsAnimation);
     avancer->setStartValue(posActuelle);
     avancer->setEndValue(nouvellePosition);
     avancer->start(QAbstractAnimation::DeleteWhenStopped);
+!!!174722.cpp!!!	editerLabelText(inout label : QLabel, in ligne : QString) : void
+    label->setText(ligne);
 !!!152450.cpp!!!	simulerPartie() : void
     // Touche Q -> fermer
     QAction* quitter = new QAction(this);
@@ -94,7 +104,7 @@ class IHMPartie
 !!!152578.cpp!!!	showEvent(inout event : QShowEvent) : void
     qDebug() << Q_FUNC_INFO << this;
     gestionPartie->gererPartie();
-    uiPartie->lcdNumberChonometre->display("0:00");
+    uiPartie->lcdNumberChonometre->display("-:--");
 !!!152706.cpp!!!	IHMPartie(inout communication : Communication, inout parent : QWidget = nullptr)
     uiPartie->setupUi(this);
 
@@ -103,10 +113,18 @@ class IHMPartie
     qDebug() << Q_FUNC_INFO << this;
 
     nomLabels << "LigneArrivee" // LIGNE_ARRIVEE
+              << "Numero"       // NUMERO
               << "Cheval";      // CHEVAL
 
-    listePixmaps << QString(":/partie/ligneArrivee.jpg")
-                 << QString(":/partie/cheval.png");
+    listePixmaps << QString(":/images/pagePartie/ligneArrivee.jpg")
+                 << QString(":/images/pagePartie/chevaux/chevalMarron.png")
+                 << QString(":/images/pagePartie/chevaux/chevalJaune.png")
+                 << QString(":/images/pagePartie/chevaux/chevalBleuFonce.png")
+                 << QString(":/images/pagePartie/chevaux/chevalGris.png")
+                 << QString(":/images/pagePartie/chevaux/chevalRouge.png")
+                 << QString(":/images/pagePartie/chevaux/chevalBleuClair.png")
+                 << QString(":/images/pagePartie/chevaux/chevalViolet.png")
+                 << QString(":/images/pagePartie/chevaux/chevalNoir.png");
 
 #ifdef RPI
     showFullScreen();
@@ -148,6 +166,9 @@ class IHMPartie
     delete gestionPartie;
     delete uiPartie;
     qDebug() << Q_FUNC_INFO << this;
+!!!152962.cpp!!!	etatPartieModifie(in _t1 : int) : void
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 0, _a);
 !!!153090.cpp!!!	fermer() : void
     qDebug() << Q_FUNC_INFO << this;
     this->close();
@@ -173,33 +194,23 @@ class IHMPartie
     }
 !!!167426.cpp!!!	mettreAJoursCourse(in numero : QString, in scoreTir : int) : void
     qDebug() << Q_FUNC_INFO << "numero" << numero << "scoreTir" << scoreTir;
-    QString nomLabel = "Cheval" + numero;
-    QLabel* label    = recupererLabel(nomLabel);
-    if(!label)
+    QString nomLabelCheval = nomLabels[CHEVAL] + numero;
+    QString nomLabelNumero = nomLabels[NUMERO] + numero;
+    QLabel* labelCheval    = recupererLabel(nomLabelCheval);
+    QLabel* labelNumero    = recupererLabel(nomLabelNumero);
+    if(!labelCheval || !labelNumero)
     {
-        qDebug() << Q_FUNC_INFO << "label" << nomLabel << "non trouvé";
+        qDebug() << Q_FUNC_INFO << "labels" << labelCheval << labelNumero
+                 << "non trouvés";
         return;
     }
 
-    int pointManquant = SCORE_MAX - gestionPartie->recupererScoreJoueur(numero);
-    int avancement    = 0;
-    int segmentEcran  = (width() - label->width()) / SCORE_MAX;
-    int multiplicateurTemps = 1;
+    int segmentEcran   = (width() - labelCheval->width()) / SCORE_MAX;
+    int avancement     = segmentEcran * scoreTir;
+    int tempsAnimation = scoreTir * TEMPS_ANIMATION;
 
-    if(scoreTir <= pointManquant)
-    {
-        avancement          = segmentEcran * scoreTir;
-        multiplicateurTemps = multiplicateurTemps * scoreTir;
-        qDebug() << Q_FUNC_INFO << "pointManquant <= au scorTir";
-    }
-    else
-    {
-        avancement          = segmentEcran * pointManquant;
-        multiplicateurTemps = multiplicateurTemps * pointManquant;
-        qDebug() << Q_FUNC_INFO << "pointManquant > au scorTir";
-    }
-
-    faireAvancerCheval(label, avancement, multiplicateurTemps);
+    faireAvancerLabel(labelCheval, avancement, tempsAnimation);
+    faireAvancerLabel(labelNumero, avancement, tempsAnimation);
 !!!167554.cpp!!!	mettreAJoursChronometre(in secondes : int) : void
     qDebug() << Q_FUNC_INFO;
     uiPartie->lcdNumberChonometre->display(
