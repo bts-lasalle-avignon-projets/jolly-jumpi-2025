@@ -1,15 +1,14 @@
-# Projet 2025 : Jolly-Jumpi
+![Qt Build ModuleVisualisation](https://github.com/bts-lasalle-avignon-projets/jolly-jumpi-2025/actions/workflows/qt-build-moduleVisualisation.yml/badge.svg) [![release](https://img.shields.io/github/v/release/bts-lasalle-avignon-projets/jolly-jumpi-2025)](https://github.com/bts-lasalle-avignon-projets/jolly-jumpi-2025/releases)
 
-- [Projet 2025 : Jolly-Jumpi](#projet-2025--jolly-jumpi)
+# Projet BTS CIEL 2025 : Jolly-Jumpi
+
+- [Projet BTS CIEL 2025 : Jolly-Jumpi](#projet-bts-ciel-2025--jolly-jumpi)
   - [Présentation](#présentation)
-  - [Aperçu des applications](#aperçu-des-applications)
   - [Fonctionnalités](#fonctionnalités)
   - [Scénarios](#scénarios)
   - [Diagramme de classes](#diagramme-de-classes)
   - [Protocole de communication](#protocole-de-communication)
-  - [Changelog](#changelog)
-  - [TODO](#todo)
-  - [Défauts constatés non corrigés](#défauts-constatés-non-corrigés)
+  - [Gestion de projet](#gestion-de-projet)
   - [Équipe de développement](#équipe-de-développement)
 
 ---
@@ -41,12 +40,6 @@ Jolly Jumpi est développé en **C++** avec le _framework_ **Qt**.
 
 ![](./images/Readme/compositionSysteme.webp)
 
-## Aperçu des applications
-
-- Le module de visualisation :
-
-![](./images/Readme/jollyJumPi_moduleVisualisation_tele.gif)
-
 ## Fonctionnalités
 
 - Le module de configuration :
@@ -56,6 +49,8 @@ Jolly Jumpi est développé en **C++** avec le _framework_ **Qt**.
 - Le module de visualisation :
 
 ![](./images/Readme/DiagrammeCasUtilisation-moduleVisualisation.webp)
+
+![](./images/Readme/jollyJumPi_moduleVisualisation_tele.gif)
 
 ## Scénarios
 
@@ -95,15 +90,11 @@ Quelques diagrammes des échanges :
 
 ![](./images/Readme/DiagrammeDesEchangesV2-AfficherStats.png)
 
-## Changelog
+## Gestion de projet
 
-> Les versions sont numérotées de la manière suivante : `vX.Y.Z`
->
-> - X = Mise à jour majeure
-> - Y = nouvelle(s) fonctionnalité(s)
-> - Z = Correction de bug
+[GitHub Project](https://github.com/orgs/bts-lasalle-avignon-projets/projects/24)
 
-- v0.1 : Structure de base
+- itération 1 : Structure de base
 
   - Les bases
 
@@ -126,7 +117,7 @@ Quelques diagrammes des échanges :
     > - [X] Créer la page Jeu
     > - [X] Créer la page Classement
     > - [X] Créer la page Statistiques:Joueur
-  
+
   - Module de visualisation : Gérer les communications
 
     > - [X] Recupérer un message
@@ -134,7 +125,7 @@ Quelques diagrammes des échanges :
     > - [X] Formater un message à envoyer
     > - [X] Envoyer un message
 
-- v0.2 : Jeu de base (en mode simulation)
+- itération 2 : Jeu de base (en mode simulation)
 
   - Module de visualisation : Gérer partie
 
@@ -146,7 +137,7 @@ Quelques diagrammes des échanges :
     - Créer chronomètre
 
       > - [X] Créer un chronomètre
-    
+
     - Mettre à jour l'affichage
 
       > - [X] Changer de page
@@ -156,52 +147,30 @@ Quelques diagrammes des échanges :
       > - [X] Mettre à jour la page Jeu
       > - [X] Afficher la page Classement à la fin d'une partie (10 seconde)
       > - [X] Afficher la page Statistiques:Joueur après la page Classement (10sec par joueur)
-    
+
     - Gérer événement partie
-     
+
       > - [X] Calculer le score d'un joueur
       > - [X] Enregistrer les données de la partie en local
       > - [X] Abandonner la partie
       > - [X] Mettre fin à la partie
       > - [X] Envoyer la fin de partie aux autres modules
 
+- itération 3 : Ajout d'un historique des parties jouées
 
-## TODO
-
-- v0.1 : Structure de base
-
-  - Module de configuration : Créer la base
-
-    > - [ ] Créer les classes
-    > - [ ] Créer les attributs
-    > - [ ] Créer le menu d'accueil
-    > - [ ] Créer le menu de configuration
-
-- v0.2 : Jeu de base (en mode simulation)
-  
-  - Module de configuration :
-  
-    > - [ ] Personnaliser le nombre de joueurs
-    > - [ ] Créer l'affichage de connexion
-    > - [ ] Créer l'affichage de la partie en cours
-
-- v0.3 : Ajout d'un historique des parties jouées
-
-  - Module de visualisation : 
+  - Module de visualisation :
 
     > - [ ] Créer la page Statistiques:Globales
     > - [ ] Afficher la page Statistiques:Globales
 
 - Version 1.0 : Modification de l'interface graphique
 
-## Défauts constatés non corrigés
-
 ## Équipe de développement
 
 **Etudiants IR :**
 
-- @aariati : axel.ariati.pro@gmail.com
-- @npessina1 : pessina.nicolas.pro@gmail.com
+- Le module de configuration : [@aariati](https://github.com/aariati) <<axel.ariati.pro@gmail.com>>
+- Le module de visualisation : [@npessina1](https://github.com/npessina1) <<pessina.nicolas.pro@gmail.com>>
 
 ---
 &copy; 2024-2025 LaSalle Avignon
